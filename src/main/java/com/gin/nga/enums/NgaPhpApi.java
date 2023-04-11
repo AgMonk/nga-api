@@ -26,6 +26,10 @@ public enum NgaPhpApi {
      * 版面操作
      */
     forum("forum.php"),
+    /**
+     * 回复
+     */
+    post("post.php"),
     ;
 
 
