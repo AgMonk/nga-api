@@ -32,7 +32,6 @@ public class NgaRes<T> {
      */
     public static <T> NgaRes<T> parse(String s, Class<T> clazz) throws JsonProcessingException {
         final JavaType javaType = JacksonUtils.MAPPER.getTypeFactory().constructParametricType(NgaRes.class, clazz);
-        final NgaRes<T> response = JacksonUtils.MAPPER.readValue(s, javaType);
-        return response;
+        return JacksonUtils.MAPPER.readValue(s, javaType);
     }
 }   

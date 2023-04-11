@@ -1,8 +1,6 @@
 package com.gin.nga.api;
 
 import com.gin.common.utils.JacksonUtils;
-import com.gin.nga.call.NgaDocCall;
-import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.enums.NgaDomain;
 import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.exception.IllegalCookieException;
@@ -157,86 +155,6 @@ public class NgaClient {
                 .build();
         return this.client.newCall(request);
     }
-
-    /**
-     * 请求json数据
-     * @param phpApi     phpApi
-     * @param queryParam 参数
-     * @param formData   表单数据
-     * @return call
-     */
-    public Call callJson(NgaPhpApi phpApi, Object queryParam, Object formData) {
-        return call(phpApi, queryParam, formData, true);
-    }
-
-    /**
-     * 请求版面数据
-     * @param queryParam    参数
-     * @param responseClass 响应类型
-     * @return com.gin.nga.call.NgaJsonCall<T>
-     * @since 2023/4/11 15:29
-     */
-    public <T> NgaJsonCall<T> sendForum(Object queryParam, Class<T> responseClass) {
-        return new NgaJsonCall<>(callJson(NgaPhpApi.forum, queryParam, null), responseClass);
-    }
-
-    /**
-     * 综合操作
-     * @param queryParam    参数
-     * @param formData      表单数据
-     * @param responseClass 响应类型
-     * @return com.gin.nga.call.NgaJsonCall<T>
-     * @since 2023/4/11 15:29
-     */
-    public <T> NgaJsonCall<T> sendNuke(Object queryParam, Object formData, Class<T> responseClass) {
-        return new NgaJsonCall<>(callJson(NgaPhpApi.nuke, queryParam, formData), responseClass);
-    }
-
-    /**
-     * 回复操作
-     * @param queryParam    参数
-     * @param formData      表单数据
-     * @param responseClass 响应类型
-     * @return com.gin.nga.call.NgaJsonCall<T>
-     * @since 2023/4/11 15:29
-     */
-    public <T> NgaJsonCall<T> sendPost(Object queryParam, Object formData, Class<T> responseClass) {
-        return new NgaJsonCall<>(callJson(NgaPhpApi.post, queryParam, formData), responseClass);
-    }
-
-    /**
-     * 请求主题内容
-     * @param queryParam    参数
-     * @param responseClass 响应类型
-     * @return com.gin.nga.call.NgaCall<T>
-     * @since 2023/4/11 15:21
-     */
-    public <T> NgaJsonCall<T> sendRead(Object queryParam, Class<T> responseClass) {
-        return new NgaJsonCall<>(callJson(NgaPhpApi.read, queryParam, null), responseClass);
-    }
-
-    /**
-     * 请求主题网页内容
-     * @param queryParam    参数
-     * @param responseClass 响应类型
-     * @return com.gin.nga.call.NgaCall<T>
-     * @since 2023/4/11 15:21
-     */
-    public <T> NgaDocCall<T> sendReadDoc(Object queryParam, Class<T> responseClass) {
-        return new NgaDocCall<>(call(NgaPhpApi.read, queryParam, null, false), responseClass);
-    }
-
-    /**
-     * 请求合主题数据
-     * @param queryParam    参数
-     * @param responseClass 响应类型
-     * @return com.gin.nga.call.NgaCall<T>
-     * @since 2023/4/11 15:20
-     */
-    public <T> NgaJsonCall<T> sendThread(Object queryParam, Class<T> responseClass) {
-        return new NgaJsonCall<>(callJson(NgaPhpApi.thread, queryParam, null), responseClass);
-    }
-
 
     /**
      * 生成url
