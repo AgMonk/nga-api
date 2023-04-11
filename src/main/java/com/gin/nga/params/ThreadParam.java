@@ -2,6 +2,7 @@ package com.gin.nga.params;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.enums.BoolParam;
+import com.gin.nga.enums.OrderByParam;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,7 +53,11 @@ public class ThreadParam extends PageParam {
      */
     @JsonProperty("searchpost")
     Integer searchPost;
-
+    /**
+     * 排序方式
+     */
+    @JsonProperty("order_by")
+    OrderByParam orderByParam;
     public ThreadParam(int page) {
         super(page);
     }
