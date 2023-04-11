@@ -1,10 +1,13 @@
 package com.gin.nga.api;
 
 import com.gin.common.utils.JacksonUtils;
+import com.gin.nga.call.NgaDocCall;
+import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.enums.NgaDomain;
 import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.exception.IllegalCookieException;
 import com.gin.nga.interceptor.LoggingInterceptor;
+import com.gin.nga.interfaze.DocumentParser;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import okhttp3.*;
@@ -154,6 +157,31 @@ public class NgaClient {
                 .post(formBody)
                 .build();
         return this.client.newCall(request);
+    }
+    /**
+     * 请求网页数据
+     * @param phpApi     phpApi
+     * @param queryParam 参数
+     * @param formData   表单数据
+     * @param responseClass 响应类型
+     * @param documentParser 网页数据解析器
+     * @return call
+     */
+    public <T> NgaDocCall<T> callDoc(NgaPhpApi phpApi, Object queryParam, Object formData, Class<T> responseClass, DocumentParser<T> documentParser){
+        final Call call = call(phpApi, queryParam, formData, false);
+        return new NgaDocCall<>(call, responseClass, documentParser);
+    }
+    /**
+     * 请求json数据
+     * @param phpApi     phpApi
+     * @param queryParam 参数
+     * @param formData   表单数据
+     * @param responseClass 响应类型
+     * @return call
+     */
+    public <T> NgaJsonCall<T> callJson(NgaPhpApi phpApi, Object queryParam, Object formData, Class<T> responseClass){
+        final Call call = call(phpApi, queryParam, formData, true);
+        return new NgaJsonCall<>(call,responseClass);
     }
 
     /**
