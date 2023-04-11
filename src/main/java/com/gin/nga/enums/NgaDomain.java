@@ -26,5 +26,5 @@ public enum NgaDomain {
     /**
      * 域名
      */
-    final String domain;
+    public final String domain;
 }

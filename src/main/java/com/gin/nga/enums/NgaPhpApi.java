@@ -29,5 +29,5 @@ public enum NgaPhpApi {
     ;
 
 
-    final String path;
+    public  final String path;
 }

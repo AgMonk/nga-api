@@ -1,16 +1,21 @@
 package com.gin.nga.api;
 
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.enums.NgaDomain;
+import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.exception.IllegalCookieException;
 import com.gin.nga.interceptor.LoggingInterceptor;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
+import okhttp3.*;
+import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,7 +46,7 @@ public class NgaClient {
     /**
      * 请求的域名
      */
-    final NgaDomain domain;
+    final NgaDomain ngaDomain;
     /**
      * cookie
      */
@@ -58,8 +63,8 @@ public class NgaClient {
     @Getter
     String username;
 
-    public NgaClient(@NotNull String cookie, NgaDomain domain) throws IOException {
-        this(cookie, null, domain);
+    public NgaClient(@NotNull String cookie, NgaDomain ngaDomain) throws IOException {
+        this(cookie, null, ngaDomain);
     }
 
     public NgaClient(@NotNull String cookie, OkHttpClient client) throws IOException {
@@ -70,10 +75,10 @@ public class NgaClient {
         this(cookie, null, null);
     }
 
-    public NgaClient(@NotNull String cookie, OkHttpClient client, NgaDomain domain) throws IllegalCookieException {
+    public NgaClient(@NotNull String cookie, OkHttpClient client, NgaDomain ngaDomain) throws IllegalCookieException {
         this.cookie = cookie;
         this.client = client != null ? client : getOkHttpClient();
-        this.domain = domain != null ? domain : NgaDomain.cn;
+        this.ngaDomain = ngaDomain != null ? ngaDomain : NgaDomain.cn;
 
         final IllegalCookieException e = new IllegalCookieException();
 
@@ -97,9 +102,26 @@ public class NgaClient {
             }
         }
 
-        System.out.printf("NGA客户端启动 uid: %d 用户名: %s",this.userId,this.username);
+        System.out.printf("NGA客户端启动 uid: %d 用户名: %s\n", this.userId, this.username);
     }
 
+    /**
+     * 生成 FormBody
+     * @param formData 表单数据
+     * @return FormBody
+     */
+    private static FormBody getFormBody(Object formData) {
+        final FormBody.Builder builder = new FormBody.Builder();
+        if (formData != null) {
+        final HashMap<String, Object> map = JacksonUtils.jsonToMap(formData);
+        map.forEach((k, v) -> {
+            if (v != null) {
+                builder.add(k, String.valueOf(v));
+            }
+        });
+        }
+        return builder.build();
+    }
 
     /**
      * 默认客户端
@@ -112,5 +134,54 @@ public class NgaClient {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .callTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS).build();
+    }
+
+    /**
+     * 原生call
+     * @param phpApi     phpApi
+     * @param queryParam 参数
+     * @param formData   表单数据
+     * @param json       是否请求json格式数据
+     * @return call
+     */
+    public Call call(NgaPhpApi phpApi, Object queryParam, Object formData, boolean json) {
+        HttpUrl httpUrl = getHttpUrl(phpApi, queryParam, json);
+        FormBody formBody = getFormBody(formData);
+
+        final Request request = new Request.Builder()
+                .url(httpUrl)
+                .header("cookie", this.cookie)
+                .post(formBody)
+                .build();
+        return this.client.newCall(request);
+    }
+
+    /**
+     * 生成url
+     * @param phpApi     phpApi
+     * @param queryParam 地址栏查询参数
+     * @param json       是否请求json格式数据
+     * @return httpUrl
+     */
+    private HttpUrl getHttpUrl(NgaPhpApi phpApi, Object queryParam, boolean json) {
+        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(ngaDomain.domain + phpApi.path))
+                .newBuilder()
+                .addQueryParameter("__inchst", "UTF8");
+        if (json) {
+            builder.addQueryParameter("__output", "8");
+        }
+
+        if (queryParam != null) {
+            JacksonUtils.jsonToMap(queryParam).forEach((k, v) -> {
+                if (v instanceof Collection<?>) {
+                    //如果value 是集合，添加多个同名参数
+                    ((Collection<?>) v).forEach(i -> builder.addQueryParameter(k, String.valueOf(i)));
+                } else if (!ObjectUtils.isEmpty(v)) {
+                    //常规写入
+                    builder.addQueryParameter(k, v.toString());
+                }
+            });
+        }
+        return builder.build();
     }
 }

@@ -16,6 +16,7 @@ import lombok.Setter;
 @Setter
 public class NgaRes<T> {
     T data;
+    String encode;
     long time;
 
     /**
