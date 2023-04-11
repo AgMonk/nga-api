@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'com.gin.nga'
+version = '1.0-SNAPSHOT'
+javadoc.options.encoding = "UTF-8"
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+// 关闭子项目的 javadoc 任务, 防止报错
+tasks.javadoc {
+    enabled = false
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+// 发布配置
+publishing {
+    publications {
+        myPublish(MavenPublication) {
+//                from components.java
+//                artifact bootJar
+            from components.java
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+        }
+    }
+    // 发布到的仓库
+    repositories {
+        mavenLocal()
+        maven {
+            name 'project'
+            def rUrl = rootProject.layout.projectDirectory.dir("repo/releases")
+            def sUrl = rootProject.layout.projectDirectory.dir("repo/snapshots")
+            url version.endsWith("SNAPSHOT") ? sUrl : rUrl
+        }
+    }
+}
+
+repositories {
+    maven { url 'https://agmonk.github.io/gin-framework/repo/releases/' }
+}
+
+dependencies {
+}
+
+dependencies {
+    // 工具类
+    implementation "com.gin.framework:common:1.0.0"
+
+    implementation "org.slf4j:slf4j-api:2.0.6"
+    implementation "ch.qos.logback:logback-classic:1.4.5"
+
+    // http客户端
+    implementation "com.squareup.okhttp3:okhttp:4.10.0"
+    // 解析网页document
+    implementation "org.jsoup:jsoup:1.15.4"
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+}
