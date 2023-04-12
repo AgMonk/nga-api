@@ -2,15 +2,12 @@ package com.gin.nga.test;
 
 import com.gin.nga.api.NgaThreadApi;
 import com.gin.nga.callback.JsonCallback;
-import com.gin.nga.enums.BoolParam;
 import com.gin.nga.enums.OrderByParam;
-import com.gin.nga.params.thread.ColListParam;
-import com.gin.nga.params.thread.ColSearchParam;
-import com.gin.nga.params.thread.FavorParam;
+import com.gin.nga.params.thread.*;
 import com.gin.nga.response.body.ThreadBody;
 import lombok.RequiredArgsConstructor;
 
-import java.io.IOException;
+import static com.gin.nga.enums.BoolParam.yes;
 
 /**
  * thread.php 接口测试
@@ -41,11 +38,7 @@ public class ThreadTest {
         api.colList(param).async(new JsonCallback<>() {
             @Override
             public void onSuccess(ThreadBody body) {
-                try {
-                    Test.writeTestRes(body, "colList-created.json");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Test.writeTestRes(body, "colList-created.json");
             }
         });
         param.setPage(30);
@@ -53,11 +46,7 @@ public class ThreadTest {
         api.colList(param).async(new JsonCallback<>() {
             @Override
             public void onSuccess(ThreadBody body) {
-                try {
-                    Test.writeTestRes(body, "colList-replied.json");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Test.writeTestRes(body, "colList-replied.json");
             }
         });
     }
@@ -69,40 +58,77 @@ public class ThreadTest {
         api.colSearch(param).async(new JsonCallback<>() {
             @Override
             public void onSuccess(ThreadBody body) {
-                try {
-                    Test.writeTestRes(body, "colSearch-normal.json");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Test.writeTestRes(body, "colSearch-normal.json");
             }
         });
-        param.setRecommendOnly(BoolParam.yes);
-        param.setSearchContent(BoolParam.yes);
+        param.setRecommendOnly(yes);
+        param.setSearchContent(yes);
         api.colSearch(param).async(new JsonCallback<>() {
             @Override
             public void onSuccess(ThreadBody body) {
-                try {
-                    Test.writeTestRes(body, "colSearch-rec-content.json");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Test.writeTestRes(body, "colSearch-rec-content.json");
             }
         });
     }
 
-    public void favorTest(){
+    public void favorTest() {
         final FavorParam param = new FavorParam();
         param.setPage(2);
         api.favor(param).async(new JsonCallback<>() {
             @Override
             public void onSuccess(ThreadBody body) {
-                try {
-                    Test.writeTestRes(body, "favor.json");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Test.writeTestRes(body, "favor.json");
             }
         });
     }
 
-}   
+    /**
+     * 版面浏览测试
+     */
+    public void forumListTest() {
+        final ForumListParam param = new ForumListParam();
+        param.setForumId(forumId);
+        param.setOrderBy(OrderByParam.created);
+        api.forumList(param).async(new JsonCallback<>() {
+            @Override
+            public void onSuccess(ThreadBody body) {
+                Test.writeTestRes(body, "forumList-created.json");
+
+            }
+        });
+        param.setOrderBy(OrderByParam.replied);
+        api.forumList(param).async(new JsonCallback<>() {
+            @Override
+            public void onSuccess(ThreadBody body) {
+                Test.writeTestRes(body, "forumList-replied.json");
+
+            }
+        });
+    }
+
+    /**
+     * 版面搜索测试
+     */
+    public void forumSearchTest() {
+        final ForumSearchParam param = new ForumSearchParam();
+        param.setForumId(forumId);
+        param.setKeyword(keyword);
+
+        api.forumSearch(param).async(new JsonCallback<>() {
+            @Override
+            public void onSuccess(ThreadBody body) {
+                Test.writeTestRes(body, "forumSearch-normal.json");
+
+            }
+        });
+        param.setRecommendOnly(yes);
+        param.setSearchContent(yes);
+        api.forumSearch(param).async(new JsonCallback<>() {
+            @Override
+            public void onSuccess(ThreadBody body) {
+                Test.writeTestRes(body, "forumSearch-rec-content.json");
+
+            }
+        });
+    }
+}

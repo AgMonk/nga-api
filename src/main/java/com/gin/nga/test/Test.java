@@ -20,15 +20,18 @@ public class Test {
     public static void threadTest(NgaClient ngaClient) {
         final NgaThreadApi api = new NgaThreadApi(ngaClient);
         // 合集id
-        long colTid =  29111018L;
+        long colTid = 29111018L;
         // 版面id
-        long forumId = -547859L;
+        long forumId = 428;
+//        long forumId = -547859L;
 
-        final ThreadTest threadTest = new ThreadTest(api, colTid, forumId, "心智 投影");
+        final ThreadTest threadTest = new ThreadTest(api, colTid, forumId, "体力");
 
         threadTest.colListTest();
         threadTest.colSearchTest();
         threadTest.favorTest();
+        threadTest.forumListTest();
+        threadTest.forumSearchTest();
     }
 
     /**
@@ -36,8 +39,12 @@ public class Test {
      * @param res      响应结果
      * @param filename 写入文件名
      */
-    public static void writeTestRes(Object res, String filename) throws IOException {
-        FileIoUtils.writeObj(new File("./test/"+filename), res);
+    public static void writeTestRes(Object res, String filename) {
+        try {
+            FileIoUtils.writeObj(new File("./test/" + filename), res);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) throws IOException {

@@ -43,4 +43,9 @@ public class Forum {
      */
     @JsonProperty("sub_forums")
     Map<String,Map<Long,Serializable>> subForums;
+    /**
+     * 置顶帖id
+     */
+    @JsonProperty("topped_topic")
+    Long toppedTopicId;
 }   
