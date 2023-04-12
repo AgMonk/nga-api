@@ -24,7 +24,7 @@ public class NgaThreadApi {
      * @author bx002
      * @since 2023/4/12 9:34
      */
-    public NgaJsonCall<ThreadBody> col(ColListParam param) {
+    public NgaJsonCall<ThreadBody> colList(ColListParam param) {
         return thread(param);
     }
 
@@ -57,7 +57,7 @@ public class NgaThreadApi {
      * @author bx002
      * @since 2023/4/12 9:39
      */
-    public NgaJsonCall<ThreadBody> forum(ForumParam param) {
+    public NgaJsonCall<ThreadBody> forumList(ForumListParam param) {
         return thread(param);
     }
 

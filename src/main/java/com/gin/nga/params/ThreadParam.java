@@ -25,11 +25,6 @@ public class ThreadParam extends PageParam {
     @JsonProperty("fid")
     Long forumId;
     /**
-     * 合集主题Id
-     */
-    @JsonProperty("stid")
-    Long colTid;
-    /**
      * 搜索关键字
      */
     @JsonProperty("key")
