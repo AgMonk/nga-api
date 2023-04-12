@@ -21,6 +21,11 @@ import java.util.Map;
 @Setter
 public class TopicInfo {
     /**
+     * 收藏的回复
+     */
+    @JsonProperty("__P")
+    ReplySimple favorReply;
+    /**
      * 作者用户名
      */
     @JsonProperty("author")
@@ -78,15 +83,15 @@ public class TopicInfo {
     @JsonProperty("replies")
     Integer replies;
     /**
-     * 主题标题
+     * 标题
      */
     @JsonProperty("subject")
     String title;
     /**
-     * 主题tid
+     * 主题id
      */
     @JsonProperty("tid")
-    Long tid;
+    Long topicId;
     /**
      * 主题标题字体信息
      */

@@ -27,11 +27,11 @@ public class ForumBaseParam extends PageParam {
     @JsonSerialize(using = IdSerializer.class)
     List<Long> forumId;
 
-    public void setColTid(List<Long> colTid) {
+    public void setForumId(List<Long> colTid) {
         this.forumId = colTid;
     }
 
-    public void setColTid(Long... colTid) {
+    public void setForumId(Long... colTid) {
         this.forumId = List.of(colTid);
     }
 }

@@ -6,6 +6,7 @@ import com.gin.nga.enums.BoolParam;
 import com.gin.nga.enums.OrderByParam;
 import com.gin.nga.params.thread.ColListParam;
 import com.gin.nga.params.thread.ColSearchParam;
+import com.gin.nga.params.thread.FavorParam;
 import com.gin.nga.response.body.ThreadBody;
 import lombok.RequiredArgsConstructor;
 
@@ -87,9 +88,21 @@ public class ThreadTest {
                 }
             }
         });
-
-
     }
 
+    public void favorTest(){
+        final FavorParam param = new FavorParam();
+        param.setPage(2);
+        api.favor(param).async(new JsonCallback<>() {
+            @Override
+            public void onSuccess(ThreadBody body) {
+                try {
+                    Test.writeTestRes(body, "favor.json");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
 
 }   

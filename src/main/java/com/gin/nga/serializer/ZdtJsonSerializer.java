@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.gin.common.utils.TimeUtils;
 
 import java.io.IOException;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 /**
@@ -18,6 +19,7 @@ public class ZdtJsonSerializer extends JsonSerializer<ZonedDateTime> {
 
     @Override
     public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(TimeUtils.format(zonedDateTime));
+
+        jsonGenerator.writeString(TimeUtils.format(zonedDateTime.withZoneSameInstant(ZoneId.systemDefault())));
     }
 }

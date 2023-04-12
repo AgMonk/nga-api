@@ -20,6 +20,6 @@ public class FavorParam extends PageParam {
      */
     @JsonProperty("favor")
     @NotNull
-    Long folderId;
+    long folderId = 1L;
 
 }

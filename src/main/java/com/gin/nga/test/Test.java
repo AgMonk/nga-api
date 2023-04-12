@@ -19,7 +19,6 @@ public class Test {
      */
     public static void threadTest(NgaClient ngaClient) {
         final NgaThreadApi api = new NgaThreadApi(ngaClient);
-        String keyword = "心智";
         // 合集id
         long colTid =  29111018L;
         // 版面id
@@ -27,10 +26,9 @@ public class Test {
 
         final ThreadTest threadTest = new ThreadTest(api, colTid, forumId, "心智 投影");
 
-//        threadTest.colListTest();
+        threadTest.colListTest();
         threadTest.colSearchTest();
-
-
+        threadTest.favorTest();
     }
 
     /**

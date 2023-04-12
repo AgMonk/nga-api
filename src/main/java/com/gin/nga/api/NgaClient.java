@@ -83,7 +83,6 @@ public class NgaClient {
         this.client = client != null ? client : getOkHttpClient();
         this.ngaDomain = ngaDomain != null ? ngaDomain : NgaDomain.cn;
 
-
         final IllegalCookieException e = new IllegalCookieException();
 
         // 解析UID
