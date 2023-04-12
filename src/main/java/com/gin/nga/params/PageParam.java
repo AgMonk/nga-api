@@ -13,7 +13,9 @@ import java.io.Serializable;
  */
 @Getter
 public class PageParam {
-
+    /**
+     * 页码
+     */
     String page = "1";
 
     public void setPage(Serializable page) {

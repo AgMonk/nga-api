@@ -37,7 +37,7 @@ public abstract class AbstractCallback<T> implements Callback {
                 if (body == null) {
                     throw new NgaClientException(code, call, null);
                 }
-                throw new NgaClientException(code, call, NgaRes.parse(body.string(), Void.class).getError());
+                throw new NgaClientException(code, call, NgaRes.parse(decodeGbk(body), Void.class).getError());
             case 5:
                 throw new NgaServerException(code, call, "服务器异常");
             default:
@@ -55,7 +55,7 @@ public abstract class AbstractCallback<T> implements Callback {
         try {
             try (ResponseBody body = body(call, response)) {
                 if (body != null) {
-                    onSuccess(parse(body.string()));
+                    onSuccess(parse(decodeGbk(body)));
                 }
             }
         } catch (NgaException e) {
@@ -83,5 +83,15 @@ public abstract class AbstractCallback<T> implements Callback {
      */
     public void handleException(NgaException e) {
         e.printStackTrace();
+    }
+
+    /**
+     * GBK解码
+     * @param body body
+     * @return 解码后字符串
+     * @throws IOException 异常
+     */
+    public static String decodeGbk(ResponseBody body) throws IOException {
+        return new String(body.bytes(),"GB2312");
     }
 }

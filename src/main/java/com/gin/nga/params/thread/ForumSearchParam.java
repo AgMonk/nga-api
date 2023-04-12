@@ -2,7 +2,6 @@ package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.enums.BoolParam;
-import com.gin.nga.params.PageParam;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ForumSearchParam extends PageParam {
+public class ForumSearchParam extends ForumBaseParam {
     /**
      * 搜索关键字
      */

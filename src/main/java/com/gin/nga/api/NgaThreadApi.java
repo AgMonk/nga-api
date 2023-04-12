@@ -68,9 +68,7 @@ public class NgaThreadApi {
      * @author bx002
      * @since 2023/4/12 9:39
      */
-    public NgaJsonCall<ThreadBody> forumSearch(ForumSearchParam param) {
-        return thread(param);
-    }
+    public NgaJsonCall<ThreadBody> forumSearch(ForumSearchParam param) {return thread(param);}
 
     /**
      * 搜索用户主题/回复
