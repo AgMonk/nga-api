@@ -14,7 +14,4 @@ import lombok.Setter;
 @Setter
 public class ForumParam extends PageParam {
 
-    public ForumParam(int page) {
-        super(page);
-    }
 }

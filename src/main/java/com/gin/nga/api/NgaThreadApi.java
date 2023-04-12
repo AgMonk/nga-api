@@ -24,7 +24,7 @@ public class NgaThreadApi {
      * @author bx002
      * @since 2023/4/12 9:34
      */
-    public NgaJsonCall<ThreadBody> col(ColParam param) {
+    public NgaJsonCall<ThreadBody> col(ColListParam param) {
         return thread(param);
     }
 

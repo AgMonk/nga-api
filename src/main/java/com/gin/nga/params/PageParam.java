@@ -1,6 +1,9 @@
 package com.gin.nga.params;
 
+import com.gin.common.utils.StrUtils;
 import lombok.Getter;
+
+import java.io.Serializable;
 
 /**
  * 页码参数
@@ -10,8 +13,15 @@ import lombok.Getter;
  */
 @Getter
 public class PageParam {
-    String page;
-    public PageParam(int page) {
-        this.page = page < 0 ? "e" : String.valueOf(page);
+
+    String page = "1";
+
+    public void setPage(Serializable page) {
+        final String p = String.valueOf(page);
+        if (StrUtils.isNumber(p)){
+            this.page = String.valueOf(Math.max(1, Integer.parseInt(p)));
+        }else {
+            this.page = "e";
+        }
     }
 }

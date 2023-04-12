@@ -32,7 +32,8 @@ public class ThreadParam extends PageParam {
     /**
      * 搜索关键字
      */
-    String key;
+    @JsonProperty("key")
+    String keyword;
     /**
      * 是否搜索主楼正文
      */
@@ -58,7 +59,4 @@ public class ThreadParam extends PageParam {
      */
     @JsonProperty("order_by")
     OrderByParam orderBy;
-    public ThreadParam(int page) {
-        super(page);
-    }
 }

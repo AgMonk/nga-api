@@ -1,6 +1,8 @@
 package com.gin.nga.params.thread;
 
-import com.gin.nga.params.PageParam;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.nga.enums.BoolParam;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +14,21 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ColSearchParam extends PageParam {
-
-    public ColSearchParam(int page) {
-        super(page);
-    }
+public class ColSearchParam extends ColBaseParam {
+    /**
+     * 搜索关键字
+     */
+    @JsonProperty("key")
+    @NotEmpty
+    String keyword;
+    /**
+     * 是否搜索主楼正文
+     */
+    @JsonProperty("content")
+    BoolParam searchContent;
+    /**
+     * 是否只搜索精华帖
+     */
+    @JsonProperty("recommend")
+    BoolParam recommendOnly;
 }
