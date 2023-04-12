@@ -3,10 +3,6 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.api.NgaClient;
 import com.gin.nga.api.NgaThreadApi;
-import com.gin.nga.callback.JsonCallback;
-import com.gin.nga.enums.OrderByParam;
-import com.gin.nga.params.thread.ColListParam;
-import com.gin.nga.response.body.ThreadBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,34 +25,10 @@ public class Test {
         // 版面id
         long forumId = -547859L;
 
-        // 测试合集主题浏览
-        {
-            final ColListParam param = new ColListParam();
-            param.setColTid(colTid);
-            param.setOrderBy(OrderByParam.created);
-            api.colList(param).async(new JsonCallback<>() {
-                @Override
-                public void onSuccess(ThreadBody body) {
-                    try {
-                        writeTestRes(body,"colList-created.json");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-            param.setPage(30);
-            param.setOrderBy(OrderByParam.replied);
-            api.colList(param).async(new JsonCallback<>() {
-                @Override
-                public void onSuccess(ThreadBody body) {
-                    try {
-                        writeTestRes(body,"colList-replied.json");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-        }
+        final ThreadTest threadTest = new ThreadTest(api, colTid, forumId, "心智 投影");
+
+//        threadTest.colListTest();
+        threadTest.colSearchTest();
 
 
     }
@@ -66,7 +38,7 @@ public class Test {
      * @param res      响应结果
      * @param filename 写入文件名
      */
-    private static void writeTestRes(Object res, String filename) throws IOException {
+    public static void writeTestRes(Object res, String filename) throws IOException {
         FileIoUtils.writeObj(new File("./test/"+filename), res);
     }
 

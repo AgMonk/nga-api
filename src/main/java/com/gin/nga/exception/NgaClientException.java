@@ -13,7 +13,7 @@ public class NgaClientException extends NgaException {
     final Map<Integer,String> reason;
 
     public NgaClientException(int code, Call call,  Map<Integer,String> reason) {
-        super(code, call, "客户端错误");
+        super(code, call, "客户端错误 code: "+code);
         this.reason = reason;
     }
 }
