@@ -80,7 +80,8 @@ public class NgaClient {
 
     public NgaClient(@NotNull String cookie, OkHttpClient client, NgaDomain ngaDomain) throws IllegalCookieException {
         this.cookie = cookie;
-        this.client = client != null ? client : getOkHttpClient();
+        this.client = (client != null ? client : getOkHttpClient()).newBuilder()
+                .followRedirects(false).build();
         this.ngaDomain = ngaDomain != null ? ngaDomain : NgaDomain.cn;
 
         final IllegalCookieException e = new IllegalCookieException();

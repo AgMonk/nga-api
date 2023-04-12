@@ -32,6 +32,7 @@ public abstract class AbstractCallback<T> implements Callback {
         //noinspection EnhancedSwitchMigration
         switch (co) {
             case 3:
+                throw new NgaClientException(code, call, null);
             case 2:
                 return body;
             case 4:
