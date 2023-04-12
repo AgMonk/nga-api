@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 版面
@@ -21,4 +23,24 @@ public class Forum {
      * 版面名称
      */
     String name;
+    /**
+     * 版面id
+     */
+    @JsonProperty("fid")
+    Long forumId;
+    /**
+     * 合集标题
+     */
+    @JsonProperty("set_topic_subject")
+    String colTitle;
+    /**
+     * 合集Tid
+     */
+    @JsonProperty("set_topic_tid")
+    Long colTid;
+    /**
+     * 子版面数据
+     */
+    @JsonProperty("sub_forums")
+    Map<String,Map<Long,Serializable>> subForums;
 }   

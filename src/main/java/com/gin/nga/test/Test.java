@@ -1,7 +1,6 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.NgaClient;
 import com.gin.nga.api.NgaThreadApi;
 import com.gin.nga.callback.JsonCallback;
@@ -39,26 +38,24 @@ public class Test {
                 @Override
                 public void onSuccess(ThreadBody body) {
                     try {
-                        JacksonUtils.printPretty(body);
                         writeTestRes(body,"colList-created.json");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
             });
+            param.setPage(30);
             param.setOrderBy(OrderByParam.replied);
             api.colList(param).async(new JsonCallback<>() {
                 @Override
                 public void onSuccess(ThreadBody body) {
                     try {
-                        JacksonUtils.printPretty(body);
                         writeTestRes(body,"colList-replied.json");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
             });
-
         }
 
 
