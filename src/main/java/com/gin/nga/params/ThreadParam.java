@@ -28,13 +28,13 @@ public class ThreadParam extends PageParam {
      * 合集主题Id
      */
     @JsonProperty("stid")
-    Long setTid;
+    Long colTid;
     /**
      * 搜索关键字
      */
     String key;
     /**
-     * 是否搜索正文
+     * 是否搜索主楼正文
      */
     @JsonProperty("content")
     BoolParam searchContent;
@@ -57,7 +57,7 @@ public class ThreadParam extends PageParam {
      * 排序方式
      */
     @JsonProperty("order_by")
-    OrderByParam orderByParam;
+    OrderByParam orderBy;
     public ThreadParam(int page) {
         super(page);
     }
