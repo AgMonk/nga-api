@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.nga.serializer.ZdtJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -106,4 +107,9 @@ public class TopicInfo {
      */
     @JsonProperty("type")
     Long type;
+
+    public void setTitle(String title) {
+        // 反转义
+        this.title = StringEscapeUtils.unescapeHtml4(title);
+    }
 }
