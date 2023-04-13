@@ -21,7 +21,7 @@ public class UserSearchParam extends PageParam {
      */
     @JsonProperty("authorid")
     @NotNull
-    String authorId;
+    String authorUId;
     /**
      * 版面id
      */

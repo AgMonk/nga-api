@@ -21,7 +21,7 @@ public class ReplySimple {
      * 作者uid
      */
     @JsonProperty("authorid")
-    Long authorUid;
+    String authorUId;
     /**
      * 回复正文
      */

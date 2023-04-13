@@ -34,7 +34,7 @@ public class TopicInfo {
      * 作者uid
      */
     @JsonProperty("authorid")
-    String authorUid;
+    String authorUId;
     /**
      * 版面id
      */
