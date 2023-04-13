@@ -2,7 +2,11 @@ package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.api.NgaClient;
+import com.gin.nga.api.NgaForumApi;
 import com.gin.nga.api.NgaThreadApi;
+import com.gin.nga.callback.JsonCallback;
+import com.gin.nga.params.forum.ForumParam;
+import com.gin.nga.response.body.ForumBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +28,20 @@ public class Test {
         threadTest.test();
     }
 
+    public static void forumTest(NgaClient ngaClient){
+        final NgaForumApi api = new NgaForumApi(ngaClient);
+
+        final ForumParam param = new ForumParam();
+        final String keyword = "少女";
+        param.setKeyword(keyword);
+        api.search(param).async(new JsonCallback<>() {
+            @Override
+            public void onSuccess(ForumBody body) {
+                Test.writeTestRes(body, String.format("forum-%s.json",keyword));
+            }
+        });
+    }
+
     /**
      * 将测试结果写入文件
      * @param res      响应结果
@@ -43,6 +61,7 @@ public class Test {
         final NgaClient ngaClient = new NgaClient(cookie);
 
 
-        threadTest(ngaClient);
+//        threadTest(ngaClient);
+        forumTest(ngaClient);
     }
 }

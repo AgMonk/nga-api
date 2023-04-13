@@ -60,7 +60,7 @@ public class TopicInfo {
     @JsonProperty("lastposter")
     String lastPosterName;
     /**
-     * 所属合集信息
+     * 所属合集信息, 字段"1" 为 fid, "2"为版面名称
      */
     @JsonProperty("parent")
     Map<Long, Serializable> parentInfo;
@@ -98,7 +98,7 @@ public class TopicInfo {
     @JsonProperty("topic_misc")
     String topicMisc;
     /**
-     * 额外信息
+     * 额外信息, 字段"1" 为 32时，表示本条为版面入口(字段"3"为fid), 为 33 时为合集入口,字段tid即为stid
      */
     @JsonProperty("topic_misc_var")
     Map<Long, Serializable> topicMiscVar;

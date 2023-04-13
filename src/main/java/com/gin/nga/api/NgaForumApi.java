@@ -1,5 +1,9 @@
 package com.gin.nga.api;
 
+import com.gin.nga.call.NgaJsonCall;
+import com.gin.nga.enums.NgaPhpApi;
+import com.gin.nga.params.forum.ForumParam;
+import com.gin.nga.response.body.ForumBody;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -12,5 +16,14 @@ import lombok.RequiredArgsConstructor;
 public class NgaForumApi {
     private final NgaClient client;
 
-    //todo
+    /**
+     * 搜索版面
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ForumBody>
+     * @author bx002
+     * @since 2023/4/13 10:26
+     */
+    public NgaJsonCall<ForumBody> search(ForumParam param){
+        return client.callJson(NgaPhpApi.forum, param, null, ForumBody.class);
+    }
 }   
