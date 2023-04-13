@@ -12,6 +12,7 @@ java {
     withSourcesJar()
 }
 
+
 // 关闭子项目的 javadoc 任务, 防止报错
 tasks.javadoc {
     enabled = false
@@ -53,9 +54,6 @@ publishing {
 
 repositories {
     maven { url 'https://agmonk.github.io/gin-framework/repo/releases/' }
-}
-
-dependencies {
 }
 
 dependencies {

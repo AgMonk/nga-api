@@ -7,10 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.common.utils.JacksonUtils;
-import com.gin.nga.response.field.AnonymousUser;
-import com.gin.nga.response.field.UserFieldInRead;
-import com.gin.nga.response.field.UserGroup;
-import com.gin.nga.response.field.UserInfoInRead;
+import com.gin.nga.response.field.*;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -56,7 +53,6 @@ public class UserFieldInReadDeserializer extends JsonDeserializer<UserFieldInRea
                         final int id = Integer.parseInt(String.valueOf(k));
                         try {
                             final String s = JacksonUtils.MAPPER.writeValueAsString(v);
-
                             Map<Integer,Serializable> data = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
                             });
                             res.getGroups().put(id,new UserGroup(data));
@@ -66,7 +62,20 @@ public class UserFieldInReadDeserializer extends JsonDeserializer<UserFieldInRea
                     });
                 }
             } else if (MEDALS_FIELD.equals(key)) {
-                //todo 徽章信息
+                //徽章信息
+                if (obj instanceof LinkedHashMap<?,?> map){
+                    map.forEach((k,v)->{
+                        final int id = Integer.parseInt(String.valueOf(k));
+                        try {
+                            final String s = JacksonUtils.MAPPER.writeValueAsString(v);
+                            Map<Integer,Serializable> data = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
+                            });
+                            res.getMedals().put(id,new Medal(data));
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
             } else if (REPUTATIONS_FIELD.equals(key)) {
                 //todo 声望信息
             } else if (key.startsWith(ANONYMOUS_PREFIX)) {

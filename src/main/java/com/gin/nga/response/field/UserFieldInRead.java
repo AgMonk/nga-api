@@ -35,7 +35,7 @@ public class UserFieldInRead {
     /**
      * 徽章信息 id->info
      */
-    Map<Integer, Object> medals = new LinkedHashMap<>();
+    Map<Integer, Medal> medals = new LinkedHashMap<>();
     /**
      * 声望信息 id -> uid -> 声望
      */
