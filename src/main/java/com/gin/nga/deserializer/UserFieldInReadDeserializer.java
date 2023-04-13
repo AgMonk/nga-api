@@ -41,21 +41,18 @@ public class UserFieldInReadDeserializer extends JsonDeserializer<UserFieldInRea
     @Override
     public UserFieldInRead deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         final UserFieldInRead res = new UserFieldInRead();
-
-        LinkedHashMap<String, Object> treeNode = jsonParser.getCodec().readValue(jsonParser, new TypeReference<>() {
-        });
-        //todo
-        treeNode.forEach((key, obj) -> {
+        jsonParser.getCodec().<LinkedHashMap<String, Object>>readValue(jsonParser, new TypeReference<>() {
+        }).forEach((key, obj) -> {
             if (GROUPS_FIELD.equals(key)) {
                 //用户组信息
-                if (obj instanceof LinkedHashMap<?,?> map){
-                    map.forEach((k,v)->{
+                if (obj instanceof LinkedHashMap<?, ?> map) {
+                    map.forEach((k, v) -> {
                         final int id = Integer.parseInt(String.valueOf(k));
                         try {
                             final String s = JacksonUtils.MAPPER.writeValueAsString(v);
-                            Map<Integer,Serializable> data = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
+                            Map<Integer, Serializable> data = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
                             });
-                            res.getGroups().put(id,new UserGroup(data));
+                            res.getGroups().put(id, new UserGroup(data));
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
@@ -63,21 +60,29 @@ public class UserFieldInReadDeserializer extends JsonDeserializer<UserFieldInRea
                 }
             } else if (MEDALS_FIELD.equals(key)) {
                 //徽章信息
-                if (obj instanceof LinkedHashMap<?,?> map){
-                    map.forEach((k,v)->{
+                if (obj instanceof LinkedHashMap<?, ?> map) {
+                    map.forEach((k, v) -> {
                         final int id = Integer.parseInt(String.valueOf(k));
                         try {
                             final String s = JacksonUtils.MAPPER.writeValueAsString(v);
-                            Map<Integer,Serializable> data = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
+                            Map<Integer, Serializable> data = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
                             });
-                            res.getMedals().put(id,new Medal(data));
+                            res.getMedals().put(id, new Medal(data));
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
                     });
                 }
             } else if (REPUTATIONS_FIELD.equals(key)) {
-                //todo 声望信息
+                //声望信息
+                try {
+                    final String s = JacksonUtils.MAPPER.writeValueAsString(obj);
+                    res.setReputations(JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
+                    }));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
             } else if (key.startsWith(ANONYMOUS_PREFIX)) {
                 // 匿名用户信息
                 final String username = String.valueOf(JacksonUtils.jsonToMap(obj).get("username"));

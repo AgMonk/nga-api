@@ -4,14 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.deserializer.ListIntDeserializer;
-import com.gin.common.deserializer.ListStringDeserializer;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.deserializer.ReputationDeserializer;
 import com.gin.nga.deserializer.UserAvatarDeserializer;
 import com.gin.nga.enums.AccountStatus;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -74,11 +75,11 @@ public class UserInfoInRead {
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime regDatetime;
     /**
-     * 声望数据
+     * 声望数据 , 声望id -> 声望值
      */
     @JsonProperty("reputation")
-    @JsonDeserialize(using = ListStringDeserializer.class)
-    List<String> reputation;
+    @JsonDeserialize(using = ReputationDeserializer.class)
+    LinkedHashMap<Integer, Integer> reputation;
     /**
      * 威望
      */

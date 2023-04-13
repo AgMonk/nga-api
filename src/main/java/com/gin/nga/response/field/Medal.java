@@ -40,7 +40,7 @@ public class Medal {
         this.filename = String.valueOf(data.get(0));
         this.name = String.valueOf(data.get(1));
         this.tooltip = String.valueOf(data.get(2));
-        this.id = Integer.valueOf(String.valueOf(data.get(2)));
+        this.id = Integer.valueOf(String.valueOf(data.get(3)));
     }
 
     public String getUrl() {

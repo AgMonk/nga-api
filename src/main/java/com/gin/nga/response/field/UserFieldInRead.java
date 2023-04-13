@@ -19,7 +19,6 @@ import java.util.Map;
 @Setter
 @JsonDeserialize(using = UserFieldInReadDeserializer.class)
 public class UserFieldInRead {
-    //todo map泛型
     /**
      * 常规用户信息 uid->info
      */
@@ -39,6 +38,6 @@ public class UserFieldInRead {
     /**
      * 声望信息 id -> uid -> 声望
      */
-    Map<Long, Map<Long, Serializable>> reputations = new LinkedHashMap<>();
+    LinkedHashMap<Long, LinkedHashMap<Long, Serializable>> reputations = new LinkedHashMap<>();
 
 }
