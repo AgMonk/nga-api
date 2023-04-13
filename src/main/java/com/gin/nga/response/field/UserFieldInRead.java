@@ -31,7 +31,7 @@ public class UserFieldInRead {
     /**
      * 用户组信息 id->info
      */
-    Map<Integer, Object> groups = new LinkedHashMap<>();
+    Map<Integer, UserGroup> groups = new LinkedHashMap<>();
     /**
      * 徽章信息 id->info
      */
