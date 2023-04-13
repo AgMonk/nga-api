@@ -17,6 +17,7 @@ public class Test {
     /**
      * thread.php 接口测试
      */
+    @SuppressWarnings("unused")
     public static void threadTest(NgaClient ngaClient) {
         final NgaThreadApi api = new NgaThreadApi(ngaClient);
         // 合集id

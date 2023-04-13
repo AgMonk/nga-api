@@ -17,6 +17,9 @@ import java.util.Map;
 @Getter
 @Setter
 public class Forum {
+    /**
+     * 自定义声望等级(仅出现在主题内容接口)
+     */
     @JsonProperty("custom_level")
     List<CustomLevel> customLevels;
     /**

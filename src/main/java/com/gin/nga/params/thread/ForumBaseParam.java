@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.nga.params.PageParam;
 import com.gin.nga.serializer.IdSerializer;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +23,7 @@ public class ForumBaseParam extends PageParam {
      * 版面id
      */
     @JsonProperty("fid")
-    @NotNull
+    @NotEmpty
     @JsonSerialize(using = IdSerializer.class)
     List<Long> forumId;
 
