@@ -11,4 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NgaReadApi {
     private final NgaClient client;
+
+    //todo
+
 }   
