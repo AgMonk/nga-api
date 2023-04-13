@@ -70,8 +70,11 @@ public class TopicInfo {
     @JsonProperty("postdate")
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime postDatetime;
+    /**
+     * 从某个主题镜像而来
+     */
     @JsonProperty("quote_from")
-    Long quoteFrom;
+    Long quoteFromTopicId;
     /**
      * 推荐分
      */
