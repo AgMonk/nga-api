@@ -2,8 +2,8 @@ package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.common.serializer.ListLongSerializer;
 import com.gin.nga.params.PageParam;
-import com.gin.nga.serializer.IdSerializer;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +24,7 @@ public class ForumBaseParam extends PageParam {
      */
     @JsonProperty("fid")
     @NotEmpty
-    @JsonSerialize(using = IdSerializer.class)
+    @JsonSerialize(using = ListLongSerializer.class)
     List<Long> forumId;
 
     public void setForumId(List<Long> colTid) {

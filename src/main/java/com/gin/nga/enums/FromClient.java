@@ -23,6 +23,7 @@ public enum FromClient {
      * PC
      */
     PC("0 /"),
+    UNKNOWN("100 /"),
     ;
     @JsonValue
     public final String value;

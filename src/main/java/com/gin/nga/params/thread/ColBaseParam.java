@@ -2,8 +2,8 @@ package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.common.serializer.ListLongSerializer;
 import com.gin.nga.params.PageParam;
-import com.gin.nga.serializer.IdSerializer;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +24,7 @@ public class ColBaseParam extends PageParam {
      */
     @JsonProperty("stid")
     @NotEmpty
-    @JsonSerialize(using = IdSerializer.class)
+    @JsonSerialize(using = ListLongSerializer.class)
     List<Long> colTid;
 
     public void setColTid(List<Long> colTid) {

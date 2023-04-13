@@ -2,8 +2,8 @@ package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.FromClient;
-import com.gin.nga.serializer.ZdtJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
 

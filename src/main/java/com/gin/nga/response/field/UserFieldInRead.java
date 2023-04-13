@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -19,26 +20,25 @@ import java.util.Map;
 @JsonDeserialize(using = UserFieldInReadDeserializer.class)
 public class UserFieldInRead {
     //todo map泛型
-
     /**
      * 常规用户信息 uid->info
      */
-    Map<Long,Object> userInfo;
+    Map<Long, UserInfoInRead> userInfo = new LinkedHashMap<>();
     /**
      * 匿名用户信息 临时id->info
      */
-    Map<Integer,Object> anonymousUserInfo;
+    Map<Integer, Object> anonymousUserInfo = new LinkedHashMap<>();
     /**
      * 用户组信息 id->info
      */
-    Map<Integer,Object> groups;
+    Map<Integer, Object> groups = new LinkedHashMap<>();
     /**
      * 徽章信息 id->info
      */
-    Map<Integer,Object> medals;
+    Map<Integer, Object> medals = new LinkedHashMap<>();
     /**
      * 声望信息 id -> uid -> 声望
      */
-    Map<Long,Map<Long, Serializable>> reputations;
+    Map<Long, Map<Long, Serializable>> reputations = new LinkedHashMap<>();
 
 }

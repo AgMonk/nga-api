@@ -2,7 +2,7 @@ package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.nga.serializer.ZdtJsonSerializer;
+import com.gin.common.serializer.ZdtJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +21,7 @@ public class ReplySimple {
      * 作者uid
      */
     @JsonProperty("authorid")
-    String authorUid;
+    Long authorUid;
     /**
      * 回复正文
      */

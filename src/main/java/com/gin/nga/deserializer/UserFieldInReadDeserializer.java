@@ -2,10 +2,13 @@ package com.gin.nga.deserializer;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.response.field.UserFieldInRead;
+import com.gin.nga.response.field.UserInfoInRead;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -50,7 +53,12 @@ public class UserFieldInReadDeserializer extends JsonDeserializer<UserFieldInRea
             if (key.startsWith("-")){
                 // todo 匿名用户信息
             }else{
-                // todo 常规用户信息
+                // 常规用户信息
+                try {
+                    res.getUserInfo().put(Long.parseLong(key), JacksonUtils.parseObj(obj, UserInfoInRead.class));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return res;
