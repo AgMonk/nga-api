@@ -1,6 +1,8 @@
 package com.gin.nga.response.body;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.gin.nga.deserializer.UserFieldInReadDeserializer;
 import com.gin.nga.response.field.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,7 +48,7 @@ public class ReadBody {
      * 用户相关信息
      */
     @JsonProperty("__U")
-    UserInfoInRead userInfo;
+    UserFieldInRead userInfoField;
     /**
      * 回复信息
      */

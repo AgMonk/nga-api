@@ -3,6 +3,7 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.api.NgaClient;
 import com.gin.nga.api.NgaForumApi;
+import com.gin.nga.api.NgaReadApi;
 import com.gin.nga.api.NgaThreadApi;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.forum.ForumParam;
@@ -62,6 +63,13 @@ public class Test {
 
 
 //        threadTest(ngaClient);
-        forumTest(ngaClient);
+//        forumTest(ngaClient);
+        readTest(ngaClient);
+    }
+
+    private static void readTest(NgaClient ngaClient) {
+        final ReadTest readTest = new ReadTest(new NgaReadApi(ngaClient));
+
+        readTest.test();
     }
 }

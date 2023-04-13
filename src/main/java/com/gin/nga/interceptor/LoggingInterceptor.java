@@ -44,6 +44,9 @@ public class LoggingInterceptor implements Interceptor {
                           (endTime - startTime) / 1e6d,
                           response.header("Content-type")
         );
+        if (response.code()/100==3) {
+            System.out.printf("[%s] [%s] location: %s",TAG,DATE_TIME_FORMATTER.format(ZonedDateTime.now()),response.header("location"));
+        }
         return response;
     }
 }

@@ -2,12 +2,13 @@ package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.nga.enums.FromClient;
 import com.gin.nga.serializer.ZdtJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.LinkedHashMap;
 
 /**
  * 回复信息(read.php接口)
@@ -27,12 +28,12 @@ public class ReplyInfo extends ReplySimple {
      * 附件信息
      */
     @JsonProperty("attachs")
-    List<Attachment> attachments;
+    LinkedHashMap<Integer,Attachment> attachments;
     /**
      * 使用的客户端,PC,IOS,安卓
      */
     @JsonProperty("from_client")
-    String fromClient;
+    FromClient fromClient;
     /**
      * 楼层号
      */

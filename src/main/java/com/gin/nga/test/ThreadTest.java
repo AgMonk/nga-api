@@ -174,7 +174,7 @@ public class ThreadTest {
      */
     private void userSearchTest() {
         final UserSearchParam param = new UserSearchParam();
-        param.setAuthorId(userId);
+        param.setAuthorUid(userId);
         param.setForumId(forumId2);
         param.setRecommendOnly(yes);
         api.userSearch(param).async(new JsonCallback<>() {

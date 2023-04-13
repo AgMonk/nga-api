@@ -13,6 +13,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TopicInfoInRead extends TopicInfo {
+    /**
+     * 合集信息(仅在合集内主题中出现)
+     */
+    @JsonProperty("__ST")
+    TopicInfoInRead colTopic;
     @JsonProperty("digest")
     Integer digest;
     @JsonProperty("locked")

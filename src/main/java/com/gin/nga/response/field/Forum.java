@@ -1,6 +1,8 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.gin.nga.deserializer.CustomLevelDeserializer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +23,7 @@ public class Forum {
      * 自定义声望等级(仅出现在主题内容接口)
      */
     @JsonProperty("custom_level")
+    @JsonDeserialize(using = CustomLevelDeserializer.class)
     List<CustomLevel> customLevels;
     /**
      * 版面名称
