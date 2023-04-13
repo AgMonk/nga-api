@@ -43,7 +43,7 @@ public class ThreadParam extends PageParam {
      * 作者uid
      */
     @JsonProperty("authorid")
-    Long authorId;
+    String authorId;
     /**
      * 传入任意值表示搜索用户的回复
      */

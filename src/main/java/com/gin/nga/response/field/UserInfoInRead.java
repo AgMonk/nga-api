@@ -18,6 +18,8 @@ import java.util.Map;
 @Setter
 @JsonDeserialize(using = UserInfoInReadDeserializer.class)
 public class UserInfoInRead {
+    //todo map泛型
+
     /**
      * 常规用户信息 uid->info
      */

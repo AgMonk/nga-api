@@ -1,12 +1,11 @@
 package com.gin.nga.response.body;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gin.nga.response.field.CurrentUser;
-import com.gin.nga.response.field.Forum;
-import com.gin.nga.response.field.TopicInfoInRead;
-import com.gin.nga.response.field.UserInfoInRead;
+import com.gin.nga.response.field.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Map;
 
 /**
  * read.php 的响应data
@@ -48,4 +47,9 @@ public class ReadBody {
      */
     @JsonProperty("__U")
     UserInfoInRead userInfo;
+    /**
+     * 回复信息
+     */
+    @JsonProperty("__R")
+    Map<Integer, ReplyInfo> replies;
 }
