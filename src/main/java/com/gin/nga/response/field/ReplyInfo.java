@@ -6,7 +6,6 @@ import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.FromClient;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
 
@@ -23,7 +22,7 @@ public class ReplyInfo extends ReplySimple {
      * 修改记录，包括处罚、撤销处罚、编辑
      */
     @JsonProperty("alterinfo")
-    String alterInfo;
+    AlterInfo alterInfo;
     /**
      * 附件信息
      */

@@ -24,6 +24,8 @@ public enum FromClient {
      */
     PC("0 /"),
     UNKNOWN("100 /"),
+
+    UNKNOWN_2("101 /"),
     ;
     @JsonValue
     public final String value;

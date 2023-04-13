@@ -15,13 +15,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReadTest {
     private final NgaReadApi api;
-    private final long tid = 25968165L;
-    private final int page = 3;
+    private final long tid = 26639977L;
+//    private final long tid = 25968165L;
+    private final int page = 1;
+//    private final int page = 3;
     private final long pid = 683765377L;
 
     public void test(){
         testReadTopic();
-        testReadReply();
+//        testReadReply();
     }
 
     private void testReadReply() {
