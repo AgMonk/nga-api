@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.common.utils.JacksonUtils;
+import com.gin.nga.response.field.AnonymousUser;
 import com.gin.nga.response.field.UserFieldInRead;
 import com.gin.nga.response.field.UserInfoInRead;
 
@@ -32,6 +33,10 @@ public class UserFieldInReadDeserializer extends JsonDeserializer<UserFieldInRea
      * 声望信息字段名
      */
     public static final String REPUTATIONS_FIELD = "__REPUTATIONS";
+    /**
+     * 匿名前缀
+     */
+    public static final String ANONYMOUS_PREFIX = "-";
 
     @Override
     public UserFieldInRead deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
@@ -50,8 +55,14 @@ public class UserFieldInReadDeserializer extends JsonDeserializer<UserFieldInRea
             if (REPUTATIONS_FIELD.equals(key)) {
                 //todo 声望信息
             }else
-            if (key.startsWith("-")){
-                // todo 匿名用户信息
+            if (key.startsWith(ANONYMOUS_PREFIX)){
+                // 匿名用户信息
+                final String username = String.valueOf(JacksonUtils.jsonToMap(obj).get("username"));
+                final AnonymousUser anonymousUser = new AnonymousUser();
+                final int index = Integer.parseInt(key);
+                anonymousUser.setIndex(index);
+                anonymousUser.setUsername(username);
+                res.getAnonymousUserInfo().put(index,anonymousUser);
             }else{
                 // 常规用户信息
                 try {

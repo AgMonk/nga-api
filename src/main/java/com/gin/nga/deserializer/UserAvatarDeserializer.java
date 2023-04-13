@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class UserAvatarDeserializer extends JsonDeserializer<List<String>> {
     @Override
     public List<String> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         final String value = jsonParser.getValueAsString();
+        if (ObjectUtils.isEmpty(value)) {
+            return null;
+        }
         if (value.startsWith(PREFIX_178)) {
             //常规格式，进行解析
             final ArrayList<String> res = new ArrayList<>();

@@ -27,7 +27,7 @@ public class UserFieldInRead {
     /**
      * 匿名用户信息 临时id->info
      */
-    Map<Integer, Object> anonymousUserInfo = new LinkedHashMap<>();
+    Map<Integer, AnonymousUser> anonymousUserInfo = new LinkedHashMap<>();
     /**
      * 用户组信息 id->info
      */
