@@ -31,7 +31,7 @@ public class UserSearchParam extends PageParam {
      * 传入任意值表示搜索用户的回复
      */
     @JsonProperty("searchpost")
-    Integer searchPost;
+    Integer searchReply;
     /**
      * 是否只搜索精华帖
      */

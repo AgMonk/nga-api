@@ -20,19 +20,8 @@ public class Test {
     @SuppressWarnings("unused")
     public static void threadTest(NgaClient ngaClient) {
         final NgaThreadApi api = new NgaThreadApi(ngaClient);
-        // 合集id
-        long colTid = 29111018L;
-        // 版面id
-        long forumId = 428;
-//        long forumId = -547859L;
-
-        final ThreadTest threadTest = new ThreadTest(api, colTid, forumId, "体力");
-
-        threadTest.colListTest();
-        threadTest.colSearchTest();
-        threadTest.favorTest();
-        threadTest.forumListTest();
-        threadTest.forumSearchTest();
+        final ThreadTest threadTest = new ThreadTest(api);
+        threadTest.test();
     }
 
     /**

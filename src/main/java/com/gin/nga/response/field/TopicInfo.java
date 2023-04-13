@@ -21,7 +21,7 @@ import java.util.Map;
 @Setter
 public class TopicInfo {
     /**
-     * 收藏的回复
+     * 回复(出现在收藏和搜索用户回复接口)
      */
     @JsonProperty("__P")
     ReplySimple favorReply;
