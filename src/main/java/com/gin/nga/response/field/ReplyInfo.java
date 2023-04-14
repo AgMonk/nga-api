@@ -14,6 +14,8 @@ import org.jsoup.nodes.Element;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 回复信息(read.php接口)
@@ -25,6 +27,11 @@ import java.util.LinkedHashMap;
 @Setter
 @NoArgsConstructor
 public class ReplyInfo extends ReplySimple {
+    /**
+     * 正则，用于从网页中解析 修改记录
+     */
+    public static final Pattern ALTER_INFO_PATTERN = Pattern.compile("loadAlertInfo\\('(.+?)'");
+
     /**
      * 修改记录, 包括编辑、加分、处罚、撤销处罚 ,
      */
@@ -95,6 +102,7 @@ public class ReplyInfo extends ReplySimple {
      */
     public ReplyInfo(int index, Element root) {
         //todo
+        final String rootString = root.toString();
 
         // 作者uid
         handleElement(root, "postauthor" + index, e -> {
@@ -117,7 +125,15 @@ public class ReplyInfo extends ReplySimple {
         // 回复正文
         handleElement(root, "postcontent" + index, e -> this.content = e.ownText());
 
-        //todo 改动信息
+        //改动信息
+        {
+            final Matcher matcher = ALTER_INFO_PATTERN.matcher(rootString);
+            if (matcher.find()) {
+                final String s = matcher.group(1).replace("\t", "");
+                System.out.println("s = " + s);
+                this.alterInfo = new AlterInfo(s);
+            }
+        }
         //todo 附件信息
         //todo 热评
         //todo 贴条
