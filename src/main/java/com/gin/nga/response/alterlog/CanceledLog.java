@@ -5,25 +5,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 加分/扣分记录
+ * 取消操作记录
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/13 17:56
  */
 @Getter
 @Setter
-public class RewardLog extends ReputationLog {
+public class CanceledLog extends ReputationLog {
     /**
-     * 理由
+     * 天数
      */
-    String reason;
-
-    public RewardLog(String s) {
+    public CanceledLog(String s ) {
         final String[] split = s.substring(1).split(" ");
         this.reputation = Integer.parseInt(split[0]);
-        this.prestige = handlePrestige(split[1]);
-        this.money = handleMoney(split[2]);
-        this.type = ReputationLogType.reward;
-        this.reason = split.length >= 5 ? split[4] : null;
+        // todo 位置不确定
+        this.prestige = Integer.parseInt(split[1]);
+        this.type = ReputationLogType.canceled;
     }
 }

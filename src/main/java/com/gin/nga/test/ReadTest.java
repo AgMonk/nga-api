@@ -15,18 +15,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReadTest {
     private final NgaReadApi api;
-    private final long tid = 26639977L;
-//    private final long tid = 25968165L;
-    private final int page = 1;
-//    private final int page = 3;
-    private final long pid = 683765377L;
 
-    public void test(){
+    public void test() {
         testReadTopic();
-//        testReadReply();
+        testReadReply();
     }
 
     private void testReadReply() {
+        long pid = 683765377L;
         api.readReply(pid).async(new JsonCallback<>() {
             @Override
             public void onSuccess(ReadBody body) {
@@ -36,6 +32,17 @@ public class ReadTest {
     }
 
     private void testReadTopic() {
+        // 测试修改
+        testTopic(13055900, 1);
+        testTopic(26639977, 1);
+        testTopic(28463884, 1);
+        testTopic(22885868, 1);
+
+        // 测试匿名
+        testTopic(25968165, 3);
+    }
+
+    private void testTopic(long tid, int page) {
         final ReadTopicParam param = new ReadTopicParam();
         param.setPage(page);
         param.setTopicId(tid);

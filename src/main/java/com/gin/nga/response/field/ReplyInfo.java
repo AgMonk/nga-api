@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
 @Setter
 public class ReplyInfo extends ReplySimple {
     /**
-     * 修改记录，包括处罚、撤销处罚、编辑
+     * 修改记录, 包括编辑、加分、处罚、撤销处罚 ,
      */
     @JsonProperty("alterinfo")
     AlterInfo alterInfo;

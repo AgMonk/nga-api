@@ -1,5 +1,6 @@
 package com.gin.nga.response.alterlog;
 
+import com.gin.nga.enums.ReputationLogType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,31 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PunishmentLog implements AlterLog {
-//todo
-}   
+public class PunishmentLog extends ReputationLog {
+    /**
+     * 理由
+     */
+    String reason;
+    /**
+     * 禁言天数
+     */
+    Integer days;
+    /**
+     * 版面id
+     */
+    Long forumId;
+
+    public PunishmentLog(String s) {
+        //L6 0 0 300 20 引战/转进/AOE
+
+        final String[] split = s.substring(1).split(" ");
+
+        this.days = Integer.parseInt(split[0]);
+        this.forumId = Long.parseLong(split[1]);
+        this.reputation = Integer.parseInt(split[3]) * -1;
+        this.prestige = Integer.parseInt(split[4]) * -1;
+        this.money = handleMoney(split[2]);
+        this.reason = split.length >= 6 ? split[5] : null;
+        this.type = ReputationLogType.punishment;
+    }
+}
