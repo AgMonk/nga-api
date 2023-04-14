@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.FromClient;
+import com.gin.nga.utils.QueryStringUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jsoup.nodes.Element;
 
 import java.time.ZonedDateTime;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
@@ -90,9 +92,21 @@ public class ReplyInfo extends ReplySimple {
      * 从网页解析回复信息
      * @param element 网页标签
      */
-    public ReplyInfo(int index, Element element) {
+    public ReplyInfo(int index, Element root) {
         //todo
-        System.out.println(element);
+
+        // 作者uid
+        {
+            final Element e = root.getElementById("postauthor" + index);
+            if (e!=null) {
+                final String href = e.attr("href");
+                final HashMap<String, Object> param = QueryStringUtils.parse(href.substring(href.indexOf("?") + 1));
+                final Object uid = param.get("uid");
+                if (uid!=null) {
+                    this.authorUid = Long.valueOf(String.valueOf(uid));
+                }
+            }
+        }
 
         //todo 改动信息
         //todo 附件信息
@@ -104,7 +118,6 @@ public class ReplyInfo extends ReplySimple {
         //todo 发表日期
         //todo 发表时间戳
         //todo 赞数
-        //todo 作者uid
         //todo 回复正文
         //todo 回复id
         //todo 回复或引用的id

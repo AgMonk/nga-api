@@ -21,7 +21,7 @@ public class QueryStringUtils {
      */
     public static HashMap<String, Object> parse(String qs){
         if (ObjectUtils.isEmpty(qs)) {
-            return null;
+            return new HashMap<>();
         }
         final HashMap<String, Object> map = new HashMap<>();
         //noinspection AlibabaUndefineMagicConstant
