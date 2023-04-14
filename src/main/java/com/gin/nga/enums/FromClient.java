@@ -1,6 +1,6 @@
 package com.gin.nga.enums;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -23,10 +23,16 @@ public enum FromClient {
      * PC
      */
     PC("0 /"),
-    UNKNOWN("100 /"),
-
-    UNKNOWN_2("101 /"),
+    UNKNOWN(""),
     ;
-    @JsonValue
     public final String value;
+    @JsonCreator
+    public static  FromClient findByValue(String value){
+        for (FromClient item : values()) {
+            if (item.value.equals(value)) {
+                return item;
+            }
+        }
+        return UNKNOWN;
+    }
 }   
