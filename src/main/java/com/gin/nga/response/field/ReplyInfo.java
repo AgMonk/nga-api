@@ -31,7 +31,17 @@ public class ReplyInfo extends ReplySimple {
      * 附件信息
      */
     @JsonProperty("attachs")
-    LinkedHashMap<Integer,Attachment> attachments;
+    LinkedHashMap<Integer, Attachment> attachments;
+    /**
+     * 热评
+     */
+    @JsonProperty("hotreply")
+    LinkedHashMap<Integer, ReplyInfo> hotReplies;
+    /**
+     * 贴条
+     */
+    @JsonProperty("comment")
+    LinkedHashMap<Integer, ReplyInfo> comment;
     /**
      * 使用的客户端,PC,IOS,安卓
      */
@@ -58,7 +68,6 @@ public class ReplyInfo extends ReplySimple {
     @JsonProperty("postdatetimestamp")
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime postDatetime;
-
     /**
      * 推荐分
      */
@@ -69,17 +78,19 @@ public class ReplyInfo extends ReplySimple {
      */
     @JsonProperty("score")
     Integer agreeCount;
-        /**
+    /**
      * 踩数
      */
     @JsonProperty("score_2")
     Integer disagreeCount;
 
+    // todo 贴条
+
     /**
      * 从网页解析回复信息
-     * @param element  网页标签
+     * @param element 网页标签
      */
-    public ReplyInfo(int index,Element element) {
+    public ReplyInfo(int index, Element element) {
         //todo
         System.out.println(element);
     }
