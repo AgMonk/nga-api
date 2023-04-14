@@ -31,7 +31,12 @@ public class ReplySimple {
      * 回复id
      */
     @JsonProperty("pid")
-    Long pid;
+    Long replyId;
+    /**
+     * 回复或引用的id
+     */
+    @JsonProperty("reply_to")
+    Long replyToId;
     /**
      * 发表时间
      */
@@ -53,5 +58,4 @@ public class ReplySimple {
      */
     @JsonProperty("type")
     Long type;
-
-}   
+}

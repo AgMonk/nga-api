@@ -93,5 +93,24 @@ public class ReplyInfo extends ReplySimple {
     public ReplyInfo(int index, Element element) {
         //todo
         System.out.println(element);
+
+        //todo 改动信息
+        //todo 附件信息
+        //todo 热评
+        //todo 贴条
+        //todo 客户端
+        //todo 楼层号
+        //todo 回复pid
+        //todo 发表日期
+        //todo 发表时间戳
+        //todo 赞数
+        //todo 作者uid
+        //todo 回复正文
+        //todo 回复id
+        //todo 回复或引用的id
+        //todo 标题
+        //todo 主题id
+        //todo 类型
+
     }
 }
