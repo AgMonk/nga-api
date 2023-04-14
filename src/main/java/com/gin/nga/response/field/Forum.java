@@ -3,12 +3,11 @@ package com.gin.nga.response.field;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.CustomLevelDeserializer;
+import com.gin.nga.deserializer.SubForumsDeserializer;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 版面
@@ -49,8 +48,8 @@ public class Forum {
      * 子版面数据
      */
     @JsonProperty("sub_forums")
-            //todo 解析
-    Map<String,Map<Long,Serializable>> subForums;
+    @JsonDeserialize(using = SubForumsDeserializer.class)
+    List<SubForum> subForums;
     /**
      * 置顶帖id
      */
