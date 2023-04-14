@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.FromClient;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jsoup.nodes.Element;
+
 import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
 
@@ -17,6 +20,7 @@ import java.util.LinkedHashMap;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class ReplyInfo extends ReplySimple {
     /**
      * 修改记录, 包括编辑、加分、处罚、撤销处罚 ,
@@ -71,4 +75,12 @@ public class ReplyInfo extends ReplySimple {
     @JsonProperty("score_2")
     Integer disagreeCount;
 
-}   
+    /**
+     * 从网页解析回复信息
+     * @param element  网页标签
+     */
+    public ReplyInfo(int index,Element element) {
+        //todo
+        System.out.println(element);
+    }
+}

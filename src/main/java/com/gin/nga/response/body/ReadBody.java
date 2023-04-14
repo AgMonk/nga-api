@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -155,6 +156,11 @@ public class ReadBody {
         //todo 主题信息
 
         //todo 回复信息
+        this.replies = new LinkedHashMap<>();
+        final Elements replyTables = document.getElementsByClass("forumbox postbox");
+        for (int i = 0; i < replyTables.size(); i++) {
+            this.replies.put(i,new ReplyInfo(i,replyTables.get(i)));
+        }
     }
 
     public Integer getTotalPage() {

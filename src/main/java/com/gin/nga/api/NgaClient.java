@@ -198,6 +198,8 @@ public class NgaClient {
                 .addQueryParameter("__inchst", "UTF8");
         if (json) {
             builder.addQueryParameter("__output", "8");
+        }else{
+            builder.addQueryParameter("noBBCode", null);
         }
 
         if (queryParam != null) {
