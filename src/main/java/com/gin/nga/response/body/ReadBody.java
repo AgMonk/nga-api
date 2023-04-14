@@ -1,6 +1,10 @@
 package com.gin.nga.response.body;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.type.MapLikeType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.document.DocLink;
 import com.gin.nga.document.Navigation;
 import com.gin.nga.enums.NgaLinkType;
@@ -12,6 +16,7 @@ import lombok.Setter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +35,10 @@ public class ReadBody {
      * 正则，用于从网页中解析当前主题的总页数,当前页
      */
     public static final  Pattern PAGER_PATTERN = Pattern.compile("1:(\\d+),2:(\\d+),3:(\\d+)")  ;
+    /**
+     * 正则，用于从网页中解析用户信息
+     */
+    public static final  Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+?)\\)")  ;
 
     /**
      * 是否为兼容模式, 即，数据从网页中解析获得
@@ -116,7 +125,21 @@ public class ReadBody {
         }
 
         //todo 主题信息
-        //todo 用户相关信息
+        //用户相关信息
+        {
+            final Matcher matcher = USER_INFO_PATTERN.matcher(document.toString());
+            if (matcher.find()) {
+                try {
+                    final TypeFactory typeFactory = JacksonUtils.MAPPER.getTypeFactory();
+                    final MapLikeType mapLikeType = typeFactory.constructMapLikeType(LinkedHashMap.class, String.class, Object.class);
+                    final LinkedHashMap<String, Object> map = JacksonUtils.MAPPER.readValue(matcher.group(1), mapLikeType);
+                    this.userInfoField = new UserFieldInRead(map);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         //todo 回复信息
     }
 

@@ -19,11 +19,17 @@ import java.util.List;
 public class CustomLevelDeserializer extends JsonDeserializer<List<CustomLevel>> {
     @Override
     public List<CustomLevel> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-        final String value = jsonParser.getValueAsString()
-                .replace("{r:","{\"r\":")
-                .replace(",n:",",\"n\":")
-                ;
-        return JacksonUtils.MAPPER.readValue(value, new TypeReference<>() {
+        return JacksonUtils.MAPPER.readValue(format(jsonParser.getValueAsString()), new TypeReference<>() {
         });
+    }
+
+    /**
+     * 规范化
+     * @param s s
+     * @return s
+     */
+    public static String format(String s){
+        return s.replace("{r:","{\"r\":")
+                .replace(",n:",",\"n\":");
     }
 }
