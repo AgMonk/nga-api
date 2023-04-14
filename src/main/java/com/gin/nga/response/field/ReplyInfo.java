@@ -91,31 +91,31 @@ public class ReplyInfo extends ReplySimple {
 
     /**
      * 从网页解析回复信息
-     * @param element 网页标签
+     * @param root 网页标签
      */
     public ReplyInfo(int index, Element root) {
         //todo
 
         // 作者uid
-        {
-            final Element e = root.getElementById("postauthor" + index);
-            if (e!=null) {
-                final String href = e.attr("href");
-                final HashMap<String, Object> param = QueryStringUtils.parse(href.substring(href.indexOf("?") + 1));
-                final Object uid = param.get("uid");
-                if (uid!=null) {
-                    this.authorUid = Long.valueOf(String.valueOf(uid));
-                }
+        handleElement(root, "postauthor" + index, e -> {
+            final String href = e.attr("href");
+            final HashMap<String, Object> param = QueryStringUtils.parse(href.substring(href.indexOf("?") + 1));
+            final Object uid = param.get("uid");
+            if (uid != null) {
+                this.authorUid = Long.valueOf(String.valueOf(uid));
             }
-        }
+        });
+
         // 发表日期 发表时间戳
-        {
-            final Element e = root.getElementById("postdate" + index);
-            if (e != null) {
-                this.postDate = e.ownText();
-                this.postDatetime = TimeUtils.parse(e.ownText(),TimeUtils.CHINESE_ZONE_ID);
-            }
-        }
+        handleElement(root, "postdate" + index, e -> {
+            this.postDate = e.ownText();
+            this.postDatetime = TimeUtils.parse(e.ownText(), TimeUtils.CHINESE_ZONE_ID);
+        });
+        //标题
+        handleElement(root, "postsubject" + index, e -> this.title = e.ownText());
+
+        // 回复正文
+        handleElement(root, "postcontent" + index, e -> this.content = e.ownText());
 
         //todo 改动信息
         //todo 附件信息
@@ -125,12 +125,31 @@ public class ReplyInfo extends ReplySimple {
         //todo 楼层号
         //todo 回复pid
         //todo 赞数
-        //todo 回复正文
         //todo 回复id
         //todo 回复或引用的id
-        //todo 标题
         //todo 主题id
         //todo 类型
 
+    }
+
+    /**
+     * 从root元素中以id查找指定元素，如果发现，执行handle
+     * @param root   root元素
+     * @param id     id
+     * @param handle 处理方法
+     */
+    private static void handleElement(Element root, String id, Handle handle) {
+        final Element e = root.getElementById(id);
+        if (e != null) {
+            handle.handle(e);
+        }
+    }
+
+    private interface Handle {
+        /**
+         * 处理元素
+         * @param e 元素
+         */
+        void handle(Element e);
     }
 }
