@@ -3,6 +3,7 @@ package com.gin.nga.response.field;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.common.utils.TimeUtils;
 import com.gin.nga.enums.FromClient;
 import com.gin.nga.utils.QueryStringUtils;
 import lombok.Getter;
@@ -107,6 +108,14 @@ public class ReplyInfo extends ReplySimple {
                 }
             }
         }
+        // 发表日期 发表时间戳
+        {
+            final Element e = root.getElementById("postdate" + index);
+            if (e != null) {
+                this.postDate = e.ownText();
+                this.postDatetime = TimeUtils.parse(e.ownText(),TimeUtils.CHINESE_ZONE_ID);
+            }
+        }
 
         //todo 改动信息
         //todo 附件信息
@@ -115,8 +124,6 @@ public class ReplyInfo extends ReplySimple {
         //todo 客户端
         //todo 楼层号
         //todo 回复pid
-        //todo 发表日期
-        //todo 发表时间戳
         //todo 赞数
         //todo 回复正文
         //todo 回复id

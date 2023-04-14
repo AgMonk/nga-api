@@ -40,7 +40,7 @@ public class ReadBody {
     /**
      * 正则，用于从网页中解析用户信息
      */
-    public static final  Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+?)\\)")  ;
+    public static final  Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+)")  ;
     /**
      * 正则，用于从网页中解析声望等级信息
      */
@@ -146,7 +146,8 @@ public class ReadBody {
                 try {
                     final TypeFactory typeFactory = JacksonUtils.MAPPER.getTypeFactory();
                     final MapLikeType mapLikeType = typeFactory.constructMapLikeType(LinkedHashMap.class, String.class, Object.class);
-                    final LinkedHashMap<String, Object> map = JacksonUtils.MAPPER.readValue(matcher.group(1), mapLikeType);
+                    final String group = matcher.group(1);
+                    final LinkedHashMap<String, Object> map = JacksonUtils.MAPPER.readValue(group.substring(0,group.length()-2), mapLikeType);
                     this.userInfoField = new UserFieldInRead(map);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
