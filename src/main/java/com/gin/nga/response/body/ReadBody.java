@@ -1,11 +1,11 @@
 package com.gin.nga.response.body;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.gin.nga.deserializer.UserFieldInReadDeserializer;
 import com.gin.nga.response.field.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jsoup.nodes.Document;
 
 import java.util.Map;
 
@@ -17,6 +17,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class ReadBody {
 
     @JsonProperty("__CU")
@@ -54,4 +55,14 @@ public class ReadBody {
      */
     @JsonProperty("__R")
     Map<Integer, ReplyInfo> replies;
+
+    public ReadBody(Document document) {
+        //todo 版面信息
+        //todo 当前页码
+        //todo 楼层总数(含主楼)
+        //todo 每页回复数
+        //todo 主题信息
+        //todo 用户相关信息
+        //todo 回复信息
+    }
 }

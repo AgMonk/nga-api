@@ -1,6 +1,7 @@
 package com.gin.nga.test;
 
 import com.gin.nga.api.NgaReadApi;
+import com.gin.nga.callback.DocCallback;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.read.ReadTopicParam;
 import com.gin.nga.response.body.ReadBody;
@@ -17,8 +18,31 @@ public class ReadTest {
     private final NgaReadApi api;
 
     public void test() {
-        testReadTopic();
-        testReadReply();
+//        testReadTopic();
+        testDocument();
+//        testReadReply();
+    }
+
+    /**
+     * 测试网页解析
+     */
+    private void testDocument() {
+        testTopicDocument(13055900, 1);
+//        testTopicDocument(26639977, 1);
+//        testTopicDocument(28463884, 1);
+//        testTopicDocument(22885868, 1);
+    }
+
+    private void testTopicDocument(long tid, int page) {
+        final ReadTopicParam param = new ReadTopicParam();
+        param.setPage(page);
+        param.setTopicId(tid);
+        api.readTopicDoc(param).async(new DocCallback<>() {
+            @Override
+            public void onSuccess(ReadBody body) {
+                Test.writeTestRes(body, String.format("read-doc-%d-%d.json", tid, page));
+            }
+        });
     }
 
     private void testReadReply() {
@@ -32,14 +56,19 @@ public class ReadTest {
     }
 
     private void testReadTopic() {
-        // 测试修改
+        testAlter();
+        // 测试匿名
+        testTopic(25968165, 3);
+    }
+
+    /**
+     * 测试修改
+     */
+    private void testAlter() {
         testTopic(13055900, 1);
         testTopic(26639977, 1);
         testTopic(28463884, 1);
         testTopic(22885868, 1);
-
-        // 测试匿名
-        testTopic(25968165, 3);
     }
 
     private void testTopic(long tid, int page) {
