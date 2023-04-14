@@ -28,7 +28,8 @@ public class Forum {
     /**
      * 版面名称
      */
-    String name;
+    @JsonProperty("name")
+    String forumName;
     /**
      * 版面id
      */
@@ -48,6 +49,7 @@ public class Forum {
      * 子版面数据
      */
     @JsonProperty("sub_forums")
+            //todo 解析
     Map<String,Map<Long,Serializable>> subForums;
     /**
      * 置顶帖id

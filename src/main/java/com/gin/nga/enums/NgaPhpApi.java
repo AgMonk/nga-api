@@ -1,6 +1,7 @@
 package com.gin.nga.enums;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 /**
  * php路径
@@ -34,4 +35,16 @@ public enum NgaPhpApi {
 
 
     public  final String path;
+
+    public static NgaPhpApi find(String s){
+        if (ObjectUtils.isEmpty(s)) {
+            return null;
+        }
+        for (NgaPhpApi api : values()) {
+            if (s.contains(api.path)) {
+                return api;
+            }
+        }
+        return null;
+    }
 }

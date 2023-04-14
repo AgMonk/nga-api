@@ -1,11 +1,14 @@
 package com.gin.nga.response.body;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.common.utils.JacksonUtils;
+import com.gin.nga.document.Navigation;
 import com.gin.nga.response.field.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.Map;
 
@@ -19,6 +22,10 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 public class ReadBody {
+    /**
+     * 是否为兼容模式, 即，数据从网页中解析获得
+     */
+    boolean document = false;
 
     @JsonProperty("__CU")
     CurrentUser currentUser;
@@ -39,7 +46,7 @@ public class ReadBody {
      * 每页回复数
      */
     @JsonProperty("__R__ROWS_PAGE")
-    Integer size;
+    Integer size = 20;
     /**
      * 主题信息
      */
@@ -57,7 +64,17 @@ public class ReadBody {
     Map<Integer, ReplyInfo> replies;
 
     public ReadBody(Document document) {
+        this.document = true;
+        // 导航栏
+        final Element nav = document.getElementsByClass("nav").first();
+        assert nav != null;
+        final Navigation navigation = new Navigation(nav);
+
+        JacksonUtils.printPretty(navigation);
+
         //todo 版面信息
+
+
         //todo 当前页码
         //todo 楼层总数(含主楼)
         //todo 每页回复数
