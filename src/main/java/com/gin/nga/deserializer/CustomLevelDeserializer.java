@@ -2,6 +2,7 @@ package com.gin.nga.deserializer;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -19,8 +20,7 @@ import java.util.List;
 public class CustomLevelDeserializer extends JsonDeserializer<List<CustomLevel>> {
     @Override
     public List<CustomLevel> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-        return JacksonUtils.MAPPER.readValue(format(jsonParser.getValueAsString()), new TypeReference<>() {
-        });
+        return parse(jsonParser.getValueAsString());
     }
 
     /**
@@ -31,5 +31,10 @@ public class CustomLevelDeserializer extends JsonDeserializer<List<CustomLevel>>
     public static String format(String s){
         return s.replace("{r:","{\"r\":")
                 .replace(",n:",",\"n\":");
+    }
+
+    public static List<CustomLevel> parse(String s) throws JsonProcessingException {
+       return JacksonUtils.MAPPER.readValue(format(s), new TypeReference<>() {
+        });
     }
 }

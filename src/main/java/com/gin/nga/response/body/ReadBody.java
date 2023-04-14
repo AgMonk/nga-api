@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.gin.common.utils.JacksonUtils;
+import com.gin.nga.deserializer.CustomLevelDeserializer;
 import com.gin.nga.document.DocLink;
 import com.gin.nga.document.Navigation;
 import com.gin.nga.enums.NgaLinkType;
@@ -39,6 +40,10 @@ public class ReadBody {
      * 正则，用于从网页中解析用户信息
      */
     public static final  Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+?)\\)")  ;
+    /**
+     * 正则，用于从网页中解析声望等级信息
+     */
+    public static final  Pattern CUSTOM_LEVEL_PATTERN = Pattern.compile("__CUSTOM_LEVEL=(.+)")  ;
 
     /**
      * 是否为兼容模式, 即，数据从网页中解析获得
@@ -87,6 +92,7 @@ public class ReadBody {
     Map<Integer, ReplyInfo> replies;
 
     public ReadBody(Document document) {
+        final String docString = document.toString();
         this.document = true;
         // 导航栏
         final Element nav = document.getElementsByClass("nav").first();
@@ -108,6 +114,14 @@ public class ReadBody {
                 this.forum.setColTitle(colLink.getTitle());
             }
 
+            final Matcher matcher = CUSTOM_LEVEL_PATTERN.matcher(docString);
+            if (matcher.find()) {
+                try {
+                    this.forum.setCustomLevels(CustomLevelDeserializer.parse(matcher.group(1)));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         //解析 当前页码和总页数
@@ -124,10 +138,9 @@ public class ReadBody {
             }
         }
 
-        //todo 主题信息
         //用户相关信息
         {
-            final Matcher matcher = USER_INFO_PATTERN.matcher(document.toString());
+            final Matcher matcher = USER_INFO_PATTERN.matcher(docString);
             if (matcher.find()) {
                 try {
                     final TypeFactory typeFactory = JacksonUtils.MAPPER.getTypeFactory();
@@ -139,6 +152,7 @@ public class ReadBody {
                 }
             }
         }
+        //todo 主题信息
 
         //todo 回复信息
     }
