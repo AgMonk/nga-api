@@ -2,8 +2,11 @@ package com.gin.nga.response.body;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.common.utils.JacksonUtils;
+import com.gin.nga.document.DocLink;
 import com.gin.nga.document.Navigation;
+import com.gin.nga.enums.NgaLinkType;
 import com.gin.nga.response.field.*;
+import com.gin.nga.utils.NgaLink;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -72,7 +75,22 @@ public class ReadBody {
 
         JacksonUtils.printPretty(navigation);
 
-        //todo 版面信息
+        //版面信息
+        final DocLink forumLink = navigation.findLast(NgaLinkType.FORUM);
+        if (forumLink!=null) {
+            final NgaLink link = forumLink.getLink();
+
+            this.forum = new Forum();
+            this.forum.setForumName(forumLink.getTitle());
+            this.forum.setForumId(link.findId(NgaLinkType.FORUM.field));
+
+            final DocLink colLink = navigation.findLast(NgaLinkType.COL);
+            if (colLink!=null) {
+                this.forum.setColTid(colLink.getLink().findId(NgaLinkType.COL.field));
+                this.forum.setColTitle(colLink.getTitle());
+            }
+
+        }
 
 
         //todo 当前页码

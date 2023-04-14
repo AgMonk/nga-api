@@ -49,4 +49,12 @@ public class NgaLink {
 
         this.type = NgaLinkType.find(this.ngaPhpApi,queryParam);
     }
+
+    public Long findId(String key){
+        final Object value = queryParam.get(key);
+        if (value==null) {
+            return null;
+        }
+        return Long.parseLong(String.valueOf(value));
+    }
 }

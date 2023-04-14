@@ -60,6 +60,7 @@ public class ReadTest {
         testAlter();
         // 测试匿名
         testTopic(25968165, 3);
+        testTopic(35937951, 1);
     }
 
     /**
