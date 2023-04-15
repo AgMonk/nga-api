@@ -10,6 +10,7 @@ import com.gin.nga.document.DocLink;
 import com.gin.nga.document.Navigation;
 import com.gin.nga.enums.NgaLinkType;
 import com.gin.nga.response.field.*;
+import com.gin.nga.utils.HtmlUtils;
 import com.gin.nga.utils.NgaLink;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ import org.jsoup.select.Elements;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,18 +36,25 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 public class ReadBody {
     /**
+     * 正则，用于从网页中解析声望等级信息
+     */
+    public static final Pattern CUSTOM_LEVEL_PATTERN = Pattern.compile("__CUSTOM_LEVEL=(.+)");
+    /**
      * 正则，用于从网页中解析当前主题的总页数,当前页
      */
-    public static final  Pattern PAGER_PATTERN = Pattern.compile("1:(\\d+),2:(\\d+),3:(\\d+)")  ;
+    public static final Pattern PAGER_PATTERN = Pattern.compile("1:(\\d+),2:(\\d+),3:(\\d+)");
+    /**
+     * 正则，用于从网页中解析客户端信息
+     */
+    public static final Pattern POST_ARG_PATTERN = Pattern.compile("commonui.postArg.proc\\((.+)\\)if");
     /**
      * 正则，用于从网页中解析用户信息
      */
-    public static final  Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+)")  ;
+    public static final Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+)");
     /**
-     * 正则，用于从网页中解析声望等级信息
+     * 正则，用于从网页中解析 主题id
      */
-    public static final  Pattern CUSTOM_LEVEL_PATTERN = Pattern.compile("__CUSTOM_LEVEL=(.+)")  ;
-
+    public static final Pattern TOPIC_ID_PATTERN = Pattern.compile("__CURRENT_TID=(\\d+)");
     /**
      * 是否为兼容模式, 即，数据从网页中解析获得
      */
@@ -147,7 +156,7 @@ public class ReadBody {
                     final TypeFactory typeFactory = JacksonUtils.MAPPER.getTypeFactory();
                     final MapLikeType mapLikeType = typeFactory.constructMapLikeType(LinkedHashMap.class, String.class, Object.class);
                     final String group = matcher.group(1);
-                    final LinkedHashMap<String, Object> map = JacksonUtils.MAPPER.readValue(group.substring(0,group.length()-2), mapLikeType);
+                    final LinkedHashMap<String, Object> map = JacksonUtils.MAPPER.readValue(group.substring(0, group.length() - 2), mapLikeType);
                     this.userInfoField = new UserFieldInRead(map);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -155,12 +164,32 @@ public class ReadBody {
             }
         }
         //todo 主题信息
+        this.topicInfo = new TopicInfoInRead();
+        // 主题id
+        {
+            final Matcher matcher = TOPIC_ID_PATTERN.matcher(docString);
+            if (matcher.find()) {
+                this.topicInfo.setTopicId(Long.valueOf(matcher.group(1)));
+            }
+        }
 
         //todo 回复信息
         this.replies = new LinkedHashMap<>();
         final Elements replyTables = document.getElementsByClass("forumbox postbox");
         for (int i = 0; i < replyTables.size(); i++) {
-            this.replies.put(i,new ReplyInfo(i,replyTables.get(i)));
+            // 回复的table 标签
+            final Element replyTable = replyTables.get(i);
+            // 解析回复数据
+            final ReplyInfo replyInfo = new ReplyInfo(i, replyTable,this.topicInfo.getTopicId() );
+            // table标签后跟随的 script 标签
+            final String script = HtmlUtils.clearLinkBreak(Objects.requireNonNull(replyTable.nextElementSibling()).toString());
+            final Matcher matcher = POST_ARG_PATTERN.matcher(script);
+            if (matcher.find()) {
+                // 解析 script 中的数据
+                replyInfo.parseScript(matcher.group(1));
+            }
+
+            this.replies.put(i, replyInfo);
         }
     }
 

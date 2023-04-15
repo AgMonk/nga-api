@@ -1,10 +1,13 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.common.utils.TimeUtils;
+import com.gin.nga.deserializer.GiftDeserializer;
 import com.gin.nga.enums.FromClient;
+import com.gin.nga.utils.HtmlUtils;
 import com.gin.nga.utils.QueryStringUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +17,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +46,15 @@ public class ReplyInfo extends ReplySimple {
      * 正则，用于从网页中解析 热评
      */
     public static final Pattern HOT_REPLY_PATTERN = Pattern.compile("热点回复</h4>(.+?)<div class=\"clear\">");
+    /**
+     * 正则，用于script数据的预处理
+     */
+    public static final Pattern SCRIPT_PATTERN = Pattern.compile("'(.*?)'");
 
+    /**
+     * script数据中用于替换参数内逗号的分隔符
+     */
+    public static final String SP = "-";
 
     /**
      * 礼物，key =id value = 数量
@@ -118,11 +130,11 @@ public class ReplyInfo extends ReplySimple {
      * 从网页解析回复信息
      * @param root 网页标签
      */
-    public ReplyInfo(int index, Element root) {
+    public ReplyInfo(int index, Element root, Long topicId) {
+        this.topicId = topicId;
         //todo
-        final String rootString = root.toString()
-                .replace("\n", "")
-                .replace("\r", "");
+        final String rootString = HtmlUtils.clearLinkBreak(root.toString());
+//        System.out.println(rootString);
         // 作者uid
         handleElement(root, "postauthor" + index, e -> this.authorUid = parseUidFromA(e));
 
@@ -135,7 +147,7 @@ public class ReplyInfo extends ReplySimple {
         handleElement(root, "postsubject" + index, e -> this.title = e.ownText());
 
         // 回复正文
-        handleElement(root, "postcontent" + index, e -> this.content = e.ownText());
+        handleElement(root, "postcontent" + index, e -> this.content = handleContent(e));
 
         //改动信息
         {
@@ -145,12 +157,14 @@ public class ReplyInfo extends ReplySimple {
                 this.alterInfo = new AlterInfo(s);
             }
         }
+
         // 贴条
         {
             final Matcher matcher = COMMENT_PATTERN.matcher(rootString);
             if (matcher.find()) {
                 final String group = matcher.group(1);
                 this.comment = parseComment(group);
+                this.comment.forEach((k,v)->v.setTopicId(this.topicId));
             }
         }
         // 热评
@@ -159,10 +173,19 @@ public class ReplyInfo extends ReplySimple {
             if (matcher.find()) {
                 final String group = matcher.group(1);
                 this.hotReplies = parseComment(group);
+                this.hotReplies.forEach((k,v)->v.setTopicId(this.topicId));
             }
         }
-        //todo 附件信息
         //todo 客户端
+        {
+            handleElement(root, "postInfo" + index, e -> {
+                // a标签
+                final Elements elements = e.getElementsByTag("a");
+
+
+            });
+        }
+        //todo 附件信息
         //todo 楼层号
         //todo 回复pid
         //todo 赞数
@@ -226,8 +249,8 @@ public class ReplyInfo extends ReplySimple {
                 handleElement(comment, "postcommentsubject_" + replyId, e -> replyInfo.setTitle(e.ownText()));
                 handleElement(comment, "postcommentsubject__" + replyId, e -> replyInfo.setTitle(e.ownText()));
                 // 正文
-                handleElement(comment, "postcomment_" + replyId, e -> replyInfo.setContent(e.ownText()));
-                handleElement(comment, "postcomment__" + replyId, e -> replyInfo.setContent(e.ownText()));
+                handleElement(comment, "postcomment_" + replyId, e -> replyInfo.setContent(handleContent(e)));
+                handleElement(comment, "postcomment__" + replyId, e -> replyInfo.setContent(handleContent(e)));
             }
         }
 
@@ -246,6 +269,68 @@ public class ReplyInfo extends ReplySimple {
         return uid == null ? null : Long.valueOf(String.valueOf(uid));
     }
 
+    /**
+     * 解析script标签中的数据
+     * @param script 参数列表
+     */
+    public void parseScript(String script) {
+        // 预处理
+        List<String> rawList = new ArrayList<>();
+        final Matcher matcher = SCRIPT_PATTERN.matcher(script);
+        while (matcher.find()) {
+            final String group = matcher.group(1);
+            if (group.contains(",")) {
+                rawList.add(group);
+            }
+        }
+        if (rawList.size() > 0) {
+            for (String raw : rawList) {
+                script = script.replace(raw, raw.replace(",", SP));
+            }
+        }
+
+        final List<String> params = Arrays.stream(script.split(","))
+                .filter(i -> !i.startsWith("$"))
+                .map(i -> {
+                    if ("null".equals(i) || "".equals(i) || "''".equals(i)) {
+                        return null;
+                    }
+                    return i.replace("'", "").trim();
+                })
+                .toList();
+//        System.out.println("params = " + params);
+
+        // 楼层
+        this.floorNumber = Integer.valueOf(params.get(0));
+        // 回复id
+        this.replyId = Long.valueOf(params.get(3));
+        this.type = Long.valueOf(params.get(4));
+        this.authorUid = Long.valueOf(params.get(6));
+        this.postDatetime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(params.get(7))), ZoneId.systemDefault());
+        {
+            final String[] split = params.get(8).split(SP);
+            // 推荐分
+            this.recommendScore = Integer.valueOf(split[0]);
+            // 赞踩数
+            this.agreeCount = Integer.valueOf(split[1]);
+            this.disagreeCount = Integer.valueOf(split[2]);
+        }
+
+        // 客户端
+        this.fromClient = FromClient.findByValue(params.get(12));
+
+        // 礼物
+        final String gift = params.get(15);
+        if (!"0".equals(gift)) {
+            this.gifts = new ArrayList<>();
+            final String[] a = gift.split(SP);
+            for (int i = 0; i < a.length; i += 2) {
+                gifts.add(new Gift(Integer.parseInt(a[0]), Integer.parseInt(a[1])));
+            }
+        }
+
+    }
+
     private interface Handle {
         /**
          * 处理元素
@@ -253,4 +338,16 @@ public class ReplyInfo extends ReplySimple {
          */
         void handle(Element e);
     }
+
+    /**
+     * 处理正文(换行符问题)
+     * @param e 正文标签
+     * @return 正文内容
+     */
+    private static String handleContent(Element e){
+        final String replacement = "{换行}";
+        return Jsoup.parse(HtmlUtils.clearLinkBreak(e.toString()).replace("<br/>", replacement).replace("<br>", replacement))
+                .text().replace(replacement, "<br/>");
+    }
+
 }

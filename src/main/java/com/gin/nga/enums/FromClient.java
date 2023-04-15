@@ -28,6 +28,9 @@ public enum FromClient {
     public final String value;
     @JsonCreator
     public static  FromClient findByValue(String value){
+        if (value==null) {
+            return null;
+        }
         for (FromClient item : values()) {
             if (item.value.equals(value)) {
                 return item;

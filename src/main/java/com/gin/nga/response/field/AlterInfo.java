@@ -31,12 +31,13 @@ public class AlterInfo {
     /**
      * 操作日志
      */
-    List<ReputationLog> logs = new ArrayList<>();
+    List<ReputationLog> logs ;
 
     public AlterInfo(String s) {
         if (ObjectUtils.isEmpty(s)) {
             return;
         }
+        this.logs = new ArrayList<>();
         final Matcher matcher = PATTERN.matcher(s);
         while (matcher.find()) {
             final String group = matcher.group(1);
