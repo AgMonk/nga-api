@@ -43,6 +43,14 @@ public class ReplyInfo extends ReplySimple {
      */
     public static final Pattern HOT_REPLY_PATTERN = Pattern.compile("热点回复</h4>(.+?)<div class=\"clear\">");
 
+
+    /**
+     * 礼物，key =id value = 数量
+     * 地址前缀为:  https://img4.nga.178.com/ngabbs/nga_classic/items/5_
+     */
+    @JsonProperty("14")
+    @JsonDeserialize(using = GiftDeserializer.class)
+    List<Gift> gifts;
     /**
      * 修改记录, 包括编辑、加分、处罚、撤销处罚 ,
      */
