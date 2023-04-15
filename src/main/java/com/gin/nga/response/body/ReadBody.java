@@ -48,13 +48,13 @@ public class ReadBody {
      */
     public static final Pattern POST_ARG_PATTERN = Pattern.compile("commonui.postArg.proc\\((.+)\\)if");
     /**
-     * 正则，用于从网页中解析用户信息
-     */
-    public static final Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+)");
-    /**
      * 正则，用于从网页中解析 主题id
      */
     public static final Pattern TOPIC_ID_PATTERN = Pattern.compile("__CURRENT_TID=(\\d+)");
+    /**
+     * 正则，用于从网页中解析用户信息
+     */
+    public static final Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+)");
     /**
      * 是否为兼容模式, 即，数据从网页中解析获得
      */
@@ -163,24 +163,30 @@ public class ReadBody {
                 }
             }
         }
-        //todo 主题信息
+        // 主题信息
         this.topicInfo = new TopicInfoInRead();
-        // 主题id
         {
+            // 主题id
             final Matcher matcher = TOPIC_ID_PATTERN.matcher(docString);
             if (matcher.find()) {
                 this.topicInfo.setTopicId(Long.valueOf(matcher.group(1)));
             }
+            // 版面id
+            this.topicInfo.setForumId(this.forum.getForumId());
+            final DocLink topicLink = navigation.findLast(NgaLinkType.TOPIC);
+            if (topicLink!=null) {
+                this.topicInfo.setTitle(topicLink.getTitle());
+            }
         }
 
-        //todo 回复信息
+        // 回复信息
         this.replies = new LinkedHashMap<>();
         final Elements replyTables = document.getElementsByClass("forumbox postbox");
         for (int i = 0; i < replyTables.size(); i++) {
             // 回复的table 标签
             final Element replyTable = replyTables.get(i);
             // 解析回复数据
-            final ReplyInfo replyInfo = new ReplyInfo(i, replyTable,this.topicInfo.getTopicId() );
+            final ReplyInfo replyInfo = new ReplyInfo(i, replyTable, this.topicInfo.getTopicId());
             // table标签后跟随的 script 标签
             final String script = HtmlUtils.clearLinkBreak(Objects.requireNonNull(replyTable.nextElementSibling()).toString());
             final Matcher matcher = POST_ARG_PATTERN.matcher(script);
