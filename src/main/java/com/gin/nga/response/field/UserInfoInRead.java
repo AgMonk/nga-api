@@ -91,10 +91,10 @@ public class UserInfoInRead {
     @JsonProperty("signature")
     String signature;
     /**
-     * 未知 todo
+     * 个人版名称
      */
     @JsonProperty("site")
-    Object site;
+    String site;
     /**
      * 最近访问
      */
