@@ -1,9 +1,12 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.common.utils.TimeUtils;
 import com.gin.nga.deserializer.GiftDeserializer;
 import com.gin.nga.enums.FromClient;
@@ -50,6 +53,10 @@ public class ReplyInfo extends ReplySimple {
      * 正则，用于script数据的预处理
      */
     public static final Pattern SCRIPT_PATTERN = Pattern.compile("'(.*?)'");
+    /**
+     * 正则，用于从网页中解析 附件信息
+     */
+    public static final Pattern ATTACH_PATTERN = Pattern.compile("attach\\.load.+?(\\[.+?])");
 
     /**
      * script数据中用于替换参数内逗号的分隔符
@@ -131,10 +138,10 @@ public class ReplyInfo extends ReplySimple {
      * @param root 网页标签
      */
     public ReplyInfo(int index, Element root, Long topicId) {
+        // 主题id
         this.topicId = topicId;
         //todo
         final String rootString = HtmlUtils.clearLinkBreak(root.toString());
-//        System.out.println(rootString);
         // 作者uid
         handleElement(root, "postauthor" + index, e -> this.authorUid = parseUidFromA(e));
 
@@ -176,23 +183,33 @@ public class ReplyInfo extends ReplySimple {
                 this.hotReplies.forEach((k,v)->v.setTopicId(this.topicId));
             }
         }
-        //todo 客户端
+        //附件信息
         {
-            handleElement(root, "postInfo" + index, e -> {
-                // a标签
-                final Elements elements = e.getElementsByTag("a");
-
-
-            });
+            final Matcher matcher = ATTACH_PATTERN.matcher(rootString);
+            if (matcher.find()) {
+                try {
+                    final String group = matcher.group(1)
+                            .replaceAll("(.)(\\w+?):","$1\"$2\":")
+                            .replace("'","\"")
+                            ;
+                    List<Attachment> list = JacksonUtils.MAPPER.readValue(group, new TypeReference<>() {
+                    });
+                    this.attachments = new LinkedHashMap<>();
+                    for (int i = 0; i < list.size(); i++) {
+                        this.attachments.put(i,list.get(i));
+                    }
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        //todo 附件信息
-        //todo 楼层号
-        //todo 回复pid
-        //todo 赞数
-        //todo 回复id
-        //todo 回复或引用的id
-        //todo 主题id
-        //todo 类型
+        // 楼层号 script已填写
+        // 回复pid script已填写
+        // 赞数 script已填写
+        // 回复id script已填写
+        // 类型 script已填写
+        // todo 回复或引用的id
+        System.out.println(rootString);
 
     }
 
@@ -304,8 +321,11 @@ public class ReplyInfo extends ReplySimple {
         this.floorNumber = Integer.valueOf(params.get(0));
         // 回复id
         this.replyId = Long.valueOf(params.get(3));
+        // type
         this.type = Long.valueOf(params.get(4));
+        // 作者uid
         this.authorUid = Long.valueOf(params.get(6));
+        // 发布时间
         this.postDatetime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(params.get(7))), ZoneId.systemDefault());
         {
             final String[] split = params.get(8).split(SP);

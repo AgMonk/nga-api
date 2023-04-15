@@ -1,5 +1,6 @@
 package com.gin.nga.response.field;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +18,14 @@ import java.nio.charset.StandardCharsets;
 @Setter
 public class Attachment {
     /**
-     * 图片地址,前面需拼接: https://img.nga.178.com/attachments/
+     * 绝对路径的前缀
+     */
+    public static final String PREFIX = "https://img.nga.178.com/attachments/";
+    /**
+     * 图片地址,前面需拼接:
      */
     @JsonProperty("attachurl")
+    @JsonAlias("url")
     String url;
     /**
      * 描述
@@ -46,6 +52,14 @@ public class Attachment {
     String type;
     @JsonProperty("url_utf8_org_name")
     String originalFilename;
+
+    /**
+     * 绝对路径
+     * @return 绝对路径
+     */
+    public String getAbsoluteUrl() {
+        return url == null ? null : (PREFIX + url);
+    }
 
     public void setOriginalFilename(String originalFilename) {
         this.originalFilename = URLDecoder.decode(originalFilename, StandardCharsets.UTF_8);
