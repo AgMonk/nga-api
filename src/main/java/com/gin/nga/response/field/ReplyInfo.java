@@ -334,7 +334,7 @@ public class ReplyInfo extends ReplySimple {
         // 回复id
         this.replyId = Long.valueOf(params.get(3));
         // type
-        this.type = Long.valueOf(params.get(4));
+        this.type = Integer.valueOf(params.get(4));
         // 作者uid
         this.authorUid = Long.valueOf(params.get(6));
         // 发布时间

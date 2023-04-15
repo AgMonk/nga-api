@@ -3,12 +3,14 @@ package com.gin.nga.response.field;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.enums.ReplyStatus;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,6 +65,7 @@ public class TopicInfo {
      * 所属合集信息, 字段"1" 为 fid, "2"为版面名称
      */
     @JsonProperty("parent")
+            //todo 解析
     Map<Long, Serializable> parentInfo;
     /**
      * 发表时间
@@ -115,7 +118,15 @@ public class TopicInfo {
      * 类型
      */
     @JsonProperty("type")
-    Long type;
+    Integer type;
+
+    /**
+     * 主题状态
+     * @return 主题状态
+     */
+    public List<ReplyStatus> getStatus(){
+        return type==null?null:ReplyStatus.parse(type);
+    }
 
     public void setTitle(String title) {
         // 反转义

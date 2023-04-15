@@ -26,6 +26,7 @@ public class Test {
     public static void threadTest(NgaClient ngaClient) {
         final NgaThreadApi api = new NgaThreadApi(ngaClient);
         final ThreadTest threadTest = new ThreadTest(api);
+        threadTest.setTestForumList(true);
         threadTest.test();
     }
 
@@ -62,9 +63,9 @@ public class Test {
         final NgaClient ngaClient = new NgaClient(cookie);
 
 
-//        threadTest(ngaClient);
+        threadTest(ngaClient);
 //        forumTest(ngaClient);
-        readTest(ngaClient);
+//        readTest(ngaClient);
     }
 
     private static void readTest(NgaClient ngaClient) {

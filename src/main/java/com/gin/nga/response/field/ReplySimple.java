@@ -3,11 +3,13 @@ package com.gin.nga.response.field;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.enums.ReplyStatus;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * 回复(简单数据), 出现在收藏回复中
@@ -58,7 +60,15 @@ public class ReplySimple {
      * 类型
      */
     @JsonProperty("type")
-    Long type;
+    Integer type;
+
+    /**
+     * 回复状态
+     * @return 回复状态
+     */
+    public List<ReplyStatus> getStatus(){
+        return type==null?null:ReplyStatus.parse(type);
+    }
 
     public void setContent(String content) {
         this.content = StringEscapeUtils.unescapeHtml4(StringEscapeUtils.unescapeHtml4(content));

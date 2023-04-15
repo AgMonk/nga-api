@@ -33,6 +33,7 @@ public class TitleFont {
     public TitleFont(String s) {
         final String data = decode(s);
         if (data==null) {
+            this.color = TitleColor.DEFAULT;
             return;
         }
         String colorData = data.substring(0, 5);
