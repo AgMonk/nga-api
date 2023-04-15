@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
  * @since : 2023/4/11 11:39
  */
 public class NgaClient {
+    private static final String UA ="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36";
     /**
      * 请求编码
      */
@@ -155,6 +156,9 @@ public class NgaClient {
         final Request request = new Request.Builder()
                 .url(httpUrl)
                 .header("cookie", this.cookie)
+                .header("host","bbs.nga.cn")
+                .header("Referer",this.ngaDomain.domain)
+                .header("User-Agent",UA)
                 .post(formBody)
                 .build();
         return this.client.newCall(request);
