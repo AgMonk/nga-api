@@ -9,7 +9,10 @@ import com.gin.nga.utils.QueryStringUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -31,6 +34,14 @@ public class ReplyInfo extends ReplySimple {
      * 正则，用于从网页中解析 修改记录
      */
     public static final Pattern ALTER_INFO_PATTERN = Pattern.compile("loadAlertInfo\\('(.+?)'");
+    /**
+     * 正则，用于从网页中解析 贴条
+     */
+    public static final Pattern COMMENT_PATTERN = Pattern.compile("评论</h4>(.+?)<div class=\"clear\">");
+    /**
+     * 正则，用于从网页中解析 热评
+     */
+    public static final Pattern HOT_REPLY_PATTERN = Pattern.compile("热点回复</h4>(.+?)<div class=\"clear\">");
 
     /**
      * 修改记录, 包括编辑、加分、处罚、撤销处罚 ,
@@ -94,7 +105,6 @@ public class ReplyInfo extends ReplySimple {
     @JsonProperty("score_2")
     Integer disagreeCount;
 
-    // todo 贴条
 
     /**
      * 从网页解析回复信息
@@ -102,17 +112,11 @@ public class ReplyInfo extends ReplySimple {
      */
     public ReplyInfo(int index, Element root) {
         //todo
-        final String rootString = root.toString();
-
+        final String rootString = root.toString()
+                .replace("\n", "")
+                .replace("\r", "");
         // 作者uid
-        handleElement(root, "postauthor" + index, e -> {
-            final String href = e.attr("href");
-            final HashMap<String, Object> param = QueryStringUtils.parse(href.substring(href.indexOf("?") + 1));
-            final Object uid = param.get("uid");
-            if (uid != null) {
-                this.authorUid = Long.valueOf(String.valueOf(uid));
-            }
-        });
+        handleElement(root, "postauthor" + index, e -> this.authorUid = parseUidFromA(e));
 
         // 发表日期 发表时间戳
         handleElement(root, "postdate" + index, e -> {
@@ -130,13 +134,26 @@ public class ReplyInfo extends ReplySimple {
             final Matcher matcher = ALTER_INFO_PATTERN.matcher(rootString);
             if (matcher.find()) {
                 final String s = matcher.group(1).replace("\t", "");
-                System.out.println("s = " + s);
                 this.alterInfo = new AlterInfo(s);
             }
         }
+        // 贴条
+        {
+            final Matcher matcher = COMMENT_PATTERN.matcher(rootString);
+            if (matcher.find()) {
+                final String group = matcher.group(1);
+                this.comment = parseComment(group);
+            }
+        }
+        // 热评
+        {
+            final Matcher matcher = HOT_REPLY_PATTERN.matcher(rootString);
+            if (matcher.find()) {
+                final String group = matcher.group(1);
+                this.hotReplies = parseComment(group);
+            }
+        }
         //todo 附件信息
-        //todo 热评
-        //todo 贴条
         //todo 客户端
         //todo 楼层号
         //todo 回复pid
@@ -159,6 +176,66 @@ public class ReplyInfo extends ReplySimple {
         if (e != null) {
             handle.handle(e);
         }
+    }
+
+    /**
+     * 解析评论贴条和热评
+     * @param html html
+     * @return 评论贴条和热评
+     */
+    private static LinkedHashMap<Integer, ReplyInfo> parseComment(String html) {
+        final Document root = Jsoup.parse(html);
+        final LinkedHashMap<Integer, ReplyInfo> res = new LinkedHashMap<>();
+
+        final Elements comments = root.getElementsByClass("comment_c left");
+        for (int i = 0; i < comments.size(); i++) {
+            final Element comment = comments.get(i);
+//            System.out.println("comment = " + comment);
+            final Element a = comment.select(".posterinfo > a").first();
+            if (a != null) {
+                final ReplyInfo replyInfo = new ReplyInfo();
+                res.put(i, replyInfo);
+
+                // 作者uid
+                replyInfo.setAuthorUid(parseUidFromA(a));
+                // 回复id
+                final String[] idSplit = a.id().split("_");
+                final String replyId = idSplit[idSplit.length - 1];
+                replyInfo.setReplyId(Long.valueOf(replyId));
+
+                // 回复时间
+                handleElement(comment, "commentInfo_" + replyId, e ->
+                        e.getElementsByTag("span").stream()
+                                .filter(it -> "reply time".equals(it.attr("title")))
+                                .findFirst().ifPresent(it -> replyInfo.setPostDatetime(TimeUtils.parse(it.ownText(), TimeUtils.CHINESE_ZONE_ID))));
+                handleElement(comment, "commentInfo__" + replyId, e ->
+                        e.getElementsByTag("span").stream()
+                                .filter(it -> "reply time".equals(it.attr("title")))
+                                .findFirst().ifPresent(it -> replyInfo.setPostDatetime(TimeUtils.parse(it.ownText(), TimeUtils.CHINESE_ZONE_ID))));
+                // todo 改动信息
+
+                // 标题
+                handleElement(comment, "postcommentsubject_" + replyId, e -> replyInfo.setTitle(e.ownText()));
+                handleElement(comment, "postcommentsubject__" + replyId, e -> replyInfo.setTitle(e.ownText()));
+                // 正文
+                handleElement(comment, "postcomment_" + replyId, e -> replyInfo.setContent(e.ownText()));
+                handleElement(comment, "postcomment__" + replyId, e -> replyInfo.setContent(e.ownText()));
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     * 从 a 标签中解析uid
+     * @param e a标签
+     * @return uid
+     */
+    private static Long parseUidFromA(Element e) {
+        final String href = e.attr("href");
+        final HashMap<String, Object> param = QueryStringUtils.parse(href.substring(href.indexOf("?") + 1));
+        final Object uid = param.get("uid");
+        return uid == null ? null : Long.valueOf(String.valueOf(uid));
     }
 
     private interface Handle {

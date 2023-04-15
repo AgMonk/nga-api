@@ -30,8 +30,9 @@ public class ReadTest {
 //        testTopicDocument(13055900, 1);
 //        testTopicDocument(35937951, 1);
 //        testTopic(25968165, 1);
-        testTopicDocument(22885868, 1);
-//        testTopicDocument(26639977, 1);
+//        testTopicDocument(22885868, 1);
+        testTopicDocument(25968165, 1);
+        testTopicDocument(26639977, 1);
 //        testTopicDocument(28463884, 1);
 //        testTopicDocument(22885868, 1);
     }
