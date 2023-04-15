@@ -147,7 +147,7 @@ public class ReplyInfo extends ReplySimple {
         handleElement(root, "postsubject" + index, e -> this.title = e.ownText());
 
         // 回复正文
-        handleElement(root, "postcontent" + index, e -> this.content = handleContent(e));
+        handleElement(root, "postcontent" + index, e -> setContent(handleContent(e)) );
 
         //改动信息
         {

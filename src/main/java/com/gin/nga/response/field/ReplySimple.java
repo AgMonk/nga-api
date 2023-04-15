@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.time.ZonedDateTime;
 
@@ -58,4 +59,12 @@ public class ReplySimple {
      */
     @JsonProperty("type")
     Long type;
+
+    public void setContent(String content) {
+        this.content = StringEscapeUtils.unescapeHtml4(StringEscapeUtils.unescapeHtml4(content));
+    }
+
+    public void setTitle(String title) {
+        this.title = StringEscapeUtils.unescapeHtml4(title);
+    }
 }
