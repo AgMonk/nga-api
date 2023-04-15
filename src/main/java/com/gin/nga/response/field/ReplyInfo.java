@@ -284,11 +284,6 @@ public class ReplyInfo extends ReplySimple {
                 }
             }
         }
-        // 回复pid script已填写
-        // 赞数 script已填写
-        // 回复id script已填写
-        // 类型 script已填写
-//        System.out.println(rootString);
         //  回复或引用的id
         {
             final Matcher matcher = REPLY_TO_PATTERN.matcher(this.content);
@@ -296,6 +291,11 @@ public class ReplyInfo extends ReplySimple {
                 this.replyToId = Long.valueOf(matcher.group(1));
             }
         }
+        // 回复pid script已填写
+        // 赞数 script已填写
+        // 回复id script已填写
+        // 类型 script已填写
+//        System.out.println(rootString);
     }
 
     /**

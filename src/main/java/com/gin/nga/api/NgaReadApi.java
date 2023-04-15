@@ -57,12 +57,24 @@ public class NgaReadApi {
     public NgaDocCall<ReadBody> readTopicDoc(ReadTopicParam param) {
         return readDoc(param);
     }
-
-    private NgaJsonCall<ReadBody> read(Object param) {
+    /**
+     * 读取主题内容
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
+     * @author bx002
+     * @since 2023/4/15 16:07
+     */
+    public NgaJsonCall<ReadBody> read(Object param) {
         return client.callJson(NgaPhpApi.read, param, null, ReadBody.class);
     }
-
-    private NgaDocCall<ReadBody> readDoc(Object param) {
+    /**
+     * 读取主题内容(兼容模式，通过网页解析)
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
+     * @author bx002
+     * @since 2023/4/15 16:07
+     */
+    public NgaDocCall<ReadBody> readDoc(Object param) {
         return client.callDoc(NgaPhpApi.read, param, null, ReadBody.class, ReadBody::new);
     }
 }
