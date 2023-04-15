@@ -40,28 +40,31 @@ public class ReplyInfo extends ReplySimple {
     /**
      * 正则，用于从网页中解析 修改记录
      */
-    public static final Pattern ALTER_INFO_PATTERN = Pattern.compile("loadAlertInfo\\('(.+?)'");
-    /**
-     * 正则，用于从网页中解析 贴条
-     */
-    public static final Pattern COMMENT_PATTERN = Pattern.compile("评论</h4>(.+?)<div class=\"clear\">");
-    /**
-     * 正则，用于从网页中解析 热评
-     */
-    public static final Pattern HOT_REPLY_PATTERN = Pattern.compile("热点回复</h4>(.+?)<div class=\"clear\">");
-    /**
-     * 正则，用于script数据的预处理
-     */
-    public static final Pattern SCRIPT_PATTERN = Pattern.compile("'(.*?)'");
+    private static final Pattern ALTER_INFO_PATTERN = Pattern.compile("loadAlertInfo\\('(.+?)'");
     /**
      * 正则，用于从网页中解析 附件信息
      */
-    public static final Pattern ATTACH_PATTERN = Pattern.compile("attach\\.load.+?(\\[.+?])");
-
+    private static final Pattern ATTACH_PATTERN = Pattern.compile("attach\\.load.+?(\\[.+?])");
+    /**
+     * 正则，用于从网页中解析 贴条
+     */
+    private static final Pattern COMMENT_PATTERN = Pattern.compile("评论</h4>(.+?)<div class=\"clear\">");
+    /**
+     * 正则，用于从网页中解析 热评
+     */
+    private static final Pattern HOT_REPLY_PATTERN = Pattern.compile("热点回复</h4>(.+?)<div class=\"clear\">");
+    /**
+     * 正则，用于从网页中解析 回复或引用的目标
+     */
+    private static final Pattern REPLY_TO_PATTERN = Pattern.compile("pid=(\\d+),\\d+,\\d+");
+    /**
+     * 正则，用于script数据的预处理
+     */
+    private static final Pattern SCRIPT_PATTERN = Pattern.compile("'(.*?)'");
     /**
      * script数据中用于替换参数内逗号的分隔符
      */
-    public static final String SP = "-";
+    private static final String SP = "-";
 
     /**
      * 礼物，key =id value = 数量
@@ -132,85 +135,15 @@ public class ReplyInfo extends ReplySimple {
     @JsonProperty("score_2")
     Integer disagreeCount;
 
-
     /**
-     * 从网页解析回复信息
-     * @param root 网页标签
+     * 处理正文(换行符问题)
+     * @param e 正文标签
+     * @return 正文内容
      */
-    public ReplyInfo(int index, Element root, Long topicId) {
-        // 主题id
-        this.topicId = topicId;
-        //todo
-        final String rootString = HtmlUtils.clearLinkBreak(root.toString());
-        // 作者uid
-        handleElement(root, "postauthor" + index, e -> this.authorUid = parseUidFromA(e));
-
-        // 发表日期 发表时间戳
-        handleElement(root, "postdate" + index, e -> {
-            this.postDate = e.ownText();
-            this.postDatetime = TimeUtils.parse(e.ownText(), TimeUtils.CHINESE_ZONE_ID);
-        });
-        //标题
-        handleElement(root, "postsubject" + index, e -> this.title = e.ownText());
-
-        // 回复正文
-        handleElement(root, "postcontent" + index, e -> setContent(handleContent(e)) );
-
-        //改动信息
-        {
-            final Matcher matcher = ALTER_INFO_PATTERN.matcher(rootString);
-            if (matcher.find()) {
-                final String s = matcher.group(1).replace("\t", "");
-                this.alterInfo = new AlterInfo(s);
-            }
-        }
-
-        // 贴条
-        {
-            final Matcher matcher = COMMENT_PATTERN.matcher(rootString);
-            if (matcher.find()) {
-                final String group = matcher.group(1);
-                this.comment = parseComment(group);
-                this.comment.forEach((k,v)->v.setTopicId(this.topicId));
-            }
-        }
-        // 热评
-        {
-            final Matcher matcher = HOT_REPLY_PATTERN.matcher(rootString);
-            if (matcher.find()) {
-                final String group = matcher.group(1);
-                this.hotReplies = parseComment(group);
-                this.hotReplies.forEach((k,v)->v.setTopicId(this.topicId));
-            }
-        }
-        //附件信息
-        {
-            final Matcher matcher = ATTACH_PATTERN.matcher(rootString);
-            if (matcher.find()) {
-                try {
-                    final String group = matcher.group(1)
-                            .replaceAll("(.)(\\w+?):","$1\"$2\":")
-                            .replace("'","\"")
-                            ;
-                    List<Attachment> list = JacksonUtils.MAPPER.readValue(group, new TypeReference<>() {
-                    });
-                    this.attachments = new LinkedHashMap<>();
-                    for (int i = 0; i < list.size(); i++) {
-                        this.attachments.put(i,list.get(i));
-                    }
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        // 楼层号 script已填写
-        // 回复pid script已填写
-        // 赞数 script已填写
-        // 回复id script已填写
-        // 类型 script已填写
-        // todo 回复或引用的id
-        System.out.println(rootString);
-
+    private static String handleContent(Element e) {
+        final String replacement = "{换行}";
+        return Jsoup.parse(HtmlUtils.clearLinkBreak(e.toString()).replace("<br/>", replacement).replace("<br>", replacement))
+                .text().replace(replacement, "<br/>");
     }
 
     /**
@@ -287,6 +220,85 @@ public class ReplyInfo extends ReplySimple {
     }
 
     /**
+     * 从网页中解析数据
+     * @param root 根元素
+     */
+    public void parseElement(Element root) {
+        final String rootString = HtmlUtils.clearLinkBreak(root.toString());
+        // 作者uid
+        handleElement(root, "postauthor" + this.floorNumber, e -> this.authorUid = parseUidFromA(e));
+
+        // 发表日期 发表时间戳
+        handleElement(root, "postdate" + this.floorNumber, e -> {
+            this.postDate = e.ownText();
+        });
+        //标题
+        handleElement(root, "postsubject" + this.floorNumber, e -> this.title = e.ownText());
+
+        // 回复正文
+        handleElement(root, "postcontent" + this.floorNumber, e -> setContent(handleContent(e)));
+
+        //改动信息
+        {
+            final Matcher matcher = ALTER_INFO_PATTERN.matcher(rootString);
+            if (matcher.find()) {
+                final String s = matcher.group(1).replace("\t", "");
+                this.alterInfo = new AlterInfo(s);
+            }
+        }
+
+        // 贴条
+        {
+            final Matcher matcher = COMMENT_PATTERN.matcher(rootString);
+            if (matcher.find()) {
+                final String group = matcher.group(1);
+                this.comment = parseComment(group);
+                this.comment.forEach((k, v) -> v.setTopicId(this.topicId));
+            }
+        }
+        // 热评
+        {
+            final Matcher matcher = HOT_REPLY_PATTERN.matcher(rootString);
+            if (matcher.find()) {
+                final String group = matcher.group(1);
+                this.hotReplies = parseComment(group);
+                this.hotReplies.forEach((k, v) -> v.setTopicId(this.topicId));
+            }
+        }
+        //附件信息
+        {
+            final Matcher matcher = ATTACH_PATTERN.matcher(rootString);
+            if (matcher.find()) {
+                try {
+                    final String group = matcher.group(1)
+                            .replaceAll("([,{])(\\w+?):", "$1\"$2\":")
+                            .replace("'", "\"");
+                    List<Attachment> list = JacksonUtils.MAPPER.readValue(group, new TypeReference<>() {
+                    });
+                    this.attachments = new LinkedHashMap<>();
+                    for (int i = 0; i < list.size(); i++) {
+                        this.attachments.put(i, list.get(i));
+                    }
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        // 回复pid script已填写
+        // 赞数 script已填写
+        // 回复id script已填写
+        // 类型 script已填写
+//        System.out.println(rootString);
+        //  回复或引用的id
+        {
+            final Matcher matcher = REPLY_TO_PATTERN.matcher(this.content);
+            if (matcher.find()) {
+                this.replyToId = Long.valueOf(matcher.group(1));
+            }
+        }
+    }
+
+    /**
      * 解析script标签中的数据
      * @param script 参数列表
      */
@@ -357,17 +369,6 @@ public class ReplyInfo extends ReplySimple {
          * @param e 元素
          */
         void handle(Element e);
-    }
-
-    /**
-     * 处理正文(换行符问题)
-     * @param e 正文标签
-     * @return 正文内容
-     */
-    private static String handleContent(Element e){
-        final String replacement = "{换行}";
-        return Jsoup.parse(HtmlUtils.clearLinkBreak(e.toString()).replace("<br/>", replacement).replace("<br>", replacement))
-                .text().replace(replacement, "<br/>");
     }
 
 }

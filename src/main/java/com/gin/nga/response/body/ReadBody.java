@@ -174,19 +174,20 @@ public class ReadBody {
             // 版面id
             this.topicInfo.setForumId(this.forum.getForumId());
             final DocLink topicLink = navigation.findLast(NgaLinkType.TOPIC);
-            if (topicLink!=null) {
+            if (topicLink != null) {
                 this.topicInfo.setTitle(topicLink.getTitle());
             }
         }
 
-        // todo 回复信息
+        //  回复信息
         this.replies = new LinkedHashMap<>();
         final Elements replyTables = document.getElementsByClass("forumbox postbox");
         for (int i = 0; i < replyTables.size(); i++) {
             // 回复的table 标签
             final Element replyTable = replyTables.get(i);
             // 解析回复数据
-            final ReplyInfo replyInfo = new ReplyInfo(i, replyTable, this.topicInfo.getTopicId());
+            final ReplyInfo replyInfo = new ReplyInfo();
+            replyInfo.setTopicId(this.topicInfo.getTopicId());
             // table标签后跟随的 script 标签
             final String script = HtmlUtils.clearLinkBreak(Objects.requireNonNull(replyTable.nextElementSibling()).toString());
             final Matcher matcher = POST_ARG_PATTERN.matcher(script);
@@ -194,6 +195,8 @@ public class ReadBody {
                 // 解析 script 中的数据
                 replyInfo.parseScript(matcher.group(1));
             }
+            // 解析 DOM 数据
+            replyInfo.parseElement(replyTable);
 
             this.replies.put(i, replyInfo);
         }
