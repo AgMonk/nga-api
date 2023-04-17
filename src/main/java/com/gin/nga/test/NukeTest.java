@@ -1,5 +1,6 @@
 package com.gin.nga.test;
 
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.NgaForumApi;
 import com.gin.nga.api.NgaNukeApi;
 import com.gin.nga.callback.JsonCallback;
@@ -66,15 +67,20 @@ public class NukeTest {
     }
 
     public void testFavorForum() throws IOException {
-        ngaForumApi.editFavorForum(FavorAction.add, FavorType.forum, 428).sync();
+        JacksonUtils.printPretty(  ngaForumApi.editFavorForum(FavorAction.add, FavorType.forum, 428).sync());
         ngaForumApi.getFavorForum().sync().get(0);
-        ngaForumApi.editFavorForum(FavorAction.del, FavorType.forum, 428).sync();
+        JacksonUtils.printPretty( ngaForumApi.editFavorForum(FavorAction.del, FavorType.forum, 428).sync());
         ngaForumApi.getFavorForum().sync().get(0);
     }
     public void testFavorCol() throws IOException {
-        System.out.println(ngaForumApi.editFavorForum(FavorAction.add, FavorType.col, 28803280).sync());
+        JacksonUtils.printPretty(ngaForumApi.editFavorForum(FavorAction.add, FavorType.col, 28803280).sync());
         ngaForumApi.getFavorForum().sync().get(0);
-        System.out.println(ngaForumApi.editFavorForum(FavorAction.del, FavorType.col, 28803280).sync());
+        JacksonUtils.printPretty(ngaForumApi.editFavorForum(FavorAction.del, FavorType.col, 28803280).sync());
         ngaForumApi.getFavorForum().sync().get(0);
+    }
+
+    public void testRecommend() throws IOException {
+        JacksonUtils.printPretty(ngaNukeApi.agree(25968165L,0).sync());
+        JacksonUtils.printPretty(ngaNukeApi.disagree(25968165L,0).sync());
     }
 }   

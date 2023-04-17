@@ -78,6 +78,7 @@ public class Test {
 //        nukeTest.testGetUserInfo();
 //        nukeTest.testFavorForum();
 //        nukeTest.testFavorCol();
-        nukeTest.testBlockForum(-547859L);
+//        nukeTest.testBlockForum(-547859L);
+        nukeTest.testRecommend();
     }
 }

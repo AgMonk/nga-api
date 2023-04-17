@@ -8,8 +8,8 @@ import com.gin.nga.params.forum.ForumParam;
 import com.gin.nga.params.nuke.BlockSubForumParam;
 import com.gin.nga.params.nuke.FavorForumParam;
 import com.gin.nga.params.nuke.NukeBaseParam;
+import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.ForumBody;
-import com.gin.nga.response.body.MessageBody;
 import com.gin.nga.response.body.nuke.BlockSubForumBody;
 import com.gin.nga.response.body.nuke.FavorForumBody;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +31,12 @@ public class NgaForumApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
      * @since 2023/4/17 16:26
      */
-    public NgaJsonCall<MessageBody> addBlockSubForum(long forumId, long id) {
+    public NgaJsonCall<BaseMessageBody> addBlockSubForum(long forumId, long id) {
         final BlockSubForumParam param = new BlockSubForumParam();
         param.setForumId(forumId);
         param.setAddId(id);
         param.setAct("set");
-        return nuke(param, MessageBody.class);
+        return nuke(param, BaseMessageBody.class);
     }
 
     /**
@@ -46,12 +46,12 @@ public class NgaForumApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
      * @since 2023/4/17 16:26
      */
-    public NgaJsonCall<MessageBody> delBlockSubForum(long forumId, long id) {
+    public NgaJsonCall<BaseMessageBody> delBlockSubForum(long forumId, long id) {
         final BlockSubForumParam param = new BlockSubForumParam();
         param.setForumId(forumId);
         param.setDelId(id);
         param.setAct("set");
-        return nuke(param, MessageBody.class);
+        return nuke(param, BaseMessageBody.class);
     }
 
     /**
@@ -62,7 +62,7 @@ public class NgaForumApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
      * @since 2023/4/17 15:29
      */
-    public NgaJsonCall<MessageBody> editFavorForum(FavorAction action, FavorType type, long id) {
+    public NgaJsonCall<BaseMessageBody> editFavorForum(FavorAction action, FavorType type, long id) {
         final FavorForumParam param = new FavorForumParam();
         param.setAction(action);
         if (type == FavorType.forum) {
@@ -72,7 +72,7 @@ public class NgaForumApi {
         } else {
             throw new RuntimeException("非法的类型");
         }
-        return nuke(param, MessageBody.class);
+        return nuke(param, BaseMessageBody.class);
     }
 
     /**
