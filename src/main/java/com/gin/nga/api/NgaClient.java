@@ -10,6 +10,7 @@ import com.gin.nga.interceptor.LoggingInterceptor;
 import com.gin.nga.interfaze.DocumentParser;
 import com.gin.nga.params.PageParam;
 import com.gin.nga.params.nuke.NukeBaseParam;
+import com.gin.nga.response.body.ReadBody;
 import com.gin.nga.response.body.ThreadBody;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -212,6 +213,26 @@ public class NgaClient {
         return callJson(NgaPhpApi.thread, queryParam, null, ThreadBody.class);
     }
 
+    /**
+     * 读取主题内容
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
+     * @author bx002
+     * @since 2023/4/15 16:07
+     */
+    public NgaJsonCall<ReadBody> read(Object param) {
+        return callJson(NgaPhpApi.read, param, null, ReadBody.class);
+    }
+    /**
+     * 读取主题内容(兼容模式，通过网页解析)
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
+     * @author bx002
+     * @since 2023/4/15 16:07
+     */
+    public NgaDocCall<ReadBody> readDoc(Object param) {
+        return callDoc(NgaPhpApi.read, param, null, ReadBody.class, ReadBody::new);
+    }
     /**
      * 生成url
      * @param phpApi     phpApi

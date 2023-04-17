@@ -29,5 +29,5 @@ public class ReadTopicParam {
      * 作者uid(只看TA功能)
      */
     @JsonProperty("authorid")
-    Long authorUId;
+    Long authorUid;
 }   
