@@ -13,14 +13,14 @@ import com.gin.nga.response.NgaRes;
 public abstract class JsonCallback<T> extends AbstractCallback<T> {
     /**
      * 将字符串解析为指定类型对象
-     * @param string body
+     * @param resString body
      * @return 对象
      * @throws JsonProcessingException 解析错误
      */
     @Override
-    public T parse(String string) throws JsonProcessingException, NgaServerException {
+    public T parse(String resString) throws JsonProcessingException, NgaServerException {
         //todo 移除
-        System.out.println("string = " + string);
-        return NgaRes.parse(string,eClass).getData();
+        System.out.println("res = " + resString);
+        return NgaRes.parse(resString,eClass).getData();
     }
 }

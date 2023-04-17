@@ -35,17 +35,17 @@ public class NukeTest {
             });
         }
 
-        List<String> nameList = List.of(
-                "左牵黄右擒苍"
-                 , "血牙酱"
-        );
-        for (String name : nameList) {
-            api.getUserInfo(name).async(new JsonCallback<>() {
-                @Override
-                public void onSuccess( UserInfoBody.Res body) {
-                    Test.writeTestRes(body.get(0), String.format("user-info-%s.json", name));
-                }
-            });
-        }
+//        List<String> nameList = List.of(
+//                "左牵黄右擒苍"
+//                 , "血牙酱"
+//        );
+//        for (String name : nameList) {
+//            api.getUserInfo(name).async(new JsonCallback<>() {
+//                @Override
+//                public void onSuccess( UserInfoBody.Res body) {
+//                    Test.writeTestRes(body.get(0), String.format("user-info-%s.json", name));
+//                }
+//            });
+//        }
     }
 }   

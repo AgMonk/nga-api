@@ -97,7 +97,7 @@ public class UserInfoInRead {
      * 个人版名称
      */
     @JsonProperty("site")
-    String site;
+    String userForum;
     /**
      * 最近访问
      */
@@ -108,7 +108,7 @@ public class UserInfoInRead {
      * 用户id
      */
     @JsonProperty("uid")
-    Long userid;
+    Long userId;
     /**
      * 用户名
      */

@@ -2,16 +2,18 @@ package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.deserializer.ListIntDeserializer;
+import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.deserializer.UserAvatarDeserializer;
 import com.gin.nga.deserializer.UserBuffDeserializer;
-import com.gin.nga.response.field.Honor;
-import com.gin.nga.response.field.Money;
-import com.gin.nga.response.field.UserBuff;
-import com.gin.nga.response.field.UserMoreInfo;
+import com.gin.nga.deserializer.UserForumDeserializer;
+import com.gin.nga.enums.AccountStatus;
+import com.gin.nga.response.field.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -135,10 +137,52 @@ public class UserInfoBody {
     @JsonProperty("more_info")
     LinkedHashMap<Integer, UserMoreInfo> moreInfo;
     /**
+     * 发帖数量
+     */
+    @JsonProperty("posts")
+    Long postCount;
+    /**
+     * 注册时间
+     */
+    @JsonProperty("regdate")
+    @JsonSerialize(using = ZdtJsonSerializer.class)
+    ZonedDateTime regDatetime;
+    /**
+     * 备注
+     */
+    @JsonProperty("remark")
+    String remark;
+    /**
      * 威望
      */
     @JsonProperty("rvrc")
     Integer prestige;
+    /**
+     * 签名
+     */
+    @JsonProperty("sign")
+    String signature;
+    /**
+     * 用户id
+     */
+    @JsonProperty("uid")
+    Long userId;
+    /**
+     * 用户名
+     */
+    @JsonProperty("username")
+    String username;
+    /**
+     * 个人版名称
+     */
+    @JsonProperty("site")
+    @JsonDeserialize(using = UserForumDeserializer.class)
+    String userForum;
+    /**
+     * 账号状态
+     */
+    @JsonProperty("yz")
+    AccountStatus accountStatus;
 
     public static class Res extends LinkedHashMap<Integer, UserInfoBody> {
     }
