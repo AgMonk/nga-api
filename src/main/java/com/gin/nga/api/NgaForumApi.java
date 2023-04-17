@@ -7,7 +7,6 @@ import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.params.forum.ForumParam;
 import com.gin.nga.params.nuke.BlockSubForumParam;
 import com.gin.nga.params.nuke.FavorForumParam;
-import com.gin.nga.params.nuke.NukeBaseParam;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.ForumBody;
 import com.gin.nga.response.body.nuke.BlockSubForumBody;
@@ -36,7 +35,7 @@ public class NgaForumApi {
         param.setForumId(forumId);
         param.setAddId(id);
         param.setAct("set");
-        return nuke(param, BaseMessageBody.class);
+        return client.nuke(param, BaseMessageBody.class);
     }
 
     /**
@@ -51,7 +50,7 @@ public class NgaForumApi {
         param.setForumId(forumId);
         param.setDelId(id);
         param.setAct("set");
-        return nuke(param, BaseMessageBody.class);
+        return client.nuke(param, BaseMessageBody.class);
     }
 
     /**
@@ -72,7 +71,7 @@ public class NgaForumApi {
         } else {
             throw new RuntimeException("非法的类型");
         }
-        return nuke(param, BaseMessageBody.class);
+        return client.nuke(param, BaseMessageBody.class);
     }
 
     /**
@@ -85,7 +84,7 @@ public class NgaForumApi {
         final BlockSubForumParam param = new BlockSubForumParam();
         param.setForumId(forumId);
         param.setAct("get");
-        return nuke(param, BlockSubForumBody.Res.class);
+        return client.nuke(param, BlockSubForumBody.Res.class);
     }
 
     /**
@@ -96,7 +95,7 @@ public class NgaForumApi {
     public NgaJsonCall<FavorForumBody.Res> getFavorForum() {
         final FavorForumParam param = new FavorForumParam();
         param.setAction(FavorAction.get);
-        return nuke(param, FavorForumBody.Res.class);
+        return client.nuke(param, FavorForumBody.Res.class);
     }
 
     /**
@@ -109,7 +108,4 @@ public class NgaForumApi {
         return client.callJson(NgaPhpApi.forum, param, null, ForumBody.class);
     }
 
-    private <T> NgaJsonCall<T> nuke(NukeBaseParam param, Class<T> responseClass) {
-        return client.callJson(NgaPhpApi.nuke, param, null, responseClass);
-    }
-}   
+}

@@ -1,8 +1,6 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
-import com.gin.nga.enums.NgaPhpApi;
-import com.gin.nga.params.nuke.NukeBaseParam;
 import com.gin.nga.params.nuke.RecommendParam;
 import com.gin.nga.params.nuke.UserInfoParam;
 import com.gin.nga.response.body.nuke.RecommendBody;
@@ -28,7 +26,7 @@ public class NgaNukeApi {
      * @since 2023/4/17 11:28
      */
     public NgaJsonCall<UserInfoBody.Res> getUserInfo(String username) {
-        return nuke(new UserInfoParam(username), UserInfoBody.Res.class);
+        return client.nuke(new UserInfoParam(username), UserInfoBody.Res.class);
     }
 
     /**
@@ -38,7 +36,7 @@ public class NgaNukeApi {
      * @since 2023/4/17 11:28
      */
     public NgaJsonCall<UserInfoBody.Res> getUserInfo(long userId) {
-        return nuke(new UserInfoParam(userId), UserInfoBody.Res.class);
+        return client.nuke(new UserInfoParam(userId), UserInfoBody.Res.class);
     }
 
     /**
@@ -54,7 +52,7 @@ public class NgaNukeApi {
         param.setTopicId(topicId);
         param.setReplyId(replyId);
         param.setValue(1);
-        return nuke(param, RecommendBody.class);
+        return client.nuke(param, RecommendBody.class);
     }    /**
      * 点踩
      * @param topicId 主题id
@@ -68,10 +66,7 @@ public class NgaNukeApi {
         param.setTopicId(topicId);
         param.setReplyId(replyId);
         param.setValue(-1);
-        return nuke(param, RecommendBody.class);
+        return client.nuke(param, RecommendBody.class);
     }
 
-    private  <T> NgaJsonCall<T> nuke(NukeBaseParam param, Class<T> responseClass) {
-        return client.callJson(NgaPhpApi.nuke, param, null, responseClass);
-    }
-}   
+}
