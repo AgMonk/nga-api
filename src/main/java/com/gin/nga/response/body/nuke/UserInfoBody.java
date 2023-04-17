@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.common.deserializer.ListIntDeserializer;
 import com.gin.nga.deserializer.UserAvatarDeserializer;
+import com.gin.nga.deserializer.UserBuffDeserializer;
 import com.gin.nga.response.field.Honor;
 import com.gin.nga.response.field.Money;
+import com.gin.nga.response.field.UserBuff;
 import com.gin.nga.response.field.UserMoreInfo;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,6 +44,12 @@ public class UserInfoBody {
      */
     @JsonProperty("_super")
     boolean superAdmin;
+
+    /**
+     * 持有管理权限的版面 版面id->版面名称
+     */
+    @JsonProperty("adminForums")
+    LinkedHashMap<Long, String> adminForums;
     /**
      * 头像
      */
@@ -50,6 +58,9 @@ public class UserInfoBody {
     List<String> avatars;
     @JsonProperty("bit")
     Long bitData;
+    @JsonProperty("buffs")
+    @JsonDeserialize(using = UserBuffDeserializer.class)
+    LinkedHashMap<Integer, UserBuff> buffs;
     @JsonProperty("email")
     String email;
     /**
@@ -122,13 +133,14 @@ public class UserInfoBody {
      * 更多信息
      */
     @JsonProperty("more_info")
-    LinkedHashMap<Integer,UserMoreInfo> moreInfo;
+    LinkedHashMap<Integer, UserMoreInfo> moreInfo;
     /**
      * 威望
      */
     @JsonProperty("rvrc")
     Integer prestige;
 
-    public static class Res extends LinkedHashMap<Integer,UserInfoBody>{}
+    public static class Res extends LinkedHashMap<Integer, UserInfoBody> {
+    }
 
 }   

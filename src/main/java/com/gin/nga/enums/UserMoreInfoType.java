@@ -18,8 +18,8 @@ public enum UserMoreInfoType {
 
     unknown(null,"未知");
     ;
-    Integer id;
-    final String name;
+    public Integer id;
+    public final String name;
 
     UserMoreInfoType(Integer id, String name) {
         this.id = id;
