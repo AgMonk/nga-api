@@ -2,20 +2,15 @@ package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.deserializer.ListIntDeserializer;
-import com.gin.common.serializer.ZdtJsonSerializer;
-import com.gin.nga.deserializer.UserAvatarDeserializer;
 import com.gin.nga.deserializer.UserBuffDeserializer;
 import com.gin.nga.deserializer.UserForumDeserializer;
-import com.gin.nga.enums.AccountStatus;
-import com.gin.nga.response.field.*;
+import com.gin.nga.response.field.BaseUserInfo;
+import com.gin.nga.response.field.UserBuff;
+import com.gin.nga.response.field.UserMoreInfo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * nuke.php接口返回的用户详细信息
@@ -25,7 +20,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class UserInfoBody {
+public class UserInfoBody extends  BaseUserInfo{
     /**
      * 超管
      */
@@ -52,12 +47,7 @@ public class UserInfoBody {
      */
     @JsonProperty("adminForums")
     LinkedHashMap<Long, String> adminForums;
-    /**
-     * 头像
-     */
-    @JsonProperty("avatar")
-    @JsonDeserialize(using = UserAvatarDeserializer.class)
-    List<String> avatars;
+
     @JsonProperty("bit")
     Long bitData;
     @JsonProperty("buffs")
@@ -96,16 +86,6 @@ public class UserInfoBody {
     @JsonProperty("group")
     String groupName;
     /**
-     * 用户组id(涉及管理权限)
-     */
-    @JsonProperty("groupid")
-    Long groupId;
-    /**
-     * 荣誉称号
-     */
-    @JsonProperty("honor")
-    Honor honor;
-    /**
      * ip属地
      */
     @JsonProperty("ipLoc")
@@ -116,73 +96,21 @@ public class UserInfoBody {
     @JsonProperty("items")
     Integer items;
     /**
-     * 徽章id
-     */
-    @JsonProperty("medal")
-    @JsonDeserialize(using = ListIntDeserializer.class)
-    List<Integer> medalIds;
-    /**
-     * 威望组ID
-     */
-    @JsonProperty("memberid")
-    Integer memberId;
-    /**
-     * 货币
-     */
-    @JsonProperty("money")
-    Money money;
-    /**
      * 更多信息
      */
     @JsonProperty("more_info")
     LinkedHashMap<Integer, UserMoreInfo> moreInfo;
-    /**
-     * 发帖数量
-     */
-    @JsonProperty("posts")
-    Long postCount;
-    /**
-     * 注册时间
-     */
-    @JsonProperty("regdate")
-    @JsonSerialize(using = ZdtJsonSerializer.class)
-    ZonedDateTime regDatetime;
     /**
      * 备注
      */
     @JsonProperty("remark")
     String remark;
     /**
-     * 威望
-     */
-    @JsonProperty("rvrc")
-    Integer prestige;
-    /**
-     * 签名
-     */
-    @JsonProperty("sign")
-    String signature;
-    /**
-     * 用户id
-     */
-    @JsonProperty("uid")
-    Long userId;
-    /**
-     * 用户名
-     */
-    @JsonProperty("username")
-    String username;
-    /**
      * 个人版名称
      */
     @JsonProperty("site")
     @JsonDeserialize(using = UserForumDeserializer.class)
     String userForum;
-    /**
-     * 账号状态
-     */
-    @JsonProperty("yz")
-    AccountStatus accountStatus;
 
     public static class Res extends LinkedHashMap<Integer, UserInfoBody> {
     }
