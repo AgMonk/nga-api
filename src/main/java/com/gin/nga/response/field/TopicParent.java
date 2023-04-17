@@ -1,5 +1,7 @@
 package com.gin.nga.response.field;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,13 +18,19 @@ public class TopicParent {
     /**
      * 版面id
      */
+    @JsonProperty("forumId")
+    @JsonAlias("0")
     Long forumId;
     /**
      * 合集主题id
      */
+    @JsonProperty("colTid")
+    @JsonAlias("1")
     Long colTid;
     /**
      * 版面/合集名称
      */
+    @JsonProperty("name")
+    @JsonAlias("2")
     String name;
 }   

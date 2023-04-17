@@ -66,10 +66,10 @@ public class Test {
         final NgaClient ngaClient = new NgaClient(cookie);
 
 
-//        threadTest(ngaClient);
+        threadTest(ngaClient);
 //        forumTest(ngaClient);
 //        readTest(ngaClient);
-        nukeTest(ngaClient);
+//        nukeTest(ngaClient);
     }
 
     public static void nukeTest( NgaClient ngaClient) throws IOException {
@@ -79,6 +79,6 @@ public class Test {
 //        nukeTest.testFavorForum();
 //        nukeTest.testFavorCol();
 //        nukeTest.testBlockForum(-547859L);
-        nukeTest.testRecommend();
+//        nukeTest.testRecommend();
     }
 }
