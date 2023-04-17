@@ -16,6 +16,8 @@ import java.util.Map;
 @Getter
 @Setter
 public class ForumInfo {
+    public static final String ICON_FORMAT = "https://img4.nga.178.com/proxy/cache_attach/ficon/%du.png";
+
     /**
      * 描述
      */
@@ -55,6 +57,10 @@ public class ForumInfo {
     Map<Long, Serializable> topicMiscVar;
     @JsonProperty("url")
     String url;
+
+    public String getIconUrl(){
+        return this.forumId==null?null:String.format(ICON_FORMAT,forumId);
+    }
 
     @Getter
     @Setter

@@ -5,6 +5,7 @@ import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.params.nuke.FavorForumParam;
 import com.gin.nga.params.nuke.NukeBaseParam;
 import com.gin.nga.params.nuke.UserInfoParam;
+import com.gin.nga.response.body.MessageBody;
 import com.gin.nga.response.body.nuke.FavorForumBody;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,60 @@ public class NgaNukeApi {
         final FavorForumParam param = new FavorForumParam();
         param.setAction("get");
         return nuke(param, FavorForumBody.Res.class);
+    }
+    /**
+     * 添加收藏版面
+     * @param forumId 版面id
+     * @return com.gin.nga.call.NgaJsonCall<?>
+     * @author bx002
+     * @since 2023/4/17 15:01
+     */
+    public NgaJsonCall<MessageBody> addFavorForum(long forumId){
+        final FavorForumParam param = new FavorForumParam();
+        param.setAction("add");
+        param.setForumId(forumId);
+        return nuke(param,MessageBody.class);
+    }
+
+ /**
+     * 删除收藏版面
+     * @param forumId 版面id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
+     * @author bx002
+     * @since 2023/4/17 15:01
+     */
+    public NgaJsonCall<MessageBody> delFavorForum(long forumId){
+        final FavorForumParam param = new FavorForumParam();
+        param.setAction("del");
+        param.setForumId(forumId);
+        return nuke(param, MessageBody.class);
+    }
+/**
+     * 添加收藏合集
+     * @param colTid 版面id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
+     * @author bx002
+     * @since 2023/4/17 15:01
+     */
+    public NgaJsonCall<MessageBody> addFavorCol(long colTid){
+        final FavorForumParam param = new FavorForumParam();
+        param.setAction("add");
+        param.setColTid(colTid);
+        return nuke(param,MessageBody.class);
+    }
+
+ /**
+     * 删除收藏合集
+     * @param colTid 版面id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
+     * @author bx002
+     * @since 2023/4/17 15:01
+     */
+    public NgaJsonCall<MessageBody> delFavorCol(long colTid){
+        final FavorForumParam param = new FavorForumParam();
+        param.setAction("del");
+        param.setColTid(colTid);
+        return nuke(param,MessageBody.class);
     }
 
 

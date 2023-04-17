@@ -55,4 +55,8 @@ public class Forum {
      */
     @JsonProperty("topped_topic")
     Long toppedTopicId;
+
+    public String getIconUrl(){
+        return this.forumId==null?null:String.format(ForumInfo.ICON_FORMAT, forumId);
+    }
 }   

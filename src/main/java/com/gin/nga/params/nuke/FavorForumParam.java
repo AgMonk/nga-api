@@ -18,11 +18,15 @@ public class FavorForumParam extends NukeBaseParam {
     @JsonProperty("action")
     String action;
     /**
-     * 版面id
+     * 版面id,添加和移除时填写
      */
     @JsonProperty("fid")
     Long forumId;
-
+    /**
+     * 合集id,添加和移除时填写
+     */
+    @JsonProperty("stid")
+    Long colTid;
 
     public FavorForumParam() {
         this.lib = "forum_favor2";

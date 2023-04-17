@@ -1,6 +1,7 @@
 package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.nga.response.field.ForumInfo;
 
 import java.util.LinkedHashMap;
 
@@ -37,7 +38,10 @@ public class FavorForumBody {
     @JsonProperty("stid")
     Long colTid;
 
+    public String getIconUrl() {
+        return this.id == null ? null : String.format(ForumInfo.ICON_FORMAT, id);
+    }
 
-    public static class Res extends LinkedHashMap<Integer,LinkedHashMap<Integer, FavorForumBody>> {
+    public static class Res extends LinkedHashMap<Integer, LinkedHashMap<Integer, FavorForumBody>> {
     }
 }   

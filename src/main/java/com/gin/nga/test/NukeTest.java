@@ -1,14 +1,11 @@
 package com.gin.nga.test;
 
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.NgaNukeApi;
 import com.gin.nga.callback.JsonCallback;
-import com.gin.nga.response.body.nuke.FavorForumBody;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -54,7 +51,15 @@ public class NukeTest {
     }
 
     public void testFavorForum() throws IOException {
-        final LinkedHashMap<Integer, FavorForumBody> map = api.getFavorForum().sync().get(0);
-        JacksonUtils.printPretty(map);
+        api.addFavorForum(428).sync();
+        api.getFavorForum().sync().get(0);
+        api.delFavorForum(428).sync();
+        api.getFavorForum().sync().get(0);
+    }
+    public void testFavorCol() throws IOException {
+        System.out.println(api.addFavorCol(28803280).sync().get(0));
+        api.getFavorForum().sync().get(0);
+        System.out.println(api.delFavorCol(28803280).sync().get(0));
+        api.getFavorForum().sync().get(0);
     }
 }   
