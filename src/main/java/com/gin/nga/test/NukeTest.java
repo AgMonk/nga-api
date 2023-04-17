@@ -2,6 +2,8 @@ package com.gin.nga.test;
 
 import com.gin.nga.api.NgaNukeApi;
 import com.gin.nga.callback.JsonCallback;
+import com.gin.nga.enums.FavorAction;
+import com.gin.nga.enums.FavorType;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
 
@@ -51,15 +53,15 @@ public class NukeTest {
     }
 
     public void testFavorForum() throws IOException {
-        api.addFavorForum(428).sync();
+        api.editFavorForum(FavorAction.add, FavorType.forum,428).sync();
         api.getFavorForum().sync().get(0);
-        api.delFavorForum(428).sync();
+        api.editFavorForum(FavorAction.del, FavorType.forum,428).sync();
         api.getFavorForum().sync().get(0);
     }
     public void testFavorCol() throws IOException {
-        System.out.println(api.addFavorCol(28803280).sync().get(0));
+        System.out.println( api.editFavorForum(FavorAction.add, FavorType.col,28803280).sync());
         api.getFavorForum().sync().get(0);
-        System.out.println(api.delFavorCol(28803280).sync().get(0));
+        System.out.println( api.editFavorForum(FavorAction.del, FavorType.col,28803280).sync());
         api.getFavorForum().sync().get(0);
     }
 }   

@@ -1,6 +1,7 @@
 package com.gin.nga.params.nuke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.nga.enums.FavorAction;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class FavorForumParam extends NukeBaseParam {
      * 操作类型
      */
     @JsonProperty("action")
-    String action;
+    FavorAction action;
     /**
      * 版面id,添加和移除时填写
      */
