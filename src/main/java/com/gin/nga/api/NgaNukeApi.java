@@ -3,6 +3,7 @@ package com.gin.nga.api;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.params.nuke.NukeBaseParam;
+import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -19,7 +20,7 @@ public class NgaNukeApi {
 
 
 
-    public NgaJsonCall<?> getUserInfo(Long uid,String username){
+    public NgaJsonCall<UserInfoBody> getUserInfo(Long uid, String username){
         return null;
     }
 
