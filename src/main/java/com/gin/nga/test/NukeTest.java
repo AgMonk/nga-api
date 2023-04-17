@@ -1,11 +1,11 @@
 package com.gin.nga.test;
 
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.NgaForumApi;
 import com.gin.nga.api.NgaNukeApi;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.enums.FavorAction;
 import com.gin.nga.enums.FavorType;
+import com.gin.nga.response.body.nuke.BlockSubForumBody;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +24,13 @@ public class NukeTest {
     private final NgaForumApi ngaForumApi;
 
     public void testBlockForum(long forumId) throws IOException {
-        JacksonUtils.printPretty(ngaForumApi.getBlockSubForum(forumId).sync());
+        final BlockSubForumBody blockSubForumBody = ngaForumApi.getBlockSubForum(forumId).sync().get(0);
+        final Long id = blockSubForumBody.getBlockTopicId().get(1);
+        ngaForumApi.delBlockSubForum(forumId,id).sync();
+        ngaForumApi.getBlockSubForum(forumId).sync().get(0);
+        ngaForumApi.addBlockSubForum(forumId,id).sync();
+        ngaForumApi.getBlockSubForum(forumId).sync().get(0);
+
     }
 
     public void testGetUserInfo() {

@@ -25,14 +25,33 @@ public class NgaForumApi {
     private final NgaClient client;
 
     /**
-     * 搜索版面
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ForumBody>
-     * @author bx002
-     * @since 2023/4/13 10:26
+     * 添加子版面屏蔽
+     * @param forumId 父版面id
+     * @param id      填写 {@link com.gin.nga.response.field.SubForum} 的 mirrorId 字段，或主题列表中的 {@link  com.gin.nga.response.field.TopicInfo} 的 topicId 字段
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
+     * @since 2023/4/17 16:26
      */
-    public NgaJsonCall<ForumBody> search(ForumParam param){
-        return client.callJson(NgaPhpApi.forum, param, null, ForumBody.class);
+    public NgaJsonCall<MessageBody> addBlockSubForum(long forumId, long id) {
+        final BlockSubForumParam param = new BlockSubForumParam();
+        param.setForumId(forumId);
+        param.setAddId(id);
+        param.setAct("set");
+        return nuke(param, MessageBody.class);
+    }
+
+    /**
+     * 移除子版面屏蔽
+     * @param forumId 父版面id
+     * @param id      填写 {@link com.gin.nga.response.field.SubForum} 的 mirrorId 字段，或主题列表中的 {@link  com.gin.nga.response.field.TopicInfo} 的 topicId 字段
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
+     * @since 2023/4/17 16:26
+     */
+    public NgaJsonCall<MessageBody> delBlockSubForum(long forumId, long id) {
+        final BlockSubForumParam param = new BlockSubForumParam();
+        param.setForumId(forumId);
+        param.setDelId(id);
+        param.setAct("set");
+        return nuke(param, MessageBody.class);
     }
 
     /**
@@ -80,9 +99,17 @@ public class NgaForumApi {
         return nuke(param, FavorForumBody.Res.class);
     }
 
+    /**
+     * 搜索版面
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ForumBody>
+     * @since 2023/4/13 10:26
+     */
+    public NgaJsonCall<ForumBody> search(ForumParam param) {
+        return client.callJson(NgaPhpApi.forum, param, null, ForumBody.class);
+    }
 
-
-    private  <T> NgaJsonCall<T> nuke(NukeBaseParam param, Class<T> responseClass) {
+    private <T> NgaJsonCall<T> nuke(NukeBaseParam param, Class<T> responseClass) {
         return client.callJson(NgaPhpApi.nuke, param, null, responseClass);
     }
 }   
