@@ -6,9 +6,11 @@ import com.gin.common.deserializer.ListIntDeserializer;
 import com.gin.nga.deserializer.UserAvatarDeserializer;
 import com.gin.nga.response.field.Honor;
 import com.gin.nga.response.field.Money;
+import com.gin.nga.response.field.UserMoreInfo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -116,12 +118,17 @@ public class UserInfoBody {
      */
     @JsonProperty("money")
     Money money;
-
-
+    /**
+     * 更多信息
+     */
+    @JsonProperty("more_info")
+    LinkedHashMap<Integer,UserMoreInfo> moreInfo;
     /**
      * 威望
      */
     @JsonProperty("rvrc")
     Integer prestige;
+
+    public static class Res extends LinkedHashMap<Integer,UserInfoBody>{}
 
 }   

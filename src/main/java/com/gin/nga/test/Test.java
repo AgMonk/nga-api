@@ -1,10 +1,7 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.nga.api.NgaClient;
-import com.gin.nga.api.NgaForumApi;
-import com.gin.nga.api.NgaReadApi;
-import com.gin.nga.api.NgaThreadApi;
+import com.gin.nga.api.*;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.forum.ForumParam;
 import com.gin.nga.response.body.ForumBody;
@@ -19,6 +16,20 @@ import java.io.IOException;
  * @since : 2023/4/11 10:56
  */
 public class Test {
+    public static void forumTest(NgaClient ngaClient) {
+        final NgaForumApi api = new NgaForumApi(ngaClient);
+
+        final ForumParam param = new ForumParam();
+        final String keyword = "少女";
+        param.setKeyword(keyword);
+        api.search(param).async(new JsonCallback<>() {
+            @Override
+            public void onSuccess(ForumBody body) {
+                Test.writeTestRes(body, String.format("forum-%s.json", keyword));
+            }
+        });
+    }
+
     /**
      * thread.php 接口测试
      */
@@ -28,20 +39,6 @@ public class Test {
         final ThreadTest threadTest = new ThreadTest(api);
         threadTest.setTestForumList(true);
         threadTest.test();
-    }
-
-    public static void forumTest(NgaClient ngaClient){
-        final NgaForumApi api = new NgaForumApi(ngaClient);
-
-        final ForumParam param = new ForumParam();
-        final String keyword = "少女";
-        param.setKeyword(keyword);
-        api.search(param).async(new JsonCallback<>() {
-            @Override
-            public void onSuccess(ForumBody body) {
-                Test.writeTestRes(body, String.format("forum-%s.json",keyword));
-            }
-        });
     }
 
     /**
@@ -57,6 +54,12 @@ public class Test {
         }
     }
 
+    private static void readTest(NgaClient ngaClient) {
+        final ReadTest readTest = new ReadTest(new NgaReadApi(ngaClient));
+
+        readTest.test();
+    }
+
     public static void main(String[] args) throws IOException {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
 
@@ -65,12 +68,13 @@ public class Test {
 
 //        threadTest(ngaClient);
 //        forumTest(ngaClient);
-        readTest(ngaClient);
+//        readTest(ngaClient);
+        nukeTest(ngaClient);
     }
 
-    private static void readTest(NgaClient ngaClient) {
-        final ReadTest readTest = new ReadTest(new NgaReadApi(ngaClient));
+    public static void nukeTest( NgaClient ngaClient){
+        final NukeTest nukeTest = new NukeTest(new NgaNukeApi(ngaClient));
 
-        readTest.test();
+        nukeTest.testGetUserInfo();
     }
 }
