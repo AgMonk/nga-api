@@ -24,6 +24,9 @@ import java.util.List;
 @Getter
 @Setter
 public class UserInfoInRead {
+    /**
+     * 头像
+     */
     @JsonProperty("avatar")
     @JsonDeserialize(using = UserAvatarDeserializer.class)
     List<String> avatars;
@@ -41,7 +44,7 @@ public class UserInfoInRead {
      * 荣誉称号
      */
     @JsonProperty("honor")
-    String honor;
+    Honor honor;
     /**
      * 徽章id
      */
