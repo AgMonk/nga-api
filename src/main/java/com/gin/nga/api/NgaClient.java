@@ -8,7 +8,9 @@ import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.exception.IllegalCookieException;
 import com.gin.nga.interceptor.LoggingInterceptor;
 import com.gin.nga.interfaze.DocumentParser;
+import com.gin.nga.params.PageParam;
 import com.gin.nga.params.nuke.NukeBaseParam;
+import com.gin.nga.response.body.ThreadBody;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import okhttp3.*;
@@ -199,6 +201,15 @@ public class NgaClient {
      */
     public <T> NgaJsonCall<T> nuke(NukeBaseParam param, Class<T> responseClass){
         return callJson(NgaPhpApi.nuke, param, null, responseClass);
+    }
+
+    /**
+     * 查询主题列表
+     * @param queryParam 查询参数
+     * @return Call
+     */
+    public NgaJsonCall<ThreadBody> thread(PageParam queryParam) {
+        return callJson(NgaPhpApi.thread, queryParam, null, ThreadBody.class);
     }
 
     /**

@@ -1,8 +1,6 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
-import com.gin.nga.enums.NgaPhpApi;
-import com.gin.nga.params.PageParam;
 import com.gin.nga.params.thread.*;
 import com.gin.nga.response.body.ThreadBody;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +23,7 @@ public class NgaThreadApi {
      * @since 2023/4/12 9:34
      */
     public NgaJsonCall<ThreadBody> colList(ColListParam param) {
-        return thread(param);
+        return client.thread(param);
     }
 
     /**
@@ -36,7 +34,7 @@ public class NgaThreadApi {
      * @since 2023/4/12 9:35
      */
     public NgaJsonCall<ThreadBody> colSearch(ColSearchParam param) {
-        return thread(param);
+        return client.thread(param);
     }
 
     /**
@@ -47,7 +45,7 @@ public class NgaThreadApi {
      * @since 2023/4/12 9:38
      */
     public NgaJsonCall<ThreadBody> favor(FavorParam param) {
-        return thread(param);
+        return client.thread(param);
     }
 
     /**
@@ -58,7 +56,7 @@ public class NgaThreadApi {
      * @since 2023/4/12 9:39
      */
     public NgaJsonCall<ThreadBody> forumList(ForumListParam param) {
-        return thread(param);
+        return client.thread(param);
     }
 
     /**
@@ -68,7 +66,7 @@ public class NgaThreadApi {
      * @author bx002
      * @since 2023/4/12 9:39
      */
-    public NgaJsonCall<ThreadBody> forumSearch(ForumSearchParam param) {return thread(param);}
+    public NgaJsonCall<ThreadBody> forumSearch(ForumSearchParam param) {return client.thread(param);}
 
     /**
      * 搜索用户主题/回复
@@ -78,16 +76,8 @@ public class NgaThreadApi {
      * @since 2023/4/12 9:39
      */
     public NgaJsonCall<ThreadBody> userSearch(UserSearchParam param) {
-        return thread(param);
+        return client.thread(param);
     }
 
 
-    /**
-     * 查询主题列表
-     * @param queryParam 查询参数
-     * @return Call
-     */
-    private NgaJsonCall<ThreadBody> thread(PageParam queryParam) {
-        return client.callJson(NgaPhpApi.thread, queryParam, null, ThreadBody.class);
-    }
-}   
+}
