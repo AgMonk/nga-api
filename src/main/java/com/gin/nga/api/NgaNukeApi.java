@@ -2,8 +2,10 @@ package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.enums.NgaPhpApi;
+import com.gin.nga.params.nuke.FavorForumParam;
 import com.gin.nga.params.nuke.NukeBaseParam;
 import com.gin.nga.params.nuke.UserInfoParam;
+import com.gin.nga.response.body.nuke.FavorForumBody;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +42,18 @@ public class NgaNukeApi {
      */
     public NgaJsonCall< UserInfoBody.Res> getUserInfo(String  username){
         return nuke(new UserInfoParam(username),  UserInfoBody.Res.class);
+    }
+
+/**
+ * 查询收藏版面
+ * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.FavorForumBody.Res>
+ * @author bx002
+ * @since 2023/4/17 14:50
+ */
+    public NgaJsonCall<FavorForumBody.Res> getFavorForum(){
+        final FavorForumParam param = new FavorForumParam();
+        param.setAction("get");
+        return nuke(param, FavorForumBody.Res.class);
     }
 
 

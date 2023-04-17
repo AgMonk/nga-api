@@ -19,8 +19,6 @@ public abstract class JsonCallback<T> extends AbstractCallback<T> {
      */
     @Override
     public T parse(String resString) throws JsonProcessingException, NgaServerException {
-        //todo 移除
-        System.out.println("res = " + resString);
         return NgaRes.parse(resString,eClass).getData();
     }
 }

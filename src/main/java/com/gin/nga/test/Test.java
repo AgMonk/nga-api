@@ -68,13 +68,14 @@ public class Test {
 
 //        threadTest(ngaClient);
 //        forumTest(ngaClient);
-        readTest(ngaClient);
-//        nukeTest(ngaClient);
+//        readTest(ngaClient);
+        nukeTest(ngaClient);
     }
 
-    public static void nukeTest( NgaClient ngaClient){
+    public static void nukeTest( NgaClient ngaClient) throws IOException {
         final NukeTest nukeTest = new NukeTest(new NgaNukeApi(ngaClient));
 
-        nukeTest.testGetUserInfo();
+//        nukeTest.testGetUserInfo();
+        nukeTest.testFavorForum();
     }
 }

@@ -22,5 +22,5 @@ public class NukeBaseParam {
      * 操作名称
      */
     @JsonProperty("__act")
-    String action;
+    String act;
 }   
