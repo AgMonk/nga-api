@@ -68,8 +68,8 @@ public class Test {
 
 //        threadTest(ngaClient);
 //        forumTest(ngaClient);
-//        readTest(ngaClient);
-        nukeTest(ngaClient);
+        readTest(ngaClient);
+//        nukeTest(ngaClient);
     }
 
     public static void nukeTest( NgaClient ngaClient){

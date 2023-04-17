@@ -1,15 +1,12 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
-import com.gin.nga.deserializer.ReputationDeserializer;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
-import java.util.LinkedHashMap;
 
 /**
  * read.php接口返回的用户信息
@@ -33,9 +30,7 @@ public class UserInfoInRead extends  BaseUserInfo{
      * 声望数据 , 声望id -> 声望值
      */
     @JsonProperty("reputation")
-    @JsonDeserialize(using = ReputationDeserializer.class)
-    LinkedHashMap<Integer, Integer> reputation;
-
+    ReputationInRead reputation;
     /**
      * 个人版名称
      */
