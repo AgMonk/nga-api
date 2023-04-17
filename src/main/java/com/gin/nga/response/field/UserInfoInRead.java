@@ -57,10 +57,10 @@ public class UserInfoInRead {
     @JsonProperty("memberid")
     Integer memberId;
     /**
-     * 铜币数量
+     * 货币
      */
     @JsonProperty("money")
-    Long money;
+    Money money;
     /**
      * 昵称
      */

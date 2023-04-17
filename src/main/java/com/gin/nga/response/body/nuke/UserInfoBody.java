@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.common.deserializer.ListIntDeserializer;
 import com.gin.nga.deserializer.UserAvatarDeserializer;
 import com.gin.nga.response.field.Honor;
+import com.gin.nga.response.field.Money;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -111,10 +112,10 @@ public class UserInfoBody {
     @JsonProperty("memberid")
     Integer memberId;
     /**
-     * 铜币数量
+     * 货币
      */
     @JsonProperty("money")
-    Long money;
+    Money money;
 
 
     /**

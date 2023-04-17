@@ -63,9 +63,9 @@ public class Test {
         final NgaClient ngaClient = new NgaClient(cookie);
 
 
-        threadTest(ngaClient);
+//        threadTest(ngaClient);
 //        forumTest(ngaClient);
-//        readTest(ngaClient);
+        readTest(ngaClient);
     }
 
     private static void readTest(NgaClient ngaClient) {
