@@ -1,6 +1,7 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.JacksonUtils;
+import com.gin.nga.api.NgaForumApi;
 import com.gin.nga.api.NgaNukeApi;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.enums.FavorAction;
@@ -19,10 +20,11 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 public class NukeTest {
-    private final NgaNukeApi api;
+    private final NgaNukeApi ngaNukeApi;
+    private final NgaForumApi ngaForumApi;
 
     public void testBlockForum(long forumId) throws IOException {
-        JacksonUtils.printPretty(api.getBlockSubForum(forumId).sync());
+        JacksonUtils.printPretty(ngaForumApi.getBlockSubForum(forumId).sync());
     }
 
     public void testGetUserInfo() {
@@ -35,7 +37,7 @@ public class NukeTest {
         );
 
         for (Long uid : uidList) {
-            api.getUserInfo(uid).async(new JsonCallback<>() {
+            ngaNukeApi.getUserInfo(uid).async(new JsonCallback<>() {
                 @Override
                 public void onSuccess( UserInfoBody.Res body) {
                     Test.writeTestRes(body.get(0), String.format("user-info-%d.json", uid));
@@ -58,15 +60,15 @@ public class NukeTest {
     }
 
     public void testFavorForum() throws IOException {
-        api.editFavorForum(FavorAction.add, FavorType.forum,428).sync();
-        api.getFavorForum().sync().get(0);
-        api.editFavorForum(FavorAction.del, FavorType.forum,428).sync();
-        api.getFavorForum().sync().get(0);
+        ngaForumApi.editFavorForum(FavorAction.add, FavorType.forum, 428).sync();
+        ngaForumApi.getFavorForum().sync().get(0);
+        ngaForumApi.editFavorForum(FavorAction.del, FavorType.forum, 428).sync();
+        ngaForumApi.getFavorForum().sync().get(0);
     }
     public void testFavorCol() throws IOException {
-        System.out.println( api.editFavorForum(FavorAction.add, FavorType.col,28803280).sync());
-        api.getFavorForum().sync().get(0);
-        System.out.println( api.editFavorForum(FavorAction.del, FavorType.col,28803280).sync());
-        api.getFavorForum().sync().get(0);
+        System.out.println(ngaForumApi.editFavorForum(FavorAction.add, FavorType.col, 28803280).sync());
+        ngaForumApi.getFavorForum().sync().get(0);
+        System.out.println(ngaForumApi.editFavorForum(FavorAction.del, FavorType.col, 28803280).sync());
+        ngaForumApi.getFavorForum().sync().get(0);
     }
 }   
