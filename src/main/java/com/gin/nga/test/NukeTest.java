@@ -1,5 +1,6 @@
 package com.gin.nga.test;
 
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.NgaNukeApi;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.enums.FavorAction;
@@ -19,6 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NukeTest {
     private final NgaNukeApi api;
+
+    public void testBlockForum(long forumId) throws IOException {
+        JacksonUtils.printPretty(api.getBlockSubForum(forumId).sync());
+    }
 
     public void testGetUserInfo() {
         List<Long> uidList = List.of(

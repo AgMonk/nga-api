@@ -76,7 +76,8 @@ public class Test {
         final NukeTest nukeTest = new NukeTest(new NgaNukeApi(ngaClient));
 
 //        nukeTest.testGetUserInfo();
-        nukeTest.testFavorForum();
-        nukeTest.testFavorCol();
+//        nukeTest.testFavorForum();
+//        nukeTest.testFavorCol();
+        nukeTest.testBlockForum(-547859L);
     }
 }
