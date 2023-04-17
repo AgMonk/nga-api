@@ -193,7 +193,6 @@ public class ReplyInfo extends ReplySimple {
                         e.getElementsByTag("span").stream()
                                 .filter(it -> "reply time".equals(it.attr("title")))
                                 .findFirst().ifPresent(it -> replyInfo.setPostDatetime(TimeUtils.parse(it.ownText(), TimeUtils.CHINESE_ZONE_ID))));
-                // todo 改动信息
 
                 // 标题
                 handleElement(comment, "postcommentsubject_" + replyId, e -> replyInfo.setTitle(e.ownText()));

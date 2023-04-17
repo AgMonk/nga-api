@@ -1,8 +1,10 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.deserializer.ParentDeserializer;
 import com.gin.nga.enums.ReplyStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -65,8 +67,8 @@ public class TopicInfo {
      * 所属合集信息, 字段"1" 为 fid, "2"为版面名称
      */
     @JsonProperty("parent")
-            //todo 解析
-    Map<Long, Serializable> parentInfo;
+    @JsonDeserialize(using = ParentDeserializer.class)
+    TopicParent topicParent;
     /**
      * 发表时间
      */
