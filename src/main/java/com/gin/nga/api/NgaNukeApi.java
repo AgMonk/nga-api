@@ -1,7 +1,9 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
+import com.gin.nga.params.nuke.TopicKeyParam;
 import com.gin.nga.params.nuke.UserInfoParam;
+import com.gin.nga.response.body.nuke.TopicKeys;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
 
@@ -16,8 +18,16 @@ public class NgaNukeApi {
     private final NgaClient client;
 
     //todo
-
-
+    /**
+     * 查询版面的主题分类
+     * @param forumId 版面id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.TopicKeys>
+     * @author bx002
+     * @since 2023/4/18 14:46
+     */
+    public NgaJsonCall<TopicKeys> getTopicKey(long forumId){
+        return client.nuke(new TopicKeyParam(forumId),TopicKeys.class);
+    }
 
 
     /**

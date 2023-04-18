@@ -1,6 +1,7 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.*;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.forum.ForumParam;
@@ -69,10 +70,12 @@ public class Test {
 //        threadTest(ngaClient);
 //        forumTest(ngaClient);
 //        readTest(ngaClient);
-        nukeTest(ngaClient);
+//        nukeTest(ngaClient);
 //        final ReadTopicParam param = new ReadTopicParam();
 //        param.setTopicId(33506312L);
 //        JacksonUtils.printPretty(new NgaReadApi(ngaClient).readTopic(param).sync());
+
+        JacksonUtils.printPretty(new NgaNukeApi( ngaClient).getTopicKey(428).sync());
     }
 
     public static void nukeTest( NgaClient ngaClient) throws IOException {
@@ -83,6 +86,7 @@ public class Test {
 //        nukeTest.testFavorCol();
 //        nukeTest.testBlockForum(-547859L);
 //        nukeTest.testRecommend();
-        nukeTest.testNotice();
+//        nukeTest.testNotice();
+
     }
 }
