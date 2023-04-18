@@ -1,6 +1,7 @@
 package com.gin.nga.response.field.notice;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.nga.enums.ReplyNoticeType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +15,10 @@ import lombok.Setter;
 @Setter
 public class ReplyNotice  extends  BaseNotice {
     /**
-     * todo 未知数据
+     * 类型
      */
     @JsonAlias("0")
-    Integer data;
+    ReplyNoticeType type;
     /**
      * 作者uid
      */
