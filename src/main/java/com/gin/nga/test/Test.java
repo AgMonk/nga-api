@@ -1,9 +1,11 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.*;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.forum.ForumParam;
+import com.gin.nga.params.nuke.ListFavorFolderParam;
 import com.gin.nga.response.body.ForumBody;
 
 import java.io.File;
@@ -66,8 +68,7 @@ public class Test {
         final NgaClient ngaClient = new NgaClient(cookie);
 
 
-        new NgaNukeApi(ngaClient).delAttachment(33506312,684821574,"-laxlQ4rgg-3zdsK7T1kSak-7j.png").sync();
-
+        JacksonUtils.printPretty(new NgaFavorApi(ngaClient).get(new ListFavorFolderParam()).sync());
     }
 
     public static void nukeTest( NgaClient ngaClient) throws IOException {
