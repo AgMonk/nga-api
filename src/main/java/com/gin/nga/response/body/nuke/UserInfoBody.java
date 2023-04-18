@@ -21,22 +21,22 @@ import java.util.LinkedHashMap;
 @Setter
 public class UserInfoBody extends  BaseUserInfo{
     /**
-     * 超管
+     * 有管理员权限
      */
     @JsonProperty("_admin")
     boolean admin;
     /**
-     * greater管理员
+     * 有版主权限
      */
     @JsonProperty("_greater")
     boolean greaterAdmin;
     /**
-     * lesser管理员
+     * 有次级版主权限
      */
     @JsonProperty("_lesser")
     boolean lesserAdmin;
     /**
-     * super管理员
+     * 有超版权限
      */
     @JsonProperty("_super")
     boolean superAdmin;
