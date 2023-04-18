@@ -1,6 +1,7 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.nga.enums.FavorFolderType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,7 @@ public class FavorFolder {
      * 类型
      */
     @JsonAlias("type")
-    Long type;
+    FavorFolderType type;
     /**
      * 收藏夹名称
      */

@@ -5,7 +5,6 @@ import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.*;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.forum.ForumParam;
-import com.gin.nga.params.nuke.ListFavorFolderParam;
 import com.gin.nga.response.body.ForumBody;
 
 import java.io.File;
@@ -68,7 +67,9 @@ public class Test {
         final NgaClient ngaClient = new NgaClient(cookie);
 
 
-        JacksonUtils.printPretty(new NgaFavorApi(ngaClient).get(new ListFavorFolderParam()).sync());
+        final NgaFavorApi api = new NgaFavorApi(ngaClient);
+        JacksonUtils.printPretty(api.modify("私有收藏",false,1298308).sync());
+        JacksonUtils.printPretty(api.get().sync());
     }
 
     public static void nukeTest( NgaClient ngaClient) throws IOException {

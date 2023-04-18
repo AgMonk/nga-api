@@ -1,8 +1,11 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
-import com.gin.nga.params.nuke.ListFavorFolderParam;
+import com.gin.nga.params.nuke.FavorFolderListParam;
+import com.gin.nga.params.nuke.FavorFolderModifyParam;
+import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.FavorFolderBody;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -14,8 +17,45 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NgaFavorApi {
     private final NgaClient client;
+/**
+     * 查询自己的收藏夹列表
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.FavorFolderBody>
+     * @since 2023/4/18 16:45
+     */
+    public NgaJsonCall<FavorFolderBody> get() {
+        return get(null, null);
+    }
 
-    public NgaJsonCall<FavorFolderBody> get(ListFavorFolderParam param) {
+
+    /**
+ * 查询收藏夹列表
+ * @param page 页码
+ * @param userId 用户id
+ * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.FavorFolderBody>
+ * @author bx002
+ * @since 2023/4/18 16:45
+ */
+    public NgaJsonCall<FavorFolderBody> get(Integer page, Long userId) {
+        final FavorFolderListParam param = new FavorFolderListParam();
+        param.setPage(page);
+        param.setUserId(userId);
         return client.nuke(param, FavorFolderBody.class);
+    }
+
+/**
+ * 修改收藏夹
+ * @param name 名称
+ * @param isPublic 是否公开收藏
+ * @param folderId 收藏夹id
+ * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+ * @author bx002
+ * @since 2023/4/18 16:48
+ */
+    public NgaJsonCall<BaseMessageBody> modify(@NotNull String name, boolean isPublic, long folderId){
+        final FavorFolderModifyParam param = new FavorFolderModifyParam();
+        param.setName(name);
+        param.setIsPublic(isPublic?1:0);
+        param.setFolderId(folderId);
+        return client.nuke(param, BaseMessageBody.class);
     }
 }   

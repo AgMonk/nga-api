@@ -12,12 +12,12 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ListFavorFolderParam extends NukeBaseParam {
+public class FavorFolderListParam extends NukeBaseParam {
     Integer page;
     @JsonProperty("uid")
     Long userId;
 
-    public ListFavorFolderParam() {
+    public FavorFolderListParam() {
         setAct("list_folder");
         setLib("topic_favor_v2");
     }
