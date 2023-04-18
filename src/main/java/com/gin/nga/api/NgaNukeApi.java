@@ -1,8 +1,10 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
+import com.gin.nga.params.nuke.NoticeParam;
 import com.gin.nga.params.nuke.RecommendParam;
 import com.gin.nga.params.nuke.UserInfoParam;
+import com.gin.nga.response.body.nuke.NoticeBody;
 import com.gin.nga.response.body.nuke.RecommendBody;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
@@ -50,13 +52,12 @@ public class NgaNukeApi {
     }
 
     /**
-     * 查询用户信息
-     * @param username 用户名
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.UserInfoBody>
-     * @since 2023/4/17 11:28
+     * 查询提醒消息
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.NoticeBody.Res>
+     * @since 2023/4/18 9:26
      */
-    public NgaJsonCall<UserInfoBody.Res> getUserInfo(String username) {
-        return client.nuke(new UserInfoParam(username), UserInfoBody.Res.class);
+    public NgaJsonCall<NoticeBody.Res> getNotice() {
+        return client.nuke(new NoticeParam(), NoticeBody.Res.class);
     }
 
     /**
@@ -67,6 +68,16 @@ public class NgaNukeApi {
      */
     public NgaJsonCall<UserInfoBody.Res> getUserInfo(long userId) {
         return client.nuke(new UserInfoParam(userId), UserInfoBody.Res.class);
+    }
+
+    /**
+     * 查询用户信息
+     * @param username 用户名
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.UserInfoBody>
+     * @since 2023/4/17 11:28
+     */
+    public NgaJsonCall<UserInfoBody.Res> getUserInfo(String username) {
+        return client.nuke(new UserInfoParam(username), UserInfoBody.Res.class);
     }
 
 }

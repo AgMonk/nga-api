@@ -37,16 +37,27 @@ public class NgaRes<T> {
         final NgaServerException exception = new NgaServerException(500, null, "响应信息不完整, 请稍后再试");
         try {
             final JavaType javaType = JacksonUtils.MAPPER.getTypeFactory().constructParametricType(NgaRes.class, clazz);
-            return JacksonUtils.MAPPER.readValue(s, javaType);
-        } catch (JsonEOFException  e) {
+            return JacksonUtils.MAPPER.readValue(handle(s), javaType);
+        } catch (JsonEOFException e) {
             // 错误的结束符号
             throw exception;
-        } catch (JsonMappingException e){
+        } catch (JsonMappingException e) {
             if (e.getCause() instanceof JsonEOFException) {
                 // 错误的结束符号
                 throw exception;
             }
             throw e;
         }
+    }
+
+    /**
+     * 字符串预处理
+     * @param s 字符串
+     * @return 处理后字符串
+     */
+    private static String handle(String s) {
+        // 添加引号
+        return s.replaceAll("([,{ ])(\\w+?):", "$1\"$2\":")
+                ;
     }
 }   
