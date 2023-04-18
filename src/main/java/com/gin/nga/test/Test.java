@@ -76,6 +76,7 @@ public class Test {
 //        JacksonUtils.printPretty(new NgaReadApi(ngaClient).readTopic(param).sync());
 
         JacksonUtils.printPretty(new NgaNukeApi( ngaClient).getTopicKey(428).sync());
+        JacksonUtils.printPretty(new NgaNukeApi( ngaClient).getTopicKey(-547859).sync());
     }
 
     public static void nukeTest( NgaClient ngaClient) throws IOException {
