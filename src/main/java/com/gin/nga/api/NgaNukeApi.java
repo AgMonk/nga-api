@@ -1,8 +1,11 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
+import com.gin.nga.enums.NgaPhpApi;
+import com.gin.nga.params.nuke.DelAttachParam;
 import com.gin.nga.params.nuke.TopicKeyParam;
 import com.gin.nga.params.nuke.UserInfoParam;
+import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.nuke.TopicKeys;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +20,32 @@ import lombok.RequiredArgsConstructor;
 public class NgaNukeApi {
     private final NgaClient client;
 
+    /**
+     * 删除附件
+     * @param topicId  主题id
+     * @param replyId  回复id
+     * @param filename 文件名
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @since 2023/4/18 16:00
+     */
+    public NgaJsonCall<BaseMessageBody> delAttachment(
+            long topicId,
+            long replyId,
+            String filename
+    ) {
+        return client.callJson(NgaPhpApi.nuke, new DelAttachParam(topicId, replyId, filename), null, BaseMessageBody.class);
+    }
+
     //todo
+
     /**
      * 查询版面的主题分类
      * @param forumId 版面id
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.TopicKeys>
-     * @author bx002
      * @since 2023/4/18 14:46
      */
-    public NgaJsonCall<TopicKeys> getTopicKey(long forumId){
-        return client.nuke(new TopicKeyParam(forumId),TopicKeys.class);
+    public NgaJsonCall<TopicKeys> getTopicKey(long forumId) {
+        return client.nuke(new TopicKeyParam(forumId), TopicKeys.class);
     }
 
 
