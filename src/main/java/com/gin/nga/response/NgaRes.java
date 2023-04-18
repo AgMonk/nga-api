@@ -37,7 +37,7 @@ public class NgaRes<T> {
         final NgaServerException exception = new NgaServerException(500, null, "响应信息不完整, 请稍后再试");
         try {
             final JavaType javaType = JacksonUtils.MAPPER.getTypeFactory().constructParametricType(NgaRes.class, clazz);
-            return JacksonUtils.MAPPER.readValue(handle(s), javaType);
+            return JacksonUtils.MAPPER.readValue(s, javaType);
         } catch (JsonEOFException e) {
             // 错误的结束符号
             throw exception;

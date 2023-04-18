@@ -1,13 +1,19 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
+import com.gin.nga.enums.NgaPhpApi;
+import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.params.nuke.NoticeParam;
 import com.gin.nga.params.nuke.RecommendParam;
 import com.gin.nga.params.nuke.UserInfoParam;
+import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.nuke.NoticeBody;
 import com.gin.nga.response.body.nuke.RecommendBody;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
+
+import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * 综合操作相关API
@@ -78,6 +84,24 @@ public class NgaNukeApi {
      */
     public NgaJsonCall<UserInfoBody.Res> getUserInfo(String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.Res.class);
+    }
+
+    /**
+     * 关闭 / 开启某一楼提醒消息, 关闭后回复状态中将出现 {@link  ReplyStatus} 的 NO_HINT 属性
+     * @param topicId 主题id
+     * @param replyId 回复id
+     * @param enable  true = 开启 false = 关闭
+     * @return com.gin.nga.call.NgaJsonCall<BaseMessageBody>
+     * @since 2023/4/18 10:59
+     */
+    public NgaJsonCall<BaseMessageBody> enableNotice(long topicId, long replyId, boolean enable) {
+        final HashMap<String, Serializable> param = new HashMap<>(5);
+        param.put("func", "noti_tag");
+        param.put("no_hint", enable ? 0 : 1);
+        param.put("tid", topicId);
+        param.put("pid", replyId);
+        param.put("raw", 3);
+        return client.callJson(NgaPhpApi.nuke, param, null, BaseMessageBody.class);
     }
 
 }
