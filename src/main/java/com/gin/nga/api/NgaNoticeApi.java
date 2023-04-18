@@ -3,6 +3,7 @@ package com.gin.nga.api;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.enums.ReplyStatus;
+import com.gin.nga.params.nuke.NoticeClearParam;
 import com.gin.nga.params.nuke.NoticeParam;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.nuke.NoticeBody;
@@ -48,4 +49,11 @@ public class NgaNoticeApi {
     public NgaJsonCall<NoticeBody.Res> get() {
         return client.nuke(new NoticeParam(), NoticeBody.Res.class);
     }
+    /**
+     * 清空提醒消息
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/4/18 13:48
+     */
+    public NgaJsonCall<BaseMessageBody> clear(){return client.nuke(new NoticeClearParam(), BaseMessageBody.class);}
 }   

@@ -76,7 +76,7 @@ public class Test {
     }
 
     public static void nukeTest( NgaClient ngaClient) throws IOException {
-        final NukeTest nukeTest = new NukeTest(new NgaNukeApi(ngaClient),new NgaForumApi(ngaClient));
+        final NukeTest nukeTest = new NukeTest(ngaClient);
 
 //        nukeTest.testGetUserInfo();
 //        nukeTest.testFavorForum();
