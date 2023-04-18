@@ -18,11 +18,6 @@ import java.time.ZonedDateTime;
 @Setter
 public class BaseNotice {
     /**
-     * 未知数据
-     */
-    @JsonAlias("0")
-    Long data;
-    /**
      * 回复时间
      */
     @JsonAlias("9")

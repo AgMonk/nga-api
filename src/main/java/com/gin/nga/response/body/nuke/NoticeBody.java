@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.response.field.notice.MessageNotice;
+import com.gin.nga.response.field.notice.RecommendNotice;
 import com.gin.nga.response.field.notice.ReplyNotice;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,10 +23,11 @@ import java.util.List;
 @Setter
 public class NoticeBody {
     @JsonAlias("0")
-    List<ReplyNotice> replyNotice;
+    List<ReplyNotice> replyNotices;
     @JsonAlias("1")
-    List<MessageNotice> msgNotice;
-
+    List<MessageNotice> msgNotices;
+    @JsonAlias("2")
+    List<RecommendNotice> recommendNotices;
     /**
      * 获得时间
      */

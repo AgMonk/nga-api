@@ -14,6 +14,11 @@ import lombok.Setter;
 @Setter
 public class ReplyNotice  extends  BaseNotice {
     /**
+     * todo 未知数据
+     */
+    @JsonAlias("0")
+    Integer data;
+    /**
      * 作者uid
      */
     @JsonAlias("1")
