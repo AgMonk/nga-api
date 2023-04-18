@@ -23,4 +23,8 @@ public class BaseNotice {
     @JsonAlias("9")
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime timestamp;
+    /**
+     * 是否已读, 不存在字段，提供给用户自行修改
+     */
+    boolean read = false;
 }   
