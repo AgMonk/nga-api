@@ -60,7 +60,8 @@ public class NukeTest {
     public void testGetUserInfo() {
         List<Long> uidList = List.of(
                 39841854L
-                , 35159831L
+//                , 35159831L
+                , 24984254L
 //                ,993945L
 //                ,195362L
 //                ,38148967L

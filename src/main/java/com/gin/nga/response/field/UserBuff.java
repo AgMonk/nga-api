@@ -3,6 +3,7 @@ package com.gin.nga.response.field;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.enums.UserBuffType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,10 +24,10 @@ public class UserBuff {
     @JsonAlias("0")
     Long id;
     /**
-     * 目前已知129与权限有关
+     * buff类型
      */
     @JsonAlias("1")
-    Integer type;
+    UserBuffType type;
     /**
      * 未知数据
      */
@@ -50,10 +51,10 @@ public class UserBuff {
     @JsonAlias("5")
     ZonedDateTime end;
     /**
-     * 未知数据
+     * 版面id，禁言类型有值
      */
     @JsonAlias("6")
-    Integer data6;
+    Long forumId;
     /**
      * 未知数据
      */

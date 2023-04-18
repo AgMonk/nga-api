@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.UserForumDeserializer;
 import com.gin.nga.response.field.BaseUserInfo;
-import com.gin.nga.response.field.UserBuff;
 import com.gin.nga.response.field.UserMoreInfo;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,9 +48,7 @@ public class UserInfoBody extends  BaseUserInfo{
 
     @JsonProperty("bit")
     Long bitData;
-    @JsonProperty("buffs")
-//    @JsonDeserialize(using = UserBuffDeserializer.class)
-    LinkedHashMap<Integer, UserBuff> buffs;
+
     @JsonProperty("email")
     String email;
     /**
