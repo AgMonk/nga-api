@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.deserializer.CustomLevelDeserializer;
 import com.gin.nga.document.DocLink;
 import com.gin.nga.document.Navigation;
 import com.gin.nga.enums.NgaLinkType;
+import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.field.*;
 import com.gin.nga.utils.HtmlUtils;
 import com.gin.nga.utils.NgaLink;
@@ -153,10 +153,10 @@ public class ReadBody {
             final Matcher matcher = USER_INFO_PATTERN.matcher(docString);
             if (matcher.find()) {
                 try {
-                    final TypeFactory typeFactory = JacksonUtils.MAPPER.getTypeFactory();
+                    final TypeFactory typeFactory = NgaRes.MAPPER.getTypeFactory();
                     final MapLikeType mapLikeType = typeFactory.constructMapLikeType(LinkedHashMap.class, String.class, Object.class);
                     final String group = matcher.group(1);
-                    final LinkedHashMap<String, Object> map = JacksonUtils.MAPPER.readValue(group.substring(0, group.length() - 2), mapLikeType);
+                    final LinkedHashMap<String, Object> map = NgaRes.MAPPER.readValue(group.substring(0, group.length() - 2), mapLikeType);
                     this.userInfoField = new UserFieldInRead(map);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();

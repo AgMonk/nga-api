@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.deserializer.UserFieldInReadDeserializer;
+import com.gin.nga.response.NgaRes;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -72,8 +73,8 @@ public class UserFieldInRead {
                     map.forEach((k, v) -> {
                         final int id = Integer.parseInt(String.valueOf(k));
                         try {
-                            final String s = JacksonUtils.MAPPER.writeValueAsString(v);
-                            Map<Integer, Serializable> data = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
+                            final String s = NgaRes.MAPPER.writeValueAsString(v);
+                            Map<Integer, Serializable> data = NgaRes.MAPPER.readValue(s, new TypeReference<>() {
                             });
                             groups.put(id, new UserGroup(data));
                         } catch (JsonProcessingException e) {
@@ -87,8 +88,8 @@ public class UserFieldInRead {
                     map.forEach((k, v) -> {
                         final int id = Integer.parseInt(String.valueOf(k));
                         try {
-                            final String s = JacksonUtils.MAPPER.writeValueAsString(v);
-                            Map<Integer, Serializable> data = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
+                            final String s = NgaRes.MAPPER.writeValueAsString(v);
+                            Map<Integer, Serializable> data = NgaRes.MAPPER.readValue(s, new TypeReference<>() {
                             });
                             medals.put(id, new Medal(data));
                         } catch (JsonProcessingException e) {
@@ -99,8 +100,8 @@ public class UserFieldInRead {
             } else if (REPUTATIONS_FIELD.equals(key)) {
                 //声望信息
                 try {
-                    final String s = JacksonUtils.MAPPER.writeValueAsString(obj);
-                    this.reputations = JacksonUtils.MAPPER.readValue(s, new TypeReference<>() {
+                    final String s = NgaRes.MAPPER.writeValueAsString(obj);
+                    this.reputations = NgaRes.MAPPER.readValue(s, new TypeReference<>() {
                     });
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();

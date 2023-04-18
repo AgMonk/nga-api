@@ -85,7 +85,7 @@ public class NukeTest {
     }
 
     public void testNotice() throws IOException {
-        JacksonUtils.printPretty(ngaNukeApi.stopNotice(33506312L,684733551L).sync());
+//        JacksonUtils.printPretty(ngaNukeApi.enableNotice(33506312L,684733551L,true).sync());
         JacksonUtils.printPretty(ngaNukeApi.getNotice().sync().get(0));
     }
 }   

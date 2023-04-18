@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.gin.common.utils.JacksonUtils;
+import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.field.SubForum;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class SubForumsDeserializer extends JsonDeserializer<List<SubForum>> {
     @Override
     public List<SubForum> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         final ArrayList<SubForum> res = new ArrayList<>();
-        final TypeFactory typeFactory = JacksonUtils.MAPPER.getTypeFactory();
+        final TypeFactory typeFactory = NgaRes.MAPPER.getTypeFactory();
         final MapLikeType valueType = typeFactory.constructMapLikeType(LinkedHashMap.class, Integer.class, Serializable.class);
         final JavaType stringType = typeFactory.constructType(String.class);
         final MapLikeType type = typeFactory.constructMapLikeType(LinkedHashMap.class, stringType, valueType);

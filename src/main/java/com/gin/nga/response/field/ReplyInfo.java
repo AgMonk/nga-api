@@ -6,10 +6,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.common.utils.TimeUtils;
 import com.gin.nga.deserializer.GiftDeserializer;
 import com.gin.nga.enums.FromClient;
+import com.gin.nga.response.NgaRes;
 import com.gin.nga.utils.HtmlUtils;
 import com.gin.nga.utils.QueryStringUtils;
 import lombok.Getter;
@@ -272,7 +272,7 @@ public class ReplyInfo extends ReplySimple {
                     final String group = matcher.group(1)
                             .replaceAll("([,{])(\\w+?):", "$1\"$2\":")
                             .replace("'", "\"");
-                    List<Attachment> list = JacksonUtils.MAPPER.readValue(group, new TypeReference<>() {
+                    List<Attachment> list = NgaRes.MAPPER.readValue(group, new TypeReference<>() {
                     });
                     this.attachments = new LinkedHashMap<>();
                     for (int i = 0; i < list.size(); i++) {

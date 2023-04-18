@@ -1,11 +1,9 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.*;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.forum.ForumParam;
-import com.gin.nga.params.read.ReadTopicParam;
 import com.gin.nga.response.body.ForumBody;
 
 import java.io.File;
@@ -71,10 +69,10 @@ public class Test {
 //        threadTest(ngaClient);
 //        forumTest(ngaClient);
 //        readTest(ngaClient);
-//        nukeTest(ngaClient);
-        final ReadTopicParam param = new ReadTopicParam();
-        param.setTopicId(33506312L);
-        JacksonUtils.printPretty(new NgaReadApi(ngaClient).readTopic(param).sync());
+        nukeTest(ngaClient);
+//        final ReadTopicParam param = new ReadTopicParam();
+//        param.setTopicId(33506312L);
+//        JacksonUtils.printPretty(new NgaReadApi(ngaClient).readTopic(param).sync());
     }
 
     public static void nukeTest( NgaClient ngaClient) throws IOException {
