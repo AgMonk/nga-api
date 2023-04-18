@@ -80,12 +80,8 @@ public class NukeTest {
     }
 
     public void testRecommend() throws IOException {
-        JacksonUtils.printPretty(ngaNukeApi.agree(25968165L,0).sync());
-        JacksonUtils.printPretty(ngaNukeApi.disagree(25968165L,0).sync());
     }
 
     public void testNotice() throws IOException {
-//        JacksonUtils.printPretty(ngaNukeApi.enableNotice(33506312L,684733551L,true).sync());
-        JacksonUtils.printPretty(ngaNukeApi.getNotice().sync().get(0));
     }
 }   
