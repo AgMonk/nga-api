@@ -69,7 +69,7 @@ public class Test {
         final NgaClient ngaClient = new NgaClient(cookie);
 
 
-        final NgaFavorApi api = new NgaFavorApi(ngaClient);
+        final NgaFavorTopicApi api = new NgaFavorTopicApi(ngaClient);
 //        JacksonUtils.printPretty(api.modify("公开收藏",true,1298308).sync());
         JacksonUtils.printPretty(api.add(new FavorAddParam(3095595L, 35894873L,682634988L)).sync());
         JacksonUtils.printPretty(api.del(new FavorDelParam(1, 35894873L, 682634988L)).sync());

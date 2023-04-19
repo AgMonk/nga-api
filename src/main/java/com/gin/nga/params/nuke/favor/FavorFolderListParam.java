@@ -14,11 +14,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FavorFolderListParam extends NukeBaseParam {
-    Integer page;
+    final int page;
+    /**
+     * 留空表示自己
+     */
     @JsonProperty("uid")
-    Long userId;
+    final Long userId;
 
-    public FavorFolderListParam() {
+    public FavorFolderListParam(int page) {
+        this(page, null);
+    }
+
+    public FavorFolderListParam(int page, Long userId) {
         super("topic_favor_v2","list_folder");
+        this.page = Math.max(1,page);
+        this.userId = userId;
     }
 }

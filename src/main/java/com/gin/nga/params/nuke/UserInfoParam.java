@@ -23,8 +23,8 @@ public class UserInfoParam extends NukeBaseParam {
     @JsonProperty("username")
     String username;
 
-    private  UserInfoParam() {
-super("ucp","get");
+    private UserInfoParam() {
+        super("ucp", "get");
     }
 
     public UserInfoParam(Long userId) {

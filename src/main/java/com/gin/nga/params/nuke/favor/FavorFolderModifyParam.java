@@ -2,6 +2,7 @@ package com.gin.nga.params.nuke.favor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.params.nuke.NukeBaseParam;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,19 +18,23 @@ public class FavorFolderModifyParam extends NukeBaseParam {
     /**
      * 名称
      */
-    String name;
+    @NotNull
+    final String name;
     /**
      * 是否公开
      */
     @JsonProperty("opt")
-    Integer isPublic;
+    final int isPublic;
     /**
      * 收藏夹id
      */
     @JsonProperty("folder")
-    Long folderId;
+    final long folderId;
 
-    public FavorFolderModifyParam() {
-        super("topic_favor_v2","modify_folder");
+    public FavorFolderModifyParam(@NotNull String name, boolean isPublic, long folderId) {
+        super("topic_favor_v2", "modify_folder");
+        this.name = name;
+        this.isPublic = isPublic ? 1 : 0;
+        this.folderId = folderId;
     }
 }
