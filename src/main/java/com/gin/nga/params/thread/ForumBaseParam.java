@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -25,13 +26,15 @@ public class ForumBaseParam extends PageParam {
     @JsonProperty("fid")
     @NotEmpty
     @JsonSerialize(using = ListLongSerializer.class)
-    List<Long> forumId;
+    final List<Long> forumId;
 
-    public void setForumId(List<Long> colTid) {
-        this.forumId = colTid;
+    public ForumBaseParam(Serializable page, List<Long> forumId) {
+        super(page);
+        this.forumId = forumId;
     }
 
-    public void setForumId(Long... colTid) {
-        this.forumId = List.of(colTid);
+    public ForumBaseParam(Serializable page, Long... forumId) {
+        this(page, List.of(forumId));
     }
+
 }

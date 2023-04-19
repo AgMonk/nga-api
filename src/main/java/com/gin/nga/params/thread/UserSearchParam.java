@@ -3,9 +3,10 @@ package com.gin.nga.params.thread;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.enums.BoolParam;
 import com.gin.nga.params.PageParam;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * 用户的主题/回复搜索参数
@@ -20,8 +21,7 @@ public class UserSearchParam extends PageParam {
      * 作者uid
      */
     @JsonProperty("authorid")
-    @NotNull
-    Long authorUid;
+    long authorUid;
     /**
      * 版面id
      */
@@ -37,4 +37,12 @@ public class UserSearchParam extends PageParam {
      */
     @JsonProperty("recommend")
     BoolParam recommendOnly;
+
+    public UserSearchParam(long authorUid, Serializable page, Long forumId, BoolParam searchReply, BoolParam recommendOnly) {
+        super(page);
+        this.authorUid = authorUid;
+        this.forumId = forumId;
+        this.searchReply = searchReply == BoolParam.yes ? 1 : null;
+        this.recommendOnly = recommendOnly;
+    }
 }

@@ -1,8 +1,8 @@
-package com.gin.nga.params.nuke;
+package com.gin.nga.params.nuke.notice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.nga.params.nuke.base.NukeBaseParam;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author : ginstone
@@ -10,11 +10,10 @@ import lombok.Setter;
  * @since : 2023/4/18 09:21
  */
 @Getter
-@Setter
 public class NoticeParam extends NukeBaseParam {
     final int raw = 3;
     @JsonProperty("time_limit")
-    long timeLimit = 1;
+    final long timeLimit = 1;
 
     public NoticeParam() {
 super("noti","get_all");

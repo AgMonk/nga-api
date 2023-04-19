@@ -22,9 +22,7 @@ public class Test {
     public static void forumTest(NgaClient ngaClient) {
         final NgaForumApi api = new NgaForumApi(ngaClient);
 
-        final ForumParam param = new ForumParam();
-        final String keyword = "少女";
-        param.setKeyword(keyword);
+        final ForumParam param = new ForumParam("少女");
         api.search(param).async(new JsonCallback<>() {
             @Override
             public void onSuccess(ForumBody body) {

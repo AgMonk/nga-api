@@ -1,4 +1,4 @@
-package com.gin.nga.params.nuke;
+package com.gin.nga.params.nuke.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

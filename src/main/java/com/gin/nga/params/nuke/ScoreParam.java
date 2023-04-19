@@ -1,7 +1,7 @@
 package com.gin.nga.params.nuke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
+import com.gin.nga.params.nuke.base.NukeBaseParam;
 import lombok.Setter;
 
 /**
@@ -11,7 +11,6 @@ import lombok.Setter;
  * @since : 2023/4/17 17:10
  */
 @Setter
-@Getter
 public class ScoreParam extends NukeBaseParam {
     final int raw = 3;
     /**

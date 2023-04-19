@@ -16,14 +16,22 @@ public class PageParam {
     /**
      * 页码
      */
-    String page = "1";
+    final String page;
 
-    public void setPage(Serializable page) {
+    public PageParam(Serializable page) {
+        if (page == null) {
+            this.page = "1";
+            return;
+        }
         final String p = String.valueOf(page);
-        if (StrUtils.isNumber(p)){
+        if (StrUtils.isNumber(p)) {
             this.page = String.valueOf(Math.max(1, Integer.parseInt(p)));
-        }else {
+        } else {
             this.page = "e";
         }
+    }
+
+    public PageParam() {
+        this(null);
     }
 }

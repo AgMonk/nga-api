@@ -1,8 +1,8 @@
 package com.gin.nga.params.nuke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.nga.params.nuke.base.NukeBaseParam;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author : ginstone
@@ -10,30 +10,29 @@ import lombok.Setter;
  * @since : 2023/4/17 11:27
  */
 @Getter
-@Setter
 public class UserInfoParam extends NukeBaseParam {
     /**
      * 用户id
      */
     @JsonProperty("uid")
-    Long userId;
+  final   Long userId;
     /**
      * 用户名
      */
     @JsonProperty("username")
-    String username;
-
-    private UserInfoParam() {
-        super("ucp", "get");
-    }
+    final String username;
 
     public UserInfoParam(Long userId) {
-        this();
-        this.userId = userId;
+        this(userId, null);
     }
 
     public UserInfoParam(String username) {
-        this();
+        this(null, username);
+    }
+
+    private UserInfoParam(Long userId, String username) {
+        super("ucp", "get");
+        this.userId = userId;
         this.username = username;
     }
 }

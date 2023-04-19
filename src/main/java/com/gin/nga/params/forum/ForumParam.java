@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.params.PageParam;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
-import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * 搜索版面参数
@@ -13,12 +14,20 @@ import lombok.Setter;
  * @since : 2023/4/13 10:24
  */
 @Getter
-@Setter
 public class ForumParam extends PageParam {
     /**
      * 搜索关键字
      */
     @JsonProperty("key")
     @NotEmpty
-    String keyword;
-}   
+    final String keyword;
+
+    public ForumParam(String keyword) {
+        this(keyword, null);
+    }
+
+    public ForumParam(String keyword, Serializable page) {
+        super(page);
+        this.keyword = keyword;
+    }
+}

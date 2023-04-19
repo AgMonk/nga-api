@@ -6,8 +6,8 @@ import com.gin.common.serializer.ListLongSerializer;
 import com.gin.nga.params.PageParam;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
-import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,7 +17,6 @@ import java.util.List;
  * @since : 2023/4/12 09:32
  */
 @Getter
-@Setter
 public class ColBaseParam extends PageParam {
     /**
      * 合集主题Id
@@ -25,13 +24,13 @@ public class ColBaseParam extends PageParam {
     @JsonProperty("stid")
     @NotEmpty
     @JsonSerialize(using = ListLongSerializer.class)
-    List<Long> colTid;
+    final List<Long> colTid;
 
-    public void setColTid(List<Long> colTid) {
+    public ColBaseParam(Serializable page, List<Long> colTid) {
+        super(page);
         this.colTid = colTid;
     }
-
-    public void setColTid(Long... colTid) {
-        this.colTid = List.of(colTid);
+    public ColBaseParam(Serializable page, Long... colTid) {
+        this(page,List.of(colTid));
     }
 }

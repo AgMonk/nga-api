@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * 版面主题搜索参数
  * @author : ginstone
@@ -20,7 +23,7 @@ public class ForumSearchParam extends ForumBaseParam {
      */
     @JsonProperty("key")
     @NotEmpty
-    String keyword;
+    final String keyword;
     /**
      * 是否搜索主楼正文
      */
@@ -31,4 +34,18 @@ public class ForumSearchParam extends ForumBaseParam {
      */
     @JsonProperty("recommend")
     BoolParam recommendOnly;
+
+    public ForumSearchParam(String keyword, Serializable page, BoolParam searchContent, BoolParam recommendOnly, List<Long> forumId) {
+        super(page, forumId);
+        this.keyword = keyword;
+        this.searchContent = searchContent;
+        this.recommendOnly = recommendOnly;
+    }
+
+    public ForumSearchParam(String keyword, Serializable page, BoolParam searchContent, BoolParam recommendOnly, Long... forumId) {
+        super(page, forumId);
+        this.keyword = keyword;
+        this.searchContent = searchContent;
+        this.recommendOnly = recommendOnly;
+    }
 }

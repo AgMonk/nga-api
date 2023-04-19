@@ -1,10 +1,9 @@
 package com.gin.nga.params.nuke.favor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gin.nga.params.nuke.NukeBaseParam;
+import com.gin.nga.params.nuke.base.NukeBaseParam;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 修改收藏夹列表参数
@@ -13,7 +12,6 @@ import lombok.Setter;
  * @since : 2023/4/18 16:19
  */
 @Getter
-@Setter
 public class FavorFolderModifyParam extends NukeBaseParam {
     /**
      * 名称

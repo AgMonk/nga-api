@@ -2,9 +2,9 @@ package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.enums.ReplyStatus;
-import com.gin.nga.params.nuke.NoticeClearParam;
-import com.gin.nga.params.nuke.NoticeEnableParam;
-import com.gin.nga.params.nuke.NoticeParam;
+import com.gin.nga.params.nuke.notice.NoticeClearParam;
+import com.gin.nga.params.nuke.notice.NoticeEnableParam;
+import com.gin.nga.params.nuke.notice.NoticeParam;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.nuke.NoticeBody;
 import lombok.RequiredArgsConstructor;

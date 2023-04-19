@@ -3,7 +3,7 @@ package com.gin.nga.params.nuke.favorforum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.enums.FavorAction;
 import com.gin.nga.enums.FavorType;
-import com.gin.nga.params.nuke.NukeBaseParam;
+import com.gin.nga.params.nuke.base.NukeBaseParam;
 import lombok.Getter;
 
 /**

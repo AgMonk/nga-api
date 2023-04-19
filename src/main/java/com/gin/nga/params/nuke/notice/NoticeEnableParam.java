@@ -1,6 +1,7 @@
-package com.gin.nga.params.nuke;
+package com.gin.nga.params.nuke.notice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.nga.params.nuke.base.NukeFuncParam;
 import lombok.Getter;
 
 /**
@@ -11,10 +12,8 @@ import lombok.Getter;
  */
 @Getter
 public class NoticeEnableParam extends NukeFuncParam {
-
     @JsonProperty("no_hint")
     private final int noHint;
-
     /**
      * 参数
      * @param topicId 主题id

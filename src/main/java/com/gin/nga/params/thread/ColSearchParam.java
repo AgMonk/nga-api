@@ -2,8 +2,11 @@ package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.enums.BoolParam;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 合集主题搜索参数
@@ -12,21 +15,35 @@ import lombok.Setter;
  * @since : 2023/4/12 09:32
  */
 @Getter
-@Setter
 public class ColSearchParam extends ColBaseParam {
     /**
      * 搜索关键字
      */
     @JsonProperty("key")
-    String keyword;
+    @NotNull
+    final String keyword;
     /**
      * 是否搜索主楼正文
      */
     @JsonProperty("content")
-    BoolParam searchContent;
+    final BoolParam searchContent;
     /**
      * 是否只搜索精华帖
      */
     @JsonProperty("recommend")
-    BoolParam recommendOnly;
+    final BoolParam recommendOnly;
+
+    public ColSearchParam(@NotNull String keyword,Serializable page, BoolParam searchContent, BoolParam recommendOnly, List<Long> colTid) {
+        super(page, colTid);
+        this.keyword = keyword;
+        this.searchContent = searchContent;
+        this.recommendOnly = recommendOnly;
+    }
+
+    public ColSearchParam(@NotNull String keyword,Serializable page, BoolParam searchContent, BoolParam recommendOnly, Long... colTid) {
+        super(page, colTid);
+        this.keyword = keyword;
+        this.searchContent = searchContent;
+        this.recommendOnly = recommendOnly;
+    }
 }

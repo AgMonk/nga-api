@@ -3,7 +3,7 @@ package com.gin.nga.params.nuke.favor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ListStringSerializer;
-import com.gin.nga.params.nuke.NukeBaseParam;
+import com.gin.nga.params.nuke.base.NukeBaseParam;
 import lombok.Getter;
 
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.params.nuke.ScoreParam;
-import com.gin.nga.response.body.nuke.RecommendBody;
+import com.gin.nga.response.body.nuke.ScoreBody;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -21,8 +21,8 @@ public class NgaScoreApi {
      * @author bx002
      * @since 2023/4/19 14:31
      */
-    public NgaJsonCall<RecommendBody> score(ScoreParam param) {
-        return client.nuke(param, RecommendBody.class);
+    public NgaJsonCall<ScoreBody> score(ScoreParam param) {
+        return client.nuke(param, ScoreBody.class);
     }
 
 }
