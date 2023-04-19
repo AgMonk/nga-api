@@ -10,6 +10,7 @@ import com.gin.nga.interceptor.LoggingInterceptor;
 import com.gin.nga.interfaze.DocumentParser;
 import com.gin.nga.params.PageParam;
 import com.gin.nga.params.nuke.NukeBaseParam;
+import com.gin.nga.params.nuke.NukeFuncParam;
 import com.gin.nga.response.body.ReadBody;
 import com.gin.nga.response.body.ThreadBody;
 import jakarta.validation.constraints.NotNull;
@@ -202,6 +203,8 @@ public class NgaClient {
      */
     public <T> NgaJsonCall<T> nuke(NukeBaseParam param, Class<T> responseClass){
         return callJson(NgaPhpApi.nuke, param, null, responseClass);
+    }
+    public <T> NgaJsonCall<T> nuke(NukeFuncParam param, Class<T> responseClass){return callJson(NgaPhpApi.nuke, param, null, responseClass);
     }
 
     /**

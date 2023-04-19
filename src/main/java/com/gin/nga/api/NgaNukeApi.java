@@ -1,7 +1,6 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
-import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.params.nuke.DelAttachParam;
 import com.gin.nga.params.nuke.TopicKeyParam;
 import com.gin.nga.params.nuke.UserInfoParam;
@@ -19,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NgaNukeApi {
     private final NgaClient client;
-
     /**
      * 删除附件
      * @param topicId  主题id
@@ -28,16 +26,9 @@ public class NgaNukeApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
      * @since 2023/4/18 16:00
      */
-    public NgaJsonCall<BaseMessageBody> delAttachment(
-            long topicId,
-            long replyId,
-            String filename
-    ) {
-        return client.callJson(NgaPhpApi.nuke, new DelAttachParam(topicId, replyId, filename), null, BaseMessageBody.class);
+    public NgaJsonCall<BaseMessageBody> delAttachment(DelAttachParam param) {
+        return client.nuke(param, BaseMessageBody.class);
     }
-
-    //todo
-
     /**
      * 查询版面的主题分类
      * @param forumId 版面id
@@ -47,8 +38,6 @@ public class NgaNukeApi {
     public NgaJsonCall<TopicKeys> getTopicKey(long forumId) {
         return client.nuke(new TopicKeyParam(forumId), TopicKeys.class);
     }
-
-
     /**
      * 查询用户信息
      * @param userId 用户id

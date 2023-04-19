@@ -1,7 +1,6 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
-import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.params.nuke.NoticeClearParam;
 import com.gin.nga.params.nuke.NoticeEnableParam;
@@ -27,7 +26,7 @@ public class NgaNoticeApi {
      * @since 2023/4/19 14:17
      */
     public NgaJsonCall<BaseMessageBody> enable(NoticeEnableParam param) {
-        return client.callJson(NgaPhpApi.nuke, param, null, BaseMessageBody.class);
+        return client.nuke( param,  BaseMessageBody.class);
     }
 
     /**
