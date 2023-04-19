@@ -2,6 +2,7 @@ package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.params.nuke.favor.FavorAddParam;
+import com.gin.nga.params.nuke.favor.FavorDelParam;
 import com.gin.nga.params.nuke.favor.FavorFolderListParam;
 import com.gin.nga.params.nuke.favor.FavorFolderModifyParam;
 import com.gin.nga.response.body.BaseMessageBody;
@@ -64,5 +65,16 @@ public class NgaFavorApi {
      */
     public NgaJsonCall<BaseMessageBody> add(FavorAddParam param){
         return client.nuke(param, BaseMessageBody.class)    ;
+    }
+    /**
+     * 删除收藏
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/4/19 12:00
+     */
+    public NgaJsonCall<BaseMessageBody> del(FavorDelParam param){
+        return client.nuke(param, BaseMessageBody.class)    ;
+
     }
 }   
