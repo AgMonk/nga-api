@@ -1,9 +1,5 @@
 package com.gin.nga.test;
 
-import com.gin.nga.callback.DocCallback;
-import com.gin.nga.callback.JsonCallback;
-import com.gin.nga.params.read.ReadTopicParam;
-import com.gin.nga.response.body.ReadBody;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -13,7 +9,7 @@ import lombok.RequiredArgsConstructor;
  * @since : 2023/4/13 13:36
  */
 @RequiredArgsConstructor
-public class ReadTest {
+public class ReadTest {/*
     private final NgaReadApi api;
 
     public void test() {
@@ -22,9 +18,9 @@ public class ReadTest {
 //        testReadReply();
     }
 
-    /**
+    *//**
      * 测试网页解析
-     */
+     *//*
     private void testDocument() {
 
         final int tid = 36000169;
@@ -68,9 +64,9 @@ public class ReadTest {
         testTopic(35937951, 1);
     }
 
-    /**
+    *//**
      * 测试修改
-     */
+     *//*
     private void testAlter() {
         testTopic(13055900, 1);
         testTopic(26639977, 1);
@@ -88,5 +84,5 @@ public class ReadTest {
                 Test.writeTestRes(body, String.format("read-%d-%d.json", tid, page));
             }
         });
-    }
+    }*/
 }   

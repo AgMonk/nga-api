@@ -1,14 +1,7 @@
 package com.gin.nga.test;
 
-import com.gin.nga.callback.JsonCallback;
-import com.gin.nga.enums.OrderByParam;
-import com.gin.nga.params.thread.*;
-import com.gin.nga.response.body.ThreadBody;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
-import static com.gin.nga.enums.BoolParam.no;
-import static com.gin.nga.enums.BoolParam.yes;
 
 /**
  * thread.php 接口测试
@@ -19,20 +12,20 @@ import static com.gin.nga.enums.BoolParam.yes;
 @RequiredArgsConstructor
 @Setter
 public class ThreadTest {
-    private final NgaThreadApi api;
-    /**
+   /* private final NgaThreadApi api;
+    *//**
      * 合集id
-     */
+     *//*
     private final long colTid = 29111018L;
-    /**
+    *//**
      * 版面id
-     */
+     *//*
     private final long forumId = 428;
     private final long forumId2 = -547859L;
 
-    /**
+    *//**
      * 搜索关键字
-     */
+     *//*
     private final String keyword = "体力";
     private final long userId = 60371186L;
 
@@ -43,9 +36,9 @@ public class ThreadTest {
     private boolean testForumSearch = false;
     private boolean testUserSearch = false;
 
-    /**
+    *//**
      * 执行测试
-     */
+     *//*
     public void test() {
         if (testColList) {
             colListTest();
@@ -118,9 +111,9 @@ public class ThreadTest {
         });
     }
 
-    /**
+    *//**
      * 版面浏览测试
-     */
+     *//*
     private void forumListTest() {
         final ForumListParam param = new ForumListParam();
         param.setForumId(forumId);
@@ -142,9 +135,9 @@ public class ThreadTest {
         });
     }
 
-    /**
+    *//**
      * 版面搜索测试
-     */
+     *//*
     private void forumSearchTest() {
         final ForumSearchParam param = new ForumSearchParam();
         param.setForumId(forumId);
@@ -168,9 +161,9 @@ public class ThreadTest {
         });
     }
 
-    /**
+    *//**
      * 用户发言测试
-     */
+     *//*
     private void userSearchTest() {
         final UserSearchParam param = new UserSearchParam();
         param.setAuthorUid(userId);
@@ -191,5 +184,5 @@ public class ThreadTest {
                 Test.writeTestRes(body, "userSearch-reply.json");
             }
         });
-    }
+    }*/
 }

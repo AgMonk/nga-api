@@ -2,13 +2,8 @@ package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
-import com.gin.nga.api.*;
-import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.params.forum.ForumParam;
-import com.gin.nga.params.nuke.favor.FavorAddParam;
-import com.gin.nga.params.nuke.favor.FavorDelParam;
-import com.gin.nga.response.body.ForumBody;
+import com.gin.nga.params.UploadParam;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +15,7 @@ import java.io.IOException;
  * @since : 2023/4/11 10:56
  */
 public class Test {
-    public static void forumTest(NgaClient ngaClient) {
+  /*  public static void forumTest(NgaClient ngaClient) {
         final NgaForumApi api = new NgaForumApi(ngaClient);
 
         final ForumParam param = new ForumParam("少女");
@@ -32,9 +27,9 @@ public class Test {
         });
     }
 
-    /**
+    *//**
      * thread.php 接口测试
-     */
+     *//*
     @SuppressWarnings("unused")
     public static void threadTest(NgaClient ngaClient) {
         final NgaThreadApi api = new NgaThreadApi(ngaClient);
@@ -43,11 +38,11 @@ public class Test {
         threadTest.test();
     }
 
-    /**
+    *//**
      * 将测试结果写入文件
      * @param res      响应结果
      * @param filename 写入文件名
-     */
+     *//*
     public static void writeTestRes(Object res, String filename) {
         try {
             FileIoUtils.writeObj(new File("./test/" + filename), res);
@@ -61,32 +56,19 @@ public class Test {
 
         readTest.test();
     }
-
+*/
     public static void main(String[] args) throws IOException {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-
-        final NgaFavorTopicApi api = new NgaFavorTopicApi(ngaClient);
-//        JacksonUtils.printPretty(api.modify("公开收藏",true,1298308).sync());
-        JacksonUtils.printPretty(api.add(new FavorAddParam(3095595L, 35894873L,682634988L)).sync());
-        JacksonUtils.printPretty(api.del(new FavorDelParam(1, 35894873L, 682634988L)).sync());
-//        JacksonUtils.printPretty(api.add(param).sync());
-//        JacksonUtils.printPretty(api.get().sync());
-    }
-
-    public static void nukeTest( NgaClient ngaClient) throws IOException {
-        final NukeTest nukeTest = new NukeTest(ngaClient);
-
-        nukeTest.testGetUserInfo();
-
-//        nukeTest.testGetUserInfo();
-//        nukeTest.testFavorForum();
-//        nukeTest.testFavorCol();
-//        nukeTest.testBlockForum(-547859L);
-//        nukeTest.testRecommend();
-//        nukeTest.testNotice();
+        String attachUrl = "https://img8.nga.cn/attach.php";
+        final File file = new File("D:\\download\\aria2\\plu\\99147997_p0.jpg");
+        System.out.println(file.exists());
+//        final File file = new File("E:/download/chrome/GifCam.zip");
+        final String auth = "025ff03e6440916a462d62717162d0b8ab51c7565c675a16d035e74760e0";
+        final UploadParam param = new UploadParam(file, auth,-547859);
+        JacksonUtils.printPretty(ngaClient.callUpload(attachUrl, param).sync());
 
     }
 }

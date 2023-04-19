@@ -31,21 +31,22 @@ public class LoggingInterceptor implements Interceptor {
                           request.url(),
                           chain.connection()
         );
-//        System.out.println(request.headers());
+        System.out.println(request.headers());
+
         Response response = chain.proceed(request);
 
         long endTime = System.nanoTime();
-        System.out.printf("[%s] [%s] 收到响应 [%s] code:%d %s in %.1fms content-type: %s\n",
+        System.out.printf("[%s] [%s] 收到响应 [%s] code:%d %s in %.1fms\n",
                           TAG,
                           DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
                           request.method(),
                           response.code(),
                           response.request().url(),
-                          (endTime - startTime) / 1e6d,
-                          response.header("Content-type")
+                          (endTime - startTime) / 1e6d
         );
-        if (response.code()/100==3) {
-            System.out.printf("[%s] [%s] location: %s\n",TAG,DATE_TIME_FORMATTER.format(ZonedDateTime.now()),response.header("location"));
+        System.out.println(response.headers());
+        if (response.code() / 100 == 3) {
+            System.out.printf("[%s] [%s] location: %s\n", TAG, DATE_TIME_FORMATTER.format(ZonedDateTime.now()), response.header("location"));
         }
         return response;
     }

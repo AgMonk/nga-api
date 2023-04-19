@@ -3,12 +3,14 @@ package com.gin.nga.client;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.call.NgaDocCall;
 import com.gin.nga.call.NgaJsonCall;
+import com.gin.nga.call.NgaUploadCall;
 import com.gin.nga.enums.NgaDomain;
 import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.exception.IllegalCookieException;
 import com.gin.nga.interceptor.LoggingInterceptor;
 import com.gin.nga.interfaze.DocumentParser;
 import com.gin.nga.params.PageParam;
+import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.base.NukeBaseParam;
 import com.gin.nga.params.nuke.base.NukeFuncParam;
 import com.gin.nga.response.body.ReadBody;
@@ -18,6 +20,7 @@ import lombok.Getter;
 import okhttp3.*;
 import org.springframework.util.ObjectUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
@@ -35,7 +38,7 @@ import java.util.regex.Pattern;
  * @since : 2023/4/11 11:39
  */
 public class NgaClient {
-    private static final String UA ="NGA_WP_JW";
+    private static final String UA = "NGA_WP_JW";
 //    private static final String UA ="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36";
     /**
      * 请求编码
@@ -134,6 +137,33 @@ public class NgaClient {
         return builder.build();
     }
 
+    private static String getMimeType(String name) {
+        if (name.endsWith("jpg") || name.endsWith("jpeg")) {
+            return "image/jpeg";
+        }
+        if (name.endsWith("png")) {
+            return "image/png";
+        }
+
+        // todo zip?
+        return "";
+    }
+
+    private static MultipartBody getMultipartBody(UploadParam param) {
+        final MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        JacksonUtils.jsonToMap(param).forEach((k, v) -> {
+            if (v != null) {
+                builder.addFormDataPart(k, String.valueOf(v));
+                System.out.println(k + " -> " + v);
+            }
+        });
+        final File file = param.getFile();
+        RequestBody fileBody = RequestBody.create(file, MediaType.parse("application/octet-stream"));
+        builder.addFormDataPart("attachment_file1", file.getName(), fileBody);
+        return builder.build();
+    }
+
     /**
      * 默认客户端
      * @return 客户端
@@ -156,55 +186,85 @@ public class NgaClient {
      * @return call
      */
     public Call call(NgaPhpApi phpApi, Object queryParam, Object formData, boolean json) {
-        HttpUrl httpUrl = getHttpUrl(phpApi, queryParam, json);
-        FormBody formBody = getFormBody(formData);
-
-        final Request request = new Request.Builder()
-                .url(httpUrl)
-                .header("cookie", this.cookie)
-                .header("host","bbs.nga.cn")
-                .header("Referer",this.ngaDomain.domain)
-                .header("User-Agent",UA)
-                .post(formBody)
-                .build();
+        final HttpUrl httpUrl = getHttpUrl(phpApi, queryParam, json);
+        final FormBody formBody = getFormBody(formData);
+        final Request request = getRequest(httpUrl, formBody);
         return this.client.newCall(request);
     }
+
     /**
      * 请求网页数据
-     * @param phpApi     phpApi
-     * @param queryParam 参数
-     * @param formData   表单数据
-     * @param responseClass 响应类型
+     * @param phpApi         phpApi
+     * @param queryParam     参数
+     * @param formData       表单数据
+     * @param responseClass  响应类型
      * @param documentParser 网页数据解析器
      * @return call
      */
-    public <T> NgaDocCall<T> callDoc(NgaPhpApi phpApi, Object queryParam, Object formData, Class<T> responseClass, DocumentParser<T> documentParser){
+    public <T> NgaDocCall<T> callDoc(NgaPhpApi phpApi, Object queryParam, Object formData, Class<T> responseClass, DocumentParser<T> documentParser) {
         final Call call = call(phpApi, queryParam, formData, false);
         return new NgaDocCall<>(call, responseClass, documentParser);
     }
+
     /**
      * 请求json数据
-     * @param phpApi     phpApi
-     * @param queryParam 参数
-     * @param formData   表单数据
+     * @param phpApi        phpApi
+     * @param queryParam    参数
+     * @param formData      表单数据
      * @param responseClass 响应类型
      * @return call
      */
-    public <T> NgaJsonCall<T> callJson(NgaPhpApi phpApi, Object queryParam, Object formData, Class<T> responseClass){
+    public <T> NgaJsonCall<T> callJson(NgaPhpApi phpApi, Object queryParam, Object formData, Class<T> responseClass) {
         final Call call = call(phpApi, queryParam, formData, true);
-        return new NgaJsonCall<>(call,responseClass);
+        return new NgaJsonCall<>(call, responseClass);
+    }
+
+    /**
+     * 上传call
+     * @param attachUrl 上传地址
+     * @param param     参数
+     * @return com.gin.nga.call.NgaUploadCall
+     * @since 2023/4/19 16:50
+     */
+    public NgaUploadCall callUpload(String attachUrl, UploadParam param) {
+        final HttpUrl httpUrl = HttpUrl.parse(attachUrl);
+        final MultipartBody multipartBody = getMultipartBody(param);
+        final Request request = getRequest(httpUrl, multipartBody);
+        return new NgaUploadCall(this.client.newCall(request));
+    }
+
+    public <T> NgaJsonCall<T> nuke(NukeFuncParam param, Class<T> responseClass) {
+        return callJson(NgaPhpApi.nuke, param, null, responseClass);
     }
 
     /**
      * nuke请求
-     * @param param 参数
+     * @param param         参数
      * @param responseClass 响应类型
      * @return call
      */
-    public <T> NgaJsonCall<T> nuke(NukeBaseParam param, Class<T> responseClass){
+    public <T> NgaJsonCall<T> nuke(NukeBaseParam param, Class<T> responseClass) {
         return callJson(NgaPhpApi.nuke, param, null, responseClass);
     }
-    public <T> NgaJsonCall<T> nuke(NukeFuncParam param, Class<T> responseClass){return callJson(NgaPhpApi.nuke, param, null, responseClass);
+
+    /**
+     * 读取主题内容
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
+     * @since 2023/4/15 16:07
+     */
+    public NgaJsonCall<ReadBody> read(Object param) {
+        return callJson(NgaPhpApi.read, param, null, ReadBody.class);
+    }
+
+    /**
+     * 读取主题内容(兼容模式，通过网页解析)
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
+     * @since 2023/4/15 16:07
+     */
+    public NgaDocCall<ReadBody> readDoc(Object param) {
+        return callDoc(NgaPhpApi.read, param, null, ReadBody.class, ReadBody::new);
     }
 
     /**
@@ -216,26 +276,6 @@ public class NgaClient {
         return callJson(NgaPhpApi.thread, queryParam, null, ThreadBody.class);
     }
 
-    /**
-     * 读取主题内容
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
-     * @author bx002
-     * @since 2023/4/15 16:07
-     */
-    public NgaJsonCall<ReadBody> read(Object param) {
-        return callJson(NgaPhpApi.read, param, null, ReadBody.class);
-    }
-    /**
-     * 读取主题内容(兼容模式，通过网页解析)
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
-     * @author bx002
-     * @since 2023/4/15 16:07
-     */
-    public NgaDocCall<ReadBody> readDoc(Object param) {
-        return callDoc(NgaPhpApi.read, param, null, ReadBody.class, ReadBody::new);
-    }
     /**
      * 生成url
      * @param phpApi     phpApi
@@ -249,7 +289,7 @@ public class NgaClient {
                 .addQueryParameter("__inchst", "UTF8");
         if (json) {
             builder.addQueryParameter("__output", "8");
-        }else{
+        } else {
             builder.addQueryParameter("noBBCode", null);
         }
 
@@ -265,5 +305,17 @@ public class NgaClient {
             });
         }
         return builder.build();
+    }
+
+    @NotNull
+    private Request getRequest(HttpUrl httpUrl, RequestBody body) {
+        return new Request.Builder()
+                .url(httpUrl)
+                .header("cookie", this.cookie)
+                .header("host", "bbs.nga.cn")
+                .header("Referer", this.ngaDomain.domain)
+                .header("User-Agent", UA)
+                .post(body)
+                .build();
     }
 }

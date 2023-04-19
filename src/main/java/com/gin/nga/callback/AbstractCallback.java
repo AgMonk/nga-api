@@ -1,6 +1,7 @@
 package com.gin.nga.callback;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.gin.common.utils.MapUtils;
 import com.gin.nga.exception.NgaClientException;
 import com.gin.nga.exception.NgaException;
 import com.gin.nga.exception.NgaServerException;
@@ -39,7 +40,11 @@ public abstract class AbstractCallback<T> implements Callback {
                 if (body == null) {
                     throw new NgaClientException(code, call, null);
                 }
-                throw new NgaClientException(code, call, NgaRes.parse(decodeGbk(body), Void.class).getError());
+                final String s = decodeGbk(body);
+                if (s.contains("{")) {
+                    throw new NgaClientException(code, call, NgaRes.parse(s, Void.class).getError());
+                }
+                throw new NgaClientException(code, call, MapUtils.singleEntry(0,s));
             case 5:
                 throw new NgaServerException(code, call, "服务器异常");
             default:

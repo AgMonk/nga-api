@@ -1,17 +1,6 @@
 package com.gin.nga.test;
 
-import com.gin.common.utils.JacksonUtils;
-import com.gin.nga.client.NgaClient;
-import com.gin.nga.api.NgaNukeApi;
-import com.gin.nga.callback.JsonCallback;
-import com.gin.nga.enums.FavorAction;
-import com.gin.nga.enums.FavorType;
-import com.gin.nga.response.field.BlockSubForum;
-import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * nuke.php 的测试
@@ -21,7 +10,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 public class NukeTest {
-    private final NgaNukeApi ngaNukeApi;
+    /*private final NgaNukeApi ngaNukeApi;
     private final NgaForumApi ngaForumApi;
     private final NgaNoticeApi ngaNoticeApi;
 
@@ -58,11 +47,11 @@ public class NukeTest {
     public void testGetUserInfo() {
         List<Long> uidList = List.of(
                 39841854L
-//                , 35159831L
+                , 35159831L
                 , 24984254L
-//                ,993945L
-//                ,195362L
-//                ,38148967L
+                ,993945L
+                ,195362L
+                ,38148967L
         );
 
         for (Long uid : uidList) {
@@ -74,18 +63,18 @@ public class NukeTest {
             });
         }
 
-//        List<String> nameList = List.of(
-//                "左牵黄右擒苍"
-//                 , "血牙酱"
-//        );
-//        for (String name : nameList) {
-//            api.getUserInfo(name).async(new JsonCallback<>() {
-//                @Override
-//                public void onSuccess( UserInfoBody.Res body) {
-//                    Test.writeTestRes(body.get(0), String.format("user-info-%s.json", name));
-//                }
-//            });
-//        }
+        List<String> nameList = List.of(
+                "左牵黄右擒苍"
+                 , "血牙酱"
+        );
+        for (String name : nameList) {
+            api.getUserInfo(name).async(new JsonCallback<>() {
+                @Override
+                public void onSuccess( UserInfoBody.Res body) {
+                    Test.writeTestRes(body.get(0), String.format("user-info-%s.json", name));
+                }
+            });
+        }
     }
 
     public void testNotice() throws IOException {
@@ -94,4 +83,4 @@ public class NukeTest {
 
     public void testRecommend() throws IOException {
     }
-}   
+*/}
