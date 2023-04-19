@@ -1,9 +1,7 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.JacksonUtils;
-import com.gin.nga.api.NgaClient;
-import com.gin.nga.api.NgaForumApi;
-import com.gin.nga.api.NgaNoticeApi;
+import com.gin.nga.client.NgaClient;
 import com.gin.nga.api.NgaNukeApi;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.enums.FavorAction;

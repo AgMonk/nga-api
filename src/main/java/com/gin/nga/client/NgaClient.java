@@ -1,4 +1,4 @@
-package com.gin.nga.api;
+package com.gin.nga.client;
 
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.call.NgaDocCall;

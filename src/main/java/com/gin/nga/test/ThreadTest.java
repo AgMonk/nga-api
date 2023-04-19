@@ -1,6 +1,5 @@
 package com.gin.nga.test;
 
-import com.gin.nga.api.NgaThreadApi;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.enums.OrderByParam;
 import com.gin.nga.params.thread.*;

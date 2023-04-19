@@ -1,6 +1,5 @@
 package com.gin.nga.test;
 
-import com.gin.nga.api.NgaReadApi;
 import com.gin.nga.callback.DocCallback;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.read.ReadTopicParam;

@@ -4,15 +4,13 @@ import com.gin.nga.client.NgaClient;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 发帖/回复相关API
+ * 主页涉及的操作
  * @author : ginstone
  * @version : v1.0.0
- * @since : 2023/4/11 16:21
+ * @since : 2023/4/19 15:29
  */
 @RequiredArgsConstructor
-public class NgaPostApi {
+public class OpsForIndex {
     private final NgaClient client;
-
-    //todo
 
 }   

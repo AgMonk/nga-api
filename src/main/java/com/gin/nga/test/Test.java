@@ -4,6 +4,7 @@ import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.*;
 import com.gin.nga.callback.JsonCallback;
+import com.gin.nga.client.NgaClient;
 import com.gin.nga.params.forum.ForumParam;
 import com.gin.nga.params.nuke.favor.FavorAddParam;
 import com.gin.nga.params.nuke.favor.FavorDelParam;
