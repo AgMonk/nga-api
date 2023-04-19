@@ -8,7 +8,7 @@ import com.gin.nga.api.NgaNukeApi;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.enums.FavorAction;
 import com.gin.nga.enums.FavorType;
-import com.gin.nga.response.body.nuke.BlockSubForumBody;
+import com.gin.nga.response.field.BlockSubForum;
 import com.gin.nga.response.body.nuke.UserInfoBody;
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +34,7 @@ public class NukeTest {
     }
 
     public void testBlockForum(long forumId) throws IOException {
-        final BlockSubForumBody blockSubForumBody = ngaForumApi.getBlockSubForum(forumId).sync().get(0);
+        final BlockSubForum blockSubForumBody = ngaForumApi.getBlockSubForum(forumId).sync().get(0);
         final Long id = blockSubForumBody.getBlockTopicId().get(1);
         ngaForumApi.delBlockSubForum(forumId, id).sync();
         ngaForumApi.getBlockSubForum(forumId).sync().get(0);
@@ -70,8 +70,8 @@ public class NukeTest {
         for (Long uid : uidList) {
             ngaNukeApi.getUserInfo(uid).async(new JsonCallback<>() {
                 @Override
-                public void onSuccess(UserInfoBody.Res body) {
-                    Test.writeTestRes(body.get(0), String.format("user-info-%d.json", uid));
+                public void onSuccess(UserInfoBody body) {
+                    Test.writeTestRes(body.getData(), String.format("user-info-%d.json", uid));
                 }
             });
         }

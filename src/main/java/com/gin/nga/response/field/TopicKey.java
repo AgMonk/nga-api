@@ -1,4 +1,4 @@
-package com.gin.nga.response.body.nuke;
+package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;

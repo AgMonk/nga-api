@@ -46,8 +46,8 @@ public class NgaNukeApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.UserInfoBody>
      * @since 2023/4/17 11:28
      */
-    public NgaJsonCall<UserInfoBody.Res> getUserInfo(long userId) {
-        return client.nuke(new UserInfoParam(userId), UserInfoBody.Res.class);
+    public NgaJsonCall<UserInfoBody> getUserInfo(long userId) {
+        return client.nuke(new UserInfoParam(userId), UserInfoBody.class);
     }
 
     /**
@@ -56,8 +56,8 @@ public class NgaNukeApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.UserInfoBody>
      * @since 2023/4/17 11:28
      */
-    public NgaJsonCall<UserInfoBody.Res> getUserInfo(String username) {
-        return client.nuke(new UserInfoParam(username), UserInfoBody.Res.class);
+    public NgaJsonCall<UserInfoBody> getUserInfo(String username) {
+        return client.nuke(new UserInfoParam(username), UserInfoBody.class);
     }
 
 

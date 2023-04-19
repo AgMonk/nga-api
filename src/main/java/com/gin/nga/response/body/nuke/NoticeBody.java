@@ -1,6 +1,7 @@
 package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.nga.response.field.NoticeData;
 import lombok.Getter;
 import lombok.Setter;
 

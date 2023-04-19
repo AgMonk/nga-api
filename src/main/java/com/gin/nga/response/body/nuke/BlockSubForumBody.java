@@ -1,25 +1,18 @@
 package com.gin.nga.response.body.nuke;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.nga.response.field.BlockSubForum;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashMap;
-
 /**
- * 屏蔽的子版面body
  * @author : ginstone
  * @version : v1.0.0
- * @since : 2023/4/17 15:57
+ * @since : 2023/4/19 15:22
  */
 @Getter
 @Setter
 public class BlockSubForumBody {
-    @JsonProperty("union_fid")
-    LinkedHashMap<Integer,Object> unionFid;
-
-    @JsonProperty("block_tid")
-    LinkedHashMap<Integer,Long> blockTopicId;
-
-    public static class Res extends LinkedHashMap<Integer,BlockSubForumBody>{}
-}
+    @JsonAlias("0")
+    BlockSubForum data;
+}   

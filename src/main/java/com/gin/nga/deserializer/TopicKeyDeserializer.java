@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.nga.response.NgaRes;
-import com.gin.nga.response.body.nuke.TopicKey;
+import com.gin.nga.response.field.TopicKey;
 import com.gin.nga.response.body.nuke.TopicKeys;
 
 import java.io.IOException;

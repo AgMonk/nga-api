@@ -66,8 +66,8 @@ public class NgaForumApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.BlockSubForumBody.Res>
      * @since 2023/4/17 15:58
      */
-    public NgaJsonCall<BlockSubForumBody.Res> getBlockSubForum(long forumId) {
-        return client.nuke(new BlockSubForumParam("get", forumId), BlockSubForumBody.Res.class);
+    public NgaJsonCall<BlockSubForumBody> getBlockSubForum(long forumId) {
+        return client.nuke(new BlockSubForumParam("get", forumId), BlockSubForumBody.class);
     }
 
     /**
@@ -75,8 +75,8 @@ public class NgaForumApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.FavorForumBody.Res>
      * @since 2023/4/17 14:50
      */
-    public NgaJsonCall<FavorForumBody.Res> getFavorForum() {
-        return client.nuke(new FavorForumParam(), FavorForumBody.Res.class);
+    public NgaJsonCall<FavorForumBody> getFavorForum() {
+        return client.nuke(new FavorForumParam(), FavorForumBody.class);
     }
 
     /**
