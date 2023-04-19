@@ -30,7 +30,6 @@ public class FavorForumParam extends NukeBaseParam {
     Long colTid;
 
     public FavorForumParam() {
-        this.lib = "forum_favor2";
-        this.act = "forum_favor";
+super("forum_favor2","forum_favor");
     }
 }

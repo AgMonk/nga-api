@@ -27,7 +27,6 @@ public class RecommendParam extends NukeBaseParam {
     @JsonProperty("pid")
     Long replyId;
     public RecommendParam() {
-        this.lib = "topic_recommend";
-        this.act = "add";
+super("topic_recommend","add");
     }
 }

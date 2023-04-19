@@ -24,8 +24,7 @@ public class UserInfoParam extends NukeBaseParam {
     String username;
 
     private  UserInfoParam() {
-        this.lib = "ucp";
-        this.act = "get";
+super("ucp","get");
     }
 
     public UserInfoParam(Long userId) {

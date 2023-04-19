@@ -31,10 +31,9 @@ public class NgaForumApi {
      * @since 2023/4/17 16:26
      */
     public NgaJsonCall<BaseMessageBody> addBlockSubForum(long forumId, long id) {
-        final BlockSubForumParam param = new BlockSubForumParam();
+        final BlockSubForumParam param = new BlockSubForumParam("set");
         param.setForumId(forumId);
         param.setAddId(id);
-        param.setAct("set");
         return client.nuke(param, BaseMessageBody.class);
     }
 
@@ -46,10 +45,9 @@ public class NgaForumApi {
      * @since 2023/4/17 16:26
      */
     public NgaJsonCall<BaseMessageBody> delBlockSubForum(long forumId, long id) {
-        final BlockSubForumParam param = new BlockSubForumParam();
+        final BlockSubForumParam param = new BlockSubForumParam("set");
         param.setForumId(forumId);
         param.setDelId(id);
-        param.setAct("set");
         return client.nuke(param, BaseMessageBody.class);
     }
 
@@ -81,9 +79,8 @@ public class NgaForumApi {
      * @since 2023/4/17 15:58
      */
     public NgaJsonCall<BlockSubForumBody.Res> getBlockSubForum(long forumId) {
-        final BlockSubForumParam param = new BlockSubForumParam();
+        final BlockSubForumParam param = new BlockSubForumParam("get");
         param.setForumId(forumId);
-        param.setAct("get");
         return client.nuke(param, BlockSubForumBody.Res.class);
     }
 

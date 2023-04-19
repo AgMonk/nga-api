@@ -15,8 +15,7 @@ public class TopicKeyParam extends NukeBaseParam {
     private final long forumId;
 
     public TopicKeyParam(long forumId) {
+        super("topic_key","get");
         this.forumId = forumId;
-        this.lib = "topic_key";
-        this.act = "get";
     }
 }

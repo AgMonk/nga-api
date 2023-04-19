@@ -1,7 +1,6 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.api.*;
 import com.gin.nga.callback.JsonCallback;
 import com.gin.nga.params.forum.ForumParam;
@@ -68,8 +67,11 @@ public class Test {
 
 
         final NgaFavorApi api = new NgaFavorApi(ngaClient);
-        JacksonUtils.printPretty(api.modify("私有收藏",false,1298308).sync());
-        JacksonUtils.printPretty(api.get().sync());
+//        JacksonUtils.printPretty(api.modify("公开收藏",true,1298308).sync());
+//        JacksonUtils.printPretty(api.add(new FavorAddParam(3095595L, 35894873L)).sync());
+//        param.setReplyId(682634988L);
+//        JacksonUtils.printPretty(api.add(param).sync());
+//        JacksonUtils.printPretty(api.get().sync());
     }
 
     public static void nukeTest( NgaClient ngaClient) throws IOException {

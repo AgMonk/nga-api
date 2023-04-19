@@ -17,10 +17,15 @@ public class NukeBaseParam {
      * 指令库名称
      */
     @JsonProperty("__lib")
-    String lib;
+    final String lib;
     /**
      * 操作名称
      */
     @JsonProperty("__act")
-    String act;
-}   
+    final String act;
+
+    public NukeBaseParam(String lib, String act) {
+        this.lib = lib;
+        this.act = act;
+    }
+}

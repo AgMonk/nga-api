@@ -32,8 +32,7 @@ public class BlockSubForumParam extends NukeBaseParam {
     @JsonProperty("add")
     Long addId;
 
-    public BlockSubForumParam() {
-        this.lib = "user_option";
-
+    public BlockSubForumParam(String act) {
+        super("user_option",act);
     }
 }

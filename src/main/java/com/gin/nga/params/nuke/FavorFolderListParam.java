@@ -18,7 +18,6 @@ public class FavorFolderListParam extends NukeBaseParam {
     Long userId;
 
     public FavorFolderListParam() {
-        setAct("list_folder");
-        setLib("topic_favor_v2");
+        super("topic_favor_v2","list_folder");
     }
 }

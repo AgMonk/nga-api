@@ -29,7 +29,6 @@ public class FavorFolderModifyParam extends NukeBaseParam {
     Long folderId;
 
     public FavorFolderModifyParam() {
-        setAct("modify_folder");
-        setLib("topic_favor_v2");
+        super("topic_favor_v2","modify_folder");
     }
 }

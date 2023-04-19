@@ -17,7 +17,6 @@ public class NoticeParam extends NukeBaseParam {
     long timeLimit = 1;
 
     public NoticeParam() {
-        this.lib = "noti";
-        this.act = "get_all";
+super("noti","get_all");
     }
 }
