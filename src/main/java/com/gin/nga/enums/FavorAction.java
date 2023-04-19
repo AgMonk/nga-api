@@ -15,8 +15,4 @@ public enum FavorAction {
      * 移除
      */
     del,
-    /**
-     * 查询
-     */
-    get,
 }

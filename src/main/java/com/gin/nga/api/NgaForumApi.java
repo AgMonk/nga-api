@@ -1,12 +1,11 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
-import com.gin.nga.enums.FavorAction;
-import com.gin.nga.enums.FavorType;
 import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.params.forum.ForumParam;
 import com.gin.nga.params.nuke.BlockSubForumParam;
-import com.gin.nga.params.nuke.FavorForumParam;
+import com.gin.nga.params.nuke.favorforum.FavorForumEditParam;
+import com.gin.nga.params.nuke.favorforum.FavorForumParam;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.ForumBody;
 import com.gin.nga.response.body.nuke.BlockSubForumBody;
@@ -59,16 +58,7 @@ public class NgaForumApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.MessageBody>
      * @since 2023/4/17 15:29
      */
-    public NgaJsonCall<BaseMessageBody> editFavorForum(FavorAction action, FavorType type, long id) {
-        final FavorForumParam param = new FavorForumParam();
-        param.setAction(action);
-        if (type == FavorType.forum) {
-            param.setForumId(id);
-        } else if (type == FavorType.col) {
-            param.setColTid(id);
-        } else {
-            throw new RuntimeException("非法的类型");
-        }
+    public NgaJsonCall<BaseMessageBody> editFavorForum(FavorForumEditParam param) {
         return client.nuke(param, BaseMessageBody.class);
     }
 
@@ -90,9 +80,7 @@ public class NgaForumApi {
      * @since 2023/4/17 14:50
      */
     public NgaJsonCall<FavorForumBody.Res> getFavorForum() {
-        final FavorForumParam param = new FavorForumParam();
-        param.setAction(FavorAction.get);
-        return client.nuke(param, FavorForumBody.Res.class);
+        return client.nuke(new FavorForumParam(), FavorForumBody.Res.class);
     }
 
     /**
