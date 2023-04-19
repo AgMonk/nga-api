@@ -41,7 +41,7 @@ public class NgaRes<T> {
         final NgaServerException exception = new NgaServerException(500, null, "响应信息不完整, 请稍后再试");
         try {
             // 添加引号
-            if (clazz== NoticeBody.Res.class){
+            if (clazz== NoticeBody.class){
                 s = handle(s);
             }
 

@@ -16,6 +16,6 @@ public class NoticeParam extends NukeBaseParam {
     final long timeLimit = 1;
 
     public NoticeParam() {
-super("noti","get_all");
+        super("noti", "get_all");
     }
 }

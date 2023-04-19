@@ -34,8 +34,8 @@ public class NgaNoticeApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.NoticeBody.Res>
      * @since 2023/4/18 9:26
      */
-    public NgaJsonCall<NoticeBody.Res> get() {
-        return client.nuke(new NoticeParam(), NoticeBody.Res.class);
+    public NgaJsonCall<NoticeBody> get() {
+        return client.nuke(new NoticeParam(), NoticeBody.class);
     }
     /**
      * 清空提醒消息
