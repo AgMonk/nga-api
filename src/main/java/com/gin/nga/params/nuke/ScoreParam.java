@@ -12,21 +12,28 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class RecommendParam extends NukeBaseParam {
+public class ScoreParam extends NukeBaseParam {
     final int raw = 3;
-    Integer value;
     /**
      * 主题id
      */
     @JsonProperty("tid")
-    Long topicId;
-
+    final long topicId;
     /**
      * 回复id
      */
     @JsonProperty("pid")
-    Long replyId;
-    public RecommendParam() {
-super("topic_recommend","add");
+    final long replyId;
+    /**
+     * 1 = 赞 0 = 踩
+     */
+    @JsonProperty("value")
+    final int agree;
+
+    public ScoreParam(long topicId, long replyId, boolean agree) {
+        super("topic_recommend", "add");
+        this.topicId = topicId;
+        this.replyId = replyId;
+        this.agree = agree?1:0;
     }
 }
