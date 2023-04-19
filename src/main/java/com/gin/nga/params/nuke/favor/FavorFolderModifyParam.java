@@ -1,6 +1,7 @@
-package com.gin.nga.params.nuke;
+package com.gin.nga.params.nuke.favor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.nga.params.nuke.NukeBaseParam;
 import lombok.Getter;
 import lombok.Setter;
 

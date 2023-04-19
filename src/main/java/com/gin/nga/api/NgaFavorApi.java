@@ -1,9 +1,9 @@
 package com.gin.nga.api;
 
 import com.gin.nga.call.NgaJsonCall;
-import com.gin.nga.params.nuke.FavorAddParam;
-import com.gin.nga.params.nuke.FavorFolderListParam;
-import com.gin.nga.params.nuke.FavorFolderModifyParam;
+import com.gin.nga.params.nuke.favor.FavorAddParam;
+import com.gin.nga.params.nuke.favor.FavorFolderListParam;
+import com.gin.nga.params.nuke.favor.FavorFolderModifyParam;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.FavorFolderBody;
 import jakarta.validation.constraints.NotNull;

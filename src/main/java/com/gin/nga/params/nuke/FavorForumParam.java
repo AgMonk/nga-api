@@ -30,6 +30,6 @@ public class FavorForumParam extends NukeBaseParam {
     Long colTid;
 
     public FavorForumParam() {
-super("forum_favor2","forum_favor");
+        super("forum_favor2", "forum_favor");
     }
 }
