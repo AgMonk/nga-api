@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class PostPrepareBody {
+public class PrepareBody {
     /**
      * 发帖动作
      */

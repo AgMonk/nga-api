@@ -49,6 +49,23 @@ public class PostParam {
     @JsonIgnore
     final List<UploadBody> attachs = new ArrayList<>();
 
+    /**
+     * 常规发帖
+     * @param title   标题
+     * @param content 正文
+     */
+    public PostParam(String title, String content) {
+        this(title, content, BoolParam.no, BoolParam.no);
+    }
+
+    /**
+     * 常规发帖
+     * @param content 正文
+     */
+    public PostParam(String content) {
+        this(null, content, BoolParam.no, BoolParam.no);
+    }
+
     public boolean add(UploadBody uploadBody) {
         return attachs.add(uploadBody);
     }
