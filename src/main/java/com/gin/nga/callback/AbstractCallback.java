@@ -102,7 +102,8 @@ public abstract class AbstractCallback<T> implements Callback {
         final String s = new String(body.bytes(), Charset.forName("GB18030"))
                 .replace("\t", "||")
                 ;
-        System.out.println("res = " + s);
+        // todo 删除
+        System.out.println(s);
         return s;
     }
 }

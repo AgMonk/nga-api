@@ -3,6 +3,7 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.NukeApi;
+import com.gin.nga.params.nuke.pm.PrivateMessageNewParam;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class Test {
         final int messageId = 1231981;
 //        final int messageId = 4261507;
         final int page = 1;
-        writeTestRes(NukeApi.privateMessageRead(ngaClient, messageId, page).sync(), "private-message-read-%d-%d.json", messageId, page);
+        writeTestRes(NukeApi.privateMessageNew(ngaClient, new PrivateMessageNewParam("标题标题标题","正文正文",63020118L)).sync(), "private-message-new-%d.json", 63020118L);
 
 
     }
