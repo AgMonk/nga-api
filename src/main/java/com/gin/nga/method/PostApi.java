@@ -27,4 +27,6 @@ public class PostApi {
         return client.post(param, null, PostPrepareBody.class);
     }
 
+    public static
+
 }   

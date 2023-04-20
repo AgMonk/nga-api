@@ -1,6 +1,7 @@
 package com.gin.nga.response.body;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.nga.response.field.Attachment;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +23,13 @@ public class UploadBody {
     @JsonAlias("thumb")
     Integer thumb;
     @JsonAlias("url")
-    String ur;
+    String url;
+
+    /**
+     * 绝对路径
+     * @return 绝对路径
+     */
+    public String getAbsoluteUrl() {
+        return url == null ? null : (Attachment.PREFIX + url);
+    }
 }   
