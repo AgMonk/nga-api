@@ -57,10 +57,10 @@ public class Test {
         final long topicId = 33506312;
         final long replyId = 657267493;
         final PrepareParam prepareParam = PrepareParam.replyParam(topicId, replyId,false);
-        final PrepareBody prepareRes = PostApi.postPrepare(ngaClient, prepareParam).sync();
+        final PrepareBody prepareRes = PostApi.prepare(ngaClient, prepareParam).sync();
         writeTestRes(prepareRes,"post-prepare-modify-%d-%d.json",topicId,replyId);
 
-        final PostBody postRes = PostApi.postSend(ngaClient, prepareParam, new PostParam("标题", "正文正文正文正文", true, true)).sync();
+        final PostBody postRes = PostApi.send(ngaClient, prepareParam, new PostParam("标题", "正文正文正文正文", true, true)).sync();
         writeTestRes(postRes,"post-send-%d-%d-%d.json",topicId,replyId,System.currentTimeMillis());
 
     }

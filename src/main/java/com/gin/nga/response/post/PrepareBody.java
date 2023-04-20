@@ -47,7 +47,7 @@ public class PrepareBody {
     @JsonAlias("auth")
     String auth;
     /**
-     * 回复正文
+     * 回复正文,编辑、回复、引用时这里会有数据
      */
     @JsonAlias("content")
     String content;

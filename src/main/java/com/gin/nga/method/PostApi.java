@@ -22,7 +22,7 @@ public class PostApi {
      * @author bx002
      * @since 2023/4/20 10:20
      */
-    public static NgaJsonCall<PrepareBody> postPrepare(NgaClient client, PrepareParam prepareParam){
+    public static NgaJsonCall<PrepareBody> prepare(NgaClient client, PrepareParam prepareParam){
         return client.post(prepareParam, null, PrepareBody.class);
     }
     /**
@@ -34,7 +34,7 @@ public class PostApi {
      * @author bx002
      * @since 2023/4/20 12:22
      */
-    public static NgaJsonCall<PostBody> postSend(NgaClient client, PrepareParam prepareParam, PostParam postParam){
+    public static NgaJsonCall<PostBody> send(NgaClient client, PrepareParam prepareParam, PostParam postParam){
         return client.post(prepareParam,postParam,PostBody.class);
     }
 
