@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class BaseUserInfo {
+public class BaseUserInfo extends SimpleUserInfo{
     /**
      * 用户buff
      */
@@ -79,23 +79,12 @@ public class BaseUserInfo {
      */
     @JsonProperty("rvrc")
     Integer prestige;
-
     /**
      * 签名
      */
     @JsonProperty("sign")
     @JsonAlias("signature")
     String signature;
-    /**
-     * 用户id
-     */
-    @JsonProperty("uid")
-    Long userId;
-    /**
-     * 用户名
-     */
-    @JsonProperty("username")
-    String username;
     /**
      * 账号状态
      */

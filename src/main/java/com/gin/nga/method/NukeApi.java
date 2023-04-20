@@ -15,6 +15,7 @@ import com.gin.nga.params.nuke.favorforum.FavorForumParam;
 import com.gin.nga.params.nuke.notice.NoticeClearParam;
 import com.gin.nga.params.nuke.notice.NoticeEnableParam;
 import com.gin.nga.params.nuke.notice.NoticeParam;
+import com.gin.nga.params.nuke.pm.PrivateMessageListParam;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.FavorFolderBody;
 import com.gin.nga.response.body.nuke.*;
@@ -228,5 +229,16 @@ public class NukeApi {
      */
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
+    }
+    /**
+     * 查询私信列表
+     * @param client   客户端
+     * @param page 页码
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageBody>
+     * @author bx002
+     * @since 2023/4/20 13:45
+     */
+    public static NgaJsonCall<PrivateMessageBody> privateMessageList(NgaClient client,int page){
+        return  client.nuke(new PrivateMessageListParam(page), PrivateMessageBody.class);
     }
 }   

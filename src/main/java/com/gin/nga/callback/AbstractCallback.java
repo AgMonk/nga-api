@@ -99,7 +99,9 @@ public abstract class AbstractCallback<T> implements Callback {
      * @throws IOException 异常
      */
     public static String decodeGbk(ResponseBody body) throws IOException {
-        final String s = new String(body.bytes(), Charset.forName("GB18030")).replace("\t", "");
+        final String s = new String(body.bytes(), Charset.forName("GB18030"))
+                .replace("\t", "||")
+                ;
         System.out.println("res = " + s);
         return s;
     }

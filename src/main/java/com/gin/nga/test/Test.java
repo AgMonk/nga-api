@@ -2,11 +2,7 @@ package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.PostApi;
-import com.gin.nga.params.post.PostParam;
-import com.gin.nga.params.post.PrepareParam;
-import com.gin.nga.response.post.PostBody;
-import com.gin.nga.response.post.PrepareBody;
+import com.gin.nga.method.NukeApi;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,14 +50,8 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final long topicId = 33506312;
-        final long replyId = 657267493;
-        final PrepareParam prepareParam = PrepareParam.replyParam(topicId, replyId,false);
-        final PrepareBody prepareRes = PostApi.prepare(ngaClient, prepareParam).sync();
-        writeTestRes(prepareRes,"post-prepare-modify-%d-%d.json",topicId,replyId);
+        writeTestRes(NukeApi.privateMessageList(ngaClient,1).sync(), "private-message-%d-%d.json", 1, System.currentTimeMillis());
 
-        final PostBody postRes = PostApi.send(ngaClient, prepareParam, new PostParam("标题", "正文正文正文正文", true, true)).sync();
-        writeTestRes(postRes,"post-send-%d-%d-%d.json",topicId,replyId,System.currentTimeMillis());
 
     }
 

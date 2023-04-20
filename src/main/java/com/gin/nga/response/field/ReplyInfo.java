@@ -241,7 +241,7 @@ public class ReplyInfo extends ReplySimple {
         {
             final Matcher matcher = ALTER_INFO_PATTERN.matcher(rootString);
             if (matcher.find()) {
-                final String s = matcher.group(1).replace("\t", "");
+                final String s = matcher.group(1).replace("||", "");
                 this.alterInfo = new AlterInfo(s);
             }
         }
