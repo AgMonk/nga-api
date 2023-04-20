@@ -188,6 +188,104 @@ public class NukeApi {
     }
 
     /**
+     * 向私信会话中添加更多的参与者
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @since 2023/4/20 17:06
+     */
+    public static NgaJsonCall<BaseMessageBody> pmAdd(NgaClient client, PmAddParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
+     * 添加用户到私信黑名单
+     * @param client 客户端
+     * @param userId 用户id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @since 2023/4/20 17:35
+     */
+    public static NgaJsonCall<BaseMessageBody> pmBlockAdd(NgaClient client, long userId) {
+        return client.nuke(new PmBlockAddParam(userId), BaseMessageBody.class);
+    }
+    /**
+     * 从私信黑名单移除用户
+     * @param client 客户端
+     * @param userId 用户id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/4/20 17:35
+     */
+    public static NgaJsonCall<BaseMessageBody> pmBlockDel(NgaClient client, long userId) {
+        return client.nuke(new PmBlockDelParam(userId), BaseMessageBody.class);
+    }
+    /**
+     * 查询私信黑名单
+     * @param client 客户端
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PmBlockListBody>
+     * @author bx002
+     * @since 2023/4/20 17:37
+     */
+    public static NgaJsonCall<PmBlockListBody> pmBlockList(NgaClient client){
+        return client.nuke(new PmBlockListParam(), PmBlockListBody.class);
+    }
+
+    /**
+     * 私信会话踢人
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @since 2023/4/20 17:22
+     */
+    public static NgaJsonCall<BaseMessageBody> pmKick(NgaClient client, PmKickParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
+     * 查询私信列表
+     * @param client 客户端
+     * @param page   页码
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageBody>
+     * @since 2023/4/20 13:45
+     */
+    public static NgaJsonCall<PrivateMessageListBody> pmList(NgaClient client, int page) {
+        return client.nuke(new PmListParam(page), PrivateMessageListBody.class);
+    }
+
+    /**
+     * 发送新短消息
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @since 2023/4/20 16:40
+     */
+    public static NgaJsonCall<BaseMessageBody> pmNew(NgaClient client, PmNewParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
+     * 查询私信内容
+     * @param param  参数
+     * @param client 客户端
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageReplyBody>
+     * @since 2023/4/20 15:46
+     */
+    public static NgaJsonCall<PrivateMessageReplyBody> pmRead(NgaClient client, PmReadParam param) {
+        return client.nuke(param, PrivateMessageReplyBody.class);
+    }
+
+    /**
+     * 回复短消息
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @since 2023/4/20 16:56
+     */
+    public static NgaJsonCall<BaseMessageBody> pmReply(NgaClient client, PmReplyParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
      * 点赞或点踩
      * @param client 客户端
      * @param param  参数
@@ -230,71 +328,6 @@ public class NukeApi {
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
     }
-    /**
-     * 查询私信列表
-     * @param client   客户端
-     * @param page 页码
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageBody>
-     * @author bx002
-     * @since 2023/4/20 13:45
-     */
-    public static NgaJsonCall<PrivateMessageListBody> pmList(NgaClient client, int page){
-        return  client.nuke(new PmListParam(page), PrivateMessageListBody.class);
-    }
-    /**
-     * 查询私信内容
-     * @param param 参数
-     * @param client 客户端
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageReplyBody>
-     * @author bx002
-     * @since 2023/4/20 15:46
-     */
-    public static NgaJsonCall<PrivateMessageReplyBody> pmRead(NgaClient client, PmReadParam param){
-        return client.nuke(param, PrivateMessageReplyBody.class);
-    }
-    /**
-     * 发送新短消息
-     * @param client 客户端
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
-     * @since 2023/4/20 16:40
-     */
-    public static NgaJsonCall<BaseMessageBody> pmNew(NgaClient client, PmNewParam param){
-        return client.nuke(param,BaseMessageBody.class);
-    }
-    /**
-     * 回复短消息
-     * @param client 客户端
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
-     * @since 2023/4/20 16:56
-     */
-    public static NgaJsonCall<BaseMessageBody> pmReply(NgaClient client, PmReplyParam param){
-        return client.nuke(param,BaseMessageBody.class);
-    }
-    /**
-     *  向私信会话中添加更多的参与者
-     * @param client 客户端
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
-     * @since 2023/4/20 17:06
-     */
-    public static NgaJsonCall<BaseMessageBody> pmAdd(NgaClient client, PmAddParam param){
-        return client.nuke(param,BaseMessageBody.class);
-    }
-    /**
-     * 私信会话踢人
-     * @param client 客户端
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
-     * @since 2023/4/20 17:22
-     */
-    public static NgaJsonCall<BaseMessageBody> pmKick(NgaClient client, PmKickParam param){
-        return client.nuke(param,BaseMessageBody.class);
-    }
+
 
 }   

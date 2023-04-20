@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.deserializer.ListIntDeserializer;
 import com.gin.common.serializer.ZdtJsonSerializer;
-import com.gin.nga.deserializer.UserAvatarDeserializer;
 import com.gin.nga.deserializer.UserBuffDeserializer;
 import com.gin.nga.enums.AccountStatus;
 import lombok.Getter;
@@ -30,12 +29,7 @@ public class BaseUserInfo extends SimpleUserInfo{
     @JsonProperty("buffs")
     @JsonDeserialize(using = UserBuffDeserializer.class)
     List<UserBuff> buffs;
-    /**
-     * 头像
-     */
-    @JsonProperty("avatar")
-    @JsonDeserialize(using = UserAvatarDeserializer.class)
-    List<String> avatars;
+
     /**
      * 用户组id(涉及管理权限)
      */

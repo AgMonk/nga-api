@@ -1,10 +1,14 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.gin.nga.deserializer.UserAvatarDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * 简单用户信息，uid+用户名
@@ -27,4 +31,11 @@ public class SimpleUserInfo {
      */
     @JsonProperty("username")
     String username;
+    /**
+     * 头像
+     */
+    @JsonProperty("avatar")
+    @JsonDeserialize(using = UserAvatarDeserializer.class)
+    List<String> avatars;
+
 }
