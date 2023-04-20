@@ -75,6 +75,7 @@ public abstract class AbstractCallback<T> implements Callback {
      * @param resString body
      * @return 对象
      * @throws JsonProcessingException 解析错误
+     * @throws NgaServerException 服务器错误
      */
     public abstract T parse(String resString) throws JsonProcessingException, NgaServerException;
 
