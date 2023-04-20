@@ -3,6 +3,7 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.NukeApi;
+import com.gin.nga.response.body.nuke.PrivateMessageListBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +51,8 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        writeTestRes(NukeApi.privateMessageList(ngaClient,1).sync(), "private-message-%d-%d.json", 1, System.currentTimeMillis());
+        final PrivateMessageListBody res = NukeApi.privateMessageList(ngaClient, 1).sync();
+        writeTestRes(res, "private-message-%d-%d.json", 1, System.currentTimeMillis());
 
 
     }

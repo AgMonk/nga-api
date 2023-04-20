@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.deserializer.PrivateMessageUsersDeserializer;
+import com.gin.nga.enums.PrivateMessageStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +24,7 @@ public class PrivateMessage {
     @JsonAlias("mid")
     Long messageId;
 
-    Integer bit;
+    int bit;
     /**
      * 标题
      */
@@ -72,4 +73,20 @@ public class PrivateMessage {
     @JsonAlias("all_user")
     @JsonDeserialize(using = PrivateMessageUsersDeserializer.class)
     List<SimpleUserInfo> users;
+
+    /**
+     * 状态
+     * @return 状态
+     */
+    public List<PrivateMessageStatus> getStatus() {
+        return PrivateMessageStatus.parse(bit);
+    }
+
+    /**
+     * 是否未读
+     * @return 是否未读
+     */
+    public boolean isUnread() {
+        return getStatus().contains(PrivateMessageStatus.UNREAD);
+    }
 }

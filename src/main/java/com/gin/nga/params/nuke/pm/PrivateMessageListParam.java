@@ -1,7 +1,5 @@
 package com.gin.nga.params.nuke.pm;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gin.nga.params.nuke.base.NukeBaseParam;
 import lombok.Getter;
 
 /**
@@ -11,13 +9,11 @@ import lombok.Getter;
  * @since : 2023/4/20 12:36
  */
 @Getter
-public class PrivateMessageListParam extends NukeBaseParam {
-    @JsonProperty("act")
-    final String action = "list";
+public class PrivateMessageListParam extends PrivateMessageBaseParam {
     final int page;
 
     public PrivateMessageListParam(int page) {
-        super("message", "message");
+        super("list");
         this.page = Math.max(1, page);
     }
 }

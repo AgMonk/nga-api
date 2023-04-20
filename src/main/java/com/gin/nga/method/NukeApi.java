@@ -238,7 +238,7 @@ public class NukeApi {
      * @author bx002
      * @since 2023/4/20 13:45
      */
-    public static NgaJsonCall<PrivateMessageBody> privateMessageList(NgaClient client,int page){
-        return  client.nuke(new PrivateMessageListParam(page), PrivateMessageBody.class);
+    public static NgaJsonCall<PrivateMessageListBody> privateMessageList(NgaClient client, int page){
+        return  client.nuke(new PrivateMessageListParam(page), PrivateMessageListBody.class);
     }
 }   

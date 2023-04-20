@@ -1,7 +1,7 @@
 package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.gin.nga.deserializer.PrivateMessageBodyDeserializer;
+import com.gin.nga.deserializer.PrivateMessageListBodyDeserializer;
 import com.gin.nga.response.field.PrivateMessage;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +16,8 @@ import java.util.List;
  */
 @Getter
 @Setter
-@JsonDeserialize(using = PrivateMessageBodyDeserializer.class)
-public class PrivateMessageBody {
+@JsonDeserialize(using = PrivateMessageListBodyDeserializer.class)
+public class PrivateMessageListBody {
     /**
      * 私信
      */
