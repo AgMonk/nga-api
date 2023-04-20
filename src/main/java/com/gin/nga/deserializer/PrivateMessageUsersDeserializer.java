@@ -21,8 +21,11 @@ import java.util.List;
 public class PrivateMessageUsersDeserializer extends JsonDeserializer<List<SimpleUserInfo>> {
     @Override
     public List<SimpleUserInfo> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+        return parse(p.getValueAsString());
+    }
+
+    public static  List<SimpleUserInfo> parse(String value){
         final ArrayList<SimpleUserInfo> res = new ArrayList<>();
-        final String value = p.getValueAsString();
         if (ObjectUtils.isEmpty(value)) {
             return res;
         }

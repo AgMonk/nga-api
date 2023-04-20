@@ -3,7 +3,6 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.NukeApi;
-import com.gin.nga.response.body.nuke.PrivateMessageListBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +26,23 @@ public class Test {
         });
     }
 
-    *//**
+    */
+
+    /**
+     * 将测试结果写入文件
+     * @param res    响应结果
+     * @param format 格式
+     * @param args   参数
+     */
+    public static void writeTestRes(Object res, String format, Object... args) {
+        try {
+            FileIoUtils.writeObj(new File("./test/" + String.format(format, args)), res);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * thread.php 接口测试
      *//*
     @SuppressWarnings("unused")
@@ -51,23 +66,11 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final PrivateMessageListBody res = NukeApi.privateMessageList(ngaClient, 1).sync();
-        writeTestRes(res, "private-message-%d-%d.json", 1, System.currentTimeMillis());
+        final int messageId = 1231981;
+//        final int messageId = 4261507;
+        final int page = 1;
+        writeTestRes(NukeApi.privateMessageRead(ngaClient, messageId, page).sync(), "private-message-read-%d-%d.json", messageId, page);
 
 
-    }
-
-    /**
-     * 将测试结果写入文件
-     * @param res      响应结果
-     * @param format 格式
-     * @param args 参数
-     */
-    public static void writeTestRes(Object res, String format, Object... args) {
-        try {
-            FileIoUtils.writeObj(new File("./test/" + String.format(format, args)), res);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

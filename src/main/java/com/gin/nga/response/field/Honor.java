@@ -40,7 +40,13 @@ public class Honor {
             return;
         }
 
-        final String[] split = s.trim().split(" ");
+        s = s.trim();
+        final String blank = " ";
+        if (!s.contains(blank)) {
+            this.name = s;
+            return;
+        }
+        final String[] split = s.split(blank);
 
         long time = Long.parseLong(split[0]);
         this.timestamp = ZonedDateTime.ofInstant(Instant.ofEpochSecond(time), TimeUtils.CHINESE_ZONE_ID);

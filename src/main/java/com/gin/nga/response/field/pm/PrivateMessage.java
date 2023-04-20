@@ -1,4 +1,4 @@
-package com.gin.nga.response.field;
+package com.gin.nga.response.field.pm;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.deserializer.PrivateMessageUsersDeserializer;
 import com.gin.nga.enums.PrivateMessageStatus;
+import com.gin.nga.response.field.SimpleUserInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -68,7 +69,7 @@ public class PrivateMessage {
     @JsonAlias("last_from_username")
     String lastReplyUsername;
     /**
-     * 所有参数的用户
+     * 所有参与的用户
      */
     @JsonAlias("all_user")
     @JsonDeserialize(using = PrivateMessageUsersDeserializer.class)

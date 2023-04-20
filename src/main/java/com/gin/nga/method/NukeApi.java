@@ -16,6 +16,7 @@ import com.gin.nga.params.nuke.notice.NoticeClearParam;
 import com.gin.nga.params.nuke.notice.NoticeEnableParam;
 import com.gin.nga.params.nuke.notice.NoticeParam;
 import com.gin.nga.params.nuke.pm.PrivateMessageListParam;
+import com.gin.nga.params.nuke.pm.PrivateMessageReadParam;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.FavorFolderBody;
 import com.gin.nga.response.body.nuke.*;
@@ -240,5 +241,17 @@ public class NukeApi {
      */
     public static NgaJsonCall<PrivateMessageListBody> privateMessageList(NgaClient client, int page){
         return  client.nuke(new PrivateMessageListParam(page), PrivateMessageListBody.class);
+    }
+    /**
+     * 查询私信内容
+     * @param client 客户端
+     * @param messageId 消息id
+     * @param page 页码
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageReplyBody>
+     * @author bx002
+     * @since 2023/4/20 15:46
+     */
+    public static NgaJsonCall<PrivateMessageReplyBody> privateMessageRead(NgaClient client, long messageId, int page){
+        return client.nuke(new PrivateMessageReadParam(messageId, page), PrivateMessageReplyBody.class);
     }
 }   

@@ -2,7 +2,7 @@ package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.PrivateMessageListBodyDeserializer;
-import com.gin.nga.response.field.PrivateMessage;
+import com.gin.nga.response.field.pm.PrivateMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,4 +35,4 @@ public class PrivateMessageListBody {
      */
     int size;
 
-}   
+}
