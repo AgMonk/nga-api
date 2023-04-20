@@ -1,10 +1,10 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.PostApi;
-import com.gin.nga.params.UploadParam;
+import com.gin.nga.params.post.PrepareParam;
+import com.gin.nga.response.post.PostPrepareBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,18 +39,7 @@ public class Test {
         threadTest.test();
     }
 
-    *//**
-     * 将测试结果写入文件
-     * @param res      响应结果
-     * @param filename 写入文件名
-     *//*
-    public static void writeTestRes(Object res, String filename) {
-        try {
-            FileIoUtils.writeObj(new File("./test/" + filename), res);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    *
 
     private static void readTest(NgaClient ngaClient) {
         final ReadTest readTest = new ReadTest(new NgaReadApi(ngaClient));
@@ -63,12 +52,23 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        String attachUrl = "https://img8.nga.cn/attach.php";
-        final File file = new File("D:\\download\\aria2\\plu\\99147997_p0.jpg");
-//        final File file = new File("E:/download/chrome/GifCam.zip");
-        final String auth = "025ff03e6440916a462d62717162d0b8ab51c7565c675a16d035e74760e0";
-        final UploadParam param = new UploadParam(file, auth,-547859);
-        JacksonUtils.printPretty(PostApi.upload(ngaClient, attachUrl, param).sync());
+        final long topicId = 25968165;
+        final long replyId = 502364259;
+        final PostPrepareBody res = PostApi.postPrepare(ngaClient, PrepareParam.modifyParam(topicId, replyId)).sync();
+        writeTestRes(res,"post-prepare-modify-%d-%d.json",topicId,replyId);
+    }
 
+    /**
+     * 将测试结果写入文件
+     * @param res      响应结果
+     * @param format 格式
+     * @param args 参数
+     */
+    public static void writeTestRes(Object res, String format, Object... args) {
+        try {
+            FileIoUtils.writeObj(new File("./test/" + String.format(format, args)), res);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

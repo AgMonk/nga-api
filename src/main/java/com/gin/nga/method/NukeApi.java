@@ -1,8 +1,10 @@
 package com.gin.nga.method;
 
 import com.gin.nga.call.NgaJsonCall;
+import com.gin.nga.call.NgaUploadCall;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.enums.ReplyStatus;
+import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.*;
 import com.gin.nga.params.nuke.favor.FavorAddParam;
 import com.gin.nga.params.nuke.favor.FavorDelParam;
@@ -36,6 +38,18 @@ public class NukeApi {
      */
     public static NgaJsonCall<BaseMessageBody> attachDel(NgaClient client, DelAttachParam param) {
         return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
+     * 上传附件
+     * @param client    客户端
+     * @param attachUrl 上传接口地址
+     * @param param     参数
+     * @return com.gin.nga.call.NgaUploadCall
+     * @since 2023/4/20 9:40
+     */
+    public static NgaUploadCall attachUpload(NgaClient client, String attachUrl, UploadParam param) {
+        return client.callUpload(attachUrl, param);
     }
 
     /**

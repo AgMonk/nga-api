@@ -22,10 +22,9 @@ public class Attachment {
      */
     public static final String PREFIX = "https://img.nga.178.com/attachments/";
     /**
-     * 图片地址,前面需拼接:
+     * 图片相对地址
      */
-    @JsonProperty("attachurl")
-    @JsonAlias("url")
+    @JsonAlias(value = {"url","attachurl"})
     String url;
     /**
      * 描述

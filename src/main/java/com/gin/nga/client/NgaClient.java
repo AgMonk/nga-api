@@ -251,6 +251,16 @@ public class NgaClient {
     }
 
     /**
+     * post请求
+     * @param param 参数
+     * @param formData formData
+     * @param responseClass 响应类型
+     * @return com.gin.nga.call.NgaJsonCall<T>
+     * @author bx002
+     * @since 2023/4/20 9:55
+     */
+    public <T> NgaJsonCall<T> post(Object param,Object formData, Class<T> responseClass) {return callJson(NgaPhpApi.post, param, formData, responseClass);}
+    /**
      * 读取主题内容
      * @param param 参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>

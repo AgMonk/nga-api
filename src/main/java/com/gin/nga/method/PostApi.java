@@ -1,8 +1,9 @@
 package com.gin.nga.method;
 
-import com.gin.nga.call.NgaUploadCall;
+import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.params.UploadParam;
+import com.gin.nga.params.post.PrepareParam;
+import com.gin.nga.response.post.PostPrepareBody;
 
 /**
  * post.php的API
@@ -13,16 +14,17 @@ import com.gin.nga.params.UploadParam;
 public class PostApi {
 
     //todo
+
     /**
-     * 上传附件
+     * 回复准备
      * @param client 客户端
-     * @param attachUrl 上传接口地址
      * @param param 参数
-     * @return com.gin.nga.call.NgaUploadCall
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.post.PostPrepareBody>
      * @author bx002
-     * @since 2023/4/20 9:40
+     * @since 2023/4/20 10:20
      */
-    public static NgaUploadCall upload(NgaClient client, String attachUrl, UploadParam param){
-        return client.callUpload(attachUrl, param);
+    public static NgaJsonCall<PostPrepareBody> postPrepare(NgaClient client, PrepareParam param){
+        return client.post(param, null, PostPrepareBody.class);
     }
+
 }   

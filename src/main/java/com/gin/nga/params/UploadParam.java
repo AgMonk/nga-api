@@ -34,7 +34,7 @@ public class UploadParam {
     @JsonProperty("__output")
     final int output = 11;
     /**
-     * 准备请求中拿到的同名字段
+     * 校验码,准备请求中拿到的同名字段
      */
     @JsonProperty("auth")
     final String auth;
