@@ -243,15 +243,14 @@ public class NukeApi {
     }
     /**
      * 查询私信内容
+     * @param param 参数
      * @param client 客户端
-     * @param messageId 消息id
-     * @param page 页码
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageReplyBody>
      * @author bx002
      * @since 2023/4/20 15:46
      */
-    public static NgaJsonCall<PrivateMessageReplyBody> pmRead(NgaClient client, long messageId, int page){
-        return client.nuke(new PmReadParam(messageId, page), PrivateMessageReplyBody.class);
+    public static NgaJsonCall<PrivateMessageReplyBody> pmRead(NgaClient client, PmReadParam param){
+        return client.nuke(param, PrivateMessageReplyBody.class);
     }
     /**
      * 发送新短消息
@@ -286,4 +285,16 @@ public class NukeApi {
     public static NgaJsonCall<BaseMessageBody> pmAdd(NgaClient client, PmAddParam param){
         return client.nuke(param,BaseMessageBody.class);
     }
+    /**
+     * 私信会话踢人
+     * @param client 客户端
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/4/20 17:22
+     */
+    public static NgaJsonCall<BaseMessageBody> pmKick(NgaClient client, PmKickParam param){
+        return client.nuke(param,BaseMessageBody.class);
+    }
+
 }   

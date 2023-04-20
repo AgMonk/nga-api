@@ -5,7 +5,7 @@ import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.exception.NgaClientException;
 import com.gin.nga.method.NukeApi;
-import com.gin.nga.params.nuke.pm.PmAddParam;
+import com.gin.nga.params.nuke.pm.PmKickParam;
 import com.gin.nga.response.body.BaseMessageBody;
 
 import java.io.File;
@@ -73,7 +73,7 @@ public class Test {
         final int page = 1;
         final int messageId = 4387208;
         try {
-            final BaseMessageBody res = NukeApi.pmAdd(ngaClient, new PmAddParam(messageId, 25020670L)).sync();
+            final BaseMessageBody res = NukeApi.pmKick(ngaClient, new PmKickParam(messageId, 63020118)).sync();
             writeTestRes(res, "private-message-add-%d.json", 25020670L);
         } catch (NgaClientException e) {
             JacksonUtils.printPretty(e.getReason());
