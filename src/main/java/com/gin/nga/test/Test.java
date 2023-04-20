@@ -1,9 +1,12 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
+import com.gin.nga.exception.NgaClientException;
 import com.gin.nga.method.NukeApi;
-import com.gin.nga.params.nuke.pm.PmReplyParam;
+import com.gin.nga.params.nuke.pm.PmAddParam;
+import com.gin.nga.response.body.BaseMessageBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,10 +70,14 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final int messageId = 1231981;
-//        final int messageId = 4261507;
         final int page = 1;
-        writeTestRes(NukeApi.privateMessageReply(ngaClient, new PmReplyParam(4387208, "标题标题标题", "正文正文")).sync(), "private-message-reply-%d.json", 4387208);
+        final int messageId = 4387208;
+        try {
+            final BaseMessageBody res = NukeApi.pmAdd(ngaClient, new PmAddParam(messageId, 25020670L)).sync();
+            writeTestRes(res, "private-message-add-%d.json", 25020670L);
+        } catch (NgaClientException e) {
+            JacksonUtils.printPretty(e.getReason());
+        }
 
 
     }

@@ -1,6 +1,7 @@
 package com.gin.nga.call;
 
 import com.gin.nga.callback.JsonCallback;
+import com.gin.nga.exception.NgaClientException;
 import com.gin.nga.response.NgaRes;
 import okhttp3.Call;
 
@@ -35,6 +36,10 @@ public class NgaJsonCall<T> extends NgaCall<T>{
         if (s == null) {
             return null;
         }
-        return NgaRes.parse(s, responseClass).getData();
+        final NgaRes<T> res = NgaRes.parse(s, responseClass);
+        if (res.getData()==null) {
+            throw new NgaClientException(400, call, res.getError());
+        }
+        return res.getData();
     }
 }

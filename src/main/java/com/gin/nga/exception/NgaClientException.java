@@ -1,5 +1,6 @@
 package com.gin.nga.exception;
 
+import lombok.Getter;
 import okhttp3.Call;
 
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
  * @version : v1.0.0
  * @since : 2023/4/11 15:42
  */
+@Getter
 public class NgaClientException extends NgaException {
     final Map<Integer,String> reason;
 

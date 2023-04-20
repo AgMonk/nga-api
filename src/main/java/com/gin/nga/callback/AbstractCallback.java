@@ -1,6 +1,7 @@
 package com.gin.nga.callback;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.common.utils.MapUtils;
 import com.gin.nga.exception.NgaClientException;
 import com.gin.nga.exception.NgaException;
@@ -76,8 +77,9 @@ public abstract class AbstractCallback<T> implements Callback {
      * @return 对象
      * @throws JsonProcessingException 解析错误
      * @throws NgaServerException 服务器错误
+     * @throws NgaClientException 客户端错误
      */
-    public abstract T parse(String resString) throws JsonProcessingException, NgaServerException;
+    public abstract T parse(String resString) throws JsonProcessingException, NgaServerException, NgaClientException;
 
     /**
      * 执行成功回调
@@ -90,6 +92,9 @@ public abstract class AbstractCallback<T> implements Callback {
      * @param e 异常
      */
     public void handleException(NgaException e) {
+        if (e instanceof NgaClientException ex){
+            JacksonUtils.printPretty(ex.getReason());
+        }
         e.printStackTrace();
     }
 
