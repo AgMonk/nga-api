@@ -3,6 +3,7 @@ package com.gin.nga.params.nuke.pm;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ListLongSerializer;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2023/4/20 16:25
  */
+@Getter
 public class PrivateMessageNewParam extends PrivateMessageBaseParam{
     /**
      * 标题
