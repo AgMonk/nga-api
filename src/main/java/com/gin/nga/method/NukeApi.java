@@ -3,6 +3,7 @@ package com.gin.nga.method;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.call.NgaUploadCall;
 import com.gin.nga.client.NgaClient;
+import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.*;
@@ -208,25 +209,25 @@ public class NukeApi {
     public static NgaJsonCall<BaseMessageBody> pmBlockAdd(NgaClient client, long userId) {
         return client.nuke(new PmBlockAddParam(userId), BaseMessageBody.class);
     }
+
     /**
      * 从私信黑名单移除用户
      * @param client 客户端
      * @param userId 用户id
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
      * @since 2023/4/20 17:35
      */
     public static NgaJsonCall<BaseMessageBody> pmBlockDel(NgaClient client, long userId) {
         return client.nuke(new PmBlockDelParam(userId), BaseMessageBody.class);
     }
+
     /**
      * 查询私信黑名单
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PmBlockListBody>
-     * @author bx002
      * @since 2023/4/20 17:37
      */
-    public static NgaJsonCall<PmBlockListBody> pmBlockList(NgaClient client){
+    public static NgaJsonCall<PmBlockListBody> pmBlockList(NgaClient client) {
         return client.nuke(new PmBlockListParam(), PmBlockListBody.class);
     }
 
@@ -294,6 +295,13 @@ public class NukeApi {
      */
     public static NgaJsonCall<ScoreBody> score(NgaClient client, ScoreParam param) {
         return client.nuke(param, ScoreBody.class);
+    }
+
+    /**
+     * 设置签名
+     */
+    public static NgaJsonCall<BaseMessageBody> signatureSet(NgaClient client, SignatureSetParam param) {
+        return client.callJson(NgaPhpApi.nuke, null, param, BaseMessageBody.class);
     }
 
     /**
