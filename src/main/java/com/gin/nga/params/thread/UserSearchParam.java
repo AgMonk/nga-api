@@ -1,7 +1,6 @@
 package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gin.nga.enums.BoolParam;
 import com.gin.nga.params.PageParam;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,13 +35,13 @@ public class UserSearchParam extends PageParam {
      * 是否只搜索精华帖
      */
     @JsonProperty("recommend")
-    BoolParam recommendOnly;
+    Boolean recommendOnly;
 
-    public UserSearchParam(long authorUid, Serializable page, Long forumId, BoolParam searchReply, BoolParam recommendOnly) {
+    public UserSearchParam(long authorUid, Serializable page, Long forumId, boolean searchReply, Boolean recommendOnly) {
         super(page);
         this.authorUid = authorUid;
         this.forumId = forumId;
-        this.searchReply = searchReply == BoolParam.yes ? 1 : null;
+        this.searchReply = searchReply ? 1 : null;
         this.recommendOnly = recommendOnly;
     }
 }

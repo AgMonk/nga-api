@@ -1,7 +1,8 @@
 package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gin.nga.enums.BoolParam;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.common.serializer.BooleanJsonSerializer;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,21 +29,23 @@ public class ForumSearchParam extends ForumBaseParam {
      * 是否搜索主楼正文
      */
     @JsonProperty("content")
-    BoolParam searchContent;
+    @JsonSerialize(using = BooleanJsonSerializer.class)
+    final Boolean searchContent;
     /**
      * 是否只搜索精华帖
      */
     @JsonProperty("recommend")
-    BoolParam recommendOnly;
+    @JsonSerialize(using = BooleanJsonSerializer.class)
+    final Boolean recommendOnly;
 
-    public ForumSearchParam(String keyword, Serializable page, BoolParam searchContent, BoolParam recommendOnly, List<Long> forumId) {
+    public ForumSearchParam(String keyword, Serializable page, Boolean searchContent, Boolean recommendOnly, List<Long> forumId) {
         super(page, forumId);
         this.keyword = keyword;
         this.searchContent = searchContent;
         this.recommendOnly = recommendOnly;
     }
 
-    public ForumSearchParam(String keyword, Serializable page, BoolParam searchContent, BoolParam recommendOnly, Long... forumId) {
+    public ForumSearchParam(String keyword, Serializable page, Boolean searchContent, Boolean recommendOnly, Long... forumId) {
         super(page, forumId);
         this.keyword = keyword;
         this.searchContent = searchContent;

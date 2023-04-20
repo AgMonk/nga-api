@@ -2,7 +2,8 @@ package com.gin.nga.params;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gin.nga.enums.BoolParam;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.common.serializer.BooleanJsonSerializer;
 import com.gin.nga.enums.WatermarkPosition;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -57,7 +58,8 @@ public class UploadParam {
      * 是否自动转换尺寸(压缩图片,超过4M的图片如果不压缩会报错)
      */
     @JsonProperty(PREFIX + "_auto_size")
-    final BoolParam autoSize;
+    @JsonSerialize(using = BooleanJsonSerializer.class)
+    final Boolean autoSize;
     /**
      * 水印位置
      */
@@ -74,6 +76,7 @@ public class UploadParam {
     @JsonProperty(PREFIX)
     @JsonIgnore
     final File file;
+
     public UploadParam(
             @NotNull File file,
             @NotEmpty String auth,
@@ -98,7 +101,7 @@ public class UploadParam {
         final int k = 1024;
         final int m = k * k;
         // 文件超过4M 自动压缩
-        this.autoSize = file.length() > 4 * m ? BoolParam.yes : BoolParam.no;
+        this.autoSize = file.length() > 4 * m;
         this.utf8Name = URLEncoder.encode(file.getName(), StandardCharsets.UTF_8);
     }
 

@@ -14,9 +14,6 @@ import com.gin.nga.response.post.PrepareBody;
  * @since : 2023/4/19 15:54
  */
 public class PostApi {
-
-    //todo
-
     /**
      * 发帖准备
      * @param client 客户端
@@ -28,6 +25,15 @@ public class PostApi {
     public static NgaJsonCall<PrepareBody> postPrepare(NgaClient client, PrepareParam prepareParam){
         return client.post(prepareParam, null, PrepareBody.class);
     }
+    /**
+     * 正式发帖
+     * @param client 客户端
+     * @param prepareParam 准备参数
+     * @param postParam 发帖参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.post.PostBody>
+     * @author bx002
+     * @since 2023/4/20 12:22
+     */
     public static NgaJsonCall<PostBody> postSend(NgaClient client, PrepareParam prepareParam, PostParam postParam){
         return client.post(prepareParam,postParam,PostBody.class);
     }

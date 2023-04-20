@@ -2,7 +2,8 @@ package com.gin.nga.params.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gin.nga.enums.BoolParam;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.common.serializer.BooleanJsonSerializer;
 import com.gin.nga.response.body.UploadBody;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +38,14 @@ public class PostParam {
      * 隐藏内容,版主可见
      */
     @JsonProperty("hidden")
-    final BoolParam hidden;
+    @JsonSerialize(using = BooleanJsonSerializer.class)
+    final Boolean hidden;
     /**
      * 匿名发帖
      */
     @JsonProperty("anony")
-    final BoolParam anony;
+    @JsonSerialize(using = BooleanJsonSerializer.class)
+    final Boolean anony;
     /**
      * 附件列表
      */
@@ -51,19 +54,18 @@ public class PostParam {
 
     /**
      * 常规发帖
-     * @param title   标题
+     * @param title 标题
      * @param content 正文
      */
     public PostParam(String title, String content) {
-        this(title, content, BoolParam.no, BoolParam.no);
+        this(title, content, null,null);
     }
-
     /**
      * 常规发帖
      * @param content 正文
      */
     public PostParam(String content) {
-        this(null, content, BoolParam.no, BoolParam.no);
+        this(null, content, null,null);
     }
 
     public boolean add(UploadBody uploadBody) {

@@ -2,7 +2,6 @@ package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.enums.BoolParam;
 import com.gin.nga.method.PostApi;
 import com.gin.nga.params.post.PostParam;
 import com.gin.nga.params.post.PrepareParam;
@@ -61,7 +60,7 @@ public class Test {
         final PrepareBody prepareRes = PostApi.postPrepare(ngaClient, prepareParam).sync();
         writeTestRes(prepareRes,"post-prepare-modify-%d-%d.json",topicId,replyId);
 
-        final PostBody postRes = PostApi.postSend(ngaClient, prepareParam, new PostParam("标题", "正文正文正文正文", BoolParam.no, BoolParam.no)).sync();
+        final PostBody postRes = PostApi.postSend(ngaClient, prepareParam, new PostParam("标题", "正文正文正文正文", true, true)).sync();
         writeTestRes(postRes,"post-send-%d-%d-%d.json",topicId,replyId,System.currentTimeMillis());
 
     }
