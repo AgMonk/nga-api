@@ -3,6 +3,7 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
+import com.gin.nga.method.PostApi;
 import com.gin.nga.params.UploadParam;
 
 import java.io.File;
@@ -64,11 +65,10 @@ public class Test {
 
         String attachUrl = "https://img8.nga.cn/attach.php";
         final File file = new File("D:\\download\\aria2\\plu\\99147997_p0.jpg");
-        System.out.println(file.exists());
 //        final File file = new File("E:/download/chrome/GifCam.zip");
         final String auth = "025ff03e6440916a462d62717162d0b8ab51c7565c675a16d035e74760e0";
         final UploadParam param = new UploadParam(file, auth,-547859);
-        JacksonUtils.printPretty(ngaClient.callUpload(attachUrl, param).sync());
+        JacksonUtils.printPretty(PostApi.upload(ngaClient, attachUrl, param).sync());
 
     }
 }

@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 @Getter
 @Setter
 public class UploadParam {
+    public static final String PREFIX = "attachment_file0";
     @JsonProperty("v2")
     final int version = 1;
     @JsonProperty("func")
@@ -45,32 +46,32 @@ public class UploadParam {
     /**
      * 描述
      */
-    @JsonProperty("attachment_file1_dscp")
+    @JsonProperty(PREFIX + "_dscp")
     final String description;
     /**
      * 未知
      */
-    @JsonProperty("attachment_file1_img")
-    final int attachment_file1_img = 1;
+    @JsonProperty(PREFIX + "_img")
+    final int attachment_file1_img = 0;
     /**
      * 是否自动转换尺寸(压缩图片,超过4M的图片如果不压缩会报错)
      */
-    @JsonProperty("attachment_file1_auto_size")
+    @JsonProperty(PREFIX + "_auto_size")
     final BoolParam autoSize;
     /**
      * 水印位置
      */
-    @JsonProperty("attachment_file1_watermark")
+    @JsonProperty(PREFIX + "_watermark")
     final WatermarkPosition watermarkPosition;
     /**
      * 附件文件UTF8编码文件原名再urlencode
      */
-    @JsonProperty("attachment_file1_url_utf8_name")
+    @JsonProperty(PREFIX + "_url_utf8_name")
     final String utf8Name;
     /**
      * 文件
      */
-    @JsonProperty("attachment_file1")
+    @JsonProperty(PREFIX)
     @JsonIgnore
     final File file;
     public UploadParam(

@@ -155,12 +155,11 @@ public class NgaClient {
         JacksonUtils.jsonToMap(param).forEach((k, v) -> {
             if (v != null) {
                 builder.addFormDataPart(k, String.valueOf(v));
-                System.out.println(k + " -> " + v);
             }
         });
         final File file = param.getFile();
         RequestBody fileBody = RequestBody.create(file, MediaType.parse("application/octet-stream"));
-        builder.addFormDataPart("attachment_file1", file.getName(), fileBody);
+        builder.addFormDataPart(UploadParam.PREFIX, file.getName(), fileBody);
         return builder.build();
     }
 
@@ -229,7 +228,11 @@ public class NgaClient {
     public NgaUploadCall callUpload(String attachUrl, UploadParam param) {
         final HttpUrl httpUrl = HttpUrl.parse(attachUrl);
         final MultipartBody multipartBody = getMultipartBody(param);
-        final Request request = getRequest(httpUrl, multipartBody);
+        assert httpUrl!=null;
+        final Request request = new Request.Builder()
+                .url(httpUrl)
+                .post(multipartBody)
+                .build();
         return new NgaUploadCall(this.client.newCall(request));
     }
 
