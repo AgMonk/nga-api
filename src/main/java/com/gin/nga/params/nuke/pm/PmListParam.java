@@ -9,10 +9,10 @@ import lombok.Getter;
  * @since : 2023/4/20 12:36
  */
 @Getter
-public class PrivateMessageListParam extends PrivateMessageBaseParam {
+public class PmListParam extends PmBaseParam {
     final int page;
 
-    public PrivateMessageListParam(int page) {
+    public PmListParam(int page) {
         super("list");
         this.page = Math.max(1, page);
     }

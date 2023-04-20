@@ -14,7 +14,7 @@ import java.util.List;
  * @since : 2023/4/20 16:25
  */
 @Getter
-public class PrivateMessageNewParam extends PrivateMessageBaseParam{
+public class PmNewParam extends PmBaseParam {
     /**
      * 标题
      */
@@ -32,13 +32,13 @@ public class PrivateMessageNewParam extends PrivateMessageBaseParam{
     @JsonSerialize(using = ListLongSerializer.class)
     final List<Long> userId;
 
-    public PrivateMessageNewParam(String title,  String content, List<Long> userId) {
+    public PmNewParam(String title, String content, List<Long> userId) {
         super("new");
         this.title = title;
         this.content = content;
         this.userId = userId;
     }
-    public PrivateMessageNewParam(String title, String content, Long... userId) {
+    public PmNewParam(String title, String content, Long... userId) {
         this(title, content, List.of(userId));
     }
 }

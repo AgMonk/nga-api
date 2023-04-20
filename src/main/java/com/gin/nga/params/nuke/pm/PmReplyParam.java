@@ -10,7 +10,7 @@ import lombok.Getter;
  * @since : 2023/4/20 16:53
  */
 @Getter
-public class PrivateMessageReplyParam extends PrivateMessageBaseParam{
+public class PmReplyParam extends PmBaseParam {
     /**
      * 消息id
      */
@@ -26,7 +26,7 @@ public class PrivateMessageReplyParam extends PrivateMessageBaseParam{
      */
     @JsonProperty("content")
     final String content;
-    public PrivateMessageReplyParam(long messageId, String title, String content) {
+    public PmReplyParam(long messageId, String title, String content) {
         super("reply");
         this.messageId = messageId;
         this.title = title;

@@ -10,7 +10,7 @@ import lombok.Getter;
  * @since : 2023/4/20 15:12
  */
 @Getter
-public class PrivateMessageReadParam extends PrivateMessageBaseParam {
+public class PmReadParam extends PmBaseParam {
     final int page;
     @JsonProperty("mid")
     final long messageId;
@@ -21,7 +21,7 @@ public class PrivateMessageReadParam extends PrivateMessageBaseParam {
      * @author bx002
      * @since 2023/4/20 15:15
      */
-    public PrivateMessageReadParam(long messageId, int page) {
+    public PmReadParam(long messageId, int page) {
         super("read");
         this.page = Math.max(-1, page);
         this.messageId = messageId;

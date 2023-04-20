@@ -15,10 +15,10 @@ import com.gin.nga.params.nuke.favorforum.FavorForumParam;
 import com.gin.nga.params.nuke.notice.NoticeClearParam;
 import com.gin.nga.params.nuke.notice.NoticeEnableParam;
 import com.gin.nga.params.nuke.notice.NoticeParam;
-import com.gin.nga.params.nuke.pm.PrivateMessageListParam;
-import com.gin.nga.params.nuke.pm.PrivateMessageNewParam;
-import com.gin.nga.params.nuke.pm.PrivateMessageReadParam;
-import com.gin.nga.params.nuke.pm.PrivateMessageReplyParam;
+import com.gin.nga.params.nuke.pm.PmListParam;
+import com.gin.nga.params.nuke.pm.PmNewParam;
+import com.gin.nga.params.nuke.pm.PmReadParam;
+import com.gin.nga.params.nuke.pm.PmReplyParam;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.FavorFolderBody;
 import com.gin.nga.response.body.nuke.*;
@@ -242,7 +242,7 @@ public class NukeApi {
      * @since 2023/4/20 13:45
      */
     public static NgaJsonCall<PrivateMessageListBody> privateMessageList(NgaClient client, int page){
-        return  client.nuke(new PrivateMessageListParam(page), PrivateMessageListBody.class);
+        return  client.nuke(new PmListParam(page), PrivateMessageListBody.class);
     }
     /**
      * 查询私信内容
@@ -254,7 +254,7 @@ public class NukeApi {
      * @since 2023/4/20 15:46
      */
     public static NgaJsonCall<PrivateMessageReplyBody> privateMessageRead(NgaClient client, long messageId, int page){
-        return client.nuke(new PrivateMessageReadParam(messageId, page), PrivateMessageReplyBody.class);
+        return client.nuke(new PmReadParam(messageId, page), PrivateMessageReplyBody.class);
     }
     /**
      * 发送新短消息
@@ -264,7 +264,7 @@ public class NukeApi {
      * @author bx002
      * @since 2023/4/20 16:40
      */
-    public static NgaJsonCall<BaseMessageBody> privateMessageNew(NgaClient client, PrivateMessageNewParam param){
+    public static NgaJsonCall<BaseMessageBody> privateMessageNew(NgaClient client, PmNewParam param){
         return client.nuke(param,BaseMessageBody.class);
     }
     /**
@@ -275,7 +275,7 @@ public class NukeApi {
      * @author bx002
      * @since 2023/4/20 16:56
      */
-    public static NgaJsonCall<BaseMessageBody> privateMessageReply(NgaClient client, PrivateMessageReplyParam param){
+    public static NgaJsonCall<BaseMessageBody> privateMessageReply(NgaClient client, PmReplyParam param){
         return client.nuke(param,BaseMessageBody.class);
     }
 }   

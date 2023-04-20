@@ -11,11 +11,11 @@ import lombok.Getter;
  * @since : 2023/4/20 12:36
  */
 @Getter
-public class PrivateMessageBaseParam extends NukeBaseParam {
+public class PmBaseParam extends NukeBaseParam {
     @JsonProperty("act")
     final String action;
 
-    public PrivateMessageBaseParam(String action) {
+    public PmBaseParam(String action) {
         super("message", "message");
         this.action = action;
     }
