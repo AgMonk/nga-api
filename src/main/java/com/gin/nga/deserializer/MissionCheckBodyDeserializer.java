@@ -7,6 +7,7 @@ import com.gin.nga.response.body.nuke.MissionCheckBody;
 import com.gin.nga.response.field.MissionInfo;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -16,24 +17,9 @@ import java.util.List;
  * @since : 2023/4/21 11:18
  */
 public class MissionCheckBodyDeserializer extends AbstractSingleListDeserializer<MissionCheckBody, MissionInfo> {
-    @SuppressWarnings("AlibabaUndefineMagicConstant")
-    @Override
-    public void handleItem(MissionCheckBody result, List<MissionInfo> list, String fieldName, TreeNode child) throws JsonProcessingException {
-        final String s = child.toString().trim();
-        if ("0".equals(fieldName) && !ObjectUtils.isEmpty(s)) {
-            result.setCompleted(false);
-            result.setMission(NgaRes.MAPPER.readValue(getFirstChild(child).toString(), MissionInfo.class));
-        }
-        if ("1".equals(fieldName) && !ObjectUtils.isEmpty(s)) {
-            result.setCompleted(true);
-            result.setMission(NgaRes.MAPPER.readValue(getFirstChild(child).toString(), MissionInfo.class));
-        }
-        if ("2".equals(fieldName) && !ObjectUtils.isEmpty(s)) {
-            result.setMessage(s);
-        }
-        if ("3".equals(fieldName) && !ObjectUtils.isEmpty(s)) {
-            result.setMoreMessage(s);
-        }
+    private static String getFirstChild(TreeNode node) {
+        final Iterator<String> iterator = node.fieldNames();
+        return iterator.hasNext() ? node.get(iterator.next()).toString().trim() : "";
     }
 
     @Override
@@ -41,7 +27,26 @@ public class MissionCheckBodyDeserializer extends AbstractSingleListDeserializer
         return new MissionCheckBody();
     }
 
-    private static TreeNode getFirstChild(TreeNode node){
-        return node.get(node.fieldNames().next());
+    @SuppressWarnings("AlibabaUndefineMagicConstant")
+    @Override
+    public void handleItem(MissionCheckBody result, List<MissionInfo> list, String fieldName, TreeNode child) throws JsonProcessingException {
+        final String s = getFirstChild(child);
+        if (ObjectUtils.isEmpty(s)) {
+            return;
+        }
+        if ("0".equals(fieldName)) {
+            result.setCompleted(false);
+            result.setMission(NgaRes.MAPPER.readValue(s, MissionInfo.class));
+        }
+        if ("1".equals(fieldName)) {
+            result.setCompleted(true);
+            result.setMission(NgaRes.MAPPER.readValue(s, MissionInfo.class));
+        }
+        if ("2".equals(fieldName)) {
+            result.setMessage(s);
+        }
+        if ("3".equals(fieldName)) {
+            result.setMoreMessage(s);
+        }
     }
 }

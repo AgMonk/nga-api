@@ -20,6 +20,9 @@ public class MissionListParam extends  MissionBaseParam{
      * 任务类型bit 取值 1:需要计数器的任务/2:可以重复完成的任务
      */
     final int type;
+    /**
+     * 只返回可完成任务
+     */
     final int available = 1;
 
     public MissionListParam(int event, int type) {
