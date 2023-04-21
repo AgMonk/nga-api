@@ -2,6 +2,7 @@ package com.gin.nga.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gin.nga.utils.BitUtils;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public enum ReplyStatus {
         if (type==0) {
             return null;
         }
-        String s = new StringBuilder(Integer.toBinaryString(type)).reverse().toString();
+        String s = BitUtils.parse(type);
         List<ReplyStatus> list = new ArrayList<>();
         for (ReplyStatus i : values()) {
             if (s.length() > i.position && s.charAt(i.position) == '1') {

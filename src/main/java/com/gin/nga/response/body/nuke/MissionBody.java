@@ -2,7 +2,7 @@ package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.MissionBodyDeserializer;
-import com.gin.nga.response.field.MissionInfo;
+import com.gin.nga.response.field.mission.MissionInfo;
 import lombok.Getter;
 import lombok.Setter;
 

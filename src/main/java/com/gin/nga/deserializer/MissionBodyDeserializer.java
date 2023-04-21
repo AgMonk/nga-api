@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.TreeNode;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.body.nuke.MissionBody;
-import com.gin.nga.response.field.MissionInfo;
+import com.gin.nga.response.field.mission.MissionInfo;
 
 import java.util.List;
 

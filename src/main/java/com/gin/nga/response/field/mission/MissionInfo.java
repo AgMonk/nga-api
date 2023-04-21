@@ -1,4 +1,4 @@
-package com.gin.nga.response.field;
+package com.gin.nga.response.field.mission;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
@@ -23,7 +23,6 @@ public class MissionInfo {
      */
     @JsonAlias("info")
     String info;
-
     /**
      * 详情
      */
@@ -35,7 +34,11 @@ public class MissionInfo {
     @JsonAlias("stat")
     String status;
 
-    //todo 字段 raw_detail
+    /**
+     * 任务详情
+     */
+    @JsonAlias("raw_detail")
+    MissionDetail missionDetail;
     //todo 字段 raw_stat
 
 
