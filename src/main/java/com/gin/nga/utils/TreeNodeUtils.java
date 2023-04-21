@@ -16,7 +16,7 @@ public class TreeNodeUtils {
      * @return 第一个子节点
      */
     public static TreeNode findFirstChild(TreeNode root) {
-        return root.size() > 0 ? root.get(root.fieldNames().next()) : root;
+        return root.size() > 0 ? root.get(root.fieldNames().next()) : null;
     }
 
     /**

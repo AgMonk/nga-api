@@ -18,8 +18,6 @@ public class MissionCheckBodyDeserializer extends JsonDeserializer<MissionCheckB
     @Override
     public MissionCheckBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         //todo
-
-        return  null;
-
+        return null;
     }
 }
