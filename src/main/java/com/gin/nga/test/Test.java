@@ -71,11 +71,8 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-            final int userId = 39841854;
-
-        final MissionBody missions = NukeApi.missionList(ngaClient, new MissionListParam(1, 1)).sync();
-        JacksonUtils.printPretty(missions);
-//            JacksonUtils.printPretty(NukeApi.missionCheck(ngaClient, new MissionCheckParam(missions.getData().get(0).getId())).sync());
-            JacksonUtils.printPretty(NukeApi.missionCheckIn(ngaClient, new MissionCheckInParam(missions.getData().get(0).getId())).sync());
+        final MissionBody missions = NukeApi.missionList(ngaClient, new MissionListParam()).sync();
+//        JacksonUtils.printPretty(missions);
+        JacksonUtils.printPretty(NukeApi.missionCheckIn(ngaClient, new MissionCheckInParam(missions.getData().get(0).getId())).sync());
     }
 }

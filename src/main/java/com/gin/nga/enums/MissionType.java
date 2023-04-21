@@ -13,7 +13,7 @@ import java.util.List;
  * @since : 2023/4/21 12:54
  */
 @RequiredArgsConstructor
-public enum MissionDetailType {
+public enum MissionType {
 
     /**
      * 需要计数的任务
@@ -30,7 +30,7 @@ public enum MissionDetailType {
     /**
      * 必须用户激活级别0
      */
-    NOACTIVE(3,"必须用户激活级别0"),
+    NO_ACTIVE(3,"必须用户激活级别0"),
     /**
      * 必须是认证的客户端
      */
@@ -58,13 +58,13 @@ public enum MissionDetailType {
      * @param type type字段
      * @return 状态列表
      */
-    public static List<MissionDetailType> parse(int type) {
+    public static List<MissionType> parse(int type) {
         if (type == 0) {
             return null;
         }
         String s = BitUtils.parse(type);
-        List<MissionDetailType> list = new ArrayList<>();
-        for (MissionDetailType i : values()) {
+        List<MissionType> list = new ArrayList<>();
+        for (MissionType i : values()) {
             if (s.length() > i.position && s.charAt(i.position) == '1') {
                 list.add(i);
             }

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.MissionCounterType;
-import com.gin.nga.enums.MissionDetailType;
+import com.gin.nga.enums.MissionEvent;
+import com.gin.nga.enums.MissionType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +33,7 @@ public class MissionDetail {
     Integer coolDownDays;
 
     @JsonAlias("6")
-    Integer event;
+    MissionEvent event;
 
     @JsonAlias("9")
     String name;
@@ -70,7 +71,7 @@ public class MissionDetail {
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime endTime;
 
-    public List<MissionDetailType> getTypes(){
-        return type==null?null: MissionDetailType.parse(type);
+    public List<MissionType> getTypes(){
+        return type==null?null: MissionType.parse(type);
     }
 }

@@ -1,5 +1,7 @@
 package com.gin.nga.params.nuke.mission;
 
+import com.gin.nga.enums.MissionEvent;
+import com.gin.nga.enums.MissionType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,9 +27,17 @@ public class MissionListParam extends  MissionBaseParam{
      */
     final int available = 1;
 
-    public MissionListParam(int event, int type) {
-        super("get");
-        this.event = event;
-        this.type = type;
+    /**
+     * 签到任务
+     */
+    public MissionListParam() {
+        this(MissionEvent.SIGN_IN, MissionType.COUNTER);
     }
+
+    public MissionListParam(MissionEvent event, MissionType type) {
+        super("get");
+        this.event = event.id;
+        this.type = (int) Math.pow(2, type.position);
+    }
+
 }

@@ -168,7 +168,9 @@ public class NukeApi {
      * @since 2023/4/21 11:22
      */
     public static NgaJsonCall<MissionCheckBody> missionCheck(NgaClient client, MissionCheckParam param) {
-        return client.nuke(param, MissionCheckBody.class);
+        //todo 目前不可用
+//        return client.nuke(param, MissionCheckBody.class);
+        return null;
     }
 
     /**

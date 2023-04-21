@@ -24,4 +24,8 @@ public class MissionCheckBody {
      * 任务信息
      */
     MissionInfo missionInfo;
+    /**
+     * 奖励消息
+     */
+    String message;
 }

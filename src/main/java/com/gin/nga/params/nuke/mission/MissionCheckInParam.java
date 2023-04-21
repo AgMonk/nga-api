@@ -1,5 +1,6 @@
 package com.gin.nga.params.nuke.mission;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +24,7 @@ public class MissionCheckInParam extends MissionBaseParam{
      * 测试用,检查任务时不会自动完成任务
      */
     @JsonProperty("no_complete")
-//    @JsonIgnore
+    @JsonIgnore
     final int noComplete = 1;
 
 
