@@ -32,9 +32,6 @@ import com.gin.nga.response.body.nuke.*;
  * @since : 2023/4/19 15:54
  */
 public class NukeApi {
-
-    //todo
-
     /**
      * 删除附件
      * @param client 客户端
@@ -95,6 +92,26 @@ public class NukeApi {
      */
     public static NgaJsonCall<BlockSubForumBody> blockSubForumList(NgaClient client, long forumId) {
         return client.nuke(new BlockSubForumParam("get", forumId), BlockSubForumBody.class);
+    }
+
+    /**
+     * 用户签到
+     * @param client 客户端
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.CheckInBody>
+     * @since 2023/4/21 16:35
+     */
+    public static NgaJsonCall<CheckInBody> checkIn(NgaClient client) {
+        return client.nuke(new CheckInParam(), CheckInBody.class);
+    }
+
+    /**
+     * 查询签到状态
+     * @param client 客户端
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.CheckInStatusBody>
+     * @since 2023/4/21 16:34
+     */
+    public static NgaJsonCall<CheckInStatusBody> checkInStatus(NgaClient client) {
+        return client.nuke(new CheckInStatusParam(), CheckInStatusBody.class);
     }
 
     /**
@@ -219,7 +236,7 @@ public class NukeApi {
 
     /**
      * 查询提醒消息
-     * @param client 客户端
+     * @param client    客户端
      * @param timeLimit 只返回时间戳大于该值的提醒
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.NoticeBody.Res>
      * @since 2023/4/18 9:26
@@ -227,14 +244,16 @@ public class NukeApi {
     public static NgaJsonCall<NoticeBody> noticeList(NgaClient client, long timeLimit) {
         return client.nuke(new NoticeParam(timeLimit), NoticeBody.class);
     }
+
     /**
-     *  获取当前登录用户提醒信息状态(疑似无效)
+     * 获取当前登录用户提醒信息状态(疑似无效)
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.NoticeStatusBody>
-     * @author bx002
      * @since 2023/4/21 16:58
      */
-    public static NgaJsonCall<NoticeStatusBody> noticeStatus(NgaClient client){return client.nuke(new NoticeStatusParam(),NoticeStatusBody.class);}
+    public static NgaJsonCall<NoticeStatusBody> noticeStatus(NgaClient client) {
+        return client.nuke(new NoticeStatusParam(), NoticeStatusBody.class);
+    }
 
     /**
      * 向私信会话中添加更多的参与者
@@ -383,26 +402,6 @@ public class NukeApi {
      */
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
-    }
-/**
- * 查询签到状态
- * @param client 客户端
- * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.CheckInStatusBody>
- * @author bx002
- * @since 2023/4/21 16:34
- */
-    public static NgaJsonCall<CheckInStatusBody> checkInStatus(NgaClient client){
-        return client.nuke(new CheckInStatusParam(), CheckInStatusBody.class);
-    }
-    /**
-     * 用户签到
-     * @param client 客户端
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.CheckInBody>
-     * @author bx002
-     * @since 2023/4/21 16:35
-     */
-    public static NgaJsonCall<CheckInBody> checkIn(NgaClient client){
-        return client.nuke(new CheckInParam(), CheckInBody.class);
     }
 
 
