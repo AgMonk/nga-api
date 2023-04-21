@@ -13,6 +13,7 @@ import com.gin.nga.params.nuke.favor.FavorFolderListParam;
 import com.gin.nga.params.nuke.favor.FavorFolderModifyParam;
 import com.gin.nga.params.nuke.favorforum.FavorForumEditParam;
 import com.gin.nga.params.nuke.favorforum.FavorForumParam;
+import com.gin.nga.params.nuke.mission.MissionCheckParam;
 import com.gin.nga.params.nuke.mission.MissionListParam;
 import com.gin.nga.params.nuke.notice.NoticeClearParam;
 import com.gin.nga.params.nuke.notice.NoticeEnableParam;
@@ -156,6 +157,28 @@ public class NukeApi {
      */
     public static NgaJsonCall<BaseMessageBody> favorTopicDel(NgaClient client, FavorDelParam param) {
         return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
+     * 查询任务列表
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MissionBody>
+     * @since 2023/4/21 9:57
+     */
+    public static NgaJsonCall<MissionBody> missionList(NgaClient client, MissionListParam param) {
+        return client.nuke(param, MissionBody.class);
+    }
+
+    /**
+     * 检查任务
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MissionCheckBody>
+     * @since 2023/4/21 11:22
+     */
+    public static NgaJsonCall<MissionCheckBody> missionCheck(NgaClient client, MissionCheckParam param) {
+        return client.nuke(param, MissionCheckBody.class);
     }
 
     /**
@@ -336,17 +359,6 @@ public class NukeApi {
      */
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
-    }
-    /**
-     * 查询任务列表
-     * @param client 客户端
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MissionBody>
-     * @author bx002
-     * @since 2023/4/21 9:57
-     */
-    public static NgaJsonCall<MissionBody> missionList(NgaClient client, MissionListParam param){
-        return client.nuke(param, MissionBody.class);
     }
 
 
