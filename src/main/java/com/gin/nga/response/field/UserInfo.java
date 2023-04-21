@@ -1,6 +1,6 @@
 package com.gin.nga.response.field;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.UserForumDeserializer;
 import lombok.Getter;
@@ -16,96 +16,97 @@ import java.util.LinkedHashMap;
  */
 @Getter
 @Setter
-public class UserInfo extends  BaseUserInfo{
+public class UserInfo extends BaseUserInfo {
     /**
      * 有管理员权限
      */
-    @JsonProperty("_admin")
+    @JsonAlias("_admin")
     boolean admin;
     /**
      * 有版主权限
      */
-    @JsonProperty("_greater")
+    @JsonAlias("_greater")
     boolean greaterAdmin;
     /**
      * 有次级版主权限
      */
-    @JsonProperty("_lesser")
+    @JsonAlias("_lesser")
     boolean lesserAdmin;
     /**
      * 有超版权限
      */
-    @JsonProperty("_super")
+    @JsonAlias("_super")
     boolean superAdmin;
 
     /**
      * 持有管理权限的版面 版面id->版面名称
      */
-    @JsonProperty("adminForums")
+    @JsonAlias("adminForums")
     LinkedHashMap<Long, String> adminForums;
 
-    @JsonProperty("bit")
+    @JsonAlias("bit")
     Long bitData;
 
-    @JsonProperty("email")
+    @JsonAlias("email")
     String email;
     /**
      * todo 未知数据
      */
-    @JsonProperty("faction")
+    @JsonAlias("faction")
     Object faction;
     /**
      * 威望
      */
-    @JsonProperty("fame")
+    @JsonAlias("fame")
     Integer fame;
     /**
      * 关注数
      */
-    @JsonProperty("follow")
+    @JsonAlias("follow")
     Integer followCount;
     /**
      * 被关注数
      */
-    @JsonProperty("follow_by_num")
+    @JsonAlias("follow_by_num")
     Integer followedCount;
     /**
      * 用户组id(涉及管理权限)
      */
-    @JsonProperty("gid")
+    @JsonAlias("gid")
     Long gid;
     /**
      * 威望组名
      */
-    @JsonProperty("group")
+    @JsonAlias("group")
     String groupName;
     /**
      * ip属地
      */
-    @JsonProperty("ipLoc")
+    @JsonAlias("ipLoc")
     String ipLocation;
     /**
      * todo 不知道是什么物品的数量
      */
-    @JsonProperty("items")
+    @JsonAlias("items")
     Integer items;
     /**
      * 更多信息
      */
-    @JsonProperty("more_info")
+    @JsonAlias("more_info")
     LinkedHashMap<Integer, UserMoreInfo> moreInfo;
     /**
      * 备注
      */
-    @JsonProperty("remark")
+    @JsonAlias("remark")
     String remark;
     /**
      * 个人版名称
      */
-    @JsonProperty("site")
+    @JsonAlias("site")
     @JsonDeserialize(using = UserForumDeserializer.class)
     String userForum;
 
-
+    @JsonAlias("reputation")
+    LinkedHashMap<Integer, Reputation> reputations;
 
 }
