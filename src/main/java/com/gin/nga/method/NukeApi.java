@@ -19,6 +19,7 @@ import com.gin.nga.params.nuke.mission.MissionListParam;
 import com.gin.nga.params.nuke.notice.NoticeClearParam;
 import com.gin.nga.params.nuke.notice.NoticeEnableParam;
 import com.gin.nga.params.nuke.notice.NoticeParam;
+import com.gin.nga.params.nuke.notice.NoticeStatusParam;
 import com.gin.nga.params.nuke.pm.*;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.FavorFolderBody;
@@ -219,12 +220,21 @@ public class NukeApi {
     /**
      * 查询提醒消息
      * @param client 客户端
+     * @param timeLimit 只返回时间戳大于该值的提醒
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.NoticeBody.Res>
      * @since 2023/4/18 9:26
      */
-    public static NgaJsonCall<NoticeBody> noticeList(NgaClient client) {
-        return client.nuke(new NoticeParam(), NoticeBody.class);
+    public static NgaJsonCall<NoticeBody> noticeList(NgaClient client, long timeLimit) {
+        return client.nuke(new NoticeParam(timeLimit), NoticeBody.class);
     }
+    /**
+     *  获取当前登录用户提醒信息状态(疑似无效)
+     * @param client 客户端
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.NoticeStatusBody>
+     * @author bx002
+     * @since 2023/4/21 16:58
+     */
+    public static NgaJsonCall<NoticeStatusBody> noticeStatus(NgaClient client){return client.nuke(new NoticeStatusParam(),NoticeStatusBody.class);}
 
     /**
      * 向私信会话中添加更多的参与者

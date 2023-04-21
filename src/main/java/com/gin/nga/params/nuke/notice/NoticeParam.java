@@ -12,10 +12,14 @@ import lombok.Getter;
 @Getter
 public class NoticeParam extends NukeBaseParam {
     final int raw = 3;
+    /**
+     * 只返回时间戳大于该值的提醒
+     */
     @JsonProperty("time_limit")
-    final long timeLimit = 1;
+    final long timeLimit;
 
-    public NoticeParam() {
+    public NoticeParam(long timeLimit) {
         super("noti", "get_all");
+        this.timeLimit = timeLimit;
     }
 }
