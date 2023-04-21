@@ -1,7 +1,10 @@
 package com.gin.nga.enums;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
 
 /**
  * 计数器类型
@@ -10,6 +13,7 @@ import lombok.RequiredArgsConstructor;
  * @since : 2023/4/21 13:08
  */
 @RequiredArgsConstructor
+@JsonFormat(shape = JsonFormat.Shape.STRING)
 public enum MissionCounterType {
     /**
      * 签到
@@ -27,6 +31,10 @@ public enum MissionCounterType {
 
     ;
 
-    @JsonValue
     public final int id;
+
+    @JsonCreator
+    public static MissionCounterType findById(int id){
+        return Arrays.stream(values()).filter(i -> i.id == id).findFirst().orElse(null);
+    }
 }

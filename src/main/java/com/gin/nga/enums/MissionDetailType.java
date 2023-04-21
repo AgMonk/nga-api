@@ -63,7 +63,6 @@ public enum MissionDetailType {
             return null;
         }
         String s = BitUtils.parse(type);
-        System.out.println(type+" -> "+s);
         List<MissionDetailType> list = new ArrayList<>();
         for (MissionDetailType i : values()) {
             if (s.length() > i.position && s.charAt(i.position) == '1') {

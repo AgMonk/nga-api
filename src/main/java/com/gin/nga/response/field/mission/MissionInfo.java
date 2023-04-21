@@ -39,7 +39,8 @@ public class MissionInfo {
      */
     @JsonAlias("raw_detail")
     MissionDetail missionDetail;
-    //todo 字段 raw_stat
 
+    @JsonAlias("raw_stat")
+    MissionStatus missionStatus;
 
 }   
