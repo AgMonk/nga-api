@@ -374,9 +374,25 @@ public class NukeApi {
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
     }
-
+/**
+ * 查询签到状态
+ * @param client 客户端
+ * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.CheckInStatusBody>
+ * @author bx002
+ * @since 2023/4/21 16:34
+ */
     public static NgaJsonCall<CheckInStatusBody> checkInStatus(NgaClient client){
         return client.nuke(new CheckInStatusParam(), CheckInStatusBody.class);
+    }
+    /**
+     * 用户签到
+     * @param client 客户端
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.CheckInBody>
+     * @author bx002
+     * @since 2023/4/21 16:35
+     */
+    public static NgaJsonCall<CheckInBody> checkIn(NgaClient client){
+        return client.nuke(new CheckInParam(), CheckInBody.class);
     }
 
 

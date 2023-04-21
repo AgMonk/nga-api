@@ -2,7 +2,6 @@ package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.NukeApi;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,12 +61,15 @@ public class Test {
     }
 */
     public static void main(String[] args) throws IOException {
+        final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie2.txt"));
 //        final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie1.txt"));
-        final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
+//        final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        NukeApi.checkInStatus(ngaClient) .sync();
+//        NukeApi.checkInStatus(ngaClient) .sync();
+//        NukeApi.checkIn(ngaClient).sync();
+//        NukeApi.missionList(ngaClient, new MissionListParam()).sync();
 //        NukeApi.userInfoGet(ngaClient, 39841854).sync();
     }
 }
