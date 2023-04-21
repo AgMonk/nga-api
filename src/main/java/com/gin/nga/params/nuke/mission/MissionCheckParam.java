@@ -19,6 +19,13 @@ public class MissionCheckParam extends MissionBaseParam{
     @JsonProperty("mid")
     final long missionId;
 
+    /**
+     * 测试用,检查任务时不会自动完成任务
+     */
+    @JsonProperty("no_complete")
+//    @JsonIgnore
+    final int noComplete = 1;
+
     public MissionCheckParam(long missionId) {
         super("check_mission");
         this.missionId = missionId;
