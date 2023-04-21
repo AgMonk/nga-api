@@ -14,7 +14,7 @@ import java.io.IOException;
  * @version : v1.0.0
  * @since : 2023/4/21 11:18
  */
-public class MissionCheckBodyDeserializer extends JsonDeserializer<MissionCheckBody> {
+public class MissionCheckInBodyDeserializer extends JsonDeserializer<MissionCheckBody> {
     @Override
     public MissionCheckBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         //todo

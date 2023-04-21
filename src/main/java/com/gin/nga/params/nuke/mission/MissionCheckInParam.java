@@ -16,11 +16,11 @@ public class MissionCheckInParam extends MissionBaseParam{
     /**
      * 任务id
      */
-    @JsonProperty("checkin_count_add")
+    @JsonProperty("mid")
     final long missionId;
 
     public MissionCheckInParam(long missionId) {
-        super("check_mission");
+        super("checkin_count_add");
         this.missionId = missionId;
     }
 }

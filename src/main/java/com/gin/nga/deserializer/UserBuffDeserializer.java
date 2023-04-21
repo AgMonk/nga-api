@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.field.UserBuff;
+import com.gin.nga.utils.TreeNodeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,22 +30,11 @@ public class UserBuffDeserializer extends JsonDeserializer<List<UserBuff>> {
         final Iterator<String> iterator = root.fieldNames();
         while(iterator.hasNext()){
             final String key = iterator.next();
-            final TreeNode node = findEntity(root.get(key));
+            final TreeNode node = TreeNodeUtils.findLeaf(root.get(key));
             res.add(NgaRes.MAPPER.readValue(node.toString(), UserBuff.class));
         }
         return res;
     }
 
-    /**
-     * 如果当前节点只有一个字段，进入到该字段，否则原样返回
-     * @param root 根节点
-     * @return 最终节点
-     */
-    private static TreeNode findEntity(TreeNode root){
-        if (root.size()==1) {
-            return findEntity(root.get(root.fieldNames().next()));
-        }
-        return root;
-    }
 }
     

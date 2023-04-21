@@ -18,21 +18,22 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2023/4/21 10:13
  */
-public abstract class AbstractSingleListDeserializer<T,I> extends JsonDeserializer<T> {
+public abstract class AbstractSingleListDeserializer<T, I> extends JsonDeserializer<T> {
     @Override
     public final T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         final TreeNode treeNode = p.getCodec().readTree(p);
-        final TreeNode root = treeNode.get(treeNode.fieldNames().next());
+        // 如果节点只有一个子节点，进入，否则直接使用
+        final TreeNode root = treeNode.size() == 1 ? treeNode.get(treeNode.fieldNames().next()) : treeNode;
 
         List<I> list = new ArrayList<>();
         final T result = buildResult(list);
         final Iterator<String> iterator = root.fieldNames();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             // 子节点
             final String fieldName = iterator.next();
             final TreeNode child = root.get(fieldName);
             // 将子节点转换为指定类型
-            handleItem(result,list,fieldName,child);
+            handleItem(result, list, fieldName, child);
         }
 
         return result;
@@ -40,15 +41,15 @@ public abstract class AbstractSingleListDeserializer<T,I> extends JsonDeserializ
 
     /**
      * 解析每个子节点, 并放入返回对象中
-     * @param result 返回对象
-     * @param list 返回列表
+     * @param result    返回对象
+     * @param list      返回列表
      * @param fieldName 字段名
-     * @param child 子节点
-     * @author bx002
-     * @since 2023/4/21 10:21
+     * @param child     子节点
      * @throws JsonProcessingException 解析异常
+     * @since 2023/4/21 10:21
      */
     public abstract void handleItem(T result, List<I> list, String fieldName, TreeNode child) throws JsonProcessingException;
+
     /**
      * 使用解析的列表创建返回对象
      * @param list 列表

@@ -178,8 +178,8 @@ public class NukeApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MissionCheckBody>
      * @since 2023/4/21 11:36
      */
-    public static NgaJsonCall<MissionCheckBody> missionCheckIn(NgaClient client, MissionCheckInParam param) {
-        return client.nuke(param, MissionCheckBody.class);
+    public static NgaJsonCall<MissionCheckInBody> missionCheckIn(NgaClient client, MissionCheckInParam param) {
+        return client.nuke(param, MissionCheckInBody.class);
     }
 
     /**

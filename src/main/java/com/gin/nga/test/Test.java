@@ -4,10 +4,9 @@ import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.NukeApi;
-import com.gin.nga.params.nuke.mission.MissionCheckParam;
+import com.gin.nga.params.nuke.mission.MissionCheckInParam;
 import com.gin.nga.params.nuke.mission.MissionListParam;
 import com.gin.nga.response.body.nuke.MissionBody;
-import com.gin.nga.response.body.nuke.MissionCheckBody;
 import com.gin.nga.response.field.MissionInfo;
 
 import java.io.File;
@@ -77,8 +76,8 @@ public class Test {
         final MissionBody missions = NukeApi.missionList(ngaClient, new MissionListParam(1, 1)).sync();
         JacksonUtils.printPretty(missions);
         for (MissionInfo mission : missions.getData()) {
-            final MissionCheckBody res = NukeApi.missionCheck(ngaClient, new MissionCheckParam(mission.getId())).sync();
-            JacksonUtils.printPretty(res);
+//            JacksonUtils.printPretty(NukeApi.missionCheck(ngaClient, new MissionCheckParam(mission.getId())).sync());
+            JacksonUtils.printPretty(NukeApi.missionCheckIn(ngaClient, new MissionCheckInParam(mission.getId())).sync());
         }
     }
 }
