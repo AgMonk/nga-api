@@ -18,7 +18,7 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2023/4/20 14:13
  */
-public class PrivateMessageUsersDeserializer extends JsonDeserializer<List<SimpleUserInfo>> {
+public class PmUsersDeserializer extends JsonDeserializer<List<SimpleUserInfo>> {
     @Override
     public List<SimpleUserInfo> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         return parse(p.getValueAsString());

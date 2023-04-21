@@ -1,7 +1,7 @@
 package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.gin.nga.deserializer.PrivateMessageReplyBodyDeserializer;
+import com.gin.nga.deserializer.PmReplyBodyDeserializer;
 import com.gin.nga.enums.PrivateMessageStatus;
 import com.gin.nga.response.field.SimpleUserInfo;
 import com.gin.nga.response.field.UserFieldInRead;
@@ -19,8 +19,8 @@ import java.util.List;
  */
 @Getter
 @Setter
-@JsonDeserialize(using = PrivateMessageReplyBodyDeserializer.class)
-public class PrivateMessageReplyBody {
+@JsonDeserialize(using = PmReplyBodyDeserializer.class)
+public class PmReplyBody {
     /**
      * 私信回复
      */

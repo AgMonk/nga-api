@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
-import com.gin.nga.deserializer.PrivateMessageUsersDeserializer;
+import com.gin.nga.deserializer.PmUsersDeserializer;
 import com.gin.nga.enums.PrivateMessageStatus;
 import com.gin.nga.response.field.SimpleUserInfo;
 import lombok.Getter;
@@ -72,7 +72,7 @@ public class PrivateMessage {
      * 所有参与的用户
      */
     @JsonAlias("all_user")
-    @JsonDeserialize(using = PrivateMessageUsersDeserializer.class)
+    @JsonDeserialize(using = PmUsersDeserializer.class)
     List<SimpleUserInfo> users;
 
     /**

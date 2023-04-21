@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.common.utils.StrUtils;
 import com.gin.nga.response.NgaRes;
-import com.gin.nga.response.body.nuke.PrivateMessageReplyBody;
+import com.gin.nga.response.body.nuke.PmReplyBody;
 import com.gin.nga.response.field.UserFieldInRead;
 import com.gin.nga.response.field.pm.PrivateMessageReply;
 
@@ -23,12 +23,12 @@ import java.util.Iterator;
  * @version : v1.0.0
  * @since : 2023/4/20 15:38
  */
-public class PrivateMessageReplyBodyDeserializer extends JsonDeserializer<PrivateMessageReplyBody> {
+public class PmReplyBodyDeserializer extends JsonDeserializer<PmReplyBody> {
     @Override
-    public PrivateMessageReplyBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+    public PmReplyBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         final TreeNode treeNode = p.getCodec().readTree(p);
         final TreeNode root = treeNode.get(treeNode.fieldNames().next());
-        final PrivateMessageReplyBody res = new PrivateMessageReplyBody();
+        final PmReplyBody res = new PmReplyBody();
         final ArrayList<PrivateMessageReply> data = new ArrayList<>();
         res.setData(data);
 
@@ -48,7 +48,7 @@ public class PrivateMessageReplyBodyDeserializer extends JsonDeserializer<Privat
                     case "starterUid":res.setStarterUid(Long.parseLong(node.toString()));break;
                     case "subjectBit":res.setBit(Integer.parseInt(node.toString()));break;
                     case "allUsers":
-                        res.setUsers(PrivateMessageUsersDeserializer.parse(node.toString().replace("\"","")));
+                        res.setUsers(PmUsersDeserializer.parse(node.toString().replace("\"", "")));
                         break;
                     case "userInfo":res.setUserInfo(new UserFieldInRead(NgaRes.MAPPER.readValue(node.toString(), new TypeReference<>() {})));break;
                     default:

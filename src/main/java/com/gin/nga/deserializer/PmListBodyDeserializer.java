@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.common.utils.StrUtils;
 import com.gin.nga.response.NgaRes;
-import com.gin.nga.response.body.nuke.PrivateMessageListBody;
+import com.gin.nga.response.body.nuke.PmListBody;
 import com.gin.nga.response.field.pm.PrivateMessage;
 
 import java.io.IOException;
@@ -22,13 +22,13 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2023/4/20 13:54
  */
-public class PrivateMessageListBodyDeserializer extends JsonDeserializer<PrivateMessageListBody> {
+public class PmListBodyDeserializer extends JsonDeserializer<PmListBody> {
     @Override
-    public PrivateMessageListBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+    public PmListBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         final TreeNode treeNode = p.getCodec().readTree(p);
         final TreeNode root = treeNode.get(treeNode.fieldNames().next());
 
-        final PrivateMessageListBody res = new PrivateMessageListBody();
+        final PmListBody res = new PmListBody();
         final List<PrivateMessage> data = new ArrayList<>();
         res.setData(data);
         final Iterator<String> iterator = root.fieldNames();
