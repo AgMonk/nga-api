@@ -9,6 +9,7 @@ import com.gin.nga.enums.PrivateMessageStatus;
 import com.gin.nga.response.field.SimpleUserInfo;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.CollectionUtils;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -88,6 +89,10 @@ public class PrivateMessage {
      * @return 是否未读
      */
     public boolean isUnread() {
-        return getStatus().contains(PrivateMessageStatus.UNREAD);
+        final List<PrivateMessageStatus> status = getStatus();
+        if (CollectionUtils.isEmpty(status)){
+            return false;
+        }
+        return status.contains(PrivateMessageStatus.UNREAD);
     }
 }

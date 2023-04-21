@@ -1,20 +1,15 @@
 package com.gin.nga.deserializer;
 
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.common.utils.StrUtils;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.body.nuke.PmReplyBody;
 import com.gin.nga.response.field.UserFieldInRead;
 import com.gin.nga.response.field.pm.PrivateMessageReply;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -23,40 +18,48 @@ import java.util.Iterator;
  * @version : v1.0.0
  * @since : 2023/4/20 15:38
  */
-public class PmReplyBodyDeserializer extends JsonDeserializer<PmReplyBody> {
+public class PmReplyBodyDeserializer extends AbstractSingleListDeserializer<PmReplyBody, PrivateMessageReply> {
     @Override
-    public PmReplyBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-        final TreeNode treeNode = p.getCodec().readTree(p);
-        final TreeNode root = treeNode.get(treeNode.fieldNames().next());
+    public PmReplyBody buildResult(List<PrivateMessageReply> list) {
         final PmReplyBody res = new PmReplyBody();
-        final ArrayList<PrivateMessageReply> data = new ArrayList<>();
-        res.setData(data);
-
-        final Iterator<String> iterator = root.fieldNames();
-        while (iterator.hasNext()) {
-            final String fieldName = iterator.next();
-            final TreeNode node = root.get(fieldName);
-            if (StrUtils.isNumber(fieldName)) {
-                // 数字 ，是私信
-                data.add(NgaRes.MAPPER.readValue(node.toString(), PrivateMessageReply.class));
-            }else{
-                //noinspection EnhancedSwitchMigration
-                switch (fieldName){
-                    case "length":res.setLength(Integer.parseInt(node.toString()));break;
-                    case "nextPage":res.setHasNext(Boolean.parseBoolean(node.toString())); break;
-                    case "currentPage":res.setPage(Integer.parseInt(node.toString()));break;
-                    case "starterUid":res.setStarterUid(Long.parseLong(node.toString()));break;
-                    case "subjectBit":res.setBit(Integer.parseInt(node.toString()));break;
-                    case "allUsers":
-                        res.setUsers(PmUsersDeserializer.parse(node.toString().replace("\"", "")));
-                        break;
-                    case "userInfo":res.setUserInfo(new UserFieldInRead(NgaRes.MAPPER.readValue(node.toString(), new TypeReference<>() {})));break;
-                    default:
-                        System.out.printf("未识别的字段: %s -> %s\n",fieldName,node.toString());
-                }
+        res.setData(list);
+        return res;
+    }
+    @Override
+    public void handleItem(PmReplyBody result, List<PrivateMessageReply> list, String fieldName, TreeNode child) throws JsonProcessingException {
+        final String childString = child.toString();
+        if (StrUtils.isNumber(fieldName)) {
+            // 数字 ，是私信
+            list.add(NgaRes.MAPPER.readValue(childString, PrivateMessageReply.class));
+        } else {
+            //noinspection EnhancedSwitchMigration
+            switch (fieldName) {
+                case "length":
+                    result.setLength(Integer.parseInt(childString));
+                    break;
+                case "nextPage":
+                    result.setHasNext(Boolean.parseBoolean(childString));
+                    break;
+                case "currentPage":
+                    result.setPage(Integer.parseInt(childString));
+                    break;
+                case "starterUid":
+                    result.setStarterUid(Long.parseLong(childString));
+                    break;
+                case "subjectBit":
+                    result.setBit(Integer.parseInt(childString));
+                    break;
+                case "allUsers":
+                    result.setUsers(PmUsersDeserializer.parse(childString.replace("\"", "")));
+                    break;
+                case "userInfo":
+                    result.setUserInfo(new UserFieldInRead(NgaRes.MAPPER.readValue(childString, new TypeReference<>() {
+                    })));
+                    break;
+                default:
+                    System.out.printf("未识别的字段: %s -> %s\n", fieldName, childString);
             }
         }
-        return res;
     }
 }
     

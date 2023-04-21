@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 只返回一个列表的数据的反序列化
+ * 只返回一个字段的数据的反序列化
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/21 10:13
