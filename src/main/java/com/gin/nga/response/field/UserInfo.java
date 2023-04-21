@@ -106,4 +106,6 @@ public class UserInfo extends  BaseUserInfo{
     @JsonDeserialize(using = UserForumDeserializer.class)
     String userForum;
 
+
+
 }
