@@ -1,10 +1,10 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.NukeApi;
-import com.gin.nga.params.nuke.SignatureSetParam;
-import com.gin.nga.response.field.UserInfo;
+import com.gin.nga.params.nuke.mission.MissionListParam;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,9 +70,6 @@ public class Test {
 
             final int userId = 39841854;
 
-        final UserInfo userInfo = NukeApi.userInfoGet(ngaClient, userId).sync().getData();
-        final String signature = userInfo.getSignature()+"_0";
-        System.out.println("signature = " + signature);
-        NukeApi.signatureSet(ngaClient,new SignatureSetParam(userId,signature)).sync();
+        JacksonUtils.printPretty(NukeApi.missionList(ngaClient,new MissionListParam(1,1)).sync());
     }
 }

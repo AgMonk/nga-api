@@ -1,0 +1,42 @@
+package com.gin.nga.response.field;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * 任务信息
+ * @author : ginstone
+ * @version : v1.0.0
+ * @since : 2023/4/21 09:33
+ */
+@Getter
+@Setter
+public class MissionInfo {
+    @JsonAlias("id")
+    Integer id;
+
+    @JsonAlias("name")
+    String name;
+    /**
+     * 任务的文字描述
+     */
+    @JsonAlias("info")
+    String info;
+
+    /**
+     * 详情
+     */
+    @JsonAlias("detail")
+    String detail;
+    /**
+     * 状态
+     */
+    @JsonAlias("stat")
+    String status;
+
+    //todo 字段 raw_detail
+    //todo 字段 raw_stat
+
+
+}   
