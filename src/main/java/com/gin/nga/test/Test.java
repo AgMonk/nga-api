@@ -1,12 +1,7 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.NukeApi;
-import com.gin.nga.params.nuke.mission.MissionCheckInParam;
-import com.gin.nga.params.nuke.mission.MissionListParam;
-import com.gin.nga.response.body.nuke.MissionBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,8 +66,5 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final MissionBody missions = NukeApi.missionList(ngaClient, new MissionListParam()).sync();
-//        JacksonUtils.printPretty(missions);
-        JacksonUtils.printPretty(NukeApi.missionCheckIn(ngaClient, new MissionCheckInParam(missions.getData().get(0).getId())).sync());
     }
 }

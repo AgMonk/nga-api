@@ -2,15 +2,19 @@ package com.gin.nga.response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.io.JsonEOFException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.exception.NgaServerException;
 import com.gin.nga.response.body.nuke.NoticeBody;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -28,6 +32,10 @@ public class NgaRes<T> {
     T data;
     String encode;
     long time;
+    /**
+     * 测试模式，自动记录所有响应在解析前后的结果
+     */
+    public static final boolean TEST = true;
 
     /**
      * 解析字符串返回data字段
@@ -41,12 +49,32 @@ public class NgaRes<T> {
         final NgaServerException exception = new NgaServerException(500, null, "响应信息不完整, 请稍后再试");
         try {
             // 添加引号
-            if (clazz== NoticeBody.class){
+            if (clazz == NoticeBody.class) {
                 s = handle(s);
             }
 
+            if (TEST) {
+                try {
+                    FileIoUtils.writeObj(new File(String.format("./test/%s_%d_raw.json", clazz.getSimpleName(), System.currentTimeMillis() / 1000)), MAPPER.readValue(
+                            s,
+                            new TypeReference<>() {
+                            }));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             final JavaType javaType = NgaRes.MAPPER.getTypeFactory().constructParametricType(NgaRes.class, clazz);
-            return NgaRes.MAPPER.readValue(s, javaType);
+            final NgaRes<T> res = NgaRes.MAPPER.readValue(s, javaType);
+            // 自动记录响应结果
+            if (TEST) {
+                try {
+                    FileIoUtils.writeObj(new File(String.format("./test/%s_%d.json", clazz.getSimpleName(), System.currentTimeMillis() / 1000)),res.getData());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return res;
         } catch (JsonEOFException e) {
             // 错误的结束符号
             throw exception;
