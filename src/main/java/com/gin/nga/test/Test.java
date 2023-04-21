@@ -67,7 +67,7 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-//        NukeApi.checkInStatus(ngaClient) .sync();
-        NukeApi.userInfoGet(ngaClient, 39841854).sync();
+        NukeApi.checkInStatus(ngaClient) .sync();
+//        NukeApi.userInfoGet(ngaClient, 39841854).sync();
     }
 }

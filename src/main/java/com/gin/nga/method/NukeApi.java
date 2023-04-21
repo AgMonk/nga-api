@@ -375,8 +375,8 @@ public class NukeApi {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
     }
 
-    public static NgaJsonCall<CheckInBody> checkInStatus(NgaClient client){
-        return client.nuke(new CheckInStatusParam(),CheckInBody.class);
+    public static NgaJsonCall<CheckInStatusBody> checkInStatus(NgaClient client){
+        return client.nuke(new CheckInStatusParam(), CheckInStatusBody.class);
     }
 
 
