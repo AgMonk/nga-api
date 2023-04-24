@@ -26,7 +26,7 @@ public class TopicInfo {
      * 回复(出现在收藏和搜索用户回复接口)
      */
     @JsonProperty("__P")
-    ReplySimple favorReply;
+    ReplySimple reply;
     /**
      * 作者用户名
      */

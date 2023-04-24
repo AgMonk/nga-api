@@ -2,8 +2,6 @@ package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.LinkedHashMap;
-
 /**
  * 收藏的版面或合集
  * @author : ginstone
@@ -41,6 +39,4 @@ public class FavorForum {
         return this.id == null ? null : String.format(ForumInfo.ICON_FORMAT, id);
     }
 
-    public static class Res extends LinkedHashMap<Integer, LinkedHashMap<Integer, FavorForum>> {
-    }
-}   
+}

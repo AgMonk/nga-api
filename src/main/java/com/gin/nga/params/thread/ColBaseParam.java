@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ListLongSerializer;
 import com.gin.nga.params.PageParam;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 合集主题基础参数
@@ -22,15 +20,11 @@ public class ColBaseParam extends PageParam {
      * 合集主题Id
      */
     @JsonProperty("stid")
-    @NotEmpty
     @JsonSerialize(using = ListLongSerializer.class)
-    final List<Long> colTid;
+    final long colTid;
 
-    public ColBaseParam(Serializable page, List<Long> colTid) {
+    public ColBaseParam(Serializable page, long colTid) {
         super(page);
         this.colTid = colTid;
-    }
-    public ColBaseParam(Serializable page, Long... colTid) {
-        this(page,List.of(colTid));
     }
 }

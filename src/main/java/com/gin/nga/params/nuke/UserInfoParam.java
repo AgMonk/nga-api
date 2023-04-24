@@ -15,7 +15,7 @@ public class UserInfoParam extends NukeBaseParam {
      * 用户id
      */
     @JsonProperty("uid")
-  final   Long userId;
+    final Long userId;
     /**
      * 用户名
      */

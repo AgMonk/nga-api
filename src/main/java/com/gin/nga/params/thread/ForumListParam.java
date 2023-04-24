@@ -2,11 +2,11 @@ package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.enums.OrderByParam;
+import com.gin.nga.params.PageParam;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 版面主题浏览参数
@@ -16,20 +16,22 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class ForumListParam extends ForumBaseParam {
+public class ForumListParam extends PageParam {
+    /**
+     * 版面id
+     */
+    @JsonProperty("fid")
+    long forumId;
     /**
      * 排序方式
      */
     @JsonProperty("order_by")
     final OrderByParam orderBy;
 
-    public ForumListParam(Serializable page, OrderByParam orderBy, List<Long> forumId) {
-        super(page, forumId);
+    public ForumListParam(long forumId, Serializable page, OrderByParam orderBy) {
+        super(page);
         this.orderBy = orderBy;
+        this.forumId = forumId;
     }
 
-    public ForumListParam(Serializable page, OrderByParam orderBy, Long... forumId) {
-        super(page, forumId);
-        this.orderBy = orderBy;
-    }
 }

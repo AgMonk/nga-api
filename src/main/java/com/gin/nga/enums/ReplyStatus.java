@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 主题和回复的状态
+ * 主题和回复的状态  <a href="https://img4.nga.178.com/common_res/js_postfunc_v2.js">参考</a>
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/15 17:31
@@ -31,9 +31,17 @@ public enum ReplyStatus {
      */
     HAS_COMMENT(2, "有评论", "有评论"),
     /**
+     * 延时
+     */
+    DELAY_ACTION(3, "延时", "是否有延时操作"),
+    /**
      * 更多
      */
     EXTRA_USER_INFO(4, "更多", "更多用户信息"),
+    /**
+     * 被标记
+     */
+    LOG(5, "被标记", "是否被标记了"),
     /**
      * 不再提示
      */
@@ -55,6 +63,10 @@ public enum ReplyStatus {
      */
     LOCKED(10, "锁定", "不允许编辑和回复"),
     /**
+     * 处罚标记
+     */
+    HIDE_TITLE(11, "处罚标记", "是否显示被处罚的标记"),
+    /**
      * 翻译
      */
     HAS_AUTO_TRANSLATE(12, "翻译", "有可以自动翻译的内容"),
@@ -70,6 +82,10 @@ public enum ReplyStatus {
      * 合集主题
      */
     IS_SET_THREAD(16, "合集主题", "这是一个合集内主题"),
+    /**
+     * 合并版面
+     */
+    UNION_HIDDEN(17, "合并版面", "是否不在合并版面中显示"),
     /**
      * 审核不通过
      */

@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 合集主题搜索参数
@@ -34,17 +33,11 @@ public class ColSearchParam extends ColBaseParam {
     @JsonProperty("recommend")
     @JsonSerialize(using = BooleanJsonSerializer.class) final Boolean recommendOnly;
 
-    public ColSearchParam(@NotNull String keyword,Serializable page, Boolean searchContent, Boolean recommendOnly, List<Long> colTid) {
+    public ColSearchParam(long colTid,@NotNull String keyword, Serializable page, Boolean searchContent,Boolean recommendOnly) {
         super(page, colTid);
         this.keyword = keyword;
         this.searchContent = searchContent;
         this.recommendOnly = recommendOnly;
     }
 
-    public ColSearchParam(@NotNull String keyword,Serializable page, Boolean searchContent, Boolean recommendOnly, Long... colTid) {
-        super(page, colTid);
-        this.keyword = keyword;
-        this.searchContent = searchContent;
-        this.recommendOnly = recommendOnly;
-    }
 }

@@ -5,7 +5,6 @@ import com.gin.nga.enums.OrderByParam;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 合集主题浏览参数
@@ -21,13 +20,9 @@ public class ColListParam extends ColBaseParam {
     @JsonProperty("order_by")
     final OrderByParam orderBy;
 
-    public ColListParam(Serializable page, OrderByParam orderBy, List<Long> colTid) {
+    public ColListParam(long colTid, Serializable page, OrderByParam orderBy) {
         super(page, colTid);
         this.orderBy = orderBy;
     }
 
-    public ColListParam(Serializable page, OrderByParam orderBy, Long... colTid) {
-        super(page, colTid);
-        this.orderBy = orderBy;
-    }
 }

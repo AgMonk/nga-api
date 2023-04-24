@@ -21,5 +21,4 @@ public class BlockSubForum {
     @JsonProperty("block_tid")
     LinkedHashMap<Integer,Long> blockTopicId;
 
-    public static class Res extends LinkedHashMap<Integer, BlockSubForum>{}
 }

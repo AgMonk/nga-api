@@ -39,11 +39,6 @@ import java.util.regex.Pattern;
  */
 public class NgaClient {
     private static final String UA = "NGA_WP_JW";
-//    private static final String UA ="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36";
-    /**
-     * 请求编码
-     */
-    private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     /**
      * 从cookie中解析uid的正则表达式
      */
@@ -76,10 +71,12 @@ public class NgaClient {
     @Getter
     String username;
 
+    @SuppressWarnings("unused")
     public NgaClient(@NotNull String cookie, NgaDomain ngaDomain) throws IOException {
         this(cookie, null, ngaDomain);
     }
 
+    @SuppressWarnings("unused")
     public NgaClient(@NotNull String cookie, OkHttpClient client) throws IOException {
         this(cookie, client, null);
     }
@@ -135,18 +132,6 @@ public class NgaClient {
             });
         }
         return builder.build();
-    }
-
-    private static String getMimeType(String name) {
-        if (name.endsWith("jpg") || name.endsWith("jpeg")) {
-            return "image/jpeg";
-        }
-        if (name.endsWith("png")) {
-            return "image/png";
-        }
-
-        // todo zip?
-        return "";
     }
 
     private static MultipartBody getMultipartBody(UploadParam param) {
