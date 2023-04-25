@@ -107,7 +107,7 @@ public class NgaClient {
             final Matcher matcher = USERNAME_PATTERN.matcher(cookie);
             if (matcher.find()) {
                 // gbk解码
-                this.username = URLDecoder.decode(matcher.group(1), Charset.forName("gbk"));
+                this.username = URLDecoder.decode(matcher.group(1), Charset.forName("GB18030"));
             } else {
                 throw e;
             }
