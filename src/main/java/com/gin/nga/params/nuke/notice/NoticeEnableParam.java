@@ -22,6 +22,6 @@ public class NoticeEnableParam extends NukeFuncParam {
      */
     public NoticeEnableParam(long topicId, long replyId, boolean enable) {
         super("noti_tag", topicId, replyId);
-        this.noHint = enable ? 1 : 0;
+        this.noHint = enable ? 0 : 1;
     }
 }

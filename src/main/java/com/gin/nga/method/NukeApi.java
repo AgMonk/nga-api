@@ -18,7 +18,7 @@ import com.gin.nga.params.nuke.mission.MissionCheckParam;
 import com.gin.nga.params.nuke.mission.MissionListParam;
 import com.gin.nga.params.nuke.notice.NoticeClearParam;
 import com.gin.nga.params.nuke.notice.NoticeEnableParam;
-import com.gin.nga.params.nuke.notice.NoticeParam;
+import com.gin.nga.params.nuke.notice.NoticeListParam;
 import com.gin.nga.params.nuke.notice.NoticeStatusParam;
 import com.gin.nga.params.nuke.pm.*;
 import com.gin.nga.response.body.BaseMessageBody;
@@ -242,7 +242,7 @@ public class NukeApi {
      * @since 2023/4/18 9:26
      */
     public static NgaJsonCall<NoticeBody> noticeList(NgaClient client, long timeLimit) {
-        return client.nuke(new NoticeParam(timeLimit), NoticeBody.class);
+        return client.nuke(new NoticeListParam(timeLimit), NoticeBody.class);
     }
 
     /**
