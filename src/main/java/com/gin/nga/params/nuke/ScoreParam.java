@@ -24,7 +24,7 @@ public class ScoreParam extends NukeBaseParam {
     @JsonProperty("pid")
     final long replyId;
     /**
-     * 1 = 赞 0 = 踩
+     * 1 = 赞 -1 = 踩
      */
     @JsonProperty("value")
     final int agree;
@@ -33,6 +33,6 @@ public class ScoreParam extends NukeBaseParam {
         super("topic_recommend", "add");
         this.topicId = topicId;
         this.replyId = replyId;
-        this.agree = agree?1:0;
+        this.agree = agree?1:-1;
     }
 }

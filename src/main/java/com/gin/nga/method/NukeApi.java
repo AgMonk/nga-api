@@ -321,7 +321,7 @@ public class NukeApi {
     }
 
     /**
-     * 发送新短消息
+     * 发送新私信
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -343,7 +343,7 @@ public class NukeApi {
     }
 
     /**
-     * 回复短消息
+     * 回复私信
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -366,6 +366,11 @@ public class NukeApi {
 
     /**
      * 设置签名
+     * @param client 客户端
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/4/26 16:13
      */
     public static NgaJsonCall<BaseMessageBody> signatureSet(NgaClient client, SignatureSetParam param) {
         return client.callJson(NgaPhpApi.nuke, null, param, BaseMessageBody.class);

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 /**
- * 获取短消息内容参数
+ * 获取私信内容参数
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/20 15:12

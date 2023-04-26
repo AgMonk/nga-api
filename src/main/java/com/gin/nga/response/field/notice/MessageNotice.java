@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 短消息提醒
+ * 私信提醒
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/18 10:01
