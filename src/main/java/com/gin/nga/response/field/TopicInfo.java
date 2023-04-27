@@ -42,6 +42,9 @@ public class TopicInfo {
      */
     @JsonProperty("fid")
     Long forumId;
+    /**
+     * 未知数据
+     */
     @JsonProperty("jdata")
     String jData;
     /**
@@ -102,7 +105,6 @@ public class TopicInfo {
      */
     @JsonProperty("topic_misc")
     TitleFont titleFont;
-//    String topicMisc;
     /**
      * 额外信息, 字段"1" 为 32时，表示本条为版面入口(字段"3"为fid), 为 33 时为合集入口,字段tid即为stid
      */
