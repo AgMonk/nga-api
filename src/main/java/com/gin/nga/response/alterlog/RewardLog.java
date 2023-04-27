@@ -18,8 +18,7 @@ public class RewardLog extends ReputationLog {
      */
     String reason;
 
-    public RewardLog(String s) {
-        final String[] split = s.substring(1).split(" ");
+    public RewardLog(String[] split) {
         this.reputation = Integer.parseInt(split[0]);
         this.prestige = handlePrestige(split[1]);
         this.money = handleMoney(split[2]);

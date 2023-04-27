@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.PmReplyBodyDeserializer;
 import com.gin.nga.enums.PrivateMessageStatus;
 import com.gin.nga.response.field.SimpleUserInfo;
-import com.gin.nga.response.field.UserFieldInRead;
+import com.gin.nga.response.field.UserContext;
 import com.gin.nga.response.field.pm.PrivateMessageReply;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,7 +45,7 @@ public class PmReplyBody {
     /**
      * 用户信息
      */
-    UserFieldInRead userInfo;
+    UserContext userInfo;
     int bit;
     /**
      * 状态

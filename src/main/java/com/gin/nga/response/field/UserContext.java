@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * read.php 接口中的用户信息字段
+ * 用户信息上下文
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/13 10:58
@@ -24,7 +24,7 @@ import java.util.Map;
 @Setter
 @JsonDeserialize(using = UserFieldInReadDeserializer.class)
 @NoArgsConstructor
-public class UserFieldInRead {
+public class UserContext {
 
     /**
      * 匿名前缀
@@ -65,7 +65,7 @@ public class UserFieldInRead {
     LinkedHashMap<Long, LinkedHashMap<Long, Serializable>> reputations = new LinkedHashMap<>();
 
 
-    public UserFieldInRead(LinkedHashMap<String, Object> inputMap) {
+    public UserContext(LinkedHashMap<String, Object> inputMap) {
         inputMap.forEach((key, obj) -> {
             if (GROUPS_FIELD.equals(key)) {
                 //用户组信息

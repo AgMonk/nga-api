@@ -16,8 +16,7 @@ public class CanceledLog extends ReputationLog {
     /**
      * 天数
      */
-    public CanceledLog(String s ) {
-        final String[] split = s.substring(1).split(" ");
+    public CanceledLog(String[] split ) {
         this.reputation = Integer.parseInt(split[0]);
         // todo 位置不确定
         this.prestige = Integer.parseInt(split[1]);

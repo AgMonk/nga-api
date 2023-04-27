@@ -1,6 +1,6 @@
 package com.gin.nga.response.field;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -70,69 +70,69 @@ public class ReplyInfo extends ReplySimple {
      * 礼物，key =id value = 数量
      * 地址前缀为:  https://img4.nga.178.com/ngabbs/nga_classic/items/5_
      */
-    @JsonProperty("14")
+    @JsonAlias("14")
     @JsonDeserialize(using = GiftDeserializer.class)
     List<Gift> gifts;
     /**
      * 修改记录, 包括编辑、加分、处罚、撤销处罚 ,
      */
-    @JsonProperty("alterinfo")
+    @JsonAlias("alterinfo")
     AlterInfo alterInfo;
     /**
      * 附件信息
      */
-    @JsonProperty("attachs")
+    @JsonAlias("attachs")
     LinkedHashMap<Integer, Attachment> attachments;
     /**
      * 热评
      */
-    @JsonProperty("hotreply")
+    @JsonAlias("hotreply")
     LinkedHashMap<Integer, ReplyInfo> hotReplies;
     /**
      * 贴条
      */
-    @JsonProperty("comment")
+    @JsonAlias("comment")
     LinkedHashMap<Integer, ReplyInfo> comment;
     /**
      * 使用的客户端,PC,IOS,安卓
      */
-    @JsonProperty("from_client")
+    @JsonAlias("from_client")
     FromClient fromClient;
     /**
      * 楼层号
      */
-    @JsonProperty("lou")
+    @JsonAlias("lou")
     Integer floorNumber;
     /**
      * 回复id
      */
-    @JsonProperty("pid")
+    @JsonAlias("pid")
     Long replyId;
     /**
      * 发表日期
      */
-    @JsonProperty("postdate")
+    @JsonAlias("postdate")
     String postDate;
     /**
      * 发表日期
      */
-    @JsonProperty("postdatetimestamp")
+    @JsonAlias("postdatetimestamp")
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime postDatetime;
     /**
      * 推荐分
      */
-    @JsonProperty("recommend")
+    @JsonAlias("recommend")
     Integer recommendScore;
     /**
      * 赞数
      */
-    @JsonProperty("score")
+    @JsonAlias("score")
     Integer agreeCount;
     /**
      * 踩数
      */
-    @JsonProperty("score_2")
+    @JsonAlias("score_2")
     Integer disagreeCount;
 
     /**

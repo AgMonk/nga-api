@@ -1,6 +1,6 @@
 package com.gin.nga.response.body;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -59,46 +59,50 @@ public class ReadBody {
      * 是否为兼容模式, 即，数据从网页中解析获得
      */
     boolean document = false;
-
-    @JsonProperty("__CU")
+    /**
+     * 当前用户
+     */
+    @JsonAlias("__CU")
     CurrentUser currentUser;
-
-    @JsonProperty("__F")
+    /**
+     * 版面信息
+     */
+    @JsonAlias("__F")
     Forum forum;
     /**
      * 当前页码
      */
-    @JsonProperty("__PAGE")
+    @JsonAlias("__PAGE")
     Integer page = 1;
     /**
      * 楼层总数(含主楼)
      */
-    @JsonProperty("__ROWS")
+    @JsonAlias("__ROWS")
     Integer total;
     /**
      * 总页数
      */
-    @JsonProperty("__PAGE_TOTAL")
+    @JsonAlias("__PAGE_TOTAL")
     Integer totalPage;
     /**
      * 每页回复数
      */
-    @JsonProperty("__R__ROWS_PAGE")
+    @JsonAlias("__R__ROWS_PAGE")
     Integer size = 20;
     /**
      * 主题信息
      */
-    @JsonProperty("__T")
-    TopicInfoInRead topicInfo;
+    @JsonAlias("__T")
+    TopicDetail topicInfo;
     /**
      * 用户相关信息
      */
-    @JsonProperty("__U")
-    UserFieldInRead userInfoField;
+    @JsonAlias("__U")
+    UserContext userContext;
     /**
      * 回复信息
      */
-    @JsonProperty("__R")
+    @JsonAlias("__R")
     Map<Integer, ReplyInfo> replies;
 
     public ReadBody(Document document) {
@@ -157,14 +161,14 @@ public class ReadBody {
                     final MapLikeType mapLikeType = typeFactory.constructMapLikeType(LinkedHashMap.class, String.class, Object.class);
                     final String group = matcher.group(1);
                     final LinkedHashMap<String, Object> map = NgaRes.MAPPER.readValue(group.substring(0, group.length() - 2), mapLikeType);
-                    this.userInfoField = new UserFieldInRead(map);
+                    this.userContext = new UserContext(map);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
             }
         }
         // 主题信息
-        this.topicInfo = new TopicInfoInRead();
+        this.topicInfo = new TopicDetail();
         {
             // 主题id
             final Matcher matcher = TOPIC_ID_PATTERN.matcher(docString);

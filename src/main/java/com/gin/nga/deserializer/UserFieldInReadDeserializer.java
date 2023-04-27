@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.gin.nga.response.field.UserFieldInRead;
+import com.gin.nga.response.field.UserContext;
 
 import java.io.IOException;
 
@@ -15,12 +15,12 @@ import java.io.IOException;
  * @version : v1.0.0
  * @since : 2023/4/13 10:57
  */
-public class UserFieldInReadDeserializer extends JsonDeserializer<UserFieldInRead> {
+public class UserFieldInReadDeserializer extends JsonDeserializer<UserContext> {
 
 
     @Override
-    public UserFieldInRead deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-        return new UserFieldInRead(jsonParser.getCodec().readValue(jsonParser, new TypeReference<>() {
+    public UserContext deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+        return new UserContext(jsonParser.getCodec().readValue(jsonParser, new TypeReference<>() {
         }));
     }
 }

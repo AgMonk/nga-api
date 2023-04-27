@@ -41,14 +41,16 @@ public class AlterInfo {
         final Matcher matcher = PATTERN.matcher(s);
         while (matcher.find()) {
             final String group = matcher.group(1);
-            if (group.startsWith("E")) {
-                this.lastEdit = new LastEdit(group);
-            } else if (group.startsWith("A")) {
-                this.logs.add(new RewardLog(group));
-            }else if (group.startsWith("L")) {
-                this.logs.add(new PunishmentLog(group));
-            }else if (group.startsWith("U")) {
-                this.logs.add(new CanceledLog(group));
+            final String[] split = s.substring(1).split(" ");
+            final char type = s.charAt(0);
+
+            //noinspection EnhancedSwitchMigration
+            switch (type){
+                case 'E':this.lastEdit = new LastEdit(split);break;
+                case 'A':this.logs.add(new RewardLog(split));break;
+                case 'L': this.logs.add(new PunishmentLog(split));break;
+                case 'U':this.logs.add(new CanceledLog(split));break;
+                default: System.err.println("未识别的操作类型: "+group);
             }
         }
     }

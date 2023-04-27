@@ -26,13 +26,12 @@ public class PunishmentLog extends ReputationLog {
      */
     Long forumId;
 
-    public PunishmentLog(String s) {
+    public PunishmentLog(String[] split) {
         //L6 0 0 300 20 引战/转进/AOE
 
-        final String[] split = s.substring(1).split(" ");
 
         this.days = Integer.parseInt(split[0]);
-        this.forumId = Long.parseLong(split[1]);
+        this.forumId = "0".equals(split[1]) ? null : Long.parseLong(split[1]);
         this.reputation = Integer.parseInt(split[3]) * -1;
         this.prestige = Integer.parseInt(split[4]) * -1;
         this.money = handleMoney(split[2]);

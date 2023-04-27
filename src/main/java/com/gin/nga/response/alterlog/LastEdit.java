@@ -37,10 +37,9 @@ public class LastEdit  {
 
     /**
      * 解析字符串构造, 用例:E1680766452 38148967 星光下的彩虹
-     * @param s 字符串
+     * @param split 字符串
      */
-    public LastEdit(String s) {
-        final String[] split = s.substring(1).split(" ");
+    public LastEdit(String[] split) {
         this.timestamp = ZonedDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(split[0])), ZoneId.systemDefault());
         //noinspection AlibabaUndefineMagicConstant
         if (StrUtils.isNumber(split[1]) && !"0".equals(split[1])) {
