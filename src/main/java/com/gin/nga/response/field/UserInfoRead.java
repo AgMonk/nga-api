@@ -1,6 +1,6 @@
 package com.gin.nga.response.field;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import lombok.Getter;
@@ -17,29 +17,29 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 public class UserInfoRead extends  BaseUserInfo{
-    @JsonProperty("bit_data")
+    @JsonAlias("bit_data")
     Long bitData;
-    @JsonProperty("credit")
+    @JsonAlias("credit")
     Long credit;
     /**
      * 昵称
      */
-    @JsonProperty("nickname")
+    @JsonAlias("nickname")
     String nickname;
     /**
      * 声望数据 , 声望id -> 声望值
      */
-    @JsonProperty("reputation")
-    ReputationInRead reputation;
+    @JsonAlias("reputation")
+    ReputationRead reputation;
     /**
      * 个人版名称
      */
-    @JsonProperty("site")
+    @JsonAlias("site")
     String userForum;
     /**
      * 最近访问
      */
-    @JsonProperty("thisvisit")
+    @JsonAlias("thisvisit")
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime latestVisit;
 }

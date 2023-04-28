@@ -1,7 +1,6 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.deserializer.ListIntDeserializer;
@@ -26,62 +25,60 @@ public class BaseUserInfo extends SimpleUserInfo{
     /**
      * 用户buff
      */
-    @JsonProperty("buffs")
+    @JsonAlias("buffs")
     @JsonDeserialize(using = UserBuffDeserializer.class)
     List<UserBuff> buffs;
 
     /**
      * 用户组id(涉及管理权限)
      */
-    @JsonProperty("groupid")
+    @JsonAlias("groupid")
     Long groupId;
     /**
      * 荣誉称号
      */
-    @JsonProperty("honor")
+    @JsonAlias("honor")
     Honor honor;
     /**
      * 徽章id
      */
-    @JsonProperty("medal")
+    @JsonAlias("medal")
     @JsonDeserialize(using = ListIntDeserializer.class)
     List<Integer> medalIds;
     /**
      * 威望组ID
      */
-    @JsonProperty("memberid")
+    @JsonAlias("memberid")
     Integer memberId;
     /**
      * 货币
      */
-    @JsonProperty("money")
+    @JsonAlias("money")
     Money money;
     /**
      * 注册时间
      */
-    @JsonProperty("regdate")
+    @JsonAlias("regdate")
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime regDatetime;
     /**
      * 发帖数量
      */
-    @JsonProperty("posts")
-    @JsonAlias("postnum")
+    @JsonAlias({"posts","postnum"})
     Long postCount;
     /**
      * 威望
      */
-    @JsonProperty("rvrc")
+    @JsonAlias("rvrc")
     Integer prestige;
     /**
      * 签名
      */
-    @JsonProperty("sign")
-    @JsonAlias("signature")
+    @JsonAlias({"sign","signature"})
     String signature;
     /**
      * 账号状态
      */
-    @JsonProperty("yz")
+    @JsonAlias("yz")
     AccountStatus accountStatus;
 }
