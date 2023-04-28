@@ -46,7 +46,7 @@ public class UserContext {
     /**
      * 常规用户信息 uid->info
      */
-    Map<Long, UserInfoInRead> userInfo = new LinkedHashMap<>();
+    Map<Long, UserInfoRead> userInfo = new LinkedHashMap<>();
     /**
      * 匿名用户信息 临时id->info
      */
@@ -118,7 +118,7 @@ public class UserContext {
             } else {
                 // 常规用户信息
                 try {
-                    userInfo.put(Long.parseLong(key), JacksonUtils.parseObj(obj, UserInfoInRead.class));
+                    userInfo.put(Long.parseLong(key), JacksonUtils.parseObj(obj, UserInfoRead.class));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

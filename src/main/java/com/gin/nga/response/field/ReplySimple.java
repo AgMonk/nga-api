@@ -1,6 +1,6 @@
 package com.gin.nga.response.field;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.ReplyStatus;
@@ -23,43 +23,43 @@ public class ReplySimple {
     /**
      * 作者uid
      */
-    @JsonProperty("authorid")
+    @JsonAlias("authorid")
     Long authorUid;
     /**
      * 回复正文
      */
-    @JsonProperty("content")
+    @JsonAlias("content")
     String content;
     /**
      * 回复id
      */
-    @JsonProperty("pid")
+    @JsonAlias("pid")
     Long replyId;
     /**
      * 回复或引用的id
      */
-    @JsonProperty("reply_to")
+    @JsonAlias("reply_to")
     Long replyToId;
     /**
      * 发表时间
      */
-    @JsonProperty("postdate")
+    @JsonAlias("postdate")
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime postDatetime;
     /**
      * 标题
      */
-    @JsonProperty("subject")
+    @JsonAlias("subject")
     String title;
     /**
      * 主题id
      */
-    @JsonProperty("tid")
+    @JsonAlias("tid")
     Long topicId;
     /**
      * 类型
      */
-    @JsonProperty("type")
+    @JsonAlias("type")
     Integer type;
 
     /**

@@ -1,7 +1,6 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,27 +28,27 @@ public class Attachment {
     /**
      * 描述
      */
-    @JsonProperty("dscp")
+    @JsonAlias("dscp")
     String description;
     /**
      * 扩展名/后缀名
      */
-    @JsonProperty("ext")
+    @JsonAlias("ext")
     String extension;
 
-    @JsonProperty("name")
+    @JsonAlias("name")
     String filename;
-    @JsonProperty("path")
+    @JsonAlias("path")
     String path;
     /**
      * 附件大小，单位：KB
      */
-    @JsonProperty("size")
+    @JsonAlias("size")
     Long size;
 
-    @JsonProperty("type")
+    @JsonAlias("type")
     String type;
-    @JsonProperty("url_utf8_org_name")
+    @JsonAlias("url_utf8_org_name")
     String originalFilename;
 
     /**

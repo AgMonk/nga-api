@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
  */
 @Getter
 @Setter
-public class UserInfoInRead extends  BaseUserInfo{
+public class UserInfoRead extends  BaseUserInfo{
     @JsonProperty("bit_data")
     Long bitData;
     @JsonProperty("credit")

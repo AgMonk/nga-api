@@ -1,7 +1,7 @@
 package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.gin.nga.response.field.UserInfo;
+import com.gin.nga.response.field.UserInfoNuke;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,5 +14,5 @@ import lombok.Setter;
 @Setter
 public class UserInfoBody {
     @JsonAlias("0")
-    UserInfo data;
+    UserInfoNuke data;
 }   

@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
  */
 @Getter
 @Setter
-public class UserInfo extends BaseUserInfo {
+public class UserInfoNuke extends BaseUserInfo {
     /**
      * 有管理员权限
      */

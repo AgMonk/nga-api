@@ -104,11 +104,6 @@ public class ReplyInfo extends ReplySimple {
     @JsonAlias("lou")
     Integer floorNumber;
     /**
-     * 回复id
-     */
-    @JsonAlias("pid")
-    Long replyId;
-    /**
      * 发表日期
      */
     @JsonAlias("postdate")
