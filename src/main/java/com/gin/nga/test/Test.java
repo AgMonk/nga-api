@@ -2,6 +2,8 @@ package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.client.NgaClient;
+import com.gin.nga.method.ReadApi;
+import com.gin.nga.params.read.ReadTopicParam;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +21,8 @@ public class Test {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
 
         final NgaClient ngaClient = new NgaClient(cookie);
+
+        ReadApi.readTopic(ngaClient, new ReadTopicParam(25968165,3)).sync();
 
     }
 }

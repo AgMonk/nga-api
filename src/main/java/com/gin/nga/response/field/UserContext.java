@@ -62,8 +62,7 @@ public class UserContext {
     /**
      * 声望信息 id -> uid -> 声望
      */
-    LinkedHashMap<Long, LinkedHashMap<Long, Serializable>> reputations = new LinkedHashMap<>();
-
+    ReputationUser reputationUser;
 
     public UserContext(LinkedHashMap<String, Object> inputMap) {
         inputMap.forEach((key, obj) -> {
@@ -101,8 +100,7 @@ public class UserContext {
                 //声望信息
                 try {
                     final String s = NgaRes.MAPPER.writeValueAsString(obj);
-                    this.reputations = NgaRes.MAPPER.readValue(s, new TypeReference<>() {
-                    });
+                    this.reputationUser = NgaRes.MAPPER.readValue(s, ReputationUser.class);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
