@@ -193,6 +193,19 @@ public class ReplyInfo extends ReplySimple {
                 handleElement(comment, "postcomment_" + replyId, e -> replyInfo.setContent(handleContent(e)));
                 handleElement(comment, "postcomment__" + replyId, e -> replyInfo.setContent(handleContent(e)));
             }
+
+            final Element table = root.getElementsByTag("table").first();
+            if (table!=null){
+                final Element script = table.nextElementSibling();
+                if (script!=null){
+                    final String s = HtmlUtils.clearLinkBreak(script.toString());
+                    final String args = s.substring(s.indexOf("(") + 1, s.lastIndexOf(")"));
+                    System.out.println("args = " + args);
+                    // todo 热评和贴条的数据
+
+                }
+
+            }
         }
 
         return res;
@@ -234,13 +247,6 @@ public class ReplyInfo extends ReplySimple {
                 final String s = matcher.group(1).replace("||", "");
                 this.alterInfo = new AlterInfo(s);
             }
-        }
-
-        final Element script = root.getElementsByTag("script").last();
-        if (script!=null && script.toString().contains("commonui.postArg.proc")){
-            System.out.println(HtmlUtils.clearLinkBreak(script.toString()));
-
-            // todo 热评和贴条的数据
         }
 
         // 贴条
