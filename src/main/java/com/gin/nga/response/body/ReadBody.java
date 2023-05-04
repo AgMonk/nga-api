@@ -44,7 +44,7 @@ public class ReadBody {
      */
     public static final Pattern PAGER_PATTERN = Pattern.compile("1:(\\d+),2:(\\d+),3:(\\d+)");
     /**
-     * 正则，用于从网页中解析客户端信息
+     * 正则，用于从网页中解析回复信息
      */
     public static final Pattern POST_ARG_PATTERN = Pattern.compile("commonui.postArg.proc\\((.+)\\)if");
     /**

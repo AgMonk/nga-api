@@ -16,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -137,7 +136,10 @@ public class ReplyInfo extends ReplySimple {
      */
     private static String handleContent(Element e) {
         final String replacement = "{换行}";
-        return Jsoup.parse(HtmlUtils.clearLinkBreak(e.toString()).replace("<br/>", replacement).replace("<br>", replacement))
+        return Jsoup.parse(
+                HtmlUtils.clearLinkBreak(e.toString())
+                        .replace("<br/>", replacement)
+                        .replace("<br>", replacement))
                 .text().replace(replacement, "<br/>");
     }
 
@@ -156,11 +158,10 @@ public class ReplyInfo extends ReplySimple {
 
     /**
      * 解析评论贴条和热评
-     * @param html html
+     * @param root 根元素
      * @return 评论贴条和热评
      */
-    private static LinkedHashMap<Integer, ReplyInfo> parseComment(String html) {
-        final Document root = Jsoup.parse(html);
+    private static LinkedHashMap<Integer, ReplyInfo> parseComment(Element root) {
         final LinkedHashMap<Integer, ReplyInfo> res = new LinkedHashMap<>();
 
         final Elements comments = root.getElementsByClass("comment_c left");
@@ -179,16 +180,12 @@ public class ReplyInfo extends ReplySimple {
                 final String replyId = idSplit[idSplit.length - 1];
                 replyInfo.setReplyId(Long.valueOf(replyId));
 
-                // 回复时间
-                handleElement(comment, "commentInfo_" + replyId, e ->
-                        e.getElementsByTag("span").stream()
-                                .filter(it -> "reply time".equals(it.attr("title")))
-                                .findFirst().ifPresent(it -> replyInfo.setPostDatetime(TimeUtils.parse(it.ownText(), TimeUtils.CHINESE_ZONE_ID))));
-                handleElement(comment, "commentInfo__" + replyId, e ->
-                        e.getElementsByTag("span").stream()
-                                .filter(it -> "reply time".equals(it.attr("title")))
-                                .findFirst().ifPresent(it -> replyInfo.setPostDatetime(TimeUtils.parse(it.ownText(), TimeUtils.CHINESE_ZONE_ID))));
 
+                // 回复时间
+                final Element replyTimeSpan = comment.select("[title='reply time']").first();
+                if (replyTimeSpan!=null) {
+                    replyInfo.setPostDatetime(TimeUtils.parse(replyTimeSpan.ownText(), TimeUtils.CHINESE_ZONE_ID));
+                }
                 // 标题
                 handleElement(comment, "postcommentsubject_" + replyId, e -> replyInfo.setTitle(e.ownText()));
                 handleElement(comment, "postcommentsubject__" + replyId, e -> replyInfo.setTitle(e.ownText()));
@@ -223,9 +220,7 @@ public class ReplyInfo extends ReplySimple {
         handleElement(root, "postauthor" + this.floorNumber, e -> this.authorUid = parseUidFromA(e));
 
         // 发表日期 发表时间戳
-        handleElement(root, "postdate" + this.floorNumber, e -> {
-            this.postDate = e.ownText();
-        });
+        handleElement(root, "postdate" + this.floorNumber, e -> this.postDate = e.ownText());
         //标题
         handleElement(root, "postsubject" + this.floorNumber, e -> this.title = e.ownText());
 
@@ -241,24 +236,23 @@ public class ReplyInfo extends ReplySimple {
             }
         }
 
+        final Element script = root.getElementsByTag("script").last();
+        if (script!=null && script.toString().contains("commonui.postArg.proc")){
+            System.out.println(HtmlUtils.clearLinkBreak(script.toString()));
+
+            // todo 热评和贴条的数据
+        }
+
         // 贴条
-        {
-            final Matcher matcher = COMMENT_PATTERN.matcher(rootString);
-            if (matcher.find()) {
-                final String group = matcher.group(1);
-                this.comment = parseComment(group);
-                this.comment.forEach((k, v) -> v.setTopicId(this.topicId));
-            }
-        }
+        handleElement(root,"comment_for_"+this.replyId,e->{
+            this.comment = parseComment(e);
+            this.comment.forEach((k, v) -> v.setTopicId(this.topicId));
+        });
         // 热评
-        {
-            final Matcher matcher = HOT_REPLY_PATTERN.matcher(rootString);
-            if (matcher.find()) {
-                final String group = matcher.group(1);
-                this.hotReplies = parseComment(group);
-                this.hotReplies.forEach((k, v) -> v.setTopicId(this.topicId));
-            }
-        }
+        handleElement(root,"hightlight_for_0",e->{
+            this.hotReplies = parseComment(e);
+            this.hotReplies.forEach((k, v) -> v.setTopicId(this.topicId));
+        });
         //附件信息
         {
             final Matcher matcher = ATTACH_PATTERN.matcher(rootString);

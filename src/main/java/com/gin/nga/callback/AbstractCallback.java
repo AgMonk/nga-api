@@ -63,7 +63,7 @@ public abstract class AbstractCallback<T> implements Callback {
         try {
             try (ResponseBody body = body(call, response)) {
                 if (body != null) {
-                    onSuccess(parse(decodeGbk(body)));
+                    onSuccess(parse(decodeGbk(body).replace("\t", "||")));
                 }
             }
         } catch (NgaException e) {
@@ -106,10 +106,10 @@ public abstract class AbstractCallback<T> implements Callback {
      */
     public static String decodeGbk(ResponseBody body) throws IOException {
         final String s = new String(body.bytes(), Charset.forName("GB18030"))
-                .replace("\t", "||")
+
                 ;
         // todo 删除
-        System.out.println(s);
+//        System.out.println(s);
         return s;
     }
 }

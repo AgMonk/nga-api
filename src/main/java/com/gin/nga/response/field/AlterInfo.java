@@ -41,8 +41,8 @@ public class AlterInfo {
         final Matcher matcher = PATTERN.matcher(s);
         while (matcher.find()) {
             final String group = matcher.group(1);
-            final String[] split = s.substring(1).split(" ");
-            final char type = s.charAt(0);
+            final String[] split = group.substring(1).split(" ");
+            final char type = group.charAt(0);
 
             //noinspection EnhancedSwitchMigration
             switch (type){

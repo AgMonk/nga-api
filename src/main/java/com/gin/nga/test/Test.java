@@ -4,6 +4,7 @@ import com.gin.common.utils.FileIoUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.ReadApi;
 import com.gin.nga.params.read.ReadTopicParam;
+import com.gin.nga.response.body.ReadBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +23,9 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        ReadApi.readTopic(ngaClient, new ReadTopicParam(25968165,3)).sync();
+        final ReadBody res = ReadApi.readTopicDoc(ngaClient, new ReadTopicParam(25968165, 1)).sync();
+
+        FileIoUtils.writeObj(new File(String.format("./test/%s_%d.json", res.getClass().getSimpleName(), System.currentTimeMillis() / 1000)),res);
 
     }
 }
