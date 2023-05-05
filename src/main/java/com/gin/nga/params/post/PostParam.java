@@ -35,17 +35,23 @@ public class PostParam {
     @JsonProperty("post_content")
     final String content;
     /**
+     * (仅对超过编辑时限的回复) 添加到末尾,当准备请求返回的同名字段为1时需要设置为true
+     */
+    @JsonProperty("modify_append")
+    @JsonSerialize(using = BooleanJsonSerializer.class)
+    final boolean modifyAppend;
+     /**
      * 隐藏内容,版主可见
      */
     @JsonProperty("hidden")
     @JsonSerialize(using = BooleanJsonSerializer.class)
-    final Boolean hidden;
+    final boolean hidden;
     /**
      * 匿名发帖
      */
     @JsonProperty("anony")
     @JsonSerialize(using = BooleanJsonSerializer.class)
-    final Boolean anony;
+    final boolean anony;
     /**
      * 附件列表
      */
@@ -58,14 +64,14 @@ public class PostParam {
      * @param content 正文
      */
     public PostParam(String title, String content) {
-        this(title, content, null,null);
+        this(title, content,false,false,false);
     }
     /**
      * 常规发帖
      * @param content 正文
      */
     public PostParam(String content) {
-        this(null, content, null,null);
+        this(null, content,false,false,false);
     }
 
     public boolean add(UploadBody uploadBody) {

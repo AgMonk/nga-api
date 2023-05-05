@@ -77,7 +77,7 @@ public class PrepareBody {
     @JsonAlias("pid")
     Long replyId;
     /**
-     * 类型
+     * 回复类型
      */
     @JsonAlias("post_type")
     Integer replyType;
@@ -92,7 +92,7 @@ public class PrepareBody {
     @JsonAlias("tid")
     Long topicId;
     /**
-     * 类型
+     * 主题类型
      */
     @JsonAlias("type")
     Integer topicType;
