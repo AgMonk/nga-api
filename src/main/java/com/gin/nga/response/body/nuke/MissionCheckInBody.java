@@ -2,6 +2,7 @@ package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.MissionCheckInBodyDeserializer;
+import com.gin.nga.response.field.mission.MissionInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +16,16 @@ import lombok.Setter;
 @Setter
 @JsonDeserialize(using = MissionCheckInBodyDeserializer.class)
 public class MissionCheckInBody {
+    /**
+     * 是否完成
+     */
+    boolean completed;
+    /**
+     * 任务信息
+     */
+    MissionInfo missionInfo;
+    /**
+     * 奖励消息
+     */
+    String message;
 }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.nga.response.NgaRes;
-import com.gin.nga.response.body.nuke.MissionCheckBody;
+import com.gin.nga.response.body.nuke.MissionCheckInBody;
 import com.gin.nga.response.field.mission.MissionInfo;
 import com.gin.nga.utils.TreeNodeUtils;
 
@@ -20,7 +20,7 @@ import java.util.Iterator;
  * @version : v1.0.0
  * @since : 2023/4/21 11:18
  */
-public class MissionCheckInBodyDeserializer extends JsonDeserializer<MissionCheckBody> {
+public class MissionCheckInBodyDeserializer extends JsonDeserializer<MissionCheckInBody> {
     private static MissionInfo findMissionInfo(TreeNode root) throws JsonProcessingException {
         final Iterator<String> iterator = root.fieldNames();
         while (iterator.hasNext()) {
@@ -37,8 +37,8 @@ public class MissionCheckInBodyDeserializer extends JsonDeserializer<MissionChec
     }
 
     @Override
-    public MissionCheckBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-        final MissionCheckBody result = new MissionCheckBody();
+    public MissionCheckInBody deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+        final MissionCheckInBody result = new MissionCheckInBody();
         final TreeNode root = p.getCodec().readTree(p);
 
         // 是否完成

@@ -13,9 +13,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MissionInfo {
+    /**
+     * id
+     */
     @JsonAlias("id")
     Integer id;
-
+    /**
+     * 名称
+     */
     @JsonAlias("name")
     String name;
     /**
@@ -39,7 +44,9 @@ public class MissionInfo {
      */
     @JsonAlias("raw_detail")
     MissionDetail missionDetail;
-
+    /**
+     * 任务状态
+     */
     @JsonAlias("raw_stat")
     MissionStatus missionStatus;
 
