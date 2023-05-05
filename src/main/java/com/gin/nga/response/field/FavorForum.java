@@ -1,6 +1,6 @@
 package com.gin.nga.response.field;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 
 /**
  * 收藏的版面或合集
@@ -12,27 +12,27 @@ public class FavorForum {
     /**
      * 版面id
      */
-    @JsonProperty("fid")
+    @JsonAlias("fid")
     Long forumId;
     /**
      * id
      */
-    @JsonProperty("id")
+    @JsonAlias("id")
     Long id;
     /**
      * 信息
      */
-    @JsonProperty("info")
+    @JsonAlias("info")
     String info;
     /**
      * 版面或合集名称
      */
-    @JsonProperty("name")
+    @JsonAlias("name")
     String name;
     /**
      * 合集Tid
      */
-    @JsonProperty("stid")
+    @JsonAlias("stid")
     Long colTid;
 
     public String getIconUrl() {

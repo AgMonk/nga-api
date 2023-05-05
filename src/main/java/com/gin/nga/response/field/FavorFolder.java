@@ -14,6 +14,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FavorFolder {
+    /**
+     * id
+     */
     @JsonAlias("id")
     Long id;
     /**
@@ -26,6 +29,9 @@ public class FavorFolder {
      */
     @JsonAlias("name")
     String name;
+    /**
+     * 位数据
+     */
     @JsonAlias("bytes")
     Integer bytes;
     /**
