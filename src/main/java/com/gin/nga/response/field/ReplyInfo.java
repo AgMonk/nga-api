@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
-import com.gin.common.utils.TimeUtils;
 import com.gin.nga.deserializer.GiftDeserializer;
 import com.gin.nga.enums.FromClient;
 import com.gin.nga.response.NgaRes;
@@ -137,9 +136,9 @@ public class ReplyInfo extends ReplySimple {
     private static String handleContent(Element e) {
         final String replacement = "{换行}";
         return Jsoup.parse(
-                HtmlUtils.clearLinkBreak(e.toString())
-                        .replace("<br/>", replacement)
-                        .replace("<br>", replacement))
+                        HtmlUtils.clearLinkBreak(e.toString())
+                                .replace("<br/>", replacement)
+                                .replace("<br>", replacement))
                 .text().replace(replacement, "<br/>");
     }
 
@@ -167,12 +166,11 @@ public class ReplyInfo extends ReplySimple {
         final Elements comments = root.getElementsByClass("comment_c left");
         for (int i = 0; i < comments.size(); i++) {
             final Element comment = comments.get(i);
+            final ReplyInfo replyInfo = new ReplyInfo();
+            res.put(i, replyInfo);
 //            System.out.println("comment = " + comment);
             final Element a = comment.select(".posterinfo > a").first();
             if (a != null) {
-                final ReplyInfo replyInfo = new ReplyInfo();
-                res.put(i, replyInfo);
-
                 // 作者uid
                 replyInfo.setAuthorUid(parseUidFromA(a));
                 // 回复id
@@ -180,11 +178,10 @@ public class ReplyInfo extends ReplySimple {
                 final String replyId = idSplit[idSplit.length - 1];
                 replyInfo.setReplyId(Long.valueOf(replyId));
 
-
                 // 回复时间
                 final Element replyTimeSpan = comment.select("[title='reply time']").first();
-                if (replyTimeSpan!=null) {
-                    replyInfo.setPostDatetime(TimeUtils.parse(replyTimeSpan.ownText(), TimeUtils.CHINESE_ZONE_ID));
+                if (replyTimeSpan != null) {
+                    replyInfo.setPostDate(replyTimeSpan.ownText());
                 }
                 // 标题
                 handleElement(comment, "postcommentsubject_" + replyId, e -> replyInfo.setTitle(e.ownText()));
@@ -194,14 +191,38 @@ public class ReplyInfo extends ReplySimple {
                 handleElement(comment, "postcomment__" + replyId, e -> replyInfo.setContent(handleContent(e)));
             }
 
-            final Element table = root.getElementsByTag("table").first();
-            if (table!=null){
+            final Element table = comment.getElementsByTag("table").first();
+            if (table != null) {
                 final Element script = table.nextElementSibling();
-                if (script!=null){
+                if (script != null) {
                     final String s = HtmlUtils.clearLinkBreak(script.toString());
-                    final String args = s.substring(s.indexOf("(") + 1, s.lastIndexOf(")"));
-                    System.out.println("args = " + args);
-                    // todo 热评和贴条的数据
+                    final String args = preHandle(s.substring(s.indexOf("(") + 1, s.lastIndexOf(")")), SP);
+                    // 热评和贴条的数据
+                    final List<String> list = Arrays.stream(args.split(","))
+                            .map(item -> item.replace("'", "").trim())
+                            .filter(item -> !item.startsWith("_") && !item.startsWith("$"))
+                            .map(item -> {
+                                if ("null".equals(item) || "".equals(item)) {
+                                    return null;
+                                }
+                                return item;
+                            })
+                            .toList();
+                    System.out.println("list = " + list);
+                    // 类型、状态
+                    replyInfo.setType(Integer.valueOf(list.get(5)));
+                    // 时间戳
+                    replyInfo.setPostDatetime(ZonedDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(list.get(8))), ZoneId.systemDefault()));
+                    // 推荐分 赞踩
+                    {
+                        final String[] split = list.get(9).split(SP);
+                        // 推荐分
+                        replyInfo.setRecommendScore(Integer.valueOf(split[0]));
+                        // 赞踩数
+                        replyInfo.setAgreeCount(Integer.valueOf(split[1]));
+                        replyInfo.setDisagreeCount(Integer.valueOf(split[2]));
+                    }
+
 
                 }
 
@@ -221,6 +242,30 @@ public class ReplyInfo extends ReplySimple {
         final HashMap<String, Object> param = QueryStringUtils.parse(href.substring(href.indexOf("?") + 1));
         final Object uid = param.get("uid");
         return uid == null ? null : Long.valueOf(String.valueOf(uid));
+    }
+
+    /**
+     * 参数列表预处理，将参数中的逗号替换为其他分隔符
+     * @param s     参数列表
+     * @param split 分隔符
+     * @return java.lang.String
+     * @since 2023/5/5 9:18
+     */
+    private static String preHandle(String s, String split) {
+        List<String> rawList = new ArrayList<>();
+        final Matcher matcher = SCRIPT_PATTERN.matcher(s);
+        while (matcher.find()) {
+            final String group = matcher.group(1);
+            if (group.contains(",")) {
+                rawList.add(group);
+            }
+        }
+        if (rawList.size() > 0) {
+            for (String raw : rawList) {
+                s = s.replace(raw, raw.replace(",", split));
+            }
+        }
+        return s;
     }
 
     /**
@@ -250,12 +295,12 @@ public class ReplyInfo extends ReplySimple {
         }
 
         // 贴条
-        handleElement(root,"comment_for_"+this.replyId,e->{
+        handleElement(root, "comment_for_" + this.replyId, e -> {
             this.comment = parseComment(e);
             this.comment.forEach((k, v) -> v.setTopicId(this.topicId));
         });
         // 热评
-        handleElement(root,"hightlight_for_0",e->{
+        handleElement(root, "hightlight_for_0", e -> {
             this.hotReplies = parseComment(e);
             this.hotReplies.forEach((k, v) -> v.setTopicId(this.topicId));
         });
@@ -298,19 +343,7 @@ public class ReplyInfo extends ReplySimple {
      */
     public void parseScript(String script) {
         // 预处理
-        List<String> rawList = new ArrayList<>();
-        final Matcher matcher = SCRIPT_PATTERN.matcher(script);
-        while (matcher.find()) {
-            final String group = matcher.group(1);
-            if (group.contains(",")) {
-                rawList.add(group);
-            }
-        }
-        if (rawList.size() > 0) {
-            for (String raw : rawList) {
-                script = script.replace(raw, raw.replace(",", SP));
-            }
-        }
+        script = preHandle(script, SP);
 
         final List<String> params = Arrays.stream(script.split(","))
                 .filter(i -> !i.startsWith("$"))
