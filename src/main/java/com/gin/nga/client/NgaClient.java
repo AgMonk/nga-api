@@ -153,7 +153,7 @@ public class NgaClient {
      * @return 客户端
      */
     @NotNull
-    private static OkHttpClient getOkHttpClient() {
+    public static OkHttpClient getOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addInterceptor(new LoggingInterceptor())
                 .readTimeout(30, TimeUnit.SECONDS)

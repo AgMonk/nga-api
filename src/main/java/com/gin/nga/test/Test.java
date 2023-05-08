@@ -1,7 +1,9 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
+import com.gin.nga.method.ResourceApi;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,5 +21,10 @@ public class Test {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
 
         final NgaClient ngaClient = new NgaClient(cookie);
+
+
+        final String url = "https://img4.nga.178.com/proxy/cache_attach/bbs_index_data.js";
+
+        JacksonUtils.printPretty(ResourceApi.indexForums().sync());
     }
 }
