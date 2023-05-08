@@ -93,7 +93,7 @@ public class NgaRes<T> {
      * @param s 字符串
      * @return 处理后字符串
      */
-    private static String handle(String s) {
+    public static String handle(String s) {
         // 添加引号
         return s.replaceAll("([,{ ])(\\w+?):", "$1\"$2\":");
     }
