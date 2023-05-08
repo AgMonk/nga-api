@@ -1,4 +1,4 @@
-package com.gin.nga.response.emotion;
+package com.gin.nga.response.emote;
 
 import java.util.List;
 

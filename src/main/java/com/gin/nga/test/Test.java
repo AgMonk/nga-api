@@ -4,7 +4,7 @@ import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.ResourceApi;
-import com.gin.nga.response.emotion.EmoteBody;
+import com.gin.nga.response.emote.EmoteBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final EmoteBody res = ResourceApi.emotion().sync();
+        final EmoteBody res = ResourceApi.emotes().sync();
         JacksonUtils.printPretty(res);
 
     }

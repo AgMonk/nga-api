@@ -1,4 +1,4 @@
-package com.gin.nga.response.emotion;
+package com.gin.nga.response.emote;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class EmoteGroup {
     /**
      * 表情图标
      */
-    List<Emote> emotions = new ArrayList<>();
+    List<Emote> emotes = new ArrayList<>();
 
     public EmoteGroup(String key, Map<String, String> map) {
         this.key = key;
@@ -38,7 +38,7 @@ public class EmoteGroup {
             if (NAME_KEY.equals(k)) {
                 this.name = v;
             } else {
-                this.emotions.add(new Emote(key, k, v));
+                this.emotes.add(new Emote(key, k, v));
             }
         });
 

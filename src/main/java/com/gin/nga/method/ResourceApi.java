@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.gin.nga.call.NgaResourceCall;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.response.NgaRes;
-import com.gin.nga.response.emotion.EmoteBody;
-import com.gin.nga.response.emotion.EmoteGroup;
+import com.gin.nga.response.emote.EmoteBody;
+import com.gin.nga.response.emote.EmoteGroup;
 import com.gin.nga.response.forum.ForumGroupBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -46,7 +46,7 @@ public class ResourceApi {
      * @author bx002
      * @since 2023/5/8 14:37
      */
-    public static NgaResourceCall<EmoteBody> emotion(){
+    public static NgaResourceCall<EmoteBody> emotes(){
         final Request request = new Request.Builder().url(CORE).build();
         return new NgaResourceCall<>(CLIENT.newCall(request), EmoteBody.class, (res, clazz) -> {
             StringBuilder builder = new StringBuilder();
