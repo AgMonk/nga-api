@@ -14,6 +14,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MessageNotice  extends  BaseNotice{
+    /**
+     * 类型
+     */
     @JsonAlias("0")
     MessageNoticeType type;
     /**

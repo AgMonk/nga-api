@@ -25,6 +25,9 @@ public class PmReplyBody {
      * 私信回复
      */
     List<PrivateMessageReply> data;
+    /**
+     * 长度
+     */
     int length;
     /**
      * 是否还有下一页
@@ -46,6 +49,9 @@ public class PmReplyBody {
      * 用户信息
      */
     UserContext userInfo;
+    /**
+     * bit
+     */
     int bit;
     /**
      * 状态

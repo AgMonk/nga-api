@@ -23,9 +23,15 @@ import java.util.List;
 @Getter
 @Setter
 public class PrivateMessage {
+    /**
+     * 消息id
+     */
     @JsonAlias("mid")
     Long messageId;
-
+    /**
+     * bit
+     */
+    @JsonAlias("bit")
     int bit;
     /**
      * 标题
@@ -90,7 +96,7 @@ public class PrivateMessage {
      */
     public boolean isUnread() {
         final List<PrivateMessageStatus> status = getStatus();
-        if (CollectionUtils.isEmpty(status)){
+        if (CollectionUtils.isEmpty(status)) {
             return false;
         }
         return status.contains(PrivateMessageStatus.UNREAD);
