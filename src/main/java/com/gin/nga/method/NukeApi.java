@@ -409,5 +409,16 @@ public class NukeApi {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
     }
 
+    /**
+     * 举报一个回复
+     * @param client 客户端
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/5/8 9:13
+     */
+    public static NgaJsonCall<BaseMessageBody> report(NgaClient client,ReportParam param){
+        return client.nuke(param,BaseMessageBody.class);
+    }
 
 }   
