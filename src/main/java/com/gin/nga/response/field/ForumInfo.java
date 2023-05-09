@@ -17,6 +17,7 @@ import java.util.Map;
 @Setter
 public class ForumInfo {
     public static final String ICON_FORMAT = "https://img4.nga.178.com/proxy/cache_attach/ficon/%du.png";
+    public static final String ICON_FORMAT_COL = "https://img4.nga.178.com/proxy/cache_attach/ficon/%dv.png";
 
     /**
      * 描述

@@ -36,7 +36,13 @@ public class FavorForum {
     Long colTid;
 
     public String getIconUrl() {
-        return this.id == null ? null : String.format(ForumInfo.ICON_FORMAT, id);
+        if (this.id==null){
+            return null;
+        }
+        if (colTid!=null){
+            return String.format(ForumInfo.ICON_FORMAT_COL,id);
+        }
+        return String.format(ForumInfo.ICON_FORMAT, id);
     }
 
 }
