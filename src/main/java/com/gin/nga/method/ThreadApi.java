@@ -54,6 +54,16 @@ public class ThreadApi {
     public static NgaJsonCall<ThreadBody> forumList(NgaClient client, ForumListParam param) {
         return client.thread(param);
     }
+    /**
+     * 浏览版面精华区
+     * @param client 客户端
+     * @param param 参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ThreadBody>
+     * @author bx002
+     * @since 2023/5/10 17:46
+     */
+    public static NgaJsonCall<ThreadBody> forumRecommend(NgaClient client, ForumRecommendParam param) {return client.thread(param);
+    }
 
     /**
      * 搜索版面主题
