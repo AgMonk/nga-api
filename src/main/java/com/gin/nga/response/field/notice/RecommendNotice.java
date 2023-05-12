@@ -37,8 +37,8 @@ public class RecommendNotice extends BaseNotice {
     @JsonAlias("7")
     Long replyId;
     /**
-     * todo 含义未明
+     * 页数
      */
     @JsonAlias("10")
-    Integer data;
+    Integer page;
 }   
