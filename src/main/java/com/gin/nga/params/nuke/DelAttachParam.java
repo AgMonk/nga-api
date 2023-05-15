@@ -17,9 +17,20 @@ public class DelAttachParam extends NukeFuncParam {
      */
     @JsonProperty("aid")
     private final  String filename;
-
+    /**
+     * 主题id
+     */
+    @JsonProperty("tid")
+    private final long topicId;
+    /**
+     * 回复id
+     */
+    @JsonProperty("pid")
+    private final long replyId;
     public DelAttachParam(long topicId, long replyId, String filename) {
-        super("delattach", topicId, replyId);
+        super("delattach");
         this.filename = filename;
+        this.replyId = replyId;
+        this.topicId = topicId;
     }
 }

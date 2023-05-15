@@ -15,13 +15,24 @@ public class NoticeEnableParam extends NukeFuncParam {
     @JsonProperty("no_hint")
     private final int noHint;
     /**
+     * 回复id
+     */
+    @JsonProperty("pid")
+    private final long replyId;
+    /**
+     * 主题id
+     */
+    @JsonProperty("tid")
+    private final long topicId;    /**
      * 参数
      * @param topicId 主题id
      * @param replyId 回复id
      * @param enable 是否开启提醒
      */
     public NoticeEnableParam(long topicId, long replyId, boolean enable) {
-        super("noti_tag", topicId, replyId);
+        super("noti_tag");
         this.noHint = enable ? 0 : 1;
+        this.replyId = replyId;
+        this.topicId = topicId;
     }
 }

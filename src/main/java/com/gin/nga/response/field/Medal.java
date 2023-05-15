@@ -1,6 +1,8 @@
 package com.gin.nga.response.field;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class Medal {
     /**
      * 图片地址前缀 , 拼接文件名即为地址
@@ -22,14 +25,17 @@ public class Medal {
     /**
      * 文件名
      */
+    @JsonAlias("icon")
     String filename;
     /**
      * 徽章名称
      */
+    @JsonAlias("name")
     String name;
     /**
      * 鼠标提示
      */
+    @JsonAlias("dscp")
     String tooltip;
     /**
      * id
@@ -41,6 +47,16 @@ public class Medal {
         this.name = String.valueOf(data.get(1));
         this.tooltip = String.valueOf(data.get(2));
         this.id = Integer.valueOf(String.valueOf(data.get(3)));
+    }
+
+    public Integer getId() {
+        if (id!=null){
+            return id;
+        }
+        if (filename!=null){
+            return Integer.parseInt(filename.substring(0,filename.indexOf(".")));
+        }
+        return null;
     }
 
     public String getUrl() {

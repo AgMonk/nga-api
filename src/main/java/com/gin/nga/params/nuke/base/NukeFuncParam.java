@@ -14,20 +14,9 @@ public class NukeFuncParam {
     private final int raw = 3;
     @JsonProperty("func")
     private  final String function;
-    /**
-     * 主题id
-     */
-    @JsonProperty("tid")
-    private final long topicId;
-    /**
-     * 回复id
-     */
-    @JsonProperty("pid")
-    private final long replyId;
 
-    public NukeFuncParam(String function, long topicId, long replyId) {
+
+    public NukeFuncParam(String function) {
         this.function = function;
-        this.topicId = topicId;
-        this.replyId = replyId;
     }
 }
