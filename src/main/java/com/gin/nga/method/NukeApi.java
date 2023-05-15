@@ -1,5 +1,6 @@
 package com.gin.nga.method;
 
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.call.NgaUploadCall;
 import com.gin.nga.client.NgaClient;
@@ -7,6 +8,7 @@ import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.*;
+import com.gin.nga.params.nuke.base.ItemInfoParam;
 import com.gin.nga.params.nuke.favor.FavorAddParam;
 import com.gin.nga.params.nuke.favor.FavorDelParam;
 import com.gin.nga.params.nuke.favor.FavorFolderListParam;
@@ -24,6 +26,8 @@ import com.gin.nga.params.nuke.pm.*;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.FavorFolderBody;
 import com.gin.nga.response.body.nuke.*;
+
+import java.util.List;
 
 /**
  * nuke.php的API
@@ -419,6 +423,19 @@ public class NukeApi {
      */
     public static NgaJsonCall<BaseMessageBody> report(NgaClient client,ReportParam param){
         return client.nuke(param,BaseMessageBody.class);
+    }
+    /**
+     * 查询徽章信息
+     * @param client 客户端
+     * @param subTypes 徽章id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MedalInfoBody>
+     * @author bx002
+     * @since 2023/5/15 9:50
+     */
+    public static NgaJsonCall<MedalInfoBody> medalInfoList(NgaClient client, List<Integer> subTypes){
+        final ItemInfoParam param = new ItemInfoParam(2, subTypes);
+        JacksonUtils.printPretty(param);
+        return client.nuke(param, MedalInfoBody.class);
     }
 
 }   

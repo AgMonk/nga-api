@@ -3,11 +3,12 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ResourceApi;
-import com.gin.nga.response.emote.EmoteBody;
+import com.gin.nga.method.NukeApi;
+import com.gin.nga.response.body.nuke.MedalInfoBody;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -25,7 +26,8 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final EmoteBody res = ResourceApi.emotes().sync();
+        final MedalInfoBody res = NukeApi.medalInfoList(ngaClient, List.of(385)).sync();
+
         JacksonUtils.printPretty(res);
 
     }
