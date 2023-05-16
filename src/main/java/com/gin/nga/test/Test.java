@@ -3,12 +3,12 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.NukeApi;
-import com.gin.nga.response.body.nuke.MedalInfoBody;
+import com.gin.nga.method.ThreadApi;
+import com.gin.nga.params.thread.ForumListParam;
+import com.gin.nga.response.body.ThreadBody;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -26,7 +26,7 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final MedalInfoBody res = NukeApi.medalInfoList(ngaClient, List.of(385)).sync();
+        final ThreadBody res = ThreadApi.forumList(ngaClient, new ForumListParam(-547859L, 1, null)).sync();
 
         JacksonUtils.printPretty(res);
 

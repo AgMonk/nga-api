@@ -133,4 +133,17 @@ public class TopicInfo {
         // 反转义
         this.title = StringEscapeUtils.unescapeHtml4(title);
     }
+
+    /**
+     * 总页数
+     */
+    public Integer getTotalPage() {
+        if (this.replies == null) {
+            return null;
+        }
+        final int size = 20;
+        final int p = this.replies / size;
+        final int m = this.replies % size;
+        return p + (m > 0 ? 1 : 0);
+    }
 }
