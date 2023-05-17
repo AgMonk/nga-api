@@ -3,6 +3,7 @@ package com.gin.nga.response.field;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.UserForumDeserializer;
+import com.gin.nga.enums.UserMoreInfoType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -115,4 +116,18 @@ public class UserInfoNuke extends BaseUserInfo {
     @JsonAlias("reputation")
     LinkedHashMap<Integer, Reputation> reputations;
 
+    /**
+     * 总互动数
+     * @return 总互动数
+     */
+    public Long getInteractions(){
+        if (moreInfo==null){
+            return null;
+        }
+        final UserMoreInfo info = moreInfo.values().stream().filter(i -> i.getType() == UserMoreInfoType.interactions).findFirst().orElse(null);
+        if (info != null) {
+            return info.getData();
+        }
+        return null;
+    }
 }
