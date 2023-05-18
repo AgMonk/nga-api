@@ -40,8 +40,8 @@ public class TitleFont {
         String fontData = data.substring(5);
         this.color = TitleColor.find(colorData);
         this.bold = fontData.charAt(0) == '1';
-        this.lineThrough = fontData.charAt(1) == '1';
-        this.italic = fontData.charAt(2) == '1';
+        this.italic = fontData.charAt(1) == '1';
+        this.lineThrough = fontData.charAt(2) == '1';
     }
 
     /**
