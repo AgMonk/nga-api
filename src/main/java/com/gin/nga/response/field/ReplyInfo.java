@@ -208,7 +208,6 @@ public class ReplyInfo extends ReplySimple {
                                 return item;
                             })
                             .toList();
-                    System.out.println("list = " + list);
                     // 类型、状态
                     replyInfo.setType(Integer.valueOf(list.get(5)));
                     // 时间戳
