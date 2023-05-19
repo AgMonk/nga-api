@@ -20,6 +20,7 @@ public class CanceledLog extends ReputationLog {
         this.reputation = Integer.parseInt(split[0]);
         // todo 位置不确定
         this.prestige = Integer.parseInt(split[1]);
+        this.money = Long.parseLong(split[2]);
         this.type = ReputationLogType.canceled;
     }
 }
