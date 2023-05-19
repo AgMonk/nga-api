@@ -48,6 +48,10 @@ public class NgaClient {
      */
     private static final Pattern USERNAME_PATTERN = Pattern.compile("ngaPassportUrlencodedUname=(.+?);");
     /**
+     * 从cookie中解析令牌的正则表达式
+     */
+    private static final Pattern CID_PATTERN = Pattern.compile("ngaPassportCid=(.+?);");
+    /**
      * 客户端
      */
     final OkHttpClient client;
@@ -64,12 +68,19 @@ public class NgaClient {
      * 当前用户id
      */
     @Getter
-    long userId;
+    final  long userId;
     /**
      * 当前用户名
      */
     @Getter
-    String username;
+    final String username;
+    /**
+     * 令牌
+     */
+    @Getter
+    final String cid;
+
+    final String urlencodedUname;
 
     @SuppressWarnings("unused")
     public NgaClient(@NotNull String cookie, NgaDomain ngaDomain) throws IOException {
@@ -86,7 +97,6 @@ public class NgaClient {
     }
 
     public NgaClient(@NotNull String cookie, OkHttpClient client, NgaDomain ngaDomain) throws IllegalCookieException {
-        this.cookie = cookie;
         this.client = (client != null ? client : getOkHttpClient()).newBuilder()
                 .followRedirects(false).build();
         this.ngaDomain = ngaDomain != null ? ngaDomain : NgaDomain.cn;
@@ -106,12 +116,29 @@ public class NgaClient {
         {
             final Matcher matcher = USERNAME_PATTERN.matcher(cookie);
             if (matcher.find()) {
+                this.urlencodedUname = matcher.group(1);
                 // gbk解码
                 this.username = URLDecoder.decode(matcher.group(1), Charset.forName("GB18030"));
             } else {
                 throw e;
             }
         }
+
+        //解析令牌
+        {
+            final Matcher matcher = CID_PATTERN.matcher(cookie);
+            if (matcher.find()) {
+                // gbk解码
+                this.cid = matcher.group(1);
+            } else {
+                throw e;
+            }
+        }
+
+        this.cookie = String.format("ngaPassportUid=%d; ngaPassportUrlencodedUname=%s; ngaPassportCid=%s; ",
+                                    this.userId,
+                                    this.urlencodedUname,
+                                    this.cid);
 
         System.out.printf("NGA客户端启动 uid: %d 用户名: %s\n", this.userId, this.username);
     }

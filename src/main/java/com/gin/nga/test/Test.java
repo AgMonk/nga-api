@@ -3,9 +3,9 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ReadApi;
-import com.gin.nga.params.read.ReadTopicParam;
-import com.gin.nga.response.body.ReadBody;
+import com.gin.nga.method.ThreadApi;
+import com.gin.nga.params.thread.ForumListParam;
+import com.gin.nga.response.body.ThreadBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +26,10 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final ReadBody res = ReadApi.readTopicDoc(ngaClient, new ReadTopicParam(26639977L,1)).sync();
+        final ThreadBody res = ThreadApi.forumList(ngaClient, new ForumListParam(-547859, 1, null)).sync();
 
-        JacksonUtils.printPretty(res);
+        JacksonUtils.printPretty(res.getCurrentUser());
+
 
     }
 }
