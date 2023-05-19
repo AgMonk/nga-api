@@ -13,14 +13,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CanceledLog extends ReputationLog {
+    final String remark;
+
     /**
      * 天数
      */
-    public CanceledLog(String[] split ) {
+    public CanceledLog(String[] split) {
         this.reputation = Integer.parseInt(split[0]);
         // todo 位置不确定
         this.prestige = Integer.parseInt(split[1]);
         this.money = Long.parseLong(split[2]);
         this.type = ReputationLogType.canceled;
+        this.remark = split.length > 3 ? split[3] : null;
     }
 }
