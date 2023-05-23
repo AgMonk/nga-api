@@ -28,8 +28,8 @@ import java.util.regex.Pattern;
  * @since : 2023/5/8 10:10
  */
 public class ResourceApi {
-    public static final Pattern FONT_COLOR_PATTERN = Pattern.compile("'(.+?)':0,");
-    public static final Pattern FONT_PATTERN = Pattern.compile("'(.+?)':'(.+?)',");
+    public static final Pattern FONT_COLOR_PATTERN = Pattern.compile("'(.+?)':0");
+    public static final Pattern FONT_PATTERN = Pattern.compile("'(.+?)':'(.+?)'");
     private static final OkHttpClient CLIENT = NgaClient.getOkHttpClient();
     /**
      * 首页版面信息地址
