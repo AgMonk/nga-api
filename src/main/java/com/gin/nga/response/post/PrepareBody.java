@@ -1,6 +1,8 @@
 package com.gin.nga.response.post;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.gin.nga.deserializer.BooleanDeserializer;
 import com.gin.nga.enums.PostAction;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.response.field.Attachment;
@@ -61,6 +63,12 @@ public class PrepareBody {
      */
     @JsonAlias("fid")
     Long forumId;
+    /**
+     * 是否为隐藏回复
+     */
+    @JsonAlias("if_hidden")
+    @JsonDeserialize(using = BooleanDeserializer.class)
+    boolean hidden;
     /**
      * 是否为版主
      */

@@ -3,7 +3,8 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ResourceApi;
+import com.gin.nga.method.PostApi;
+import com.gin.nga.params.post.PrepareParam;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,6 @@ public class Test {
 
 //        JacksonUtils.printPretty(res.getCurrentUser());
 
-
-        JacksonUtils.printPretty(ResourceApi.bbsCode().sync());
+        JacksonUtils.printPretty(PostApi.prepare(ngaClient,PrepareParam.modifyParam(33506312,685170888)).sync());
     }
 }
