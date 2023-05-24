@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.BooleanJsonSerializer;
+import com.gin.nga.enums.Hidden;
 import com.gin.nga.response.body.UploadBody;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -44,8 +45,7 @@ public class PostParam {
      * 隐藏内容,版主可见
      */
     @JsonProperty("hidden")
-    @JsonSerialize(using = BooleanJsonSerializer.class)
-    final boolean hidden;
+    final Hidden hidden;
     /**
      * 匿名发帖
      */
@@ -64,14 +64,14 @@ public class PostParam {
      * @param content 正文
      */
     public PostParam(String title, String content) {
-        this(title, content,false,false,false);
+        this(title, content,false,null,false);
     }
     /**
      * 常规发帖
      * @param content 正文
      */
     public PostParam(String content) {
-        this(null, content,false,false,false);
+        this(null, content,false,null,false);
     }
 
     public boolean add(UploadBody uploadBody) {
