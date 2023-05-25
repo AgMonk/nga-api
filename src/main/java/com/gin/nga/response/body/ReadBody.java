@@ -55,6 +55,7 @@ public class ReadBody {
      * 正则，用于从网页中解析用户信息
      */
     public static final Pattern USER_INFO_PATTERN = Pattern.compile("commonui\\.userInfo\\.setAll\\((.+)");
+    public static final String TAB_PLACEHOLDER = "{制表符占位}";
     /**
      * 是否为兼容模式, 即，数据从网页中解析获得
      */
@@ -159,9 +160,13 @@ public class ReadBody {
                 try {
                     final TypeFactory typeFactory = NgaRes.MAPPER.getTypeFactory();
                     final MapLikeType mapLikeType = typeFactory.constructMapLikeType(LinkedHashMap.class, String.class, Object.class);
-                    final String group = matcher.group(1);
+                    final String group = matcher.group(1).replace("\t", TAB_PLACEHOLDER);
                     final LinkedHashMap<String, Object> map = NgaRes.MAPPER.readValue(group.substring(0, group.length() - 2), mapLikeType);
                     this.userContext = new UserContext(map);
+
+                    this.userContext.getUserInfo().values().stream()
+                            .filter(u->u.getSignature()!=null)
+                            .forEach(u-> u.setSignature(u.getSignature().replace(TAB_PLACEHOLDER,"\t")));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
