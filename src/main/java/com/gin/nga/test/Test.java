@@ -3,8 +3,7 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ReadApi;
-import com.gin.nga.params.read.ReadTopicParam;
+import com.gin.nga.method.NukeApi;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +28,6 @@ public class Test {
 
 //        JacksonUtils.printPretty(res.getCurrentUser());
 
-        JacksonUtils.printPretty(ReadApi.readTopicDoc(ngaClient,new ReadTopicParam(25968165,11563)).sync());
+        JacksonUtils.printPretty(NukeApi.privilegeList(ngaClient,-547859).sync());
     }
 }

@@ -183,6 +183,19 @@ public class NukeApi {
     }
 
     /**
+     * 查询徽章信息
+     * @param client   客户端
+     * @param subTypes 徽章id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MedalInfoBody>
+     * @since 2023/5/15 9:50
+     */
+    public static NgaJsonCall<MedalInfoBody> medalInfoList(NgaClient client, List<Integer> subTypes) {
+        final ItemInfoParam param = new ItemInfoParam(2, subTypes);
+        JacksonUtils.printPretty(param);
+        return client.nuke(param, MedalInfoBody.class);
+    }
+
+    /**
      * 检查任务
      * @param client 客户端
      * @param param  参数
@@ -356,6 +369,28 @@ public class NukeApi {
     public static NgaJsonCall<BaseMessageBody> pmReply(NgaClient client, PmReplyParam param) {
         return client.nuke(param, BaseMessageBody.class);
     }
+/**
+ * 查询版面权限信息
+ * @param client 客户端
+ * @param forumId 版面ID
+ * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+ * @author bx002
+ * @since 2023/5/26 9:49
+ */
+    public static NgaJsonCall<BaseMessageBody> privilegeList(NgaClient client, long forumId) {
+        return client.nuke(new PrivilegeListParam(forumId), BaseMessageBody.class);
+    }
+
+    /**
+     * 举报一个回复
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @since 2023/5/8 9:13
+     */
+    public static NgaJsonCall<BaseMessageBody> report(NgaClient client, ReportParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
 
     /**
      * 点赞或点踩
@@ -371,9 +406,8 @@ public class NukeApi {
     /**
      * 设置签名
      * @param client 客户端
-     * @param param 参数
+     * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
      * @since 2023/4/26 16:13
      */
     public static NgaJsonCall<BaseMessageBody> signatureSet(NgaClient client, SignatureSetParam param) {
@@ -412,30 +446,4 @@ public class NukeApi {
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
     }
-
-    /**
-     * 举报一个回复
-     * @param client 客户端
-     * @param param 参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
-     * @since 2023/5/8 9:13
-     */
-    public static NgaJsonCall<BaseMessageBody> report(NgaClient client,ReportParam param){
-        return client.nuke(param,BaseMessageBody.class);
-    }
-    /**
-     * 查询徽章信息
-     * @param client 客户端
-     * @param subTypes 徽章id
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MedalInfoBody>
-     * @author bx002
-     * @since 2023/5/15 9:50
-     */
-    public static NgaJsonCall<MedalInfoBody> medalInfoList(NgaClient client, List<Integer> subTypes){
-        final ItemInfoParam param = new ItemInfoParam(2, subTypes);
-        JacksonUtils.printPretty(param);
-        return client.nuke(param, MedalInfoBody.class);
-    }
-
 }   
