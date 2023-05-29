@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.ReplyStatus;
+import com.gin.nga.utils.AnonymousUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
@@ -36,7 +37,7 @@ public class TopicInfo {
      * 作者uid
      */
     @JsonProperty("authorid")
-    Long authorUid;
+    String authorUid;
     /**
      * 版面id
      */
@@ -125,13 +126,8 @@ public class TopicInfo {
      * 主题状态
      * @return 主题状态
      */
-    public List<ReplyStatus> getStatus(){
-        return type==null?null:ReplyStatus.parse(type);
-    }
-
-    public void setTitle(String title) {
-        // 反转义
-        this.title = StringEscapeUtils.unescapeHtml4(title);
+    public List<ReplyStatus> getStatus() {
+        return type == null ? null : ReplyStatus.parse(type);
     }
 
     /**
@@ -145,5 +141,22 @@ public class TopicInfo {
         final int p = this.replies / size;
         final int m = this.replies % size;
         return p + (m > 0 ? 1 : 0);
+    }
+
+    /**
+     * 作者匿名
+     * @param authorName 作者用户名
+     */
+    public void setAuthorName(String authorName) {
+        if (authorName != null && authorName.startsWith("#anony")) {
+            this.authorName = AnonymousUtils.getAnonymousName(authorName);
+        } else {
+            this.authorName = authorName;
+        }
+    }
+
+    public void setTitle(String title) {
+        // 反转义
+        this.title = StringEscapeUtils.unescapeHtml4(title);
     }
 }

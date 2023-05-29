@@ -1,9 +1,8 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.common.utils.JacksonUtils;
+import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.NukeApi;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,10 +23,15 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-//        final ThreadBody res = ThreadApi.forumList(ngaClient, new ForumListParam(-547859, 1, null)).sync();
+//        final ThreadBody res = ThreadApi.forumList(ngaClient, new ForumListParam(650, 1, null)).sync();
 
-//        JacksonUtils.printPretty(res.getCurrentUser());
+//        JacksonUtils.printPretty(res.getTopics().values());
 
-        JacksonUtils.printPretty(NukeApi.privilegeList(ngaClient,-547859).sync());
+        File file = new File("D:\\test\\新建文本文档.txt");
+
+        final String content = FileIoUtils.readStr(file);
+
+        BbsTagParser.parseContent(content);
+
     }
 }
