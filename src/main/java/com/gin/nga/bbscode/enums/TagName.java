@@ -90,6 +90,10 @@ public enum TagName {
      */
     url("url"),
     /**
+     * 字体
+     */
+    font("font"),
+    /**
      * 字体颜色
      */
     color("color"),
