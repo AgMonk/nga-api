@@ -1,11 +1,13 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
+import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.client.NgaClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -31,7 +33,8 @@ public class Test {
 
         final String content = FileIoUtils.readStr(file);
 
-        BbsTagParser.parseContent(content);
+        final List<BbsTag> bbsTags = BbsTagParser.parseContent(content);
 
+        FileIoUtils.writeObj(new File("D:\\test\\output.json"),bbsTags);
     }
 }

@@ -2,6 +2,7 @@ package com.gin.nga.bbscode.utils;
 
 import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.enums.TagName;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
 
 /**
  * 论坛标签解析
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/5/29 14:45
@@ -37,8 +39,10 @@ public class BbsTagParser {
      */
     public static final Pattern HEADING_PATTERN = Pattern.compile("===(.+?)===");
 
+
     /**
      * 解析论坛正文
+     *
      * @param content 论坛正文
      * @return 标签列表
      */
@@ -49,25 +53,89 @@ public class BbsTagParser {
 //        预处理
         content = preHandle(content);
 //        解析
-
-        System.out.println(content);
-
-        return parse(content);
+        return parseCode(content);
     }
 
     /**
-     * 从一段论坛代码中解析出一个标签列表
-     * @param code 论坛代码
+     * 解析标签,将一段bbsCode解析为一个标签数组
+     *
+     * @param code 标签
      * @return 标签列表
      */
-    private static List<BbsTag> parse(String code) {
+    public static List<BbsTag> parseCode(String code) {
 //        todo
+        final ArrayList<BbsTag> res = new ArrayList<>();
+//        todo 逐个字符检查是否遇到了可识别的bbsCode
+        int i = 0;
+        while (i < code.length()) {
+            //            如果当前位置不是 [ , 继续搜索
+            if (code.charAt(i) != '[') {
+                i++;
+                continue;
+            }
+            // 裁剪code
+            final String prefixCode = code.substring(0, i);
+            final String suffixCode = code.substring(i);
+            //当前位置是 [ , 尝试匹配标签名称
+            final TagName tagName = TagName.matcher(suffixCode);
+            if (tagName != null) {
+                //标签名匹配成功
+                if (i > 0) {
+                    // 如果i大于0，把前方字符串作为文本加入
+                    res.add(BbsTag.text(prefixCode));
+                }
+                // 从后段代码中正确的位置截取代码范围
+                final String subCode = getSubCode(suffixCode, tagName);
+                if (subCode != null) {
+                    // 匹配成功
+                    // 添加本段代码到列表
+                    res.add(new BbsTag(tagName,subCode));
+                    // 截断原代码段
+                    code = suffixCode.substring( subCode.length());
+                    i = 0;
+                }
 
+            } else {
+                i++;
+            }
+        }
+        if (i>0) {
+            // 循环结束，i依然大于0，表示有剩余文字，添加一个文本节点
+            res.add(BbsTag.text(code));
+        }
+
+
+        return res;
+    }
+
+    /**
+     * 从代码片段中截取指定标签名称的分段
+     *
+     * @param suffixCode 代码片段
+     * @param tagName    标签名称
+     * @return 代码分段
+     */
+    private static String getSubCode(String suffixCode, TagName tagName) {
+        int i = 0;
+        final String start = "[" + tagName.name;
+        final String end = "[/" + tagName.name + "]";
+
+        while (i < suffixCode.length()) {
+            // 尝试截取的片段
+            final int endIndex = suffixCode.indexOf(end, i) + end.length();
+            final String s = suffixCode.substring(0, endIndex);
+//            如果截取范围内标签的起止标记数量相同，认为匹配
+            if (StringUtils.countMatches(s, start) == StringUtils.countMatches(s, end)) {
+                return s;
+            }
+            i = endIndex;
+        }
         return null;
     }
 
     /**
      * 正文的预处理
+     *
      * @param content 正文
      * @return 预处理后的标签字符串
      */
@@ -120,6 +188,7 @@ public class BbsTagParser {
 
     /**
      * 对本就会渲染为一行的标签，删除其首尾多余的br换行符
+     *
      * @param content 正文
      * @param tagName 标签名称
      * @return 处理后的正文
