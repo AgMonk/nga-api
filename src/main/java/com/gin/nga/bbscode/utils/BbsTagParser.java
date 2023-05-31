@@ -42,7 +42,6 @@ public class BbsTagParser {
 
     /**
      * 解析论坛正文
-     *
      * @param content 论坛正文
      * @return 标签列表
      */
@@ -58,7 +57,6 @@ public class BbsTagParser {
 
     /**
      * 解析标签,将一段bbsCode解析为一个标签数组
-     *
      * @param code 标签
      * @return 标签列表
      */
@@ -140,6 +138,7 @@ public class BbsTagParser {
      * @return 预处理后的标签字符串
      */
     private static String preHandle(String content) {
+//        替换不规范的 ===
         {
             content = HEADING_PATTERN.matcher(content).replaceAll("[h]$1[/h]");
         }
@@ -167,7 +166,7 @@ public class BbsTagParser {
                 replacement.add(matcher.group());
             }
             for (String r : replacement) {
-                content = content.replace(r, String.format("[randomblocks]%s[/randomblocks]", r));
+                content = content.replace(r, String.format("[%s]%s[/%s]",TagName.randomblocks, r,TagName.randomblocks));
             }
         }
 

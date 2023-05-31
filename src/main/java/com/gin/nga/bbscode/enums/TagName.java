@@ -44,7 +44,7 @@ public enum TagName {
     /**
      * 随机块外层
      */
-    randomblocks("randomblocks"),
+    randomblocks("randomBlocks"),
     /**
      * 视频标签
      */
