@@ -34,6 +34,10 @@ public class BetData extends SuperVoteData {
      * 选项
      */
     List<BetOption> options = new ArrayList<>();
+    /**
+     * 胜出id
+     */
+    Integer successId;
 
     public BetData(String s) {
         super(s);
@@ -58,6 +62,9 @@ public class BetData extends SuperVoteData {
                 this.min = Integer.valueOf(v);
             } else if ("max".equals(k)) {
                 this.max = Integer.valueOf(v);
+            }else if ("done".equals(k)) {
+                // 胜出项目
+                this.successId = Integer.valueOf(v);
             }
         }
         // 计算占比
