@@ -62,7 +62,7 @@ public class BbsTag {
             params = ObjectUtils.isEmpty(paramString) ? null : paramString;
 
             if (name==TagName.url ){
-                params =  params!=null?params:innerCode;
+                params =  params!=null?params:StringEscapeUtils.unescapeHtml4(innerCode);
                 for (NgaDomain domain : NgaDomain.values()) {
                     params = params.replace(domain.domain,"");
                 }
