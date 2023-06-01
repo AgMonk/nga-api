@@ -9,6 +9,7 @@ import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.*;
 import com.gin.nga.params.nuke.base.ItemInfoParam;
+import com.gin.nga.params.nuke.base.VoteParam;
 import com.gin.nga.params.nuke.favor.FavorAddParam;
 import com.gin.nga.params.nuke.favor.FavorDelParam;
 import com.gin.nga.params.nuke.favor.FavorFolderListParam;
@@ -446,4 +447,13 @@ public class NukeApi {
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
     }
+/**
+ * 投票/投注
+ * @param client 客户端
+ * @param param 参数
+ * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+ * @author bx002
+ * @since 2023/6/1 13:59
+ */
+    public static NgaJsonCall<BaseMessageBody> vote(NgaClient client, VoteParam param){return client.nuke(param, BaseMessageBody.class);}
 }   
