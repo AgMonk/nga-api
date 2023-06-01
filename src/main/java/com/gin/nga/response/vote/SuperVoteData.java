@@ -1,5 +1,6 @@
 package com.gin.nga.response.vote;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.common.utils.TimeUtils;
@@ -41,6 +42,7 @@ public abstract class SuperVoteData {
     /**
      * 尚未解析的数据，留给子类
      */
+    @JsonIgnore
     LinkedHashMap<String, String> map = new LinkedHashMap<>();
     /**
      * 总人数

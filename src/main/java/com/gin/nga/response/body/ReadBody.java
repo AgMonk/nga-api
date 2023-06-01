@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 
 /**
  * read.php 的响应data
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/13 10:40
@@ -47,6 +48,10 @@ public class ReadBody {
      * 正则，用于从网页中解析回复信息
      */
     public static final Pattern POST_ARG_PATTERN = Pattern.compile("commonui.postArg.proc\\((.+)\\)if");
+    /**
+     * 正则,用于从网页中解析投票数据
+     */
+    public static final Pattern POST_ARG_SET_PATTERN = Pattern.compile("commonui.postArg.setDefault\\((.+)\\)");
     /**
      * 正则，用于从网页中解析 主题id
      */
@@ -165,8 +170,8 @@ public class ReadBody {
                     this.userContext = new UserContext(map);
 
                     this.userContext.getUserInfo().values().stream()
-                            .filter(u->u.getSignature()!=null)
-                            .forEach(u-> u.setSignature(u.getSignature().replace(TAB_PLACEHOLDER,"\t")));
+                            .filter(u -> u.getSignature() != null)
+                            .forEach(u -> u.setSignature(u.getSignature().replace(TAB_PLACEHOLDER, "\t")));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
@@ -207,8 +212,16 @@ public class ReadBody {
             // 解析 DOM 数据
             replyInfo.parseElement(replyTable);
 
+            // 解析投票信息
+            if (i == 0) {
+                final Matcher m = POST_ARG_SET_PATTERN.matcher(docString);
+                if (m.find()) {
+                    replyInfo.parseVoteData(m.group(1));
+                }
+            }
             this.replies.put(i, replyInfo);
         }
+
     }
 
     public Integer getTotalPage() {

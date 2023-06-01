@@ -26,7 +26,7 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-        final ReadBody body = ReadApi.readTopic(ngaClient, new ReadTopicParam(22096176, 1)).sync();
+        final ReadBody body = ReadApi.readTopicDoc(ngaClient, new ReadTopicParam(36478736, 1)).sync();
         JacksonUtils.printPretty(body.getReplies().get(0).getVoteData());
 
     }

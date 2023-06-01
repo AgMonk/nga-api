@@ -20,12 +20,15 @@ import java.io.IOException;
  */
 public class VoteDataDeserializer extends JsonDeserializer<SuperVoteData> {
 
-    @Override
-    public SuperVoteData deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-        final String s = jsonParser.getValueAsString();
+    public static SuperVoteData parse(String s) {
         //        是否为菠菜
         final boolean isBet = s.contains("type~1");
         return isBet ? new BetData(s) : new VoteData(s);
+    }
+
+    @Override
+    public SuperVoteData deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+        return parse(jsonParser.getValueAsString());
     }
 }
     

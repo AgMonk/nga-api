@@ -9,7 +9,6 @@ import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.deserializer.GiftDeserializer;
 import com.gin.nga.deserializer.VoteDataDeserializer;
 import com.gin.nga.enums.FromClient;
-import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.vote.SuperVoteData;
 import com.gin.nga.utils.HtmlUtils;
 import com.gin.nga.utils.QueryStringUtils;
@@ -26,6 +25,8 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.gin.nga.response.NgaRes.MAPPER;
 
 /**
  * 回复信息(read.php接口)
@@ -66,6 +67,7 @@ public class ReplyInfo extends ReplySimple {
      * script数据中用于替换参数内逗号的分隔符
      */
     private static final String SP = "-";
+    private static final String SP_1 = "|";
 
     /**
      * 礼物，key =id value = 数量
@@ -324,7 +326,7 @@ public class ReplyInfo extends ReplySimple {
                     final String group = matcher.group(1)
                             .replaceAll("([,{])(\\w+?):", "$1\"$2\":")
                             .replace("'", "\"");
-                    List<Attachment> list = NgaRes.MAPPER.readValue(group, new TypeReference<>() {
+                    List<Attachment> list = MAPPER.readValue(group, new TypeReference<>() {
                     });
                     this.attachments = new LinkedHashMap<>();
                     for (int i = 0; i < list.size(); i++) {
@@ -399,6 +401,23 @@ public class ReplyInfo extends ReplySimple {
             for (int i = 0; i < a.length; i += 2) {
                 gifts.add(new Gift(Integer.parseInt(a[0]), Integer.parseInt(a[1])));
             }
+        }
+
+    }
+
+    /**
+     * 解析投票数据
+     *
+     * @param group 字符串
+     */
+    public void parseVoteData(String group) {
+        group = preHandle(group, SP_1);
+        // 方法的参数列表
+        final List<String> params = Arrays.stream(group.split(","))
+                .map(i -> i.replace(SP_1, ","))
+                .map(i -> i.replace("'", "")).toList();
+        if (params.size() > 8) {
+            this.voteData = VoteDataDeserializer.parse(params.get(8));
         }
 
     }
