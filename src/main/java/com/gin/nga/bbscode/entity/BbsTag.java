@@ -58,10 +58,11 @@ public class BbsTag {
         final Matcher matcher = pattern.matcher(code);
         if (matcher.find()) {
             final String paramString = matcher.group(1).replace("=", "");
-            params = ObjectUtils.isEmpty(paramString) ? null : paramString;
             final String innerCode = matcher.group(2);
+            params = ObjectUtils.isEmpty(paramString) ? null : paramString;
 
-            if (name==TagName.url && params!=null){
+            if (name==TagName.url ){
+                params =  params!=null?params:innerCode;
                 for (NgaDomain domain : NgaDomain.values()) {
                     params = params.replace(domain.domain,"");
                 }
