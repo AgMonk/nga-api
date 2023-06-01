@@ -14,23 +14,23 @@ public enum NgaPhpApi {
     /**
      * 查询主题
      */
-    thread("thread.php"),
+    thread("/thread.php"),
     /**
      * 查询主题内容
      */
-    read("read.php"),
+    read("/read.php"),
     /**
      * 综合操作
      */
-    nuke("nuke.php"),
+    nuke("/nuke.php"),
     /**
      * 版面操作
      */
-    forum("forum.php"),
+    forum("/forum.php"),
     /**
      * 回复
      */
-    post("post.php"),
+    post("/post.php"),
     ;
 
 

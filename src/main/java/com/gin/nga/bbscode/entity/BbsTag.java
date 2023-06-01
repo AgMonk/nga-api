@@ -2,6 +2,7 @@ package com.gin.nga.bbscode.entity;
 
 import com.gin.nga.bbscode.enums.TagName;
 import com.gin.nga.bbscode.utils.BbsTagParser;
+import com.gin.nga.enums.NgaDomain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,6 +60,12 @@ public class BbsTag {
             final String paramString = matcher.group(1).replace("=", "");
             params = ObjectUtils.isEmpty(paramString) ? null : paramString;
             final String innerCode = matcher.group(2);
+
+            if (name==TagName.url && params!=null){
+                for (NgaDomain domain : NgaDomain.values()) {
+                    params = params.replace(domain.domain,"");
+                }
+            }
 
             if (name == TagName.code) {
                 //代码框 内部直接作为文本处理

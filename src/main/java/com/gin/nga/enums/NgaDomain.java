@@ -13,15 +13,15 @@ public enum NgaDomain {
     /**
      * <a href="https://ngabbs.com/">ngabbs</a>
      */
-    com("https://ngabbs.com/"),
+    com("https://ngabbs.com"),
     /**
      * <a href="https://bbs.nga.cn/">主站</a>
      */
-    cn("https://bbs.nga.cn/"),
+    cn("https://bbs.nga.cn"),
     /**
      * <a href="https://nga.178.com/">178</a>
      */
-    _178("https://nga.178.com/")
+    _178("https://nga.178.com")
     ;
     /**
      * 域名
