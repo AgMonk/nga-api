@@ -45,9 +45,13 @@ public abstract class SuperVoteData {
     @JsonIgnore
     LinkedHashMap<String, String> map = new LinkedHashMap<>();
     /**
-     * 总人数
+     * 总人次
      */
     int totalCount = 0;
+    /**
+     * 总人数
+     */
+    int total;
 
     public SuperVoteData(String s) {
 //            解析vote字段

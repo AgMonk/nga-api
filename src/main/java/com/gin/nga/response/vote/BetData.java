@@ -58,6 +58,10 @@ public class BetData extends SuperVoteData {
                 options.add(option);
                 this.totalCount += count;
                 this.totalMoney += money;
+
+                if (!"0".equals(split[2])) {
+                    this.total = Integer.parseInt(split[2]);
+                }
             } else if ("min".equals(k)) {
                 this.min = Integer.valueOf(v);
             } else if ("max".equals(k)) {

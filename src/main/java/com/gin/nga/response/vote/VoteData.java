@@ -32,12 +32,17 @@ public class VoteData extends SuperVoteData {
             if (StrUtils.isNumber(k)) {
                 final VoteOption option = new VoteOption();
                 final int id = Integer.parseInt(k);
-                final int count = Integer.parseInt(this.map.get("_" + k).split(",")[0]);
+                final String[] split = this.map.get("_" + k).split(",");
+                final int count = Integer.parseInt(split[0]);
                 option.setId(id);
                 option.setLabel(v);
                 option.setCount(count);
                 options.add(option);
                 this.totalCount += count;
+
+                if (!"0".equals(split[2])) {
+                    this.total = Integer.parseInt(split[2]);
+                }
             }
         }
         // 计算占比
