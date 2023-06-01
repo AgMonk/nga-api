@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.deserializer.GiftDeserializer;
+import com.gin.nga.deserializer.VoteDataDeserializer;
 import com.gin.nga.enums.FromClient;
 import com.gin.nga.response.NgaRes;
+import com.gin.nga.response.vote.SuperVoteData;
 import com.gin.nga.utils.HtmlUtils;
 import com.gin.nga.utils.QueryStringUtils;
 import lombok.Getter;
@@ -27,6 +29,7 @@ import java.util.regex.Pattern;
 
 /**
  * 回复信息(read.php接口)
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/13 11:46
@@ -128,8 +131,13 @@ public class ReplyInfo extends ReplySimple {
     @JsonAlias("score_2")
     Integer disagreeCount;
 
+    @JsonAlias("vote")
+    @JsonDeserialize(using = VoteDataDeserializer.class)
+    SuperVoteData voteData;
+
     /**
      * 处理正文(换行符问题)
+     *
      * @param e 正文标签
      * @return 正文内容
      */
@@ -144,6 +152,7 @@ public class ReplyInfo extends ReplySimple {
 
     /**
      * 从root元素中以id查找指定元素，如果发现，执行handle
+     *
      * @param root   root元素
      * @param id     id
      * @param handle 处理方法
@@ -157,6 +166,7 @@ public class ReplyInfo extends ReplySimple {
 
     /**
      * 解析评论贴条和热评
+     *
      * @param root 根元素
      * @return 评论贴条和热评
      */
@@ -233,6 +243,7 @@ public class ReplyInfo extends ReplySimple {
 
     /**
      * 从 a 标签中解析uid
+     *
      * @param e a标签
      * @return uid
      */
@@ -245,6 +256,7 @@ public class ReplyInfo extends ReplySimple {
 
     /**
      * 参数列表预处理，将参数中的逗号替换为其他分隔符
+     *
      * @param s     参数列表
      * @param split 分隔符
      * @return java.lang.String
@@ -269,6 +281,7 @@ public class ReplyInfo extends ReplySimple {
 
     /**
      * 从网页中解析数据
+     *
      * @param root 根元素
      */
     public void parseElement(Element root) {
@@ -338,6 +351,7 @@ public class ReplyInfo extends ReplySimple {
 
     /**
      * 解析script标签中的数据
+     *
      * @param script 参数列表
      */
     public void parseScript(String script) {
@@ -392,6 +406,7 @@ public class ReplyInfo extends ReplySimple {
     private interface Handle {
         /**
          * 处理元素
+         *
          * @param e 元素
          */
         void handle(Element e);

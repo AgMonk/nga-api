@@ -1,13 +1,14 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.nga.bbscode.entity.BbsTag;
-import com.gin.nga.bbscode.utils.BbsTagParser;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
+import com.gin.nga.method.ReadApi;
+import com.gin.nga.params.read.ReadTopicParam;
+import com.gin.nga.response.body.ReadBody;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -25,16 +26,8 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-//        final ThreadBody res = ThreadApi.forumList(ngaClient, new ForumListParam(650, 1, null)).sync();
+        final ReadBody body = ReadApi.readTopic(ngaClient, new ReadTopicParam(22096176, 1)).sync();
+        JacksonUtils.printPretty(body.getReplies().get(0).getVoteData());
 
-//        JacksonUtils.printPretty(res.getTopics().values());
-
-        File file = new File("D:\\test\\新建文本文档.txt");
-
-        final String content = FileIoUtils.readStr(file);
-
-        final List<BbsTag> bbsTags = BbsTagParser.parseContent(content);
-
-        FileIoUtils.writeObj(new File("D:\\test\\output.json"),bbsTags);
     }
 }

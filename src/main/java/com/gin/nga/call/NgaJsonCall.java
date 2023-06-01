@@ -36,7 +36,7 @@ public class NgaJsonCall<T> extends NgaCall<T>{
         if (s == null) {
             return null;
         }
-        final NgaRes<T> res = NgaRes.parse(s, responseClass);
+        final NgaRes<T> res = NgaRes.parse(s.replace("\t"," "), responseClass);
         if (res.getData()==null) {
             throw new NgaClientException(400, call, res.getError());
         }
