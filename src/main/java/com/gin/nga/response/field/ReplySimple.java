@@ -3,6 +3,8 @@ package com.gin.nga.response.field;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.bbscode.entity.BbsTag;
+import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.enums.ReplyStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import java.util.List;
 
 /**
  * 回复(简单数据), 出现在收藏回复中
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/12 12:23
@@ -64,14 +67,19 @@ public class ReplySimple {
 
     /**
      * 回复状态
+     *
      * @return 回复状态
      */
-    public List<ReplyStatus> getStatus(){
-        return type==null?null:ReplyStatus.parse(type);
+    public List<ReplyStatus> getStatus() {
+        return type == null ? null : ReplyStatus.parse(type);
     }
 
     public void setContent(String content) {
         this.content = StringEscapeUtils.unescapeHtml4(StringEscapeUtils.unescapeHtml4(content));
+    }
+
+    public List<BbsTag> getContentNodes() {
+        return content == null ? null : BbsTagParser.parseContent(content);
     }
 
     public void setTitle(String title) {

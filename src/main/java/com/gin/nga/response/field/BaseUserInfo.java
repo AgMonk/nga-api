@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.deserializer.ListIntDeserializer;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.bbscode.entity.BbsTag;
+import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.deserializer.UserBuffDeserializer;
 import com.gin.nga.enums.AccountStatus;
 import lombok.Getter;
@@ -81,4 +83,8 @@ public class BaseUserInfo extends SimpleUserInfo{
      */
     @JsonAlias("yz")
     AccountStatus accountStatus;
+
+    public List<BbsTag> getSignatureNodes() {
+        return signature == null ? null : BbsTagParser.parseContent(signature);
+    }
 }
