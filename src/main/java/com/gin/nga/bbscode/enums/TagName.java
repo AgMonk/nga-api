@@ -28,7 +28,7 @@ public enum TagName {
     /**
      * 列表
      */
-    list("list"),
+    list("ul"),
     /**
      * 列表项目
      */

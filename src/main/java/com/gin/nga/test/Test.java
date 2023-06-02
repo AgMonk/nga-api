@@ -3,10 +3,7 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.exception.NgaClientException;
-import com.gin.nga.method.NukeApi;
-import com.gin.nga.params.nuke.base.VoteParam;
-import com.gin.nga.response.body.BaseMessageBody;
+import com.gin.nga.method.ReadApi;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,14 +24,7 @@ public class Test {
 
         final NgaClient ngaClient = new NgaClient(cookie);
 
-//        final ReadBody body = ReadApi.readTopicDoc(ngaClient, new ReadTopicParam(36478736, 1)).sync();
-//        JacksonUtils.printPretty(body.getReplies().get(0).getVoteData());
+        JacksonUtils.printPretty(ReadApi.readReply(ngaClient,460443749).sync());
 
-        try {
-            final BaseMessageBody res = NukeApi.vote(ngaClient, new VoteParam(36478736, 107959, 222)).sync();
-            JacksonUtils.printPretty(res);
-        } catch (NgaClientException e) {
-            JacksonUtils.printPretty(e.getReason());
-        }
     }
 }

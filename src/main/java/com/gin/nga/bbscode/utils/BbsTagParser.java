@@ -42,6 +42,7 @@ public class BbsTagParser {
 
     /**
      * 解析论坛正文
+     *
      * @param content 论坛正文
      * @return 标签列表
      */
@@ -50,17 +51,21 @@ public class BbsTagParser {
             return new ArrayList<>();
         }
 //        预处理
+        System.out.println("start = " + content);
         content = preHandle(content);
+        System.out.println("end = " + content);
 //        解析
         return parseCode(content);
     }
 
     /**
      * 解析标签,将一段bbsCode解析为一个标签数组
+     *
      * @param code 标签
      * @return 标签列表
      */
     public static List<BbsTag> parseCode(String code) {
+        System.out.println(code);
 //        todo
         final ArrayList<BbsTag> res = new ArrayList<>();
 //        todo 逐个字符检查是否遇到了可识别的bbsCode
@@ -73,7 +78,9 @@ public class BbsTagParser {
             }
             // 裁剪code
             final String prefixCode = code.substring(0, i);
+            System.out.println("prefixCode = " + prefixCode);
             final String suffixCode = code.substring(i);
+            System.out.println("suffixCode = " + suffixCode);
             //当前位置是 [ , 尝试匹配标签名称
             final TagName tagName = TagName.matcher(suffixCode);
             if (tagName != null) {
@@ -87,9 +94,9 @@ public class BbsTagParser {
                 if (subCode != null) {
                     // 匹配成功
                     // 添加本段代码到列表
-                    res.add(new BbsTag(tagName,subCode));
+                    res.add(new BbsTag(tagName, subCode));
                     // 截断原代码段
-                    code = suffixCode.substring( subCode.length());
+                    code = suffixCode.substring(subCode.length());
                     i = 0;
                 }
 
@@ -97,7 +104,7 @@ public class BbsTagParser {
                 i++;
             }
         }
-        if (i>0) {
+        if (i > 0) {
             // 循环结束，i依然大于0，表示有剩余文字，添加一个文本节点
             res.add(BbsTag.text(code));
         }
@@ -152,11 +159,15 @@ public class BbsTagParser {
         }
 //        [*] 标签规范化
         {
-            content = content.replace("<br/>[*]", "[*]").replace("<br>[*]", "[*]");
-            content = content
-                    .replace("[*]", "[/li][li]")
-                    .replace("[list][/li]", "[list]")
-                    .replace("[/list]", "[/li][/list]");
+            content = content.
+                    // 把所有 [*] 替换为 [/li][li] ,包括前面带/不带换行符的
+                    replaceAll("(<br/*>)*\\[\\*]", "[/li][li]")
+                    // 在 [/list] 前添加 [/li]
+                    .replace("[/list]", "[/li][/ul]")
+                    // 在 [list] 后添加 [li]
+                    .replace("[list]", "[ul][li]")
+                    // 删除多余的空 li
+                    .replace("[li][/li]", "");
         }
 //        [randomblock] 标签规范化
         {
@@ -166,7 +177,7 @@ public class BbsTagParser {
                 replacement.add(matcher.group());
             }
             for (String r : replacement) {
-                content = content.replace(r, String.format("[%s]%s[/%s]",TagName.randomblocks, r,TagName.randomblocks));
+                content = content.replace(r, String.format("[%s]%s[/%s]", TagName.randomblocks.name, r, TagName.randomblocks.name));
             }
         }
 
