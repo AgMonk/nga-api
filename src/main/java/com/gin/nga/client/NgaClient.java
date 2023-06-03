@@ -18,6 +18,7 @@ import com.gin.nga.response.body.ThreadBody;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import okhttp3.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;
 
 import java.io.File;
@@ -33,6 +34,7 @@ import java.util.regex.Pattern;
 
 /**
  * Nga客户端
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/11 11:39
@@ -68,7 +70,7 @@ public class NgaClient {
      * 当前用户id
      */
     @Getter
-    final  long userId;
+    final long userId;
     /**
      * 当前用户名
      */
@@ -136,15 +138,16 @@ public class NgaClient {
         }
 
         this.cookie = String.format("ngaPassportUid=%d; ngaPassportUrlencodedUname=%s; ngaPassportCid=%s; ",
-                                    this.userId,
-                                    this.urlencodedUname,
-                                    this.cid);
+                this.userId,
+                this.urlencodedUname,
+                this.cid);
 
         System.out.printf("NGA客户端启动 uid: %d 用户名: %s\n", this.userId, this.username);
     }
 
     /**
      * 生成 FormBody
+     *
      * @param formData 表单数据
      * @return FormBody
      */
@@ -177,6 +180,7 @@ public class NgaClient {
 
     /**
      * 默认客户端
+     *
      * @return 客户端
      */
     @NotNull
@@ -190,6 +194,7 @@ public class NgaClient {
 
     /**
      * 原生call
+     *
      * @param phpApi     phpApi
      * @param queryParam 参数
      * @param formData   表单数据
@@ -205,6 +210,7 @@ public class NgaClient {
 
     /**
      * 请求网页数据
+     *
      * @param phpApi         phpApi
      * @param queryParam     参数
      * @param formData       表单数据
@@ -219,6 +225,7 @@ public class NgaClient {
 
     /**
      * 请求json数据
+     *
      * @param phpApi        phpApi
      * @param queryParam    参数
      * @param formData      表单数据
@@ -232,6 +239,7 @@ public class NgaClient {
 
     /**
      * 上传call
+     *
      * @param attachUrl 上传地址
      * @param param     参数
      * @return com.gin.nga.call.NgaUploadCall
@@ -240,7 +248,7 @@ public class NgaClient {
     public NgaUploadCall callUpload(String attachUrl, UploadParam param) {
         final HttpUrl httpUrl = HttpUrl.parse(attachUrl);
         final MultipartBody multipartBody = getMultipartBody(param);
-        assert httpUrl!=null;
+        assert httpUrl != null;
         final Request request = new Request.Builder()
                 .url(httpUrl)
                 .post(multipartBody)
@@ -254,6 +262,7 @@ public class NgaClient {
 
     /**
      * nuke请求
+     *
      * @param param         参数
      * @param responseClass 响应类型
      * @return call
@@ -264,16 +273,21 @@ public class NgaClient {
 
     /**
      * post请求
-     * @param param 参数
-     * @param formData formData
+     *
+     * @param param         参数
+     * @param formData      formData
      * @param responseClass 响应类型
      * @return com.gin.nga.call.NgaJsonCall<T>
      * @author bx002
      * @since 2023/4/20 9:55
      */
-    public <T> NgaJsonCall<T> post(Object param,Object formData, Class<T> responseClass) {return callJson(NgaPhpApi.post, param, formData, responseClass);}
+    public <T> NgaJsonCall<T> post(Object param, Object formData, Class<T> responseClass) {
+        return callJson(NgaPhpApi.post, param, formData, responseClass);
+    }
+
     /**
      * 读取主题内容
+     *
      * @param param 参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
      * @since 2023/4/15 16:07
@@ -284,6 +298,7 @@ public class NgaClient {
 
     /**
      * 读取主题内容(兼容模式，通过网页解析)
+     *
      * @param param 参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.ReadBody>
      * @since 2023/4/15 16:07
@@ -294,6 +309,7 @@ public class NgaClient {
 
     /**
      * 查询主题列表
+     *
      * @param queryParam 查询参数
      * @return Call
      */
@@ -302,7 +318,25 @@ public class NgaClient {
     }
 
     /**
+     * 请求一个回复Id的具体地址,使用to参数获取重定向地址
+     *
+     * @param replyId 回复id
+     * @return 具体地址
+     */
+    public String toReply(long replyId) throws IOException {
+        final HttpUrl httpUrl = HttpUrl.parse(ngaDomain.domain + NgaPhpApi.read.path + "?to=1&pid=" + replyId);
+        final Request request = getRequest(httpUrl, null);
+        try (Response response = this.client.newCall(request).execute()) {
+            if (response.code() == HttpStatus.FOUND.value()) {
+                return response.header("Location");
+            }
+        }
+        return null;
+    }
+
+    /**
      * 生成url
+     *
      * @param phpApi     phpApi
      * @param queryParam 地址栏查询参数
      * @param json       是否请求json格式数据
@@ -334,13 +368,15 @@ public class NgaClient {
 
     @NotNull
     private Request getRequest(HttpUrl httpUrl, RequestBody body) {
-        return new Request.Builder()
+        final Request.Builder builder = new Request.Builder()
                 .url(httpUrl)
                 .header("cookie", this.cookie)
                 .header("host", "bbs.nga.cn")
                 .header("Referer", this.ngaDomain.domain)
-                .header("User-Agent", UA)
-                .post(body)
-                .build();
+                .header("User-Agent", UA);
+        if (body != null) {
+            return builder.post(body).build();
+        }
+        return builder.get().build();
     }
 }

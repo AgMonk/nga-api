@@ -7,6 +7,8 @@ import com.gin.nga.client.NgaClient;
 import com.gin.nga.params.read.ReadTopicParam;
 import com.gin.nga.response.body.ReadBody;
 
+import java.io.IOException;
+
 /**
  * read.php的API
  * @author : ginstone
@@ -56,5 +58,9 @@ public class ReadApi {
      */
     public static NgaDocCall<ReadBody> readTopicDoc(NgaClient client,ReadTopicParam param) {
         return client.readDoc(param);
+    }
+
+    public static String toReply(NgaClient client,long replyId) throws IOException {
+        return client.toReply(replyId);
     }
 }   

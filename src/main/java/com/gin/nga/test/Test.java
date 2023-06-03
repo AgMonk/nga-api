@@ -24,5 +24,6 @@ public class Test {
 
 //        JacksonUtils.printPretty(ReadApi.readReply(ngaClient,460443749).sync());
 
+        System.out.println(client.toReply(693836537));
     }
 }
