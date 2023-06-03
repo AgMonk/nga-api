@@ -5,6 +5,7 @@ import com.gin.nga.call.NgaDocCall;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.params.read.ReadTopicParam;
+import com.gin.nga.response.ReplyLocation;
 import com.gin.nga.response.body.ReadBody;
 
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class ReadApi {
         return client.readDoc(param);
     }
 
-    public static String toReply(NgaClient client,long replyId) throws IOException {
-        return client.toReply(replyId);
+    public static ReplyLocation toReply(NgaClient client, long replyId) throws IOException {
+        return new ReplyLocation(client.toReply(replyId));
     }
 }   

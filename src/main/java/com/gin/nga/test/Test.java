@@ -1,7 +1,11 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
+import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
+import com.gin.nga.method.PostApi;
+import com.gin.nga.params.post.PostParam;
+import com.gin.nga.params.post.PrepareParam;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +28,8 @@ public class Test {
 
 //        JacksonUtils.printPretty(ReadApi.readReply(ngaClient,460443749).sync());
 
-        System.out.println(client.toReply(693836537));
+        final PrepareParam prepareParam = PrepareParam.replyParam(33506312,0,false);
+        final PostParam postParam = new PostParam("测试测试测试测试");
+        JacksonUtils.printPretty(PostApi.send(client, prepareParam, postParam).sync());
     }
 }
