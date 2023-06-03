@@ -1,8 +1,9 @@
-package com.gin.nga.response.field;
+package com.gin.nga.response.field.user;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.response.field.ReputationMap;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ import java.time.ZonedDateTime;
  */
 @Getter
 @Setter
-public class UserInfoRead extends  BaseUserInfo{
+public class UserInfoRead extends BaseUserInfo {
     @JsonAlias("bit_data")
     Long bitData;
     @JsonAlias("credit")
@@ -30,7 +31,7 @@ public class UserInfoRead extends  BaseUserInfo{
      * 声望数据 , 声望id -> 声望值
      */
     @JsonAlias("reputation")
-    ReputationRead reputation;
+    ReputationMap reputationMap;
     /**
      * 个人版名称
      */

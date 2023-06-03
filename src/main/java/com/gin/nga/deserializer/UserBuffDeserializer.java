@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.nga.response.NgaRes;
-import com.gin.nga.response.field.UserBuff;
+import com.gin.nga.response.field.user.UserBuff;
 import com.gin.nga.utils.TreeNodeUtils;
 
 import java.io.IOException;

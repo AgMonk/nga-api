@@ -1,9 +1,10 @@
-package com.gin.nga.response.field;
+package com.gin.nga.response.field.user;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.UserForumDeserializer;
 import com.gin.nga.enums.UserMoreInfoType;
+import com.gin.nga.response.field.Reputation;
 import lombok.Getter;
 import lombok.Setter;
 

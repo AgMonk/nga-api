@@ -1,4 +1,4 @@
-package com.gin.nga.response.field;
+package com.gin.nga.response.field.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -6,16 +6,21 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.deserializer.UserFieldInReadDeserializer;
 import com.gin.nga.response.NgaRes;
+import com.gin.nga.response.field.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 用户信息上下文
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/13 10:58
@@ -122,5 +127,53 @@ public class UserContext {
                 }
             }
         });
+    }
+
+    private static String getReputationLabel(List<CustomLevel> customLevels, int value) {
+        for (final CustomLevel level : customLevels) {
+            if (value >= level.getRank()) {
+                return level.getName();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @param userId       用户id
+     * @param customLevels {@link  Forum }中的同名字段
+     * @return {@link UserInfoContext} 或 {@link AnonymousUser}
+     */
+    public Object getUserInfo(Long userId, List<CustomLevel> customLevels) {
+        if (userId < 0) {
+            //匿名用户
+            return this.anonymousUserInfo.get(Integer.parseInt(userId.toString()));
+        }
+        final UserInfoRead userInfoRead = this.userInfo.get(userId);
+        if (userInfoRead == null) {
+            return null;
+        }
+        final UserInfoContext res = new UserInfoContext(userInfoRead);
+        //用户组
+        res.setGroup(this.groups.get(res.getMemberId()));
+        //随机头像
+        final List<String> avatars = res.getAvatars();
+        if (!ObjectUtils.isEmpty(avatars)) {
+            final int i = new Random().nextInt(avatars.size());
+            res.setAvatar(avatars.get(i));
+        }
+        //徽章
+        final List<Integer> medalIds = res.getMedalIds();
+        if (!ObjectUtils.isEmpty(medalIds)) {
+            res.setMedals(medalIds.stream().map(id -> this.medals.get(id)).toList());
+        }
+        //声望
+        if (!ObjectUtils.isEmpty(customLevels)) {
+            final int value = this.reputationUser.getData().getOrDefault(userId, 0);
+            final String label = getReputationLabel(customLevels, value);
+            res.setReputation(new LabelValue(label, value));
+        }
+        return res;
     }
 }

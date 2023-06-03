@@ -10,6 +10,7 @@ import com.gin.nga.document.Navigation;
 import com.gin.nga.enums.NgaLinkType;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.field.*;
+import com.gin.nga.response.field.user.UserContext;
 import com.gin.nga.utils.HtmlUtils;
 import com.gin.nga.utils.NgaLink;
 import lombok.Getter;

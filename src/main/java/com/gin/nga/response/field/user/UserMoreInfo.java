@@ -1,4 +1,4 @@
-package com.gin.nga.response.field;
+package com.gin.nga.response.field.user;
 
 import com.gin.nga.enums.UserMoreInfoType;
 import lombok.Getter;

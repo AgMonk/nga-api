@@ -12,8 +12,8 @@ import java.util.LinkedHashMap;
  * @since : 2023/4/17 14:20
  */
 @NoArgsConstructor
-public class ReputationRead extends LinkedHashMap<Integer, Integer> {
-    public ReputationRead(String s) {
+public class ReputationMap extends LinkedHashMap<Integer, Integer> {
+    public ReputationMap(String s) {
         super();
         if (ObjectUtils.isEmpty(s)) {
             return ;

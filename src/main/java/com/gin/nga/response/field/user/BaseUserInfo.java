@@ -1,4 +1,4 @@
-package com.gin.nga.response.field;
+package com.gin.nga.response.field.user;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -9,6 +9,9 @@ import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.deserializer.UserBuffDeserializer;
 import com.gin.nga.enums.AccountStatus;
+import com.gin.nga.response.field.Honor;
+import com.gin.nga.response.field.Money;
+import com.gin.nga.response.field.SimpleUserInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +26,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class BaseUserInfo extends SimpleUserInfo{
+public class BaseUserInfo extends SimpleUserInfo {
     /**
      * 用户buff
      */

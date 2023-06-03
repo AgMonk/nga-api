@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.gin.common.utils.StrUtils;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.body.nuke.PmReplyBody;
-import com.gin.nga.response.field.UserContext;
+import com.gin.nga.response.field.user.UserContext;
 import com.gin.nga.response.field.pm.PrivateMessageReply;
 
 import java.util.List;
@@ -53,7 +53,7 @@ public class PmReplyBodyDeserializer extends AbstractSingleListDeserializer<PmRe
                     result.setUsers(PmUsersDeserializer.parse(childString.replace("\"", "")));
                     break;
                 case "userInfo":
-                    result.setUserInfo(new UserContext(NgaRes.MAPPER.readValue(childString, new TypeReference<>() {
+                    result.setUserContext(new UserContext(NgaRes.MAPPER.readValue(childString, new TypeReference<>() {
                     })));
                     break;
                 default:

@@ -1,4 +1,4 @@
-package com.gin.nga.response.field;
+package com.gin.nga.response.field.user;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
