@@ -2,8 +2,11 @@ package com.gin.nga.response.body;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.gin.nga.response.field.Attachment;
+import com.gin.nga.utils.BitUtils;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * 上传成功的响应
@@ -21,9 +24,20 @@ public class UploadBody {
     @JsonAlias("isImg")
     Boolean isImg;
     @JsonAlias("thumb")
-    Integer thumb;
+    Integer thumbBit;
     @JsonAlias("url")
     String url;
+
+    /**
+     * 缩略图地址
+     * @return 缩略图地址
+     */
+    public List<String> getThumbUrls() {
+        if (thumbBit == null) {
+            return null;
+        }
+       return BitUtils.getThumbUrls(url,thumbBit);
+    }
 
     /**
      * 绝对路径
