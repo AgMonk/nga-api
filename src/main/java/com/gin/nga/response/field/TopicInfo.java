@@ -157,6 +157,6 @@ public class TopicInfo {
 
     public void setTitle(String title) {
         // 反转义
-        this.title = StringEscapeUtils.unescapeHtml4(title);
+        this.title = title!=null?StringEscapeUtils.unescapeHtml4(title):null;
     }
 }

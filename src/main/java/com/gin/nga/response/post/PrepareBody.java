@@ -10,12 +10,14 @@ import com.gin.nga.response.field.CurrentUser;
 import com.gin.nga.response.field.Forum;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
  * 回复准备的响应
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/20 10:20
@@ -115,8 +117,21 @@ public class PrepareBody {
     @JsonAlias("__F")
     Forum forum;
 
+    public void setContent(String content) {
+        this.content = content != null ? StringEscapeUtils.unescapeHtml4(content) : null;
+    }
+
+    public void setContentOriginal(String contentOriginal) {
+        this.contentOriginal = contentOriginal != null ? StringEscapeUtils.unescapeHtml4(contentOriginal) : null;
+    }
+
+    public void setTitle(String title) {
+        this.title = title != null ? StringEscapeUtils.unescapeHtml4(title) : null;
+    }
+
     /**
      * 回复状态
+     *
      * @return 回复状态
      */
     public List<ReplyStatus> getReplyStatus() {
@@ -125,6 +140,7 @@ public class PrepareBody {
 
     /**
      * 主题状态
+     *
      * @return 主题状态
      */
     public List<ReplyStatus> getTopicStatus() {
