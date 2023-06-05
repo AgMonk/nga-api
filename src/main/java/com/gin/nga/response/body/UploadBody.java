@@ -50,7 +50,7 @@ public class UploadBody {
     }
 
     public String getExtension() {
-        return url == null ? null : url.substring(url.lastIndexOf("."));
+        return url == null ? null : url.substring(url.lastIndexOf(".")+1);
     }
 
     public String getBbsCode(){
@@ -59,9 +59,9 @@ public class UploadBody {
             return null;
         }
         switch (extension){
-            case ".zip":
+            case "zip":
                return String.format("[url=https://img.nga.178.com/attachments/%s]下载文件[/url]",url);
-            case ".mp3", ".mp4":
+            case "mp3", "mp4":
                return String.format("[flash]./%s[/flash]",url);
             default:
                return String.format("[img]./%s[/img]",url);
