@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 上传成功的响应
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/19 16:15
@@ -30,17 +31,38 @@ public class UploadBody {
 
     /**
      * 缩略图地址
+     *
      * @return 缩略图地址
      */
     public List<String> getThumbUrls() {
         if (thumbBit == null) {
             return null;
         }
-       return BitUtils.getThumbUrls(url,thumbBit);
+        return BitUtils.getThumbUrls(url, thumbBit);
+    }
+
+    public String getExtension() {
+        return url == null ? null : url.substring(url.lastIndexOf("."));
+    }
+
+    public String getBbsCode(){
+        final String extension = getExtension();
+        if (extension==null) {
+            return null;
+        }
+        switch (extension){
+            case ".zip":
+               return String.format("[url=https://img.nga.178.com/attachments/%s]下载文件[/url]",url);
+            case ".mp3", ".mp4":
+               return String.format("[flash]./%s[/flash]",url);
+            default:
+               return String.format("[img]./%s[/img]",url);
+        }
     }
 
     /**
      * 绝对路径
+     *
      * @return 绝对路径
      */
     public String getAbsoluteUrl() {
