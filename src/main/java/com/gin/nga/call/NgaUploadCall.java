@@ -35,6 +35,8 @@ public class NgaUploadCall extends NgaCall<UploadBody>{
         if (s == null) {
             return null;
         }
-        return NgaRes.MAPPER.readValue(s, responseClass);
+        final UploadBody body = NgaRes.MAPPER.readValue(s, responseClass);
+        UploadCallback.handleException(body);
+        return body;
     }
 }

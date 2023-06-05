@@ -29,6 +29,14 @@ public class UploadBody {
     @JsonAlias("url")
     String url;
 
+
+    /*报错字段*/
+
+    @JsonAlias("error_code")
+    Integer errorCode;
+    @JsonAlias("error")
+    String error;
+
     /**
      * 缩略图地址
      *
