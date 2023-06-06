@@ -24,7 +24,7 @@ public enum TagName {
     /**
      * 小标题
      */
-    heading("h"),
+    heading("heading"),
     /**
      * 列表
      */
@@ -64,15 +64,15 @@ public enum TagName {
     /**
      * 加粗
      */
-    bold("b"),
+    bold("bold"),
     /**
      * 下划线
      */
-    underline("u"),
+    underline("underline"),
     /**
      * 斜体
      */
-    italic("i"),
+    italic("italic"),
     /**
      * 回复链接
      */
@@ -112,11 +112,11 @@ public enum TagName {
     /**
      * 向右浮动
      */
-    r("r"),
+    right("right"),
     /**
      * 向左浮动
      */
-    l("l"),
+    left("left"),
     /**
      * 表格-单元格
      */

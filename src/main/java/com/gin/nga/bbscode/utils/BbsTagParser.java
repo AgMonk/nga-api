@@ -38,7 +38,6 @@ public class BbsTagParser {
      * 匹配heading的不规范写法
      */
     public static final Pattern HEADING_PATTERN = Pattern.compile("===(.+?)===");
-    public static final Pattern UNDERLINE_PATTERN = Pattern.compile("\\[(/*)u]");
 
 
     /**
@@ -187,8 +186,14 @@ public class BbsTagParser {
             content = REPLY_PATTERN.matcher(content).replaceAll("[quote]$1[/quote]");
         }
 
+        //[u][b][i][r][l][h]规范化
         {
-            content = UNDERLINE_PATTERN.matcher(content).replaceAll("[$1underline]");
+            content = content.replaceAll("\\[(/*)u]", "[$1underline]");
+            content = content.replaceAll("\\[(/*)b]", "[$1bold]");
+            content = content.replaceAll("\\[(/*)i]", "[$1italic]");
+            content = content.replaceAll("\\[(/*)r]", "[$1right]");
+            content = content.replaceAll("\\[(/*)l]", "[$1left]");
+            content = content.replaceAll("\\[(/*)h]", "[$1heading]");
         }
 
 //        td 标签规范化
