@@ -38,6 +38,7 @@ public class BbsTagParser {
      * 匹配heading的不规范写法
      */
     public static final Pattern HEADING_PATTERN = Pattern.compile("===(.+?)===");
+    public static final Pattern UNDERLINE_PATTERN = Pattern.compile("\\[(/*)u]");
 
 
     /**
@@ -184,6 +185,10 @@ public class BbsTagParser {
 //        为预设的回复模板添加 quote
         {
             content = REPLY_PATTERN.matcher(content).replaceAll("[quote]$1[/quote]");
+        }
+
+        {
+            content = UNDERLINE_PATTERN.matcher(content).replaceAll("[$1underline]");
         }
 
 //        td 标签规范化
