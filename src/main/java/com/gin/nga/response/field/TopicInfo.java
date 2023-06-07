@@ -3,6 +3,7 @@ package com.gin.nga.response.field;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.nga.enums.EntranceType;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.utils.AnonymousUtils;
 import lombok.Getter;
@@ -158,5 +159,28 @@ public class TopicInfo {
     public void setTitle(String title) {
         // 反转义
         this.title = title!=null?StringEscapeUtils.unescapeHtml4(title):null;
+    }
+
+    public Long getForumId() {
+        final EntranceType type = getEntranceType();
+        if (type== EntranceType.FORUM) {
+            final Serializable s = this.topicMiscVar.get(3L);
+            if (s!=null) {
+                return Long.valueOf(s.toString());
+            }
+        }
+        return forumId;
+    }
+
+    public EntranceType getEntranceType(){
+        final Integer flag = 32;
+        final List<ReplyStatus> status = this.getStatus();
+        if (status!=null && status.contains(ReplyStatus.IS_SET)) {
+            return EntranceType.COL;
+        }else if (this.topicMiscVar!=null && flag.equals(this.topicMiscVar.get(1L))){
+            return  EntranceType.FORUM;
+        }else{
+            return EntranceType.TOPIC;
+        }
     }
 }
