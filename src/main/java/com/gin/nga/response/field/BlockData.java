@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class BlockData {
             return;
         }
         final String[] split = data.split(REGEX);
-        this.keywords = Arrays.stream(split[1].split(SPACE)).filter(obj -> !ObjectUtils.isEmpty(obj)).toList();
-        this.users = Arrays.stream(split[2].split(SPACE)).filter(obj -> !ObjectUtils.isEmpty(obj)).toList();
+        this.keywords = new ArrayList<>(Arrays.stream(split[1].split(SPACE)).filter(obj -> !ObjectUtils.isEmpty(obj)).toList());
+        this.users = new ArrayList<>(Arrays.stream(split[2].split(SPACE)).filter(obj -> !ObjectUtils.isEmpty(obj)).toList());
     }
 
     /**
