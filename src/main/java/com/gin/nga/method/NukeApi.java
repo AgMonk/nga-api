@@ -10,6 +10,7 @@ import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.*;
 import com.gin.nga.params.nuke.base.ItemInfoParam;
 import com.gin.nga.params.nuke.base.VoteParam;
+import com.gin.nga.params.nuke.block.BlockDataListParam;
 import com.gin.nga.params.nuke.favor.FavorAddParam;
 import com.gin.nga.params.nuke.favor.FavorDelParam;
 import com.gin.nga.params.nuke.favor.FavorFolderListParam;
@@ -456,4 +457,13 @@ public class NukeApi {
  * @since 2023/6/1 13:59
  */
     public static NgaJsonCall<BaseMessageBody> vote(NgaClient client, VoteParam param){return client.nuke(param, BaseMessageBody.class);}
-}   
+
+    /**
+     * 查询屏蔽的用户和内容
+     * @param client 客户端
+     * @return com.gin.nga.call.NgaJsonCall<java.lang.String>
+     * @author bx002
+     * @since 2023/6/8 10:52
+     */
+    public static NgaJsonCall<BlockDataBody> blockDataList(NgaClient client){return client.nuke(new BlockDataListParam(client.getUserId()), BlockDataBody.class);}
+}
