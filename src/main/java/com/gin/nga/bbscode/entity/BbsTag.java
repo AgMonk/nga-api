@@ -1,5 +1,6 @@
 package com.gin.nga.bbscode.entity;
 
+import com.gin.common.utils.StrUtils;
 import com.gin.nga.bbscode.enums.TagName;
 import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.enums.NgaDomain;
@@ -61,10 +62,16 @@ public class BbsTag {
             final String innerCode = matcher.group(2);
             params = ObjectUtils.isEmpty(paramString) ? null : paramString;
 
-            if (name==TagName.url ){
-                params =  params!=null?params:StringEscapeUtils.unescapeHtml4(innerCode);
+            if (name == TagName.url) {
+                params = params != null ? params : StringEscapeUtils.unescapeHtml4(innerCode);
                 for (NgaDomain domain : NgaDomain.values()) {
-                    params = params.replace(domain.domain,"");
+                    params = params.replace(domain.domain, "");
+                }
+            }
+
+            if (ObjectUtils.isEmpty(paramString) && StrUtils.isNumber(innerCode)) {
+                if (name == TagName.tid || name == TagName.pid) {
+                    params = innerCode;
                 }
             }
 
