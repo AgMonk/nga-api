@@ -403,8 +403,8 @@ public class NukeApi {
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.RecommendBody>
      * @since 2023/4/19 14:31
      */
-    public static NgaJsonCall<ScoreBody> score(NgaClient client, ScoreParam param) {
-        return client.nuke(param, ScoreBody.class);
+    public static NgaJsonCall<TopicRecommendBody> topicRecommend(NgaClient client, TopicRecommendParam param) {
+        return client.nuke(param, TopicRecommendBody.class);
     }
 
     /**

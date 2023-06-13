@@ -11,7 +11,7 @@ import lombok.Setter;
  * @since : 2023/4/17 17:10
  */
 @Setter
-public class ScoreParam extends NukeBaseParam {
+public class TopicRecommendParam extends NukeBaseParam {
     final int raw = 3;
     /**
      * 主题id
@@ -29,7 +29,7 @@ public class ScoreParam extends NukeBaseParam {
     @JsonProperty("value")
     final int agree;
 
-    public ScoreParam(long topicId, long replyId, boolean agree) {
+    public TopicRecommendParam(long topicId, long replyId, boolean agree) {
         super("topic_recommend", "add");
         this.topicId = topicId;
         this.replyId = replyId;

@@ -14,7 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ScoreBody extends BaseMessageBody {
+public class TopicRecommendBody extends BaseMessageBody {
     /**
      * 变动情况
      */
