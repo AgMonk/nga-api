@@ -134,6 +134,10 @@ public enum TagName {
      */
     code("code"),
     /**
+     * at 用户
+     */
+    at("atUser"),
+    /**
      * 文本(不存在该标签，将文本视为被该标签包裹)
      */
     text("text"),

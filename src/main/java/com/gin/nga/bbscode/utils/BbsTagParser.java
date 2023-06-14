@@ -38,6 +38,10 @@ public class BbsTagParser {
      * 匹配heading的不规范写法
      */
     public static final Pattern HEADING_PATTERN = Pattern.compile("===(.+?)===");
+    /**
+     * @ 标签规范化
+     */
+    public static final Pattern AT_PATTERN = Pattern.compile("\\[@(.+?)]");
 
 
     /**
@@ -188,12 +192,12 @@ public class BbsTagParser {
 
         //[u][b][i][r][l][h]规范化
         {
-            content = content.replaceAll("\\[(/*)u]", "[$1underline]");
-            content = content.replaceAll("\\[(/*)b]", "[$1bold]");
-            content = content.replaceAll("\\[(/*)i]", "[$1italic]");
-            content = content.replaceAll("\\[(/*)r]", "[$1right]");
-            content = content.replaceAll("\\[(/*)l]", "[$1left]");
-            content = content.replaceAll("\\[(/*)h]", "[$1heading]");
+            content = content.replaceAll("\\[(/*)u]", String.format("[$1%s]",TagName.underline.name));
+            content = content.replaceAll("\\[(/*)b]", String.format("[$1%s]",TagName.bold.name));
+            content = content.replaceAll("\\[(/*)i]", String.format("[$1%s]",TagName.italic.name));
+            content = content.replaceAll("\\[(/*)r]", String.format("[$1%s]",TagName.right.name));
+            content = content.replaceAll("\\[(/*)l]", String.format("[$1%s]",TagName.left.name));
+            content = content.replaceAll("\\[(/*)h]", String.format("[$1%s]",TagName.heading.name));
         }
 
 //        td 标签规范化
@@ -201,7 +205,10 @@ public class BbsTagParser {
             content = TD_PATTERN.matcher(content).replaceAll("[td=width$1]");
             content = TD_PATTERN_2.matcher(content).replaceAll("[td=$1]");
         }
-
+//        @标签规范化
+        {
+            content = AT_PATTERN.matcher(content).replaceAll(String.format("[%s=$1]$1[/%s]",TagName.at.name,TagName.at.name));
+        }
 
         return content;
     }
