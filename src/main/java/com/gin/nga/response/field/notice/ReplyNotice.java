@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.gin.nga.enums.ReplyNoticeType;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.text.StringEscapeUtils;
 
 /**
  * 回复提醒
@@ -65,4 +66,7 @@ public class ReplyNotice  extends  BaseNotice {
     @JsonAlias("10")
     Integer page;
 
-}   
+    public void setTopicTitle(String topicTitle) {
+        this.topicTitle = StringEscapeUtils.unescapeHtml4(topicTitle);
+    }
+}
