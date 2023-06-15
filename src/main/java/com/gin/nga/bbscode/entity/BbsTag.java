@@ -47,6 +47,11 @@ public class BbsTag {
     String raw;
 
     /**
+     * 当前节点是否在 collapse 折叠块中
+     */
+    boolean inCollapse;
+
+    /**
      * 通过代码段生成一个标签
      *
      * @param name 标签名

@@ -1,12 +1,9 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.NukeApi;
-import com.gin.nga.response.body.BaseMessageBody;
-import com.gin.nga.response.body.nuke.BlockDataBody;
-import com.gin.nga.response.field.BlockData;
+import com.gin.nga.utils.DiceResult;
+import com.gin.nga.utils.DiceUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,12 +24,13 @@ public class Test {
 
         final NgaClient client = new NgaClient(cookie);
 
-        final BlockDataBody body = NukeApi.blockDataList(client).sync();
-        JacksonUtils.printPretty(body);
-        final BlockData data = body.getData();
-        data.getKeywords().remove(0);
-        final BaseMessageBody res = NukeApi.blockDataSet(client, data).sync();
-        System.out.println(res.getMessage());
-        JacksonUtils.printPretty(NukeApi.blockDataList(client).sync());
+        long seed = 39841854+36451114+696459913;
+
+        long s = seed;
+        for (int i = 0; i < 15; i++) {
+            final DiceResult result = DiceUtils.rnd(s);
+            System.out.println(result);
+            s = result.seed();
+        }
     }
 }
