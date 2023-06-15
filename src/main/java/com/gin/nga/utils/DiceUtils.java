@@ -136,6 +136,11 @@ public class DiceUtils {
         List<BbsTag> sortedArray = DiceUtils.sort(diceArray);
         //计算每一个dice的随机结果
 
+        // todo 如果所有dice都在collapse中，放弃计算
+        if (sortedArray.get(0).isInCollapse()){
+            return ;
+        }
+
         // 初始化种子
         long seed = initialSeed;
         for (BbsTag dice : sortedArray) {

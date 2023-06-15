@@ -6,6 +6,7 @@ import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.enums.ReplyStatus;
+import com.gin.nga.utils.DiceUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
@@ -65,6 +66,7 @@ public class ReplySimple {
     @JsonAlias("type")
     Integer type;
 
+    List<BbsTag> contentNodes;
     /**
      * 回复状态
      *
@@ -79,8 +81,14 @@ public class ReplySimple {
     }
 
     public List<BbsTag> getContentNodes() {
-        return content == null ? null : BbsTagParser.parseContent(content);
+        if (this.content==null) {
+            return null;
+        }
+        final List<BbsTag> bbsTags = BbsTagParser.parseContent(content);
+        DiceUtils.calculate(bbsTags,authorUid+topicId+replyId);
+        return bbsTags;
     }
+
 
     public void setTitle(String title) {
         this.title = StringEscapeUtils.unescapeHtml4(title);
