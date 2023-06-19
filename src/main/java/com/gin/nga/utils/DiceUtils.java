@@ -76,6 +76,18 @@ public class DiceUtils {
     }
 
     /**
+     * dice
+     * @param seed 种子
+     * @param count 骰子面数
+     * @return 结果
+     */
+    public static DiceResult dice(long seed,int count){
+        final DiceResult result = rnd(seed);
+        final double r = Math.floor(result.result() * count) + 1;
+        return new DiceResult(result.seed(), r);
+    }
+
+    /**
      * 计算一个dice标签的结果，返回种子
      *
      * @param dice dice标签
@@ -136,13 +148,8 @@ public class DiceUtils {
         List<BbsTag> sortedArray = DiceUtils.sort(diceArray);
         //计算每一个dice的随机结果
 
-        // todo 如果所有dice都在collapse中，放弃计算
-        if (sortedArray.get(0).isInCollapse()){
-            return ;
-        }
-
-        // 初始化种子
-        long seed = initialSeed;
+        // 初始化种子,如果所有dice都在collapse中，种子+1
+        long seed = initialSeed + (sortedArray.get(0).isInCollapse()?1:0);
         for (BbsTag dice : sortedArray) {
             seed = DiceUtils.calculateDice(dice, seed);
         }
@@ -160,14 +167,11 @@ public class DiceUtils {
         long seed = 0L;
         final ArrayList<Long> list = new ArrayList<>();
         while (true){
-            final DiceResult res1 = rnd(seed);
-            long re1 = (long) Math.floor(res1.result()*100);
-            final DiceResult res2 = rnd(res1.seed());
-            long re2 = (long) Math.floor(res2.result()*100);
-            final DiceResult res3 = rnd(res2.seed());
-            long re3 = (long) Math.floor(res3.result()*100);
+            final DiceResult res1 = dice(seed,100);
+            final DiceResult res2 = dice(res1.seed(),100);
+            final DiceResult res3 = dice(res2.seed(),100);
 
-            if (re1==r1 && re2==r2 && re3==r3){
+            if ((long)res1.result()==r1 && (long)res2.result()==r2 && (long)res3.result()==r3){
                 list.add(seed);
             }
             seed++;
