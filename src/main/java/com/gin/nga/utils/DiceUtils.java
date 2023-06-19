@@ -147,4 +147,33 @@ public class DiceUtils {
             seed = DiceUtils.calculateDice(dice, seed);
         }
     }
+
+    /**
+     * 根据三个roll点结果确定当前随机种子
+     * @param count 查找前x个
+     * @param r1    结果1
+     * @param r2    结果2
+     * @param r3    结果3
+     * @return 随机种子
+     */
+    public static List<Long> findSeed(int count, long r1, long r2, long r3){
+        long seed = 0L;
+        final ArrayList<Long> list = new ArrayList<>();
+        while (true){
+            final DiceResult res1 = rnd(seed);
+            long re1 = (long) Math.floor(res1.result()*100);
+            final DiceResult res2 = rnd(res1.seed());
+            long re2 = (long) Math.floor(res2.result()*100);
+            final DiceResult res3 = rnd(res2.seed());
+            long re3 = (long) Math.floor(res3.result()*100);
+
+            if (re1==r1 && re2==r2 && re3==r3){
+                list.add(seed);
+            }
+            seed++;
+            if (list.size()==count){
+                return list;
+            }
+        }
+    }
 }   
