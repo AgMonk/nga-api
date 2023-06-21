@@ -1,8 +1,8 @@
 package com.gin.nga.callback;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.gin.common.utils.JacksonUtils;
 import com.gin.common.utils.MapUtils;
+import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.exception.NgaClientException;
 import com.gin.nga.exception.NgaException;
 import com.gin.nga.exception.NgaServerException;
@@ -92,7 +92,8 @@ public abstract class AbstractCallback<T> implements Callback {
      * @param e 异常
      */
     public void handleException(NgaException e) {
-        if (e instanceof NgaClientException ex){
+        if (e instanceof NgaClientException){
+            NgaClientException ex = (NgaClientException) e;
             JacksonUtils.printPretty(ex.getReason());
         }
         e.printStackTrace();

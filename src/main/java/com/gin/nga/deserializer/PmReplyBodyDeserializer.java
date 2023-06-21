@@ -6,8 +6,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.gin.common.utils.StrUtils;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.body.nuke.PmReplyBody;
-import com.gin.nga.response.field.user.UserContext;
 import com.gin.nga.response.field.pm.PrivateMessageReply;
+import com.gin.nga.response.field.user.UserContext;
 
 import java.util.List;
 
@@ -32,7 +32,6 @@ public class PmReplyBodyDeserializer extends AbstractSingleListDeserializer<PmRe
             // 数字 ，是私信
             list.add(NgaRes.MAPPER.readValue(childString, PrivateMessageReply.class));
         } else {
-            //noinspection EnhancedSwitchMigration
             switch (fieldName) {
                 case "length":
                     result.setLength(Integer.parseInt(childString));
@@ -53,7 +52,7 @@ public class PmReplyBodyDeserializer extends AbstractSingleListDeserializer<PmRe
                     result.setUsers(PmUsersDeserializer.parse(childString.replace("\"", "")));
                     break;
                 case "userInfo":
-                    result.setUserContext(new UserContext(NgaRes.MAPPER.readValue(childString, new TypeReference<>() {
+                    result.setUserContext(new UserContext(NgaRes.MAPPER.readValue(childString, new TypeReference<java.util.LinkedHashMap<String, Object>>() {
                     })));
                     break;
                 default:

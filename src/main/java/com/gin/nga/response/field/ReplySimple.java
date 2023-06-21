@@ -2,7 +2,7 @@ package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.enums.ReplyStatus;

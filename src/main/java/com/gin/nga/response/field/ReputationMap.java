@@ -1,7 +1,7 @@
 package com.gin.nga.response.field;
 
+import com.gin.jackson.utils.ObjectUtils;
 import lombok.NoArgsConstructor;
-import org.springframework.util.ObjectUtils;
 
 import java.util.LinkedHashMap;
 

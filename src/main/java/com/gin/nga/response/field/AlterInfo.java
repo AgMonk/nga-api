@@ -1,10 +1,10 @@
 package com.gin.nga.response.field;
 
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.response.alterlog.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;

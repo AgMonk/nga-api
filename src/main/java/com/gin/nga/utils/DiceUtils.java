@@ -1,14 +1,16 @@
 package com.gin.nga.utils;
 
+
 import com.gin.common.utils.StrUtils;
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.enums.TagName;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * 随机数工具类
@@ -55,10 +57,8 @@ public class DiceUtils {
         if (ObjectUtils.isEmpty(nodes)) {
             return new ArrayList<>();
         }
-        final List<BbsTag> inner = nodes.stream().filter(BbsTag::isInCollapse).toList();
-        final List<BbsTag> outer = nodes.stream().filter(bbsTag -> !bbsTag.isInCollapse()).toList();
-
-        final ArrayList<BbsTag> res = new ArrayList<>(outer);
+        final List<BbsTag> inner = nodes.stream().filter(BbsTag::isInCollapse).collect(Collectors.toList());
+        final ArrayList<BbsTag> res = nodes.stream().filter(bbsTag -> !bbsTag.isInCollapse()).collect(Collectors.toCollection(ArrayList::new));
         res.addAll(inner);
         return res;
     }
@@ -83,8 +83,8 @@ public class DiceUtils {
      */
     public static DiceResult dice(long seed,int count){
         final DiceResult result = rnd(seed);
-        final double r = Math.floor(result.result() * count) + 1;
-        return new DiceResult(result.seed(), r);
+        final double r = Math.floor(result.getResult() * count) + 1;
+        return new DiceResult(result.getSeed(), r);
     }
 
     /**
@@ -111,8 +111,8 @@ public class DiceUtils {
                 for (int i = 0; i < count; i++) {
                     // 计算一次
                     DiceResult res = rnd(seed);
-                    seed = res.seed();
-                    int r = (int) (res.result() * range + 1);
+                    seed = res.getSeed();
+                    int r = (int) (res.getResult() * range + 1);
                     sum += r;
                     resultText.add(String.format("%s(%d)", t, r));
                 }
@@ -168,10 +168,10 @@ public class DiceUtils {
         final ArrayList<Long> list = new ArrayList<>();
         while (true){
             final DiceResult res1 = dice(seed,100);
-            final DiceResult res2 = dice(res1.seed(),100);
-            final DiceResult res3 = dice(res2.seed(),100);
+            final DiceResult res2 = dice(res1.getSeed(),100);
+            final DiceResult res3 = dice(res2.getSeed(),100);
 
-            if ((long)res1.result()==r1 && (long)res2.result()==r2 && (long)res3.result()==r3){
+            if ((long)res1.getResult()==r1 && (long)res2.getResult()==r2 && (long)res3.getResult()==r3){
                 list.add(seed);
             }
             seed++;

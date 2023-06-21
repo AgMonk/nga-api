@@ -1,6 +1,7 @@
 package com.gin.nga.client;
 
-import com.gin.common.utils.JacksonUtils;
+import com.gin.jackson.utils.JacksonUtils;
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.call.NgaDocCall;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.call.NgaUploadCall;
@@ -15,16 +16,14 @@ import com.gin.nga.params.nuke.base.NukeBaseParam;
 import com.gin.nga.params.nuke.base.NukeFuncParam;
 import com.gin.nga.response.body.ReadBody;
 import com.gin.nga.response.body.ThreadBody;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import okhttp3.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.ObjectUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Objects;
@@ -120,7 +119,11 @@ public class NgaClient {
             if (matcher.find()) {
                 this.urlencodedUname = matcher.group(1);
                 // gbk解码
-                this.username = URLDecoder.decode(matcher.group(1), Charset.forName("GB18030"));
+                try {
+                    this.username = URLDecoder.decode(matcher.group(1),"GB18030");
+                } catch (UnsupportedEncodingException ex) {
+                    throw new RuntimeException(ex);
+                }
             } else {
                 throw e;
             }
@@ -327,7 +330,7 @@ public class NgaClient {
         final HttpUrl httpUrl = HttpUrl.parse(ngaDomain.domain + NgaPhpApi.read.path + "?to=1&pid=" + replyId);
         final Request request = getRequest(httpUrl, null);
         try (Response response = this.client.newCall(request).execute()) {
-            if (response.code() == HttpStatus.FOUND.value()) {
+            if (response.code() == 302) {
                 return response.header("Location");
             }
         }

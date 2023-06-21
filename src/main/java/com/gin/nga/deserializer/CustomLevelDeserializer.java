@@ -34,7 +34,7 @@ public class CustomLevelDeserializer extends JsonDeserializer<List<CustomLevel>>
     }
 
     public static List<CustomLevel> parse(String s) throws JsonProcessingException {
-       return NgaRes.MAPPER.readValue(format(s), new TypeReference<>() {
+       return NgaRes.MAPPER.readValue(format(s), new TypeReference<List<CustomLevel>>() {
         });
     }
 }

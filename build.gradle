@@ -41,6 +41,9 @@ publishing {
             }
         }
     }
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+
     // 发布到的仓库
     repositories {
         mavenLocal()
@@ -60,7 +63,6 @@ repositories {
 dependencies {
     // 工具类
     api "com.gin.framework:common:1.0.0"
-
     // 工具类
     api 'org.apache.commons:commons-text:1.10.0'
 

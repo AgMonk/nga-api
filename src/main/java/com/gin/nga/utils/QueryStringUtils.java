@@ -1,6 +1,7 @@
 package com.gin.nga.utils;
 
-import org.springframework.util.ObjectUtils;
+
+import com.gin.jackson.utils.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,8 @@ public class QueryStringUtils {
                 map.put(key,value);
             }else{
                 final Object item = map.get(key);
-                if (item instanceof List<?> list) {
+                if (item instanceof List<?>) {
+                    List<?> list = (List<?>) item;
                     //noinspection unchecked
                     ((List<String>)list).add(value);
                 } else {

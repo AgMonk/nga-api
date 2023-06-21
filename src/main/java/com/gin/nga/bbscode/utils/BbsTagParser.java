@@ -1,9 +1,9 @@
 package com.gin.nga.bbscode.utils;
 
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.enums.TagName;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;

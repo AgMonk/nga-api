@@ -1,6 +1,7 @@
 package com.gin.nga.method;
 
-import com.gin.common.utils.JacksonUtils;
+
+import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.call.NgaUploadCall;
 import com.gin.nga.client.NgaClient;

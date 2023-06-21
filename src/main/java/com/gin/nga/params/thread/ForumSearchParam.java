@@ -2,14 +2,14 @@ package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.BooleanJsonSerializer;
-import com.gin.common.serializer.ListLongSerializer;
+import com.gin.jackson.serializer.BooleanJsonSerializer;
+import com.gin.jackson.serializer.ListLongSerializer;
 import com.gin.nga.params.PageParam;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,14 +25,12 @@ public class ForumSearchParam extends PageParam {
      * 版面id
      */
     @JsonProperty("fid")
-    @NotEmpty
     @JsonSerialize(using = ListLongSerializer.class)
     final List<Long> forumId;
     /**
      * 搜索关键字
      */
     @JsonProperty("key")
-    @NotEmpty
     final String keyword;
     /**
      * 是否搜索主楼正文
@@ -56,6 +54,6 @@ public class ForumSearchParam extends PageParam {
     }
 
     public ForumSearchParam(String keyword, Serializable page, Boolean searchContent, Boolean recommendOnly, Long... forumId) {
-       this(keyword, page, searchContent, recommendOnly, List.of(forumId));
+       this(keyword, page, searchContent, recommendOnly, Arrays.asList(forumId));
     }
 }

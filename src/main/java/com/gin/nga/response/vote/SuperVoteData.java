@@ -2,8 +2,8 @@ package com.gin.nga.response.vote;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.common.utils.TimeUtils;
+import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.VoteResult;
 import lombok.Getter;
 import lombok.Setter;

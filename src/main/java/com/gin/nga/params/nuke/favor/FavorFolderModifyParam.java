@@ -2,8 +2,8 @@ package com.gin.nga.params.nuke.favor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.params.nuke.base.NukeBaseParam;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 修改收藏夹列表参数

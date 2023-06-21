@@ -1,9 +1,9 @@
 package com.gin.nga.response.field;
 
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.enums.TitleColor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.util.ObjectUtils;
 
 import java.util.Base64;
 

@@ -3,20 +3,21 @@ package com.gin.nga.response.field.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.gin.common.utils.JacksonUtils;
+import com.gin.jackson.utils.JacksonUtils;
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.deserializer.UserFieldInReadDeserializer;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.field.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * 用户信息上下文
@@ -73,12 +74,13 @@ public class UserContext {
         inputMap.forEach((key, obj) -> {
             if (GROUPS_FIELD.equals(key)) {
                 //用户组信息
-                if (obj instanceof LinkedHashMap<?, ?> map) {
+                if (obj instanceof LinkedHashMap<?, ?>) {
+                    LinkedHashMap<?, ?> map = (LinkedHashMap<?, ?>) obj;
                     map.forEach((k, v) -> {
                         final int id = Integer.parseInt(String.valueOf(k));
                         try {
                             final String s = NgaRes.MAPPER.writeValueAsString(v);
-                            Map<Integer, Serializable> data = NgaRes.MAPPER.readValue(s, new TypeReference<>() {
+                            Map<Integer, Serializable> data = NgaRes.MAPPER.readValue(s, new TypeReference<Map<Integer, Serializable>>() {
                             });
                             groups.put(id, new UserGroup(data));
                         } catch (JsonProcessingException e) {
@@ -88,12 +90,13 @@ public class UserContext {
                 }
             } else if (MEDALS_FIELD.equals(key)) {
                 //徽章信息
-                if (obj instanceof LinkedHashMap<?, ?> map) {
+                if (obj instanceof LinkedHashMap<?, ?>) {
+                    LinkedHashMap<?, ?> map = (LinkedHashMap<?, ?>) obj;
                     map.forEach((k, v) -> {
                         final int id = Integer.parseInt(String.valueOf(k));
                         try {
                             final String s = NgaRes.MAPPER.writeValueAsString(v);
-                            Map<Integer, Serializable> data = NgaRes.MAPPER.readValue(s, new TypeReference<>() {
+                            Map<Integer, Serializable> data = NgaRes.MAPPER.readValue(s, new TypeReference<Map<Integer, Serializable>>() {
                             });
                             medals.put(id, new Medal(data));
                         } catch (JsonProcessingException e) {
@@ -154,7 +157,12 @@ public class UserContext {
         if (userInfoRead == null) {
             return null;
         }
-        final UserInfoContext res = new UserInfoContext(userInfoRead);
+        final UserInfoContext res;
+        try {
+            res = JacksonUtils.parseObj(userInfoRead, UserInfoContext.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         //用户组
         res.setGroup(this.groups.get(res.getMemberId()));
         //随机头像
@@ -166,7 +174,7 @@ public class UserContext {
         //徽章
         final List<Integer> medalIds = res.getMedalIds();
         if (!ObjectUtils.isEmpty(medalIds)) {
-            res.setMedals(medalIds.stream().map(id -> this.medals.get(id)).toList());
+            res.setMedals(medalIds.stream().map(id -> this.medals.get(id)).collect((Collectors.toList())));
         }
         //声望
         if (!ObjectUtils.isEmpty(customLevels)) {

@@ -61,8 +61,9 @@ public class UploadBody {
         switch (extension){
             case "zip":
                return String.format("[url=https://img.nga.178.com/attachments/%s]下载文件[/url]",url);
-            case "mp3", "mp4":
-               return String.format("[flash]./%s[/flash]",url);
+            case "mp3":
+            case "mp4":
+                return String.format("[flash]./%s[/flash]",url);
             default:
                return String.format("[img]./%s[/img]",url);
         }

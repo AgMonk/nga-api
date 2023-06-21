@@ -1,12 +1,12 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.common.utils.TimeUtils;
+import com.gin.jackson.serializer.ZdtJsonSerializer;
+import com.gin.jackson.utils.ObjectUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.util.ObjectUtils;
 
 import java.time.Instant;
 import java.time.ZonedDateTime;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.deserializer.GiftDeserializer;
 import com.gin.nga.deserializer.VoteDataDeserializer;
 import com.gin.nga.enums.FromClient;
@@ -25,6 +25,7 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static com.gin.nga.response.NgaRes.MAPPER;
 
@@ -219,7 +220,7 @@ public class ReplyInfo extends ReplySimple {
                                 }
                                 return item;
                             })
-                            .toList();
+                            .collect(Collectors.toList());
                     // 类型、状态
                     replyInfo.setType(Integer.valueOf(list.get(5)));
                     // 时间戳
@@ -326,7 +327,7 @@ public class ReplyInfo extends ReplySimple {
                     final String group = matcher.group(1)
                             .replaceAll("([,{])(\\w+?):", "$1\"$2\":")
                             .replace("'", "\"");
-                    List<Attachment> list = MAPPER.readValue(group, new TypeReference<>() {
+                    List<Attachment> list = MAPPER.readValue(group, new TypeReference<List<Attachment>>() {
                     });
                     this.attachments = new LinkedHashMap<>();
                     for (int i = 0; i < list.size(); i++) {
@@ -368,7 +369,7 @@ public class ReplyInfo extends ReplySimple {
                     }
                     return i.replace("'", "").trim();
                 })
-                .toList();
+                .collect(Collectors.toList());
 //        System.out.println("params = " + params);
 
         // 楼层
@@ -415,7 +416,7 @@ public class ReplyInfo extends ReplySimple {
         // 方法的参数列表
         final List<String> params = Arrays.stream(group.split(","))
                 .map(i -> i.replace(SP_1, ","))
-                .map(i -> i.replace("'", "")).toList();
+                .map(i -> i.replace("'", "")).collect(Collectors.toList());
         if (params.size() > 8) {
             this.voteData = VoteDataDeserializer.parse(params.get(8));
         }

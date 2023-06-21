@@ -1,6 +1,7 @@
 package com.gin.nga.bbscode.entity;
 
 import com.gin.common.utils.StrUtils;
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.bbscode.enums.TagName;
 import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.enums.NgaDomain;
@@ -8,8 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
-import org.springframework.util.ObjectUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -82,7 +83,7 @@ public class BbsTag {
 
             if (name == TagName.code) {
                 //代码框 内部直接作为文本处理
-                this.children = List.of(text(innerCode));
+                this.children = Collections.singletonList(text(innerCode));
             } else {
                 // 继续解析子节点
                 this.children = BbsTagParser.parseCode(innerCode);

@@ -2,10 +2,11 @@ package com.gin.nga.params.nuke.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ListIntSerializer;
+import com.gin.jackson.serializer.ListIntSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,6 +31,6 @@ public class VoteParam extends NukeBaseParam {
     }
 
     public VoteParam(long topicId, Integer... id) {
-        this(topicId, List.of(id));
+        this(topicId, Arrays.asList(id));
     }
 }

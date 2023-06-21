@@ -1,8 +1,7 @@
 package com.gin.nga.enums;
 
+import com.gin.jackson.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.util.ObjectUtils;
-
 /**
  * 标题字体颜色
  * @author : ginstone

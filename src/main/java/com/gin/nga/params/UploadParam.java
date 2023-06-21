@@ -3,16 +3,15 @@ package com.gin.nga.params;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.BooleanJsonSerializer;
+import com.gin.jackson.serializer.BooleanJsonSerializer;
 import com.gin.nga.enums.WatermarkPosition;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 上传文件参数
@@ -79,7 +78,7 @@ public class UploadParam {
 
     public UploadParam(
             @NotNull File file,
-            @NotEmpty String auth,
+             String auth,
             long forumId
     ) {
         this(file, auth, forumId, null, null);
@@ -87,7 +86,7 @@ public class UploadParam {
 
     public UploadParam(
             @NotNull File file,
-            @NotEmpty String auth,
+             String auth,
             long forumId,
             String description,
             WatermarkPosition watermarkPosition
@@ -102,7 +101,11 @@ public class UploadParam {
         final int m = k * k;
         // 文件超过4M 自动压缩
         this.autoSize = file.length() > 4 * m;
-        this.utf8Name = URLEncoder.encode(file.getName(), StandardCharsets.UTF_8);
+        try {
+            this.utf8Name = URLEncoder.encode(file.getName(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

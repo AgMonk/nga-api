@@ -1,5 +1,6 @@
 package com.gin.nga.interceptor;
 
+import com.gin.common.utils.TimeUtils;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -19,17 +20,22 @@ public class LoggingInterceptor implements Interceptor {
     private static final String TAG = "DEBUG";
 
     @NotNull
+    private static String getTimeString() {
+        return DATE_TIME_FORMATTER.format(ZonedDateTime.now().withZoneSameInstant(TimeUtils.CHINESE_ZONE_ID));
+    }
+
+    @NotNull
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
 
         long startTime = System.nanoTime();
         System.out.printf("[%s] [%s] 发送请求 [%s] %s on %s\n",
-                          TAG,
-                          DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
-                          request.method(),
-                          request.url(),
-                          chain.connection()
+                TAG,
+                getTimeString(),
+                request.method(),
+                request.url(),
+                chain.connection()
         );
 //        System.out.println(request.headers());
 
@@ -37,16 +43,16 @@ public class LoggingInterceptor implements Interceptor {
 
         long endTime = System.nanoTime();
         System.out.printf("[%s] [%s] 收到响应 [%s] code:%d %s in %.1fms\n",
-                          TAG,
-                          DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
-                          request.method(),
-                          response.code(),
-                          response.request().url(),
-                          (endTime - startTime) / 1e6d
+                TAG,
+                getTimeString(),
+                request.method(),
+                response.code(),
+                response.request().url(),
+                (endTime - startTime) / 1e6d
         );
 //        System.out.println(response.headers());
         if (response.code() / 100 == 3) {
-            System.out.printf("[%s] [%s] location: %s\n", TAG, DATE_TIME_FORMATTER.format(ZonedDateTime.now()), response.header("location"));
+            System.out.printf("[%s] [%s] location: %s\n", TAG, getTimeString(), response.header("location"));
         }
         return response;
     }

@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
 public class UserForumDeserializer extends JsonDeserializer<String> {
     @Override
     public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-        LinkedHashMap<Integer, Serializable> map = p.getCodec().readValue(p,new TypeReference<>(){});
+        LinkedHashMap<Integer, Serializable> map = p.getCodec().readValue(p,new TypeReference<LinkedHashMap<Integer, Serializable>>(){});
         if (map==null) {
             return null;
         }

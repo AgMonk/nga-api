@@ -2,9 +2,9 @@ package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.BooleanJsonSerializer;
-import jakarta.validation.constraints.NotNull;
+import com.gin.jackson.serializer.BooleanJsonSerializer;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
@@ -33,7 +33,7 @@ public class ColSearchParam extends ColBaseParam {
     @JsonProperty("recommend")
     @JsonSerialize(using = BooleanJsonSerializer.class) final Boolean recommendOnly;
 
-    public ColSearchParam(long colTid,@NotNull String keyword, Serializable page, Boolean searchContent,Boolean recommendOnly) {
+    public ColSearchParam(long colTid, @NotNull String keyword, Serializable page, Boolean searchContent, Boolean recommendOnly) {
         super(page, colTid);
         this.keyword = keyword;
         this.searchContent = searchContent;

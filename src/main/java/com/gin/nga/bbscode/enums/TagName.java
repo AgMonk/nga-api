@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * 论坛标签名称(可识别标签名称列表)
@@ -178,7 +179,7 @@ public enum TagName {
                 return bn.length() - an.length();
             }
             return bn.compareTo(an);
-        }).toList();
+        }).collect(Collectors.toList());
     }
 
     /**

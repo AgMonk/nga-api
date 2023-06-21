@@ -23,7 +23,6 @@ public class PmListBodyDeserializer extends AbstractSingleListDeserializer<PmLis
             // 数字 ，是私信
             list.add(NgaRes.MAPPER.readValue(child.toString(), PrivateMessage.class));
         }else{
-            //noinspection EnhancedSwitchMigration
             switch (fieldName){
                 case "nextPage":result.setHasNext(Boolean.parseBoolean(child.toString())); break;
                 case "currentPage":result.setPage(Integer.parseInt(child.toString()));break;

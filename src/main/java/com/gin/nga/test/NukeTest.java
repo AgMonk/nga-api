@@ -45,7 +45,7 @@ public class NukeTest {
     }
 
     public void testGetUserInfo() {
-        List<Long> uidList = List.of(
+        List<Long> uidList = Arrays.asList(
                 39841854L
                 , 35159831L
                 , 24984254L
@@ -63,7 +63,7 @@ public class NukeTest {
             });
         }
 
-        List<String> nameList = List.of(
+        List<String> nameList = Arrays.asList(
                 "左牵黄右擒苍"
                  , "血牙酱"
         );

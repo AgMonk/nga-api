@@ -2,7 +2,7 @@ package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.EntranceType;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.utils.AnonymousUtils;

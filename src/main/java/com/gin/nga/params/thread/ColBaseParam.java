@@ -2,7 +2,7 @@ package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ListLongSerializer;
+import com.gin.jackson.serializer.ListLongSerializer;
 import com.gin.nga.params.PageParam;
 import lombok.Getter;
 

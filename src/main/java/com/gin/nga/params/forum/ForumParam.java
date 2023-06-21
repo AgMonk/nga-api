@@ -2,7 +2,6 @@ package com.gin.nga.params.forum;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.params.PageParam;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -19,7 +18,6 @@ public class ForumParam extends PageParam {
      * 搜索关键字
      */
     @JsonProperty("key")
-    @NotEmpty
     final String keyword;
 
     public ForumParam(String keyword) {

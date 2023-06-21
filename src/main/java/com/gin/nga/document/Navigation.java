@@ -31,7 +31,7 @@ public class Navigation {
         if (type == null || links == null) {
             return null;
         }
-        final List<DocLink> list = this.links.stream().filter(i -> i.getLink().getType() == type).toList();
+        final List<DocLink> list = this.links.stream().filter(i -> i.getLink().getType() == type).collect(Collectors.toList());
         if (list.isEmpty()) {
             return null;
         }

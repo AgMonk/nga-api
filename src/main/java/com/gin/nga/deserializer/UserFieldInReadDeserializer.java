@@ -20,7 +20,7 @@ public class UserFieldInReadDeserializer extends JsonDeserializer<UserContext> {
 
     @Override
     public UserContext deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-        return new UserContext(jsonParser.getCodec().readValue(jsonParser, new TypeReference<>() {
+        return new UserContext(jsonParser.getCodec().readValue(jsonParser, new TypeReference<java.util.LinkedHashMap<String, Object>>() {
         }));
     }
 }

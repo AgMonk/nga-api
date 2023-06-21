@@ -4,10 +4,11 @@ import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.springframework.util.ObjectUtils;
+import com.gin.jackson.utils.ObjectUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class UserAvatarDeserializer extends JsonDeserializer<List<String>> {
 
         } else {
             // 无法解析，直接返回
-            return new ArrayList<>(List.of(value));
+            return new ArrayList<>(Collections.singletonList(value));
         }
     }
 }

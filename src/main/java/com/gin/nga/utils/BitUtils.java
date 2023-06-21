@@ -15,7 +15,7 @@ public class BitUtils {
     /**
      * 缩略图bit数据, 位置与后缀的对应关系
      */
-    public static final Map<Integer,String> THUMB_MAP = new LinkedHashMap<>(){{
+    public static final Map<Integer,String> THUMB_MAP = new LinkedHashMap<Integer, String>(){{
         put(3,".thumb_ss.jpg");
         put(4,".thumb_s.jpg");
         put(5,".thumb.jpg");

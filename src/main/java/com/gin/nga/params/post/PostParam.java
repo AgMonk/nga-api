@@ -3,7 +3,7 @@ package com.gin.nga.params.post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.BooleanJsonSerializer;
+import com.gin.jackson.serializer.BooleanJsonSerializer;
 import com.gin.nga.enums.Hidden;
 import com.gin.nga.response.body.UploadBody;
 import lombok.Getter;

@@ -2,9 +2,9 @@ package com.gin.nga.params.nuke.pm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ListLongSerializer;
+import com.gin.jackson.serializer.ListLongSerializer;
 import lombok.Getter;
-
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ public class PmAddParam extends PmBaseParam {
     final List<Long> userId;
 
     public PmAddParam(long messageId, Long... userId) {
-        this(messageId, List.of(userId));
+        this(messageId, Arrays.asList(userId));
     }
 
     public PmAddParam(long messageId, List<Long> userId) {

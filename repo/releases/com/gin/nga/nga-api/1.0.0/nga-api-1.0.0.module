@@ -19,19 +19,49 @@
       "attributes": {
         "org.gradle.category": "library",
         "org.gradle.dependency.bundling": "external",
-        "org.gradle.jvm.version": 18,
+        "org.gradle.jvm.version": 8,
         "org.gradle.libraryelements": "jar",
         "org.gradle.usage": "java-api"
       },
+      "dependencies": [
+        {
+          "group": "com.gin.framework",
+          "module": "common",
+          "version": {
+            "requires": "1.0.0"
+          }
+        },
+        {
+          "group": "org.apache.commons",
+          "module": "commons-text",
+          "version": {
+            "requires": "1.10.0"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "4.10.0"
+          }
+        },
+        {
+          "group": "org.jsoup",
+          "module": "jsoup",
+          "version": {
+            "requires": "1.15.4"
+          }
+        }
+      ],
       "files": [
         {
           "name": "nga-api-1.0.0.jar",
           "url": "nga-api-1.0.0.jar",
-          "size": 284269,
-          "sha512": "7693170312eb21d39519e8ce7c5c93f38e23951a155da7017f1e480dbc288a332b1f172f4efa20ca78a0cfad4a139eea3ffa80afab28799448ebb6d21774e8ef",
-          "sha256": "5ef5929a13dfb08c41c7ef4a361d3afc5eff0d47de280e91cc8a2a8693b4629e",
-          "sha1": "db7f623609dc344f9babf898989713864bafee47",
-          "md5": "e308db5a780dd6e18ef83ad06333a243"
+          "size": 280414,
+          "sha512": "e90c02bc0ec20e31643894a03ed54da739e1ee7126adb440d11cf8f8be8de68c619ab7f3ddb982876edf611c1c3f084d1938e65a452dfbcf6e163abc2d3ff5be",
+          "sha256": "c3a57ad24d35cd387139fe897da578f45277021d8635da4663d5d0a756100ad3",
+          "sha1": "3856744d3a050201ff370509152acc008a2edd29",
+          "md5": "db743f9a73c4eb50e6efa348d2f12378"
         }
       ]
     },
@@ -40,7 +70,7 @@
       "attributes": {
         "org.gradle.category": "library",
         "org.gradle.dependency.bundling": "external",
-        "org.gradle.jvm.version": 18,
+        "org.gradle.jvm.version": 8,
         "org.gradle.libraryelements": "jar",
         "org.gradle.usage": "java-runtime"
       },
@@ -78,11 +108,11 @@
         {
           "name": "nga-api-1.0.0.jar",
           "url": "nga-api-1.0.0.jar",
-          "size": 284269,
-          "sha512": "7693170312eb21d39519e8ce7c5c93f38e23951a155da7017f1e480dbc288a332b1f172f4efa20ca78a0cfad4a139eea3ffa80afab28799448ebb6d21774e8ef",
-          "sha256": "5ef5929a13dfb08c41c7ef4a361d3afc5eff0d47de280e91cc8a2a8693b4629e",
-          "sha1": "db7f623609dc344f9babf898989713864bafee47",
-          "md5": "e308db5a780dd6e18ef83ad06333a243"
+          "size": 280414,
+          "sha512": "e90c02bc0ec20e31643894a03ed54da739e1ee7126adb440d11cf8f8be8de68c619ab7f3ddb982876edf611c1c3f084d1938e65a452dfbcf6e163abc2d3ff5be",
+          "sha256": "c3a57ad24d35cd387139fe897da578f45277021d8635da4663d5d0a756100ad3",
+          "sha1": "3856744d3a050201ff370509152acc008a2edd29",
+          "md5": "db743f9a73c4eb50e6efa348d2f12378"
         }
       ]
     },
@@ -99,10 +129,10 @@
           "name": "nga-api-1.0.0-javadoc.jar",
           "url": "nga-api-1.0.0-javadoc.jar",
           "size": 261,
-          "sha512": "f1a9e885a2798becfd6a74da70000f38161968c4f529442a59a4e981ec2dfb466f27ef6e5766a76b43a8ffb5a3a5c9116550e294db02d8302a8ca0abb995ef56",
-          "sha256": "826a100475cca08ffd67a907f474f5de0313f236853d4617105a3f706f5a6af2",
-          "sha1": "7332ed517cdf0a101d554f57639605e105e108b1",
-          "md5": "15b0b9ccc20bfd25963a45ca9166901e"
+          "sha512": "c706e670b285ddfd38ffeb6fa6a8e8dbd72084a88b5de810c81be47bde2b9020e541ccd374037c3214254078a898c55f8425b36680e997d962fdf130f5768ce6",
+          "sha256": "e0d67210ff6703368a97f2f773019dd81fa8d2cf2db0f369370213a2f5ea8a13",
+          "sha1": "ea5b6fde9e0422373c6d98cc3147cb0f003e2e26",
+          "md5": "593aa67a79bde61acd97785384fbf2bc"
         }
       ]
     },
@@ -118,11 +148,11 @@
         {
           "name": "nga-api-1.0.0-sources.jar",
           "url": "nga-api-1.0.0-sources.jar",
-          "size": 180101,
-          "sha512": "5504c03bb185b956bd7f9df4c2dea38f566cc53abfb4aa223eb4c037587c5a511fb2973c3aeee50bcbbabe435e35c2efae9bbf049020ad8045926d452ab62ffe",
-          "sha256": "eac003a6595b9273977d0ed263a2b6876907d4d4558bd69df3d587b0065c6fd4",
-          "sha1": "9ce9e50cffaed16ba65826cf193b961ede098337",
-          "md5": "30de5bfe1bf26d10ef7c983797e942db"
+          "size": 180118,
+          "sha512": "38fa9ba5c915b609c4a11aeb5f92de3d93b391985c5f62c44888a761aeab9738c9e3f6ac5d38f7e26c6f3c4629811e8c06c4266d1eaee5a8928e22294e541b5c",
+          "sha256": "637b0582dd05d68f84b787df0807c89ecd84dfc15d8aefd5cf34d06d75f3c1f4",
+          "sha1": "be844b884984145407ef3d13b9f6e23549ba13dd",
+          "md5": "9929400d9d0817773dd4f3f364235283"
         }
       ]
     }

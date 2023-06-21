@@ -21,7 +21,7 @@ public class GiftDeserializer extends JsonDeserializer<List<Gift>> {
     @Override
     public List<Gift> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         final ArrayList<Gift> res = new ArrayList<>();
-        LinkedHashMap<Integer,Integer> map = p.getCodec().readValue(p, new TypeReference<>() {
+        LinkedHashMap<Integer,Integer> map = p.getCodec().readValue(p, new TypeReference<LinkedHashMap<Integer, Integer>>() {
         });
         map.forEach((k,v)->res.add(new Gift(k,v)));
         return res;

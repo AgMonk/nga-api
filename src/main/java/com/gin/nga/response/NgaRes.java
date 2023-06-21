@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gin.common.utils.FileIoUtils;
-import com.gin.common.utils.JacksonUtils;
+import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.exception.NgaServerException;
 import com.gin.nga.response.body.nuke.NoticeBody;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public class NgaRes<T> {
     /**
      * 测试模式，自动记录所有响应在解析前后的结果
      */
-    public static final boolean TEST = true;
+    public static final boolean TEST = false;
 
     /**
      * 解析字符串返回data字段
@@ -57,7 +57,7 @@ public class NgaRes<T> {
                 try {
                     FileIoUtils.writeObj(new File(String.format("./test/%s_%d_raw.json", clazz.getSimpleName(), System.currentTimeMillis() / 1000)), MAPPER.readValue(
                             s,
-                            new TypeReference<>() {
+                            new TypeReference<Object>() {
                             }));
                 } catch (IOException e) {
                     e.printStackTrace();

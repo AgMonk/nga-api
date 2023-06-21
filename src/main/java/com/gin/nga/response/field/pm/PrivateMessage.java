@@ -3,13 +3,13 @@ package com.gin.nga.response.field.pm;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ZdtJsonSerializer;
+import com.gin.jackson.serializer.ZdtJsonSerializer;
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.deserializer.PmUsersDeserializer;
 import com.gin.nga.enums.PrivateMessageStatus;
 import com.gin.nga.response.field.SimpleUserInfo;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.util.CollectionUtils;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -96,7 +96,7 @@ public class PrivateMessage {
      */
     public boolean isUnread() {
         final List<PrivateMessageStatus> status = getStatus();
-        if (CollectionUtils.isEmpty(status)) {
+        if (ObjectUtils.isEmpty(status)) {
             return false;
         }
         return status.contains(PrivateMessageStatus.UNREAD);

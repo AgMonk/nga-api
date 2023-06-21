@@ -2,6 +2,7 @@ package com.gin.nga.method;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.call.NgaResourceCall;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.response.NgaRes;
@@ -12,7 +13,6 @@ import com.gin.nga.response.forum.ForumGroupBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * 静态资源API
@@ -169,14 +170,14 @@ public class ResourceApi {
 
         }
 
-        LinkedHashMap<String, LinkedHashMap<String, String>> map = NgaRes.MAPPER.readValue(builder.toString(), new TypeReference<>() {
+        LinkedHashMap<String, LinkedHashMap<String, String>> map = NgaRes.MAPPER.readValue(builder.toString(), new TypeReference<LinkedHashMap<String, LinkedHashMap<String, String>>>() {
         });
         // 0组已废弃 无法渲染
         map.remove("0");
 
         final List<EmoteGroup> emoteGroups = map.entrySet().stream()
                 .map(entry -> new EmoteGroup(entry.getKey(), entry.getValue()))
-                .toList();
+                .collect(Collectors.toList());
         return emoteGroups;
     }
 }

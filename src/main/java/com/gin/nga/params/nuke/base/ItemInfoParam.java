@@ -1,7 +1,7 @@
 package com.gin.nga.params.nuke.base;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ListIntSerializer;
+import com.gin.jackson.serializer.ListIntSerializer;
 import lombok.Getter;
 
 import java.util.ArrayList;

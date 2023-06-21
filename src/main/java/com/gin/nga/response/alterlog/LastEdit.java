@@ -1,8 +1,8 @@
 package com.gin.nga.response.alterlog;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.common.serializer.ZdtJsonSerializer;
 import com.gin.common.utils.StrUtils;
+import com.gin.jackson.serializer.ZdtJsonSerializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

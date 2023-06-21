@@ -31,7 +31,7 @@ public class ReputationUserDeserializer extends JsonDeserializer<ReputationUser>
             final TreeNode node = treeNode.get(next);
 
             final ReputationUser result = new ReputationUser();
-            LinkedHashMap<Long, Serializable> map = NgaRes.MAPPER.readValue(node.toString(), new TypeReference<>() {
+            LinkedHashMap<Long, Serializable> map = NgaRes.MAPPER.readValue(node.toString(), new TypeReference<LinkedHashMap<Long, Serializable>>() {
             });
             result.setId(Integer.valueOf(next));
             final Map<Long, Integer> data = result.getData();
