@@ -29,10 +29,10 @@ public class UserBuff {
     @JsonAlias("1")
     UserBuffType type;
     /**
-     * 未知数据
+     * 释放buff的用户id
      */
     @JsonAlias("2")
-    Integer data2;
+    Integer fromUserId;
     /**
      * 用户id
      */

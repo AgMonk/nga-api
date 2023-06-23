@@ -1,5 +1,9 @@
 package com.gin.nga.test;
 
+import com.gin.common.utils.FileIoUtils;
+import com.gin.nga.client.NgaClient;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -12,7 +16,7 @@ import java.util.regex.Pattern;
 public class Test {
     public static final Pattern PATTERN = Pattern.compile("ubbcode\\.smiles = (.+?)//s");
     public static void main(String[] args) throws IOException {
-//        final NgaClient client = new NgaClient(cookie);
-
+        final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
+        final NgaClient client = new NgaClient(cookie);
     }
 }

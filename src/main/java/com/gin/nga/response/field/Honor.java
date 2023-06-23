@@ -7,12 +7,14 @@ import com.gin.jackson.utils.ObjectUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.time.Instant;
 import java.time.ZonedDateTime;
 
 /**
  * 荣誉称号
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/17 10:47
@@ -50,7 +52,7 @@ public class Honor {
 
         long time = Long.parseLong(split[0]);
         this.timestamp = ZonedDateTime.ofInstant(Instant.ofEpochSecond(time), TimeUtils.CHINESE_ZONE_ID);
-        this.remark = split[1];
+        this.remark = StringEscapeUtils.unescapeHtml4(split[1]);
         this.name = split.length > 2 ? split[2] : null;
     }
 }

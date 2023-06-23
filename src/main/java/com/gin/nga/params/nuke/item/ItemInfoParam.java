@@ -1,7 +1,8 @@
-package com.gin.nga.params.nuke.base;
+package com.gin.nga.params.nuke.item;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.serializer.ListIntSerializer;
+import com.gin.nga.enums.ItemType;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -15,18 +16,17 @@ import java.util.List;
  * @since : 2023/5/15 09:38
  */
 @Getter
-public class ItemInfoParam extends NukeFuncParam {
-    final String act = "info";
+public class ItemInfoParam extends BaseItemParam {
     @JsonSerialize(using = ListIntSerializer.class)
     final List<Integer> types;
 
     public ItemInfoParam(List<Integer> types) {
-        super("item");
+        super("info");
         this.types = types;
     }
 
-    public ItemInfoParam(int type,List<Integer> subTypes) {
-        this(merge(type, subTypes));
+    public ItemInfoParam(ItemType type, List<Integer> subTypes) {
+        this(merge(type.id, subTypes));
     }
 
     /**

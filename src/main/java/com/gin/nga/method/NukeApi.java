@@ -1,15 +1,14 @@
 package com.gin.nga.method;
 
 
-import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.call.NgaUploadCall;
 import com.gin.nga.client.NgaClient;
+import com.gin.nga.enums.ItemType;
 import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.*;
-import com.gin.nga.params.nuke.base.ItemInfoParam;
 import com.gin.nga.params.nuke.base.VoteParam;
 import com.gin.nga.params.nuke.block.BlockDataListParam;
 import com.gin.nga.params.nuke.block.BlockDataSetParam;
@@ -19,6 +18,7 @@ import com.gin.nga.params.nuke.favor.FavorFolderListParam;
 import com.gin.nga.params.nuke.favor.FavorFolderModifyParam;
 import com.gin.nga.params.nuke.favorforum.FavorForumEditParam;
 import com.gin.nga.params.nuke.favorforum.FavorForumParam;
+import com.gin.nga.params.nuke.item.*;
 import com.gin.nga.params.nuke.mission.MissionCheckInParam;
 import com.gin.nga.params.nuke.mission.MissionCheckParam;
 import com.gin.nga.params.nuke.mission.MissionListParam;
@@ -36,6 +36,7 @@ import java.util.List;
 
 /**
  * nuke.php的API
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/19 15:54
@@ -43,6 +44,7 @@ import java.util.List;
 public class NukeApi {
     /**
      * 删除附件
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -54,6 +56,7 @@ public class NukeApi {
 
     /**
      * 上传附件
+     *
      * @param client    客户端
      * @param attachUrl 上传接口地址
      * @param param     参数
@@ -66,6 +69,7 @@ public class NukeApi {
 
     /**
      * 添加子版面屏蔽
+     *
      * @param client  客户端
      * @param forumId 父版面id
      * @param id      填写 {@link com.gin.nga.response.field.SubForum} 的 mirrorId 字段，或主题列表中的 {@link  com.gin.nga.response.field.TopicInfo} 的 topicId 字段
@@ -80,6 +84,7 @@ public class NukeApi {
 
     /**
      * 移除子版面屏蔽
+     *
      * @param client  客户端
      * @param forumId 父版面id
      * @param id      填写 {@link com.gin.nga.response.field.SubForum} 的 mirrorId 字段，或主题列表中的 {@link  com.gin.nga.response.field.TopicInfo} 的 topicId 字段
@@ -94,6 +99,7 @@ public class NukeApi {
 
     /**
      * 查询子版面屏蔽情况
+     *
      * @param client  客户端
      * @param forumId 父版面id
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.BlockSubForumBody.Res>
@@ -105,6 +111,7 @@ public class NukeApi {
 
     /**
      * 用户签到
+     *
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.CheckInBody>
      * @since 2023/4/21 16:35
@@ -115,6 +122,7 @@ public class NukeApi {
 
     /**
      * 查询签到状态
+     *
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.CheckInStatusBody>
      * @since 2023/4/21 16:34
@@ -125,6 +133,7 @@ public class NukeApi {
 
     /**
      * 查询收藏夹列表
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.FavorFolderBody>
@@ -136,6 +145,7 @@ public class NukeApi {
 
     /**
      * 修改收藏夹
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -147,6 +157,7 @@ public class NukeApi {
 
     /**
      * 添加和删除收藏版面
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -158,6 +169,7 @@ public class NukeApi {
 
     /**
      * 查询收藏版面
+     *
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.FavorForumBody.Res>
      * @since 2023/4/17 14:50
      */
@@ -167,6 +179,7 @@ public class NukeApi {
 
     /**
      * 添加收藏主题和回复
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -178,6 +191,7 @@ public class NukeApi {
 
     /**
      * 删除收藏的主题和回复
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -189,19 +203,19 @@ public class NukeApi {
 
     /**
      * 查询徽章信息
+     *
      * @param client   客户端
      * @param subTypes 徽章id
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MedalInfoBody>
      * @since 2023/5/15 9:50
      */
     public static NgaJsonCall<MedalInfoBody> medalInfoList(NgaClient client, List<Integer> subTypes) {
-        final ItemInfoParam param = new ItemInfoParam(2, subTypes);
-        JacksonUtils.printPretty(param);
-        return client.nuke(param, MedalInfoBody.class);
+        return client.nuke(new ItemInfoParam(ItemType.MEDAL, subTypes), MedalInfoBody.class);
     }
 
     /**
      * 检查任务
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MissionCheckBody>
@@ -215,6 +229,7 @@ public class NukeApi {
 
     /**
      * 检查签到类任务
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MissionCheckBody>
@@ -226,6 +241,7 @@ public class NukeApi {
 
     /**
      * 查询任务列表
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.MissionBody>
@@ -237,6 +253,7 @@ public class NukeApi {
 
     /**
      * 清空提醒消息
+     *
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
      * @since 2023/4/18 13:48
@@ -247,6 +264,7 @@ public class NukeApi {
 
     /**
      * 关闭 / 开启某一楼提醒消息, 关闭后回复状态中将出现 {@link  ReplyStatus} 的 NO_HINT 属性
+     *
      * @param param  参数
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -258,6 +276,7 @@ public class NukeApi {
 
     /**
      * 查询提醒消息
+     *
      * @param client    客户端
      * @param timeLimit 只返回时间戳大于该值的提醒
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.NoticeBody.Res>
@@ -269,6 +288,7 @@ public class NukeApi {
 
     /**
      * 获取当前登录用户提醒信息状态(疑似无效)
+     *
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.NoticeStatusBody>
      * @since 2023/4/21 16:58
@@ -279,6 +299,7 @@ public class NukeApi {
 
     /**
      * 向私信会话中添加更多的参与者
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -290,6 +311,7 @@ public class NukeApi {
 
     /**
      * 添加用户到私信黑名单
+     *
      * @param client 客户端
      * @param userId 用户id
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -301,6 +323,7 @@ public class NukeApi {
 
     /**
      * 从私信黑名单移除用户
+     *
      * @param client 客户端
      * @param userId 用户id
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -312,6 +335,7 @@ public class NukeApi {
 
     /**
      * 查询私信黑名单
+     *
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PmBlockListBody>
      * @since 2023/4/20 17:37
@@ -322,6 +346,7 @@ public class NukeApi {
 
     /**
      * 私信会话踢人
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -333,6 +358,7 @@ public class NukeApi {
 
     /**
      * 查询私信列表
+     *
      * @param client 客户端
      * @param page   页码
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageBody>
@@ -344,6 +370,7 @@ public class NukeApi {
 
     /**
      * 发送新私信
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -355,6 +382,7 @@ public class NukeApi {
 
     /**
      * 查询私信内容
+     *
      * @param param  参数
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.PrivateMessageReplyBody>
@@ -366,6 +394,7 @@ public class NukeApi {
 
     /**
      * 回复私信
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -374,20 +403,23 @@ public class NukeApi {
     public static NgaJsonCall<BaseMessageBody> pmReply(NgaClient client, PmReplyParam param) {
         return client.nuke(param, BaseMessageBody.class);
     }
-/**
- * 查询版面权限信息
- * @param client 客户端
- * @param forumId 版面ID
- * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
- * @author bx002
- * @since 2023/5/26 9:49
- */
+
+    /**
+     * 查询版面权限信息
+     *
+     * @param client  客户端
+     * @param forumId 版面ID
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/5/26 9:49
+     */
     public static NgaJsonCall<BaseMessageBody> privilegeList(NgaClient client, long forumId) {
         return client.nuke(new PrivilegeListParam(forumId), BaseMessageBody.class);
     }
 
     /**
      * 举报一个回复
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -399,6 +431,7 @@ public class NukeApi {
 
     /**
      * 点赞或点踩
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.RecommendBody>
@@ -410,6 +443,7 @@ public class NukeApi {
 
     /**
      * 设置签名
+     *
      * @param client 客户端
      * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
@@ -421,6 +455,7 @@ public class NukeApi {
 
     /**
      * 查询版面的主题分类
+     *
      * @param client  客户端
      * @param forumId 版面id
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.TopicKeys>
@@ -432,6 +467,7 @@ public class NukeApi {
 
     /**
      * 查询用户信息
+     *
      * @param client 客户端
      * @param userId 用户id
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.UserInfoBody>
@@ -443,6 +479,7 @@ public class NukeApi {
 
     /**
      * 查询用户信息
+     *
      * @param client   客户端
      * @param username 用户名
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.UserInfoBody>
@@ -451,30 +488,119 @@ public class NukeApi {
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, String username) {
         return client.nuke(new UserInfoParam(username), UserInfoBody.class);
     }
-/**
- * 投票/投注
- * @param client 客户端
- * @param param 参数
- * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
- * @author bx002
- * @since 2023/6/1 13:59
- */
-    public static NgaJsonCall<BaseMessageBody> vote(NgaClient client, VoteParam param){return client.nuke(param, BaseMessageBody.class);}
+
+    /**
+     * 投票/投注
+     *
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/6/1 13:59
+     */
+    public static NgaJsonCall<BaseMessageBody> vote(NgaClient client, VoteParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
 
     /**
      * 查询屏蔽的用户和内容
+     *
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<java.lang.String>
      * @author bx002
      * @since 2023/6/8 10:52
      */
-    public static NgaJsonCall<BlockDataBody> blockDataList(NgaClient client){return client.nuke(new BlockDataListParam(client.getUserId()), BlockDataBody.class);}
+    public static NgaJsonCall<BlockDataBody> blockDataList(NgaClient client) {
+        return client.nuke(new BlockDataListParam(client.getUserId()), BlockDataBody.class);
+    }
+
     /**
      * 设置屏蔽的用户和内容
+     *
      * @param client 客户端
      * @return com.gin.nga.call.NgaJsonCall<java.lang.String>
      * @author bx002
      * @since 2023/6/8 10:52
      */
-    public static NgaJsonCall<BaseMessageBody> blockDataSet(NgaClient client, BlockData data){return client.nuke(new BlockDataSetParam(data), BaseMessageBody.class);}
+    public static NgaJsonCall<BaseMessageBody> blockDataSet(NgaClient client, BlockData data) {
+        return client.nuke(new BlockDataSetParam(data), BaseMessageBody.class);
+    }
+
+    /**
+     * 查询商店里的道具列表
+     *
+     * @param client 客户端
+     * @param param  参数
+     * @author bx002
+     * @since 2023/6/23 10:04
+     */
+    public static NgaJsonCall<ItemBody> itemStoreList(NgaClient client, ItemStoreParam param) {
+        return client.nuke(param, ItemBody.class);
+    }
+
+    /**
+     * 查询自己的道具列表
+     *
+     * @param client 客户端
+     * @param page   页码
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.ItemBody>
+     * @author bx002
+     * @since 2023/6/23 11:34
+     */
+    public static NgaJsonCall<ItemBody> itemMyList(NgaClient client, int page) {
+        return client.nuke(new ItemListParam(page), ItemBody.class);
+    }
+
+    /**
+     * 购买道具
+     *
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/6/23 14:56
+     */
+
+    public static NgaJsonCall<BaseMessageBody> itemBuy(NgaClient client, ItemBuyParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
+     * 对用户使用道具
+     *
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/6/23 15:04
+     */
+    public static NgaJsonCall<BaseMessageBody> itemUseUser(NgaClient client, ItemUseUserParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
+     * 对回复使用道具
+     *
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/6/23 15:40
+     */
+    public static NgaJsonCall<BaseMessageBody> itemUseReply(NgaClient client, ItemUseReplyParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
+
+    /**
+     * 购买一个道具，对回复使用
+     *
+     * @param client 客户端
+     * @param param  参数
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
+     * @author bx002
+     * @since 2023/6/23 15:53
+     */
+    public static NgaJsonCall<BaseMessageBody> itemUseReplyBuy(NgaClient client, ItemUseReplyBuyParam param) {
+        return client.nuke(param, BaseMessageBody.class);
+    }
 }

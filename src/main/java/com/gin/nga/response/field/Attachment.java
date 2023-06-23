@@ -5,8 +5,8 @@ import com.gin.nga.utils.BitUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -78,6 +78,10 @@ public class Attachment {
     }
 
     public void setOriginalFilename(String originalFilename) {
-        this.originalFilename = URLDecoder.decode(originalFilename, StandardCharsets.UTF_8);
+        try {
+            this.originalFilename = URLDecoder.decode(originalFilename, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
