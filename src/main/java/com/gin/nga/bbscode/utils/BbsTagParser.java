@@ -55,9 +55,7 @@ public class BbsTagParser {
             return new ArrayList<>();
         }
 //        预处理
-        System.out.println("start = " + content);
         content = preHandle(content);
-        System.out.println("end = " + content);
 //        解析
         return parseCode(content);
     }
@@ -69,8 +67,7 @@ public class BbsTagParser {
      * @return 标签列表
      */
     public static List<BbsTag> parseCode(String code) {
-        System.out.println(code);
-//        todo
+     //        todo
         final ArrayList<BbsTag> res = new ArrayList<>();
 //        todo 逐个字符检查是否遇到了可识别的bbsCode
         int i = 0;
@@ -82,9 +79,7 @@ public class BbsTagParser {
             }
             // 裁剪code
             final String prefixCode = code.substring(0, i);
-            System.out.println("prefixCode = " + prefixCode);
             final String suffixCode = code.substring(i);
-            System.out.println("suffixCode = " + suffixCode);
             //当前位置是 [ , 尝试匹配标签名称
             final TagName tagName = TagName.matcher(suffixCode);
             if (tagName != null) {
