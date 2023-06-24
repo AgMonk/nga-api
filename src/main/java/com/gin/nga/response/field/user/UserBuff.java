@@ -74,6 +74,9 @@ public class UserBuff {
             if (extraData == 1L) {
                 return "https://img4.nga.178.com/ngabbs/face/a_sheep.png";
             }
+            if (extraData == 7L) {
+                return "https://img4.nga.178.com/ngabbs/face/a_sheep_c.png";
+            }
         }
         return null;
     }
