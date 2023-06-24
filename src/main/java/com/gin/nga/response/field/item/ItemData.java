@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.common.utils.StrUtils;
 import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.deserializer.ItemStoreDataDeserializer;
+import com.gin.nga.enums.TradeBit;
+import com.gin.nga.response.field.Money;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,9 +44,12 @@ public class ItemData {
                 final ItemInfo info = JacksonUtils.parseObj(v, ItemInfo.class);
                 info.setTypeInfo(itemInfoMap.getOrDefault(info.getType().id + "_" + info.getSubType(), null));
                 // 裁掉最后3位
-                final Long price = info.getPrice();
+                final Integer price = info.getPrice();
                 if (price!=null){
                     info.setPrice(price /1000);
+                }
+                if (info.getTradeBit()== TradeBit.COPPER && price!=null) {
+                    info.setMoney(new Money(info.getPrice()));
                 }
                 data.add(info);
             }

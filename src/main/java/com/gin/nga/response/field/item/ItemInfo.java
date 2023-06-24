@@ -6,6 +6,7 @@ import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.ItemType;
 import com.gin.nga.enums.TradeBit;
 import com.gin.nga.response.field.Medal;
+import com.gin.nga.response.field.Money;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,7 +41,7 @@ public class ItemInfo {
      * 价格
      */
     @JsonAlias("price")
-    Long price;
+    Integer price;
     /**
      * todo 疑似为创建时间
      */
@@ -65,6 +66,8 @@ public class ItemInfo {
      * 类型信息
      */
     ItemTypeInfo typeInfo;
+
+    Money money;
 
     public String getUrl(){
         if (typeInfo==null){
