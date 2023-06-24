@@ -18,7 +18,6 @@ import java.util.LinkedHashMap;
 @Getter
 @Setter
 public class ItemTypeInfo {
-    public static final String URL_PREFIX = "https://img4.nga.178.com/ngabbs/nga_classic/items/";
 
     @JsonAlias("name")
     String name;
@@ -43,10 +42,6 @@ public class ItemTypeInfo {
      */
     @JsonAlias("buff_last")
     Integer buffLast;
-
-    public String getUrl(){
-        return URL_PREFIX+icon;
-    }
 
     public static LinkedHashMap<String, ItemTypeInfo> parse(Object obj) throws JsonProcessingException {
         final String s = JacksonUtils.MAPPER.writeValueAsString(obj);

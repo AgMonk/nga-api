@@ -1,6 +1,6 @@
 package com.gin.nga.response.field;
 
-import com.gin.nga.response.field.item.ItemTypeInfo;
+import com.gin.nga.response.field.item.ItemInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +22,6 @@ public class Gift {
     Integer count;
 
     public String getUrl() {
-        return id == null ? null : String.format(ItemTypeInfo.URL_PREFIX + "5_%d.png", id);
+        return id == null ? null : String.format(ItemInfo.URL_PREFIX + "5_%d.png", id);
     }
 }

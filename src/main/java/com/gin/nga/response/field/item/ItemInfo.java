@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.ItemType;
 import com.gin.nga.enums.TradeBit;
+import com.gin.nga.response.field.Medal;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 public class ItemInfo {
+    public static final String URL_PREFIX = "https://img4.nga.178.com/ngabbs/nga_classic/items/";
     /**
      * 道具id
      */
@@ -63,5 +65,16 @@ public class ItemInfo {
      * 类型信息
      */
     ItemTypeInfo typeInfo;
+
+    public String getUrl(){
+        if (typeInfo==null){
+            return null;
+        }
+
+        if (type==ItemType.MEDAL){
+            return Medal.URL_PREFIX+typeInfo.getIcon();
+        }
+        return URL_PREFIX+typeInfo.getIcon();
+    }
 
 }   
