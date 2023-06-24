@@ -35,4 +35,8 @@ public class UserInfoContext extends UserInfoRead{
      * 用户组
      */
     UserGroup group;
+    /**
+     * 头像buff
+     */
+    UserBuff avatarBuff;
 }
