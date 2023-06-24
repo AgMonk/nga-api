@@ -66,4 +66,16 @@ public class UserBuff {
     @JsonAlias("9")
     String description;
 
+    public String getAvatarUrl(){
+        if (type== UserBuffType.AVATAR_CHANGED) {
+            if (extraData == 20L) {
+                return "https://img4.nga.178.com/ngabbs/face/a_paimon.png";
+            }
+            if (extraData == 1L) {
+                return "https://img4.nga.178.com/ngabbs/face/a_sheep.png";
+            }
+        }
+        return null;
+    }
+
 }

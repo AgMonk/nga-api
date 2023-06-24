@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.jackson.utils.JacksonUtils;
 import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.deserializer.UserFieldInReadDeserializer;
+import com.gin.nga.enums.UserBuffType;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.field.*;
 import lombok.Getter;
@@ -165,12 +166,8 @@ public class UserContext {
         }
         //用户组
         res.setGroup(this.groups.get(res.getMemberId()));
-        //随机头像
-        final List<String> avatars = res.getAvatars();
-        if (!ObjectUtils.isEmpty(avatars)) {
-            final int i = new Random().nextInt(avatars.size());
-            res.setAvatar(avatars.get(i));
-        }
+        // 设置头像
+        res.setAvatar(getAvatar(userInfoRead));
         //徽章
         final List<Integer> medalIds = res.getMedalIds();
         if (!ObjectUtils.isEmpty(medalIds)) {
@@ -183,5 +180,25 @@ public class UserContext {
             res.setReputation(new LabelValue(label, value));
         }
         return res;
+    }
+
+    private static String getAvatar (UserInfoRead userInfo){
+        //检查是否有修改头像的buff
+        final List<UserBuff> buffs = userInfo.getBuffs();
+        if (!ObjectUtils.isEmpty(buffs)) {
+            final UserBuff buff = buffs.stream().filter(i -> i.getType() == UserBuffType.AVATAR_CHANGED).findFirst().orElse(null);
+            if (buff!=null){
+                return buff.getAvatarUrl();
+            }
+        }
+
+        //随机头像
+        final List<String> avatars = userInfo.getAvatars();
+        if (!ObjectUtils.isEmpty(avatars)) {
+            final int i = new Random().nextInt(avatars.size());
+            return avatars.get(i);
+        }
+
+        return null;
     }
 }
