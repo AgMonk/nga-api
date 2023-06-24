@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.deserializer.ListIntDeserializer;
 import com.gin.jackson.serializer.ZdtJsonSerializer;
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.deserializer.UserBuffDeserializer;
 import com.gin.nga.enums.AccountStatus;
+import com.gin.nga.enums.UserBuffType;
 import com.gin.nga.response.field.Honor;
 import com.gin.nga.response.field.Money;
 import com.gin.nga.response.field.SimpleUserInfo;
@@ -17,6 +19,7 @@ import lombok.Setter;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 用户信息的公共字段
@@ -89,5 +92,16 @@ public class BaseUserInfo extends SimpleUserInfo {
 
     public List<BbsTag> getSignatureNodes() {
         return signature == null ? null : BbsTagParser.parseContent(signature);
+    }
+
+    public UserBuff getAvatarBuff(){
+        if (ObjectUtils.isEmpty(this.buffs)){
+            return null;
+        }
+        final List<UserBuff> buffs = this.buffs.stream().filter(i -> i.getType() == UserBuffType.AVATAR_CHANGED).collect(Collectors.toList());
+        if (ObjectUtils.isEmpty(buffs)){
+            return null;
+        }
+        return buffs.get(buffs.size()-1);
     }
 }
