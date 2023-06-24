@@ -534,7 +534,7 @@ public class NukeApi {
      * @author bx002
      * @since 2023/6/23 10:04
      */
-    public static NgaJsonCall<ItemBody> itemStoreList(NgaClient client, ItemStoreParam param) {
+    public static NgaJsonCall<ItemBody> itemStore(NgaClient client, ItemStoreParam param) {
         return client.nuke(param, ItemBody.class);
     }
 
@@ -547,8 +547,8 @@ public class NukeApi {
      * @author bx002
      * @since 2023/6/23 11:34
      */
-    public static NgaJsonCall<ItemBody> itemMyList(NgaClient client, int page) {
-        return client.nuke(new ItemListParam(page), ItemBody.class);
+    public static NgaJsonCall<ItemBody> itemInventory(NgaClient client, int page) {
+        return client.nuke(new ItemInventoryParam(page), ItemBody.class);
     }
 
     /**
@@ -566,7 +566,7 @@ public class NukeApi {
     }
 
     /**
-     * 对用户使用道具
+     * 使用道具
      *
      * @param client 客户端
      * @param param  参数
@@ -574,33 +574,7 @@ public class NukeApi {
      * @author bx002
      * @since 2023/6/23 15:04
      */
-    public static NgaJsonCall<BaseMessageBody> itemUseUser(NgaClient client, ItemUseUserParam param) {
-        return client.nuke(param, BaseMessageBody.class);
-    }
-
-    /**
-     * 对回复使用道具
-     *
-     * @param client 客户端
-     * @param param  参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
-     * @since 2023/6/23 15:40
-     */
-    public static NgaJsonCall<BaseMessageBody> itemUseReply(NgaClient client, ItemUseReplyParam param) {
-        return client.nuke(param, BaseMessageBody.class);
-    }
-
-    /**
-     * 购买一个道具，对回复使用
-     *
-     * @param client 客户端
-     * @param param  参数
-     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
-     * @author bx002
-     * @since 2023/6/23 15:53
-     */
-    public static NgaJsonCall<BaseMessageBody> itemUseReplyBuy(NgaClient client, ItemUseReplyBuyParam param) {
+    public static NgaJsonCall<BaseMessageBody> itemUse(NgaClient client, ItemUseParam param) {
         return client.nuke(param, BaseMessageBody.class);
     }
 }

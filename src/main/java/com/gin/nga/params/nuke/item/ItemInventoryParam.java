@@ -10,14 +10,14 @@ import lombok.Getter;
  * @since : 2023/6/23 09:52
  */
 @Getter
-public class ItemListParam extends BaseItemParam {
+public class ItemInventoryParam extends BaseItemParam {
     final Integer page;
 
-    public ItemListParam() {
+    public ItemInventoryParam() {
         this(null);
     }
 
-    public ItemListParam(Integer page) {
+    public ItemInventoryParam(Integer page) {
         super("list");
         this.page = page;
     }

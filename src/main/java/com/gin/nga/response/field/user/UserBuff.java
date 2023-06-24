@@ -32,7 +32,7 @@ public class UserBuff {
      * 释放buff的用户id
      */
     @JsonAlias("2")
-    Integer fromUserId;
+    Long fromUserId;
     /**
      * 用户id
      */
@@ -51,10 +51,10 @@ public class UserBuff {
     @JsonAlias("5")
     ZonedDateTime end;
     /**
-     * 版面id，禁言类型有值
+     * 额外数据，可能为版面id，或道具的subType
      */
     @JsonAlias("6")
-    Long forumId;
+    Long extraData;
     /**
      * 未知数据
      */
