@@ -115,10 +115,12 @@ public class PostParam {
      */
     public static String encodeUnicode(String raw) {
         StringBuilder sb = new StringBuilder();
-        UnicodeUtils.unicodeIterator(raw, (index, codePoint, s) -> {
+        UnicodeUtils.unicodeIterator(raw, (index, codePoint, s,unicode) -> {
             final Language lang = Language.findLanguage(codePoint);
-            if (lang == Language.ko || (lang == Language.other && codePoint > 65535)) {
-                sb.append(String.format("&#%d;", codePoint));
+            //4位16进制上限
+            final int limit = 65535;
+            if (lang == Language.ko || (lang == Language.other && codePoint > limit)) {
+                sb.append(unicode);
             } else {
                 sb.append(s);
             }

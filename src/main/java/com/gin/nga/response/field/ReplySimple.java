@@ -7,6 +7,7 @@ import com.gin.nga.bbscode.entity.BbsTag;
 import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.utils.DiceUtils;
+import com.gin.nga.utils.StrUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
@@ -77,7 +78,8 @@ public class ReplySimple {
     }
 
     public void setContent(String content) {
-        this.content = StringEscapeUtils.unescapeHtml4(StringEscapeUtils.unescapeHtml4(content));
+        content = StringEscapeUtils.unescapeHtml4(content);
+        this.content = StrUtils.decode(content);
     }
 
     public List<BbsTag> getContentNodes() {

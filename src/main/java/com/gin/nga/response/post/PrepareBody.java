@@ -8,6 +8,7 @@ import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.response.field.Attachment;
 import com.gin.nga.response.field.CurrentUser;
 import com.gin.nga.response.field.Forum;
+import com.gin.nga.utils.StrUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
@@ -118,11 +119,11 @@ public class PrepareBody {
     Forum forum;
 
     public void setContent(String content) {
-        this.content = content != null ? StringEscapeUtils.unescapeHtml4(content) : null;
+        this.content = StrUtils.decode(content);
     }
 
     public void setContentOriginal(String contentOriginal) {
-        this.contentOriginal = contentOriginal != null ? StringEscapeUtils.unescapeHtml4(contentOriginal) : null;
+        this.contentOriginal = StrUtils.decode(contentOriginal);
     }
 
     public void setTitle(String title) {
@@ -147,4 +148,5 @@ public class PrepareBody {
         return topicType == null ? null : ReplyStatus.parse(topicType);
     }
 
-}   
+
+}
