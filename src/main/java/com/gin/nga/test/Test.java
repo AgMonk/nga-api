@@ -1,11 +1,10 @@
 package com.gin.nga.test;
 
 import com.gin.common.utils.FileIoUtils;
-import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ReadApi;
-import com.gin.nga.params.read.ReadTopicParam;
-import com.gin.nga.response.body.ReadBody;
+import com.gin.nga.method.PostApi;
+import com.gin.nga.params.post.PostParam;
+import com.gin.nga.params.post.PrepareParam;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +22,7 @@ public class Test {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
         final NgaClient client = new NgaClient(cookie);
 
-        final ReadBody body = ReadApi.readTopic(client, new ReadTopicParam(25968165, 11761)).sync();
-        JacksonUtils.printPretty(body.getUserContext().getUserInfo());
+        final PrepareParam prepareParam =PrepareParam.replyParam(36451114,0,false);
+        PostApi.send(client, prepareParam, new PostParam("测试自动字数补丁","[@39841854][@25020670][@左牵黄右擒苍]")).sync();
     }
 }
