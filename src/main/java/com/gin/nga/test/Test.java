@@ -21,8 +21,9 @@ public class Test {
     public static void main(String[] args) throws IOException {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
         final NgaClient client = new NgaClient(cookie);
+        final PrepareParam prepareParam = PrepareParam.replyParam(36451114,0,false);
+        String text = "\uD83D\uDC8A 계정";
+        PostApi.send(client, prepareParam, new PostParam("测试自动字数补丁",text)).sync();
 
-        final PrepareParam prepareParam =PrepareParam.replyParam(36451114,0,false);
-        PostApi.send(client, prepareParam, new PostParam("测试自动字数补丁","[@39841854][@25020670][@左牵黄右擒苍]")).sync();
     }
 }

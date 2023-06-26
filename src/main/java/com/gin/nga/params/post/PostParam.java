@@ -3,6 +3,8 @@ package com.gin.nga.params.post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.common.enums.Language;
+import com.gin.common.utils.UnicodeUtils;
 import com.gin.jackson.serializer.BooleanJsonSerializer;
 import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.enums.Hidden;
@@ -69,13 +71,14 @@ public class PostParam {
 
     public PostParam(String title, String content, boolean modifyAppend, Hidden hidden, boolean anony) {
         content = ObjectUtils.isEmpty(content) ? "" : content;
-        content = content.length() < 6 ? (content + "[b][/b]") : content;
+
         this.title = title;
-        this.content = content;
+        this.content = encodeUnicode(content);
         this.modifyAppend = modifyAppend;
         this.hidden = hidden;
         this.anony = anony;
 
+        // 处理 at 代码
         final Matcher matcher = AT_BBS_CODE_PATTERN.matcher(content);
         final List<String> users = new ArrayList<>();
         while (matcher.find()) {
@@ -103,6 +106,25 @@ public class PostParam {
      */
     public PostParam(String content) {
         this(null, content, false, null, false);
+    }
+
+    /**
+     * unicode编码, 编码韩文和其他字符
+     *
+     * @param raw 待编码字符串
+     */
+    public static String encodeUnicode(String raw) {
+        StringBuilder sb = new StringBuilder();
+        UnicodeUtils.unicodeIterator(raw, (index, codePoint, s) -> {
+            final Language lang = Language.findLanguage(codePoint);
+            if (lang == Language.ko || (lang == Language.other && codePoint > 65535)) {
+                sb.append(String.format("&#%d;", codePoint));
+            } else {
+                sb.append(s);
+            }
+        });
+        final String t = sb.toString();
+        return t.length() < 6 ? t + "[b][/b]" : t;
     }
 
     public boolean add(UploadBody uploadBody) {
