@@ -84,7 +84,7 @@ public class ReplySimple {
         if (this.content==null) {
             return null;
         }
-        final List<BbsTag> bbsTags = BbsTagParser.parseContent(content);
+        final List<BbsTag> bbsTags = BbsTagParser.parseContent(content.replace("&amp;", "&"));
         DiceUtils.calculate(bbsTags,authorUid+topicId+replyId);
         return bbsTags;
     }
