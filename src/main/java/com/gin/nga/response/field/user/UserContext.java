@@ -157,21 +157,16 @@ public class UserContext {
         if (userInfoRead == null) {
             return null;
         }
-        final UserInfoContext res;
-        try {
-            res = JacksonUtils.parseObj(userInfoRead, UserInfoContext.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        final UserInfoContext res=new UserInfoContext(userInfoRead);
         //用户组
-        res.setGroup(this.groups.get(res.getMemberId()));
+        res.setGroup(this.groups.get(userInfoRead.getMemberId()));
         // 设置头像buff
         final AvatarBuff avatarBuff = userInfoRead.getAvatarBuff();
         res.setAvatarBuff(avatarBuff);
         // 设置头像
         res.setAvatar(avatarBuff!=null?avatarBuff.getUrl():getAvatar(userInfoRead));
         //徽章
-        final List<Integer> medalIds = res.getMedalIds();
+        final List<Integer> medalIds = userInfoRead.getMedalIds();
         if (!ObjectUtils.isEmpty(medalIds)) {
             res.setMedals(medalIds.stream().map(id -> this.medals.get(id)).collect((Collectors.toList())));
         }

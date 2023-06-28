@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserInfoContext extends UserInfoRead{
+public class UserInfoContext{
     /**
      * 声望等级+声望值
      */
@@ -41,6 +40,12 @@ public class UserInfoContext extends UserInfoRead{
      * 头像buff
      */
     AvatarBuff avatarBuff;
+    /**
+     * 用户基本信息
+     */
+    UserInfoRead userInfo;
 
-
+    public UserInfoContext(UserInfoRead info) {
+        this.userInfo = info;
+    }
 }
