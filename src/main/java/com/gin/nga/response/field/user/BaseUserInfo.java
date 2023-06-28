@@ -11,12 +11,16 @@ import com.gin.nga.bbscode.utils.BbsTagParser;
 import com.gin.nga.deserializer.UserBuffDeserializer;
 import com.gin.nga.enums.AccountStatus;
 import com.gin.nga.enums.UserBuffType;
+import com.gin.nga.method.ResourceApi;
+import com.gin.nga.response.CommonUiData;
+import com.gin.nga.response.field.AvatarBuff;
 import com.gin.nga.response.field.Honor;
 import com.gin.nga.response.field.Money;
 import com.gin.nga.response.field.SimpleUserInfo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -94,7 +98,7 @@ public class BaseUserInfo extends SimpleUserInfo {
         return signature == null ? null : BbsTagParser.parseContent(signature);
     }
 
-    public UserBuff getAvatarBuff(){
+    public AvatarBuff getAvatarBuff(){
         if (ObjectUtils.isEmpty(this.buffs)){
             return null;
         }
@@ -102,6 +106,14 @@ public class BaseUserInfo extends SimpleUserInfo {
         if (ObjectUtils.isEmpty(buffs)){
             return null;
         }
-        return buffs.get(buffs.size()-1);
+
+        try {
+            final CommonUiData commonUiData = ResourceApi.commonUi().sync();
+            final UserBuff buff = buffs.get(buffs.size() - 1);
+            return commonUiData.getAvatarBuffs().stream().filter(i->i.getId()==buff.getExtraData()).findFirst().orElse(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

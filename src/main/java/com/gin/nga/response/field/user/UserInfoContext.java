@@ -1,11 +1,13 @@
 package com.gin.nga.response.field.user;
 
+import com.gin.nga.response.field.AvatarBuff;
 import com.gin.nga.response.field.LabelValue;
 import com.gin.nga.response.field.Medal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -38,5 +40,7 @@ public class UserInfoContext extends UserInfoRead{
     /**
      * 头像buff
      */
-    UserBuff avatarBuff;
+    AvatarBuff avatarBuff;
+
+
 }

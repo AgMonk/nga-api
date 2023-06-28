@@ -3,7 +3,6 @@ package com.gin.nga.response.field.user;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.serializer.ZdtJsonSerializer;
-import com.gin.nga.enums.AvatarBuff;
 import com.gin.nga.enums.UserBuffType;
 import lombok.Getter;
 import lombok.Setter;
@@ -66,12 +65,4 @@ public class UserBuff {
      */
     @JsonAlias("9")
     String description;
-
-    public String getAvatarUrl(){
-        if (type== UserBuffType.AVATAR_CHANGED) {
-           return AvatarBuff.findById(this.extraData).url;
-        }
-        return null;
-    }
-
 }

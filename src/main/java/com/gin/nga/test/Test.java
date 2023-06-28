@@ -3,8 +3,10 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ResourceApi;
-import com.gin.nga.response.CommonUiData;
+import com.gin.nga.method.ReadApi;
+import com.gin.nga.params.read.ReadTopicParam;
+import com.gin.nga.response.body.ReadBody;
+import com.gin.nga.response.field.user.UserContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,9 +23,9 @@ public class Test {
     public static void main(String[] args) throws IOException {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
         final NgaClient client = new NgaClient(cookie);
-//        final ReplyInfo reply = ReadApi.readReply(client, 698867856).sync().getReplies().get(0);
-//        System.out.println(reply.getContent());
-        final CommonUiData sync = ResourceApi.commonUi().sync();
-        JacksonUtils.printPretty(sync);
+        final ReadBody body = ReadApi.readTopic(client, new ReadTopicParam(25968165, 11786)).sync();
+        final UserContext userContext = body.getUserContext();
+        final Object userInfo = userContext.getUserInfo(61972980L, null);
+        JacksonUtils.printPretty(userInfo);
     }
 }

@@ -165,10 +165,11 @@ public class UserContext {
         }
         //用户组
         res.setGroup(this.groups.get(res.getMemberId()));
-        // 设置头像
-        res.setAvatar(getAvatar(userInfoRead));
         // 设置头像buff
-        res.setAvatarBuff(userInfoRead.getAvatarBuff());
+        final AvatarBuff avatarBuff = userInfoRead.getAvatarBuff();
+        res.setAvatarBuff(avatarBuff);
+        // 设置头像
+        res.setAvatar(avatarBuff!=null?avatarBuff.getUrl():getAvatar(userInfoRead));
         //徽章
         final List<Integer> medalIds = res.getMedalIds();
         if (!ObjectUtils.isEmpty(medalIds)) {
@@ -184,12 +185,6 @@ public class UserContext {
     }
 
     private static String getAvatar (UserInfoRead userInfo){
-        //检查是否有修改头像的buff
-        final UserBuff avatarBuff = userInfo.getAvatarBuff();
-        if (avatarBuff!=null){
-            return avatarBuff.getAvatarUrl();
-        }
-
         //随机头像
         final List<String> avatars = userInfo.getAvatars();
         if (!ObjectUtils.isEmpty(avatars)) {
