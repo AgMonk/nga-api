@@ -19,7 +19,9 @@ import java.util.regex.Pattern;
 @Getter
 public class CommonUiData {
     public static final Pattern COMMON_UI_PATTERN = Pattern.compile("v0==(\\d+) \\? '(.+?)'");
-
+    /**
+     * 头像buff
+     */
     final List<AvatarBuff> avatarBuffs = new ArrayList<>();
 
     public CommonUiData(String res) {
@@ -36,5 +38,14 @@ public class CommonUiData {
                 map.get(id).setSuffix(String.format("...%s~",value));
             }
         }
+    }
+
+    /**
+     * 通过id查询头像buff
+     * @param id id
+     * @return 头像buff
+     */
+    public AvatarBuff findAvatarBuffById(int id){
+        return avatarBuffs.stream().filter(i->i.getId()==id).findFirst().orElse(null);
     }
 }

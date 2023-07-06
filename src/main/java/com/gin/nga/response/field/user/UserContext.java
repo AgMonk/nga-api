@@ -6,12 +6,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.jackson.utils.JacksonUtils;
 import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.deserializer.UserFieldInReadDeserializer;
+import com.gin.nga.method.ResourceApi;
+import com.gin.nga.response.CommonUiData;
 import com.gin.nga.response.NgaRes;
 import com.gin.nga.response.field.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import okhttp3.OkHttpClient;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -69,6 +73,11 @@ public class UserContext {
      * 声望信息 id -> uid -> 声望
      */
     ReputationUser reputationUser;
+
+    /**
+     * ui相关数据,头像buff相关需要，可以提前手动提供，如果使用时未提供会自动请求
+     */
+    CommonUiData commonUiData;
 
     public UserContext(LinkedHashMap<String, Object> inputMap) {
         inputMap.forEach((key, obj) -> {
@@ -141,6 +150,17 @@ public class UserContext {
         return null;
     }
 
+    private static String getAvatar(UserInfoRead userInfo) {
+        //随机头像
+        final List<String> avatars = userInfo.getAvatars();
+        if (!ObjectUtils.isEmpty(avatars)) {
+            final int i = new Random().nextInt(avatars.size());
+            return avatars.get(i);
+        }
+
+        return null;
+    }
+
     /**
      * 获取用户信息
      *
@@ -157,14 +177,26 @@ public class UserContext {
         if (userInfoRead == null) {
             return null;
         }
-        final UserInfoContext res=new UserInfoContext(userInfoRead);
+        final UserInfoContext res = new UserInfoContext(userInfoRead);
         //用户组
         res.setGroup(this.groups.get(userInfoRead.getMemberId()));
-        // 设置头像buff
-        final AvatarBuff avatarBuff = userInfoRead.getAvatarBuff();
-        res.setAvatarBuff(avatarBuff);
-        // 设置头像
-        res.setAvatar(avatarBuff!=null?avatarBuff.getUrl():getAvatar(userInfoRead));
+
+        // 头像buff
+        final UserBuff userBuff = userInfoRead.getAvatarUserBuff();
+        if (userBuff != null) {
+            //有头像buff 按照buff修改头像
+            try {
+                commonUiData = commonUiData==null? ResourceApi.commonUi(new OkHttpClient()).sync():commonUiData;
+                final AvatarBuff avatarBuff = commonUiData.findAvatarBuffById(Math.toIntExact(userBuff.getExtraData()));
+                res.setAvatarBuff(avatarBuff);
+                // 设置头像
+                res.setAvatar(avatarBuff != null ? avatarBuff.getUrl() : getAvatar(userInfoRead));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            res.setAvatar(getAvatar(userInfoRead));
+        }
         //徽章
         final List<Integer> medalIds = userInfoRead.getMedalIds();
         if (!ObjectUtils.isEmpty(medalIds)) {
@@ -177,16 +209,5 @@ public class UserContext {
             res.setReputation(new LabelValue(label, value));
         }
         return res;
-    }
-
-    private static String getAvatar (UserInfoRead userInfo){
-        //随机头像
-        final List<String> avatars = userInfo.getAvatars();
-        if (!ObjectUtils.isEmpty(avatars)) {
-            final int i = new Random().nextInt(avatars.size());
-            return avatars.get(i);
-        }
-
-        return null;
     }
 }
