@@ -20,7 +20,8 @@ public enum UserBuffType {
     /**
      * 禁言
      */
-    MUTED("禁言", null, 105),
+    MUTED("禁言", "全版面或单版面禁言", 105),
+    REPUTATION_MUTED("声望禁言", "在同声望版面禁言", 117),
     /**
      * 变羊
      */
