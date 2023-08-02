@@ -64,6 +64,7 @@ public class NgaClient {
      * cookie
      */
     @NotNull
+    @Getter
     final String cookie;
     /**
      * 当前用户id

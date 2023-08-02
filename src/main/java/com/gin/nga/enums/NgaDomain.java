@@ -2,6 +2,8 @@ package com.gin.nga.enums;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+
 /**
  * 域名
  * @author : ginstone
@@ -27,4 +29,8 @@ public enum NgaDomain {
      * 域名
      */
     public final String domain;
+
+    public static NgaDomain findByValue(String domain){
+        return Arrays.stream(values()).filter(i->i.domain.equals(domain)).findFirst().orElse(cn);
+    }
 }

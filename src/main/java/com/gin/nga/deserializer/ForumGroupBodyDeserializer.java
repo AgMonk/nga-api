@@ -34,7 +34,6 @@ public class ForumGroupBodyDeserializer extends JsonDeserializer<ForumGroupBody>
             while (iterator.hasNext()) {
                 final String next = iterator.next();
                 final TreeNode node = all.get(next);
-                System.out.println("node = " + node);
                 groups.add(NgaRes.MAPPER.readValue(node.toString(), ForumGroup.class));
             }
         } catch (NullPointerException e) {
