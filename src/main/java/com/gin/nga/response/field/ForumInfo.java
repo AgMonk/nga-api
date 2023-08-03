@@ -1,6 +1,7 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gin.nga.utils.ForumIconUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,8 +17,6 @@ import java.util.Map;
 @Getter
 @Setter
 public class ForumInfo {
-    public static final String ICON_FORMAT = "https://img4.nga.178.com/proxy/cache_attach/ficon/%du.png";
-    public static final String ICON_FORMAT_COL = "https://img4.nga.178.com/proxy/cache_attach/ficon/%dv.png";
 
     /**
      * 描述
@@ -60,7 +59,7 @@ public class ForumInfo {
     String url;
 
     public String getIconUrl(){
-        return this.forumId==null?null:String.format(ICON_FORMAT,forumId);
+       return ForumIconUtils.getIconUrl(forumId, colTid);
     }
 
     @Getter

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.CustomLevelDeserializer;
 import com.gin.nga.deserializer.SubForumsDeserializer;
+import com.gin.nga.utils.ForumIconUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -57,6 +58,6 @@ public class Forum {
     Long toppedTopicId;
 
     public String getIconUrl(){
-        return this.forumId==null?null:String.format(ForumInfo.ICON_FORMAT, forumId);
+        return ForumIconUtils.getIconUrl(forumId, colTid);
     }
 }   

@@ -1,6 +1,7 @@
 package com.gin.nga.response.forum;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.nga.utils.ForumIconUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,4 +54,8 @@ public class ForumEntry {
      */
     @JsonAlias("stid")
     Long colTid;
+
+    public String getIconUrl(){
+        return ForumIconUtils.getIconUrl(forumId, colTid);
+    }
 }   

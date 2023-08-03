@@ -1,6 +1,7 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.nga.utils.ForumIconUtils;
 
 /**
  * 收藏的版面或合集
@@ -35,14 +36,8 @@ public class FavorForum {
     @JsonAlias("stid")
     Long colTid;
 
-    public String getIconUrl() {
-        if (this.id==null){
-            return null;
-        }
-        if (colTid!=null){
-            return String.format(ForumInfo.ICON_FORMAT_COL,id);
-        }
-        return String.format(ForumInfo.ICON_FORMAT, id);
+    public String getIconUrl(){
+        return ForumIconUtils.getIconUrl(forumId, colTid);
     }
 
 }
