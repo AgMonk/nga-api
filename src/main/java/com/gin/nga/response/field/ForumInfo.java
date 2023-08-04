@@ -80,6 +80,11 @@ public class ForumInfo {
          */
         @JsonProperty("name")
         String name;
+
+        public String getIconUrl(){
+            return ForumIconUtils.getIconUrl(forumId, null);
+        }
+
     }
 
 }   

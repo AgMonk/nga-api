@@ -4,6 +4,7 @@ import com.gin.nga.enums.SubForumType;
 
 /**
  * 版面icon工具类
+ *
  * @author bx002
  */
 public class ForumIconUtils {
@@ -20,12 +21,12 @@ public class ForumIconUtils {
         return null;
     }
 
-    public static  String getIconUrl(Long forumId,Long colId){
-        if (colId!=null){
-            return getIconUrl(SubForumType.COL,colId);
+    public static String getIconUrl(Long forumId, Long colId) {
+        if (colId != null && colId != 0) {
+            return getIconUrl(SubForumType.COL, colId);
         }
-        if (forumId!=null) {
-            return getIconUrl(SubForumType.FORUM,forumId);
+        if (forumId != null) {
+            return getIconUrl(SubForumType.FORUM, forumId);
         }
         return null;
     }
