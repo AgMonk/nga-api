@@ -58,4 +58,8 @@ public class ForumEntry {
     public String getIconUrl(){
         return ForumIconUtils.getIconUrl(forumId, colTid);
     }
+
+    public String getBigIconUrl(){
+        return ForumIconUtils.getBigIconUrl(forumId, colTid);
+    }
 }   

@@ -9,6 +9,7 @@ import com.gin.nga.enums.SubForumType;
  */
 public class ForumIconUtils {
     public static final String ICON_FORMAT = "https://img4.nga.178.com/proxy/cache_attach/ficon/%du.png";
+    public static final String ICON_BIG_FORMAT = "https://img4.nga.178.com/ngabbs/nga_classic/f/app/%d.png";
     public static final String ICON_FORMAT_COL = "https://img4.nga.178.com/proxy/cache_attach/ficon/%dv.png";
 
     public static String getIconUrl(SubForumType type, long id) {
@@ -27,6 +28,20 @@ public class ForumIconUtils {
         }
         if (forumId != null) {
             return getIconUrl(SubForumType.FORUM, forumId);
+        }
+        return null;
+    }
+
+    public static String getBigIconUrl(long id) {
+        return String.format(ICON_BIG_FORMAT,id);
+    }
+
+    public static String getBigIconUrl(Long forumId, Long colId) {
+        if (colId != null && colId != 0) {
+            return getBigIconUrl(colId);
+        }
+        if (forumId != null) {
+            return getBigIconUrl(forumId);
         }
         return null;
     }

@@ -62,6 +62,10 @@ public class ForumInfo {
        return ForumIconUtils.getIconUrl(forumId, colTid);
     }
 
+    public String getBigIconUrl(){
+        return ForumIconUtils.getBigIconUrl(forumId, colTid);
+    }
+
     @Getter
     @Setter
     public static class Parent{
@@ -83,6 +87,10 @@ public class ForumInfo {
 
         public String getIconUrl(){
             return ForumIconUtils.getIconUrl(forumId, null);
+        }
+
+        public String getBigIconUrl(){
+            return ForumIconUtils.getBigIconUrl(forumId);
         }
 
     }

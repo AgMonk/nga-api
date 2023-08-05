@@ -57,11 +57,11 @@
         {
           "name": "nga-api-1.0.0.jar",
           "url": "nga-api-1.0.0.jar",
-          "size": 305140,
-          "sha512": "a4fb7df3f78178a84ddf5d8a35c7f7b66f8337d8e261e3b988524826d13147c769c547bbeaea8eba33579d32150776367f0d7ca766c2ee3e45d9d64f9352adb9",
-          "sha256": "c4897f0cde3f48ca4b368295a52ea55aefe8b0da2f702e121ed94774ce1078af",
-          "sha1": "5768ade7e2b747a4e3772b2d314d7646fc6213e6",
-          "md5": "1791a684c5649957baafe967a604fc99"
+          "size": 305449,
+          "sha512": "2901ffdfa1087a69b58f6946a50f4316d961ec153dd7a714a6c6c26debdbff641d2b677dcf51f6ee98fecdb3c9a31303aba4f4f0628cad80e90e28ece1c33e0a",
+          "sha256": "e36bea32d35dbc64806902881d5ebba276cceabd0e33ae82a54475104896235f",
+          "sha1": "ac6f863cab643583da53764b2bce7268808a341a",
+          "md5": "8833cff78acb6fe39d613a59927f3682"
         }
       ]
     },
@@ -108,11 +108,11 @@
         {
           "name": "nga-api-1.0.0.jar",
           "url": "nga-api-1.0.0.jar",
-          "size": 305140,
-          "sha512": "a4fb7df3f78178a84ddf5d8a35c7f7b66f8337d8e261e3b988524826d13147c769c547bbeaea8eba33579d32150776367f0d7ca766c2ee3e45d9d64f9352adb9",
-          "sha256": "c4897f0cde3f48ca4b368295a52ea55aefe8b0da2f702e121ed94774ce1078af",
-          "sha1": "5768ade7e2b747a4e3772b2d314d7646fc6213e6",
-          "md5": "1791a684c5649957baafe967a604fc99"
+          "size": 305449,
+          "sha512": "2901ffdfa1087a69b58f6946a50f4316d961ec153dd7a714a6c6c26debdbff641d2b677dcf51f6ee98fecdb3c9a31303aba4f4f0628cad80e90e28ece1c33e0a",
+          "sha256": "e36bea32d35dbc64806902881d5ebba276cceabd0e33ae82a54475104896235f",
+          "sha1": "ac6f863cab643583da53764b2bce7268808a341a",
+          "md5": "8833cff78acb6fe39d613a59927f3682"
         }
       ]
     },
@@ -148,11 +148,11 @@
         {
           "name": "nga-api-1.0.0-sources.jar",
           "url": "nga-api-1.0.0-sources.jar",
-          "size": 194649,
-          "sha512": "63e3c0465fb39eb33663b9e5ccdd623c919bd359cadb2a64a46dfecf7e631c53b795ea7d1486f2e767b966221177fc09b1c612db3c601ea4d2aaf0798ee16867",
-          "sha256": "52de05581b4aa62f008858912244570f336dcea17b46ad41c3f1969d0106c430",
-          "sha1": "3700fb53ee0d77b5a88443c5cfcc6302b3afc27f",
-          "md5": "2c7d370b6be30aabb3455dc8ba9af4bd"
+          "size": 194773,
+          "sha512": "fae6cb28972a226bca84161b5fa6a2696821c93db4d138fd4ddcff9125592d12153dc420f401ca57b285d0ca6853b6fdf5c014f2de4a3f2446f0f3518554e9b9",
+          "sha256": "79ad69b6958fda59b965183973805d36785275adcca4f58f9ba650003742d379",
+          "sha1": "b7a05e994a8af330f93a1090259d628d1e31b7a4",
+          "md5": "3d9956c1520782e291eecb2c108a995d"
         }
       ]
     }

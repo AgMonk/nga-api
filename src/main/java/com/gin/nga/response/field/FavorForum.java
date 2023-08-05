@@ -44,4 +44,8 @@ public class FavorForum {
         return ForumIconUtils.getIconUrl(forumId, colTid);
     }
 
+    public String getBigIconUrl(){
+        return ForumIconUtils.getBigIconUrl(forumId, colTid);
+    }
+
 }
