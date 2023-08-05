@@ -2,8 +2,10 @@ package com.gin.nga.params;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.serializer.BooleanJsonSerializer;
+import com.gin.nga.deserializer.BooleanDeserializer;
 import com.gin.nga.enums.WatermarkPosition;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,6 +60,7 @@ public class UploadParam {
      */
     @JsonProperty(PREFIX + "_auto_size")
     @JsonSerialize(using = BooleanJsonSerializer.class)
+    @JsonDeserialize(using = BooleanDeserializer.class)
     final Boolean autoSize;
     /**
      * 水印位置

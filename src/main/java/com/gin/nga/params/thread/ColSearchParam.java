@@ -1,8 +1,10 @@
 package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.serializer.BooleanJsonSerializer;
+import com.gin.nga.deserializer.BooleanDeserializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,12 +33,14 @@ public class ColSearchParam extends ColBaseParam {
      */
     @JsonProperty("content")
     @JsonSerialize(using = BooleanJsonSerializer.class)
+    @JsonDeserialize(using = BooleanDeserializer.class)
     Boolean searchContent;
     /**
      * 是否只搜索精华帖
      */
     @JsonProperty("recommend")
     @JsonSerialize(using = BooleanJsonSerializer.class)
+    @JsonDeserialize(using = BooleanDeserializer.class)
     Boolean recommendOnly;
 
     public ColSearchParam(long colTid, @NotNull String keyword, Serializable page, Boolean searchContent, Boolean recommendOnly) {

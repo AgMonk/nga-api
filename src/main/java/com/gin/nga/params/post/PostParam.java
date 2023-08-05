@@ -2,11 +2,13 @@ package com.gin.nga.params.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.common.enums.Language;
 import com.gin.common.utils.UnicodeUtils;
 import com.gin.jackson.serializer.BooleanJsonSerializer;
 import com.gin.jackson.utils.ObjectUtils;
+import com.gin.nga.deserializer.BooleanDeserializer;
 import com.gin.nga.enums.Hidden;
 import com.gin.nga.response.body.UploadBody;
 import lombok.Getter;
@@ -46,6 +48,7 @@ public class PostParam {
      */
     @JsonProperty("modify_append")
     @JsonSerialize(using = BooleanJsonSerializer.class)
+    @JsonDeserialize(using = BooleanDeserializer.class)
     final boolean modifyAppend;
     /**
      * 隐藏内容,版主可见
@@ -57,6 +60,7 @@ public class PostParam {
      */
     @JsonProperty("anony")
     @JsonSerialize(using = BooleanJsonSerializer.class)
+    @JsonDeserialize(using = BooleanDeserializer.class)
     final boolean anony;
     /**
      * 附件列表

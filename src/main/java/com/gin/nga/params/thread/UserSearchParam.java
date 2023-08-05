@@ -1,8 +1,10 @@
 package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.serializer.BooleanJsonSerializer;
+import com.gin.nga.deserializer.BooleanDeserializer;
 import com.gin.nga.params.PageParam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +42,7 @@ public class UserSearchParam extends PageParam {
      */
     @JsonProperty("recommend")
     @JsonSerialize(using = BooleanJsonSerializer.class)
+    @JsonDeserialize(using = BooleanDeserializer.class)
     Boolean recommendOnly;
 
     public UserSearchParam(long authorUid, Serializable page, Long forumId, boolean searchReply, Boolean recommendOnly) {

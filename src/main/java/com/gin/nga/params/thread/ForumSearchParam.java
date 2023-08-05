@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.deserializer.ListLongDeserializer;
 import com.gin.jackson.serializer.BooleanJsonSerializer;
 import com.gin.jackson.serializer.ListLongSerializer;
+import com.gin.nga.deserializer.BooleanDeserializer;
 import com.gin.nga.params.PageParam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,12 +44,14 @@ public class ForumSearchParam extends PageParam {
      */
     @JsonProperty("content")
     @JsonSerialize(using = BooleanJsonSerializer.class)
+    @JsonDeserialize(using = BooleanDeserializer.class)
     Boolean searchContent;
     /**
      * 是否只搜索精华帖
      */
     @JsonProperty("recommend")
     @JsonSerialize(using = BooleanJsonSerializer.class)
+    @JsonDeserialize(using = BooleanDeserializer.class)
     Boolean recommendOnly;
 
     public ForumSearchParam(String keyword, Serializable page, Boolean searchContent, Boolean recommendOnly, List<Long> forumId) {
