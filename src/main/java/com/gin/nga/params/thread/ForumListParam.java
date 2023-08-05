@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.enums.OrderByParam;
 import com.gin.nga.params.PageParam;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class ForumListParam extends PageParam {
     /**
      * 版面id
@@ -26,7 +28,7 @@ public class ForumListParam extends PageParam {
      * 排序方式
      */
     @JsonProperty("order_by")
-    final OrderByParam orderBy;
+    OrderByParam orderBy;
 
     public ForumListParam(long forumId, Serializable page, OrderByParam orderBy) {
         super(page);

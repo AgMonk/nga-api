@@ -3,6 +3,8 @@ package com.gin.nga.enums;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+
 /**
  * 排序方式参数
  * @author : ginstone
@@ -22,4 +24,8 @@ public enum OrderByParam {
     ;
     @JsonValue
     public final String value;
+
+    public static OrderByParam findByValue(String value){
+        return Arrays.stream(values()).filter(i -> i.value.equals(value)).findFirst().orElse(null);
+    }
 }   

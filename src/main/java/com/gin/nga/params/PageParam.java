@@ -3,6 +3,8 @@ package com.gin.nga.params;
 
 import com.gin.common.utils.StrUtils;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -13,11 +15,13 @@ import java.io.Serializable;
  * @since : 2023/4/11 17:25
  */
 @Getter
+@Setter
+@NoArgsConstructor
 public class PageParam {
     /**
      * 页码
      */
-    final String page;
+    String page;
 
     public PageParam(Serializable page) {
         if (page == null) {
@@ -32,7 +36,4 @@ public class PageParam {
         }
     }
 
-    public PageParam() {
-        this(null);
-    }
 }

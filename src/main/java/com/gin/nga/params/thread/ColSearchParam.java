@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gin.jackson.serializer.BooleanJsonSerializer;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -15,23 +17,27 @@ import java.io.Serializable;
  * @since : 2023/4/12 09:32
  */
 @Getter
+@Setter
+@NoArgsConstructor
 public class ColSearchParam extends ColBaseParam {
     /**
      * 搜索关键字
      */
     @JsonProperty("key")
     @NotNull
-    final String keyword;
+     String keyword;
     /**
      * 是否搜索主楼正文
      */
     @JsonProperty("content")
-    @JsonSerialize(using = BooleanJsonSerializer.class) final Boolean searchContent;
+    @JsonSerialize(using = BooleanJsonSerializer.class)
+    Boolean searchContent;
     /**
      * 是否只搜索精华帖
      */
     @JsonProperty("recommend")
-    @JsonSerialize(using = BooleanJsonSerializer.class) final Boolean recommendOnly;
+    @JsonSerialize(using = BooleanJsonSerializer.class)
+    Boolean recommendOnly;
 
     public ColSearchParam(long colTid, @NotNull String keyword, Serializable page, Boolean searchContent, Boolean recommendOnly) {
         super(page, colTid);

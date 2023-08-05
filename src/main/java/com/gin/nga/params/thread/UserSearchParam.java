@@ -1,8 +1,11 @@
 package com.gin.nga.params.thread;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gin.jackson.serializer.BooleanJsonSerializer;
 import com.gin.nga.params.PageParam;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -15,6 +18,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserSearchParam extends PageParam {
     /**
      * 作者uid
@@ -35,6 +39,7 @@ public class UserSearchParam extends PageParam {
      * 是否只搜索精华帖
      */
     @JsonProperty("recommend")
+    @JsonSerialize(using = BooleanJsonSerializer.class)
     Boolean recommendOnly;
 
     public UserSearchParam(long authorUid, Serializable page, Long forumId, boolean searchReply, Boolean recommendOnly) {

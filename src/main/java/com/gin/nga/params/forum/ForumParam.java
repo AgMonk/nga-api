@@ -3,6 +3,8 @@ package com.gin.nga.params.forum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.params.PageParam;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -13,12 +15,14 @@ import java.io.Serializable;
  * @since : 2023/4/13 10:24
  */
 @Getter
+@Setter
+@NoArgsConstructor
 public class ForumParam extends PageParam {
     /**
      * 搜索关键字
      */
     @JsonProperty("key")
-    final String keyword;
+    String keyword;
 
     public ForumParam(String keyword) {
         this(keyword, null);

@@ -3,6 +3,7 @@ package com.gin.nga.params.thread;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gin.nga.params.PageParam;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -15,16 +16,13 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class FavorParam extends PageParam {
     /**
      * 收藏夹id
      */
     @JsonProperty("favor")
-    final long folderId;
-
-    public FavorParam() {
-        this(null);
-    }
+    long folderId;
 
     /**
      *  查询默认收藏夹
