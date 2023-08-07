@@ -3,10 +3,10 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ReadApi;
-import com.gin.nga.params.read.ReadTopicParam;
-import com.gin.nga.response.body.ReadBody;
-import com.gin.nga.response.field.user.UserContext;
+import com.gin.nga.enums.FollowType;
+import com.gin.nga.method.NukeApi;
+import com.gin.nga.params.nuke.follow.FollowParam;
+import com.gin.nga.response.body.BaseMessageBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,9 +23,9 @@ public class Test {
     public static void main(String[] args) throws IOException {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
         final NgaClient client = new NgaClient(cookie);
-        final ReadBody body = ReadApi.readTopic(client, new ReadTopicParam(25968165, 11786)).sync();
-        final UserContext userContext = body.getUserContext();
-        final Object userInfo = userContext.getUserInfo(61972980L, null);
-        JacksonUtils.printPretty(userInfo);
+
+        final FollowParam param = new FollowParam(FollowType.UNFOLLOW_USER, 25020670);
+        final BaseMessageBody sync = NukeApi.follow(client, param).sync();
+        JacksonUtils.printPretty(sync);
     }
 }
