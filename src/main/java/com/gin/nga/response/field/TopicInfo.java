@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class TopicInfo {
+public class TopicInfo extends TopicInfoSimple{
     /**
      * 回复(出现在收藏和搜索用户回复接口)
      */
@@ -34,16 +34,6 @@ public class TopicInfo {
      */
     @JsonProperty("author")
     String authorName;
-    /**
-     * 作者uid
-     */
-    @JsonProperty("authorid")
-    String authorUid;
-    /**
-     * 版面id
-     */
-    @JsonProperty("fid")
-    Long forumId;
     /**
      * 未知数据
      */
@@ -72,12 +62,6 @@ public class TopicInfo {
     @JsonProperty("parent")
     TopicParent topicParent;
     /**
-     * 发表时间
-     */
-    @JsonProperty("postdate")
-    @JsonSerialize(using = ZdtJsonSerializer.class)
-    ZonedDateTime postDatetime;
-    /**
      * 从某个主题镜像而来
      */
     @JsonProperty("quote_from")
@@ -93,16 +77,6 @@ public class TopicInfo {
     @JsonProperty("replies")
     Integer replies;
     /**
-     * 标题
-     */
-    @JsonProperty("subject")
-    String title;
-    /**
-     * 主题id
-     */
-    @JsonProperty("tid")
-    Long topicId;
-    /**
      * 主题标题字体信息
      */
     @JsonProperty("topic_misc")
@@ -117,19 +91,7 @@ public class TopicInfo {
      */
     @JsonProperty("tpcurl")
     String url;
-    /**
-     * 类型
-     */
-    @JsonProperty("type")
-    Integer type;
 
-    /**
-     * 主题状态
-     * @return 主题状态
-     */
-    public List<ReplyStatus> getStatus() {
-        return type == null ? null : ReplyStatus.parse(type);
-    }
 
     /**
      * 总页数

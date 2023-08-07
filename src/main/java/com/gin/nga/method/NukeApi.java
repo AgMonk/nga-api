@@ -577,4 +577,15 @@ public class NukeApi {
     public static NgaJsonCall<BaseMessageBody> itemUse(NgaClient client, ItemUseParam param) {
         return client.nuke(param, BaseMessageBody.class);
     }
+/**
+ * 加载用户最近主题
+ * @param client 客户端
+ * @param userId 用户id
+ * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.LoadTopicBody>
+ * @author bx002
+ * @since 2023/8/7 9:48
+ */
+    public static NgaJsonCall<LoadTopicBody> loadTopic(NgaClient client,long userId){
+        return client.nuke(new LoadTopicParam(userId), LoadTopicBody.class);
+    }
 }
