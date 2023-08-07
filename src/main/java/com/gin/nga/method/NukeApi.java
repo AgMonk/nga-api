@@ -18,6 +18,7 @@ import com.gin.nga.params.nuke.favor.FavorFolderListParam;
 import com.gin.nga.params.nuke.favor.FavorFolderModifyParam;
 import com.gin.nga.params.nuke.favorforum.FavorForumEditParam;
 import com.gin.nga.params.nuke.favorforum.FavorForumParam;
+import com.gin.nga.params.nuke.follow.FollowGetParam;
 import com.gin.nga.params.nuke.follow.FollowParam;
 import com.gin.nga.params.nuke.item.*;
 import com.gin.nga.params.nuke.mission.MissionCheckInParam;
@@ -599,5 +600,17 @@ public class NukeApi {
      */
     public static NgaJsonCall<BaseMessageBody> follow(NgaClient client, FollowParam param){
         return client.nuke(param, BaseMessageBody.class);
+    }
+/**
+ * 查询关注列表
+ * @param client 客户端
+ * @param page 页码
+ * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.FollowUserListBody>
+ * @author bx002
+ * @since 2023/8/7 10:13
+ */
+
+    public static NgaJsonCall<FollowUserListBody> followGet(NgaClient client,int page){
+        return client.nuke(new FollowGetParam(page), FollowUserListBody.class);
     }
 }
