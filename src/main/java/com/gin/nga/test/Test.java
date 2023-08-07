@@ -21,6 +21,6 @@ public class Test {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
         final NgaClient client = new NgaClient(cookie);
 
-        JacksonUtils.printPretty(NukeApi.followGet(client,1).sync().getData());
+        JacksonUtils.printPretty(NukeApi.followStatus(client, 1).sync());
     }
 }
