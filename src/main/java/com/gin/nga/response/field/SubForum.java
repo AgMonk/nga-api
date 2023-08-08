@@ -41,9 +41,17 @@ public class SubForum {
 
     public SubForum(String key,Map<Integer, Serializable> map) {
         this.type = key.startsWith("t")?SubForumType.COL : SubForumType.FORUM;
-        this.id = Long.parseLong(String.valueOf(map.get(0)));
+        this.id = getLong(map,0);
         this.name = String.valueOf(map.get(1));
-        this.mirrorId = Long.parseLong(String.valueOf(map.get(3)));
-        this.data = Long.parseLong(String.valueOf(map.get(4)));
+        this.mirrorId = getLong(map,3);
+        this.data = getLong(map,4);
+    }
+
+    private static Long getLong (Map<Integer, Serializable> map,int index){
+        final Serializable v = map.get(index);
+        if (v!=null) {
+            return Long.parseLong(String.valueOf(v));
+        }
+        return null;
     }
 }
