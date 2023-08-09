@@ -85,5 +85,4 @@ public class ThreadApi {
     public static NgaJsonCall<ThreadBody> userSearch(NgaClient client, UserSearchParam param) {
         return client.thread(param);
     }
-
-}   
+}

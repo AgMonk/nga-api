@@ -31,7 +31,9 @@ public class SubForumsDeserializer extends JsonDeserializer<List<SubForum>> {
         final JavaType stringType = typeFactory.constructType(String.class);
         final MapLikeType type = typeFactory.constructMapLikeType(LinkedHashMap.class, stringType, valueType);
         LinkedHashMap<String, LinkedHashMap<Integer, Serializable>> forumMap = p.getCodec().readValue(p, type);
-        forumMap.forEach((s, map) -> res.add(new SubForum(s, map)));
+        if (forumMap!=null) {
+            forumMap.forEach((s, map) -> res.add(new SubForum(s, map)));
+        }
         return res;
     }
 }
