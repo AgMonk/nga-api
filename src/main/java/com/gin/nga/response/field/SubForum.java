@@ -1,5 +1,6 @@
 package com.gin.nga.response.field;
 
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.enums.SubForumType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,7 +50,7 @@ public class SubForum {
 
     private static Long getLong (Map<Integer, Serializable> map,int index){
         final Serializable v = map.get(index);
-        if (v!=null) {
+        if (!ObjectUtils.isEmpty(v)) {
             return Long.parseLong(String.valueOf(v));
         }
         return null;
