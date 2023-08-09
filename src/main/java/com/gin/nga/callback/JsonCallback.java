@@ -1,6 +1,7 @@
 package com.gin.nga.callback;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.exception.NgaClientException;
 import com.gin.nga.exception.NgaServerException;
 import com.gin.nga.response.NgaRes;
@@ -21,9 +22,14 @@ public abstract class JsonCallback<T> extends AbstractCallback<T> {
     @Override
     public T parse(String resString) throws JsonProcessingException, NgaServerException, NgaClientException {
         final NgaRes<T> res = NgaRes.parse(resString, eClass);
-        if (res.getData()==null) {
+        final T data = res.getData();
+        if (data ==null) {
             throw new NgaClientException(400, null, res.getError());
         }
-        return res.getData();
+        final String s = JacksonUtils.MAPPER.writeValueAsString(data).replace("\n","").replace(" ","");
+        if ("{}".equals(s)){
+            throw new NgaClientException(400, null, res.getError());
+        }
+        return data;
     }
 }
