@@ -77,11 +77,12 @@ public class DiceUtils {
 
     /**
      * dice
-     * @param seed 种子
+     *
+     * @param seed  种子
      * @param count 骰子面数
      * @return 结果
      */
-    public static DiceResult dice(long seed,int count){
+    public static DiceResult dice(long seed, int count) {
         final DiceResult result = rnd(seed);
         final double r = Math.floor(result.getResult() * count) + 1;
         return new DiceResult(result.getSeed(), r);
@@ -143,13 +144,16 @@ public class DiceUtils {
             return;
         }
         // 找出所有的dice标签
-        List<BbsTag> diceArray = DiceUtils.findAllDice(nodes,false);
+        List<BbsTag> diceArray = DiceUtils.findAllDice(nodes, false);
         //  按照 collapse外 > collapse内排序
         List<BbsTag> sortedArray = DiceUtils.sort(diceArray);
         //计算每一个dice的随机结果
 
         // 初始化种子,如果所有dice都在collapse中，种子+1
-        long seed = initialSeed + (sortedArray.get(0).isInCollapse()?1:0);
+        long seed = initialSeed;
+        if (!sortedArray.isEmpty() && sortedArray.get(0).isInCollapse()) {
+            seed++;
+        }
         for (BbsTag dice : sortedArray) {
             seed = DiceUtils.calculateDice(dice, seed);
         }
@@ -157,25 +161,26 @@ public class DiceUtils {
 
     /**
      * 根据三个roll点结果确定当前随机种子
+     *
      * @param count 查找前x个
      * @param r1    结果1
      * @param r2    结果2
      * @param r3    结果3
      * @return 随机种子
      */
-    public static List<Long> findSeed(int count, long r1, long r2, long r3){
+    public static List<Long> findSeed(int count, long r1, long r2, long r3) {
         long seed = 0L;
         final ArrayList<Long> list = new ArrayList<>();
-        while (true){
-            final DiceResult res1 = dice(seed,100);
-            final DiceResult res2 = dice(res1.getSeed(),100);
-            final DiceResult res3 = dice(res2.getSeed(),100);
+        while (true) {
+            final DiceResult res1 = dice(seed, 100);
+            final DiceResult res2 = dice(res1.getSeed(), 100);
+            final DiceResult res3 = dice(res2.getSeed(), 100);
 
-            if ((long)res1.getResult()==r1 && (long)res2.getResult()==r2 && (long)res3.getResult()==r3){
+            if ((long) res1.getResult() == r1 && (long) res2.getResult() == r2 && (long) res3.getResult() == r3) {
                 list.add(seed);
             }
             seed++;
-            if (list.size()==count){
+            if (list.size() == count) {
                 return list;
             }
         }
