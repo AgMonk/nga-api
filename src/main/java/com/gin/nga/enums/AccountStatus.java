@@ -40,6 +40,19 @@ public enum AccountStatus {
     public final int value;
     public final String label;
 
+    /**
+     * 根据值返回状态
+     * @param value 值
+     * @return 状态
+     */
+    public static AccountStatus findByValue(int value){
+        for (AccountStatus status : values()) {
+            if (status.value==value) {
+                return status;
+            }
+        }
+        return null;
+    }
 
     @Override
     public String toString() {
