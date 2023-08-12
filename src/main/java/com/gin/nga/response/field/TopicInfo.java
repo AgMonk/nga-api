@@ -8,7 +8,6 @@ import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.utils.AnonymousUtils;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -118,10 +117,7 @@ public class TopicInfo extends TopicInfoSimple{
         }
     }
 
-    public void setTitle(String title) {
-        // 反转义
-        this.title = title!=null?StringEscapeUtils.unescapeHtml4(title):null;
-    }
+
 
     public Long getForumId() {
         final EntranceType type = getEntranceType();

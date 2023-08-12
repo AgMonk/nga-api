@@ -6,6 +6,7 @@ import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.enums.ReplyStatus;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -47,17 +48,23 @@ public class TopicInfoSimple {
     String authorUid;
 
     /**
+     * 发表时间
+     */
+    @JsonProperty("postdate")
+    @JsonSerialize(using = ZdtJsonSerializer.class)
+    ZonedDateTime postDatetime;
+
+    /**
      * 主题状态
+     *
      * @return 主题状态
      */
     public List<ReplyStatus> getStatus() {
         return type == null ? null : ReplyStatus.parse(type);
     }
 
-    /**
-     * 发表时间
-     */
-    @JsonProperty("postdate")
-    @JsonSerialize(using = ZdtJsonSerializer.class)
-    ZonedDateTime postDatetime;
+    public void setTitle(String title) {
+        // 反转义
+        this.title = title!=null?StringEscapeUtils.unescapeHtml4(title):null;
+    }
 }
