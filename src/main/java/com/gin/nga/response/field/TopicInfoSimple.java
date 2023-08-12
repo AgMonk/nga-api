@@ -45,7 +45,7 @@ public class TopicInfoSimple {
      * 作者uid
      */
     @JsonProperty("authorid")
-    String authorUid;
+    Long authorUid;
 
     /**
      * 发表时间
