@@ -588,8 +588,8 @@ public class NukeApi {
  * @author bx002
  * @since 2023/8/7 9:48
  */
-    public static NgaJsonCall<LoadTopicBody> loadTopic(NgaClient client,long userId){
-        return client.nuke(new LoadTopicParam(userId), LoadTopicBody.class);
+    public static NgaJsonCall<LoadTopicBody> loadRecentTopic(NgaClient client, long userId){
+        return client.nuke(new LoadRecentTopicParam(userId), LoadTopicBody.class);
     }
     /**
      * 关注

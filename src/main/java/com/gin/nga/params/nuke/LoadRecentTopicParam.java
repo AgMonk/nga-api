@@ -10,10 +10,10 @@ import lombok.Getter;
  * @since : 2023/8/7 09:38
  **/
 @Getter
-public class LoadTopicParam extends NukeBaseParam {
+public class LoadRecentTopicParam extends NukeBaseParam {
     @JsonProperty("uid")
     final long userId;
-    public LoadTopicParam(long userId) {
+    public LoadRecentTopicParam(long userId) {
         super("load_topic", "load_topic_by_uid");
         this.userId = userId;
     }
