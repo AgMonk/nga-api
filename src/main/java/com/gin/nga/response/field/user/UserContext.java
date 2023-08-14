@@ -142,12 +142,11 @@ public class UserContext {
     }
 
     private static String getReputationLabel(List<CustomLevel> customLevels, int value) {
-        for (final CustomLevel level : customLevels) {
-            if (value >= level.getRank()) {
-                return level.getName();
-            }
-        }
-        return null;
+        final CustomLevel level = customLevels.stream()
+                .filter(l -> value >= l.getRank())
+                .min((o1, o2) -> o2.getRank() - o1.getRank())
+                .orElse(null);
+        return level==null?null:level.getName();
     }
 
     private static String getAvatar(UserInfoRead userInfo) {
