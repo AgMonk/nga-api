@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.jackson.utils.ObjectUtils;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,14 +23,17 @@ public class UserAvatarDeserializer extends JsonDeserializer<List<String>> {
 
     @Override
     public List<String> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-        final String value = jsonParser.getValueAsString();
-        if (ObjectUtils.isEmpty(value)) {
+         String url = jsonParser.getValueAsString();
+        if (ObjectUtils.isEmpty(url)) {
             return null;
         }
-        if (value.startsWith(PREFIX_178)) {
+        url = url.replace("http:","https:");
+        //noinspection CharsetObjectCanBeUsed
+        url = URLDecoder.decode(url,"utf-8");
+        if (url.startsWith(PREFIX_178)) {
             //常规格式，进行解析
             final ArrayList<String> res = new ArrayList<>();
-            final String[] split = value.split("\\|\\.a");
+            final String[] split = url.split("\\|\\.a");
             // 第一段地址（完整）
             final String first = split[0];
             res.add(first);
@@ -41,7 +45,7 @@ public class UserAvatarDeserializer extends JsonDeserializer<List<String>> {
 
         } else {
             // 无法解析，直接返回
-            return new ArrayList<>(Collections.singletonList(value));
+            return new ArrayList<>(Collections.singletonList(url));
         }
     }
 }

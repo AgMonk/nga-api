@@ -5,8 +5,6 @@ import com.gin.nga.client.NgaClient;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 /**
@@ -21,8 +19,6 @@ public class Test {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
         final NgaClient client = new NgaClient(cookie);
 
-//        JacksonUtils.printPretty(NukeApi.followStatus(client, 1).sync());
-        String s = "Sat, 12 Aug 2023 03:37:11 GMT";
-        System.out.println(ZonedDateTime.parse(s, DateTimeFormatter.RFC_1123_DATE_TIME));
+        String url = "http://img.nga.178.com/avatars/2002/558/963/003/60175704_0.jpg?9%7C.a/60175704_1.jpg?26";
     }
 }
