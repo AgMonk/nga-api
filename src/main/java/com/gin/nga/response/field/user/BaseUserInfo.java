@@ -73,7 +73,7 @@ public class BaseUserInfo extends SimpleUserInfo {
      * 发帖数量
      */
     @JsonAlias({"posts","postnum"})
-    Long postCount;
+    Integer postCount;
     /**
      * 威望
      */
