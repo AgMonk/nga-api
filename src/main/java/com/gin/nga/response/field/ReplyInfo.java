@@ -395,12 +395,12 @@ public class ReplyInfo extends ReplySimple {
         this.fromClient = FromClient.findByValue(params.get(12));
 
         // 礼物
-        final String gift = params.get(15);
+        final String gift = params.get(15).replace(",",SP);
         if (!"0".equals(gift)) {
             this.gifts = new ArrayList<>();
             final String[] a = gift.split(SP);
             for (int i = 0; i < a.length; i += 2) {
-                gifts.add(new Gift(Integer.parseInt(a[0]), Integer.parseInt(a[1])));
+                gifts.add(new Gift(Integer.parseInt(a[i]), Integer.parseInt(a[i+1])));
             }
         }
 
