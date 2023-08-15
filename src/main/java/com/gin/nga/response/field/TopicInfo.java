@@ -16,13 +16,14 @@ import java.util.Map;
 
 /**
  * 主题信息
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/12 11:27
  */
 @Getter
 @Setter
-public class TopicInfo extends TopicInfoSimple{
+public class TopicInfo extends TopicInfoSimple {
     /**
      * 回复(出现在收藏和搜索用户回复接口)
      */
@@ -107,10 +108,11 @@ public class TopicInfo extends TopicInfoSimple{
 
     /**
      * 作者匿名
+     *
      * @param authorName 作者用户名
      */
     public void setAuthorName(String authorName) {
-        if (authorName != null && authorName.startsWith("#anony")) {
+        if (authorName != null && authorName.startsWith(AnonymousUtils.ANONYMOUS_PREFIX)) {
             this.authorName = AnonymousUtils.getAnonymousName(authorName);
         } else {
             this.authorName = authorName;
@@ -118,26 +120,25 @@ public class TopicInfo extends TopicInfoSimple{
     }
 
 
-
     public Long getForumId() {
         final EntranceType type = getEntranceType();
-        if (type== EntranceType.FORUM) {
+        if (type == EntranceType.FORUM) {
             final Serializable s = this.topicMiscVar.get(3L);
-            if (s!=null) {
+            if (s != null) {
                 return Long.valueOf(s.toString());
             }
         }
         return forumId;
     }
 
-    public EntranceType getEntranceType(){
+    public EntranceType getEntranceType() {
         final Integer flag = 32;
         final List<ReplyStatus> status = this.getStatus();
-        if (status!=null && status.contains(ReplyStatus.IS_SET)) {
+        if (status != null && status.contains(ReplyStatus.IS_SET)) {
             return EntranceType.COL;
-        }else if (this.topicMiscVar!=null && flag.equals(this.topicMiscVar.get(1L))){
-            return  EntranceType.FORUM;
-        }else{
+        } else if (this.topicMiscVar != null && flag.equals(this.topicMiscVar.get(1L))) {
+            return EntranceType.FORUM;
+        } else {
             return EntranceType.TOPIC;
         }
     }
