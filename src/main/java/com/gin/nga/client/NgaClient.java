@@ -5,6 +5,7 @@ import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.call.NgaDocCall;
 import com.gin.nga.call.NgaJsonCall;
 import com.gin.nga.call.NgaUploadCall;
+import com.gin.nga.callback.AbstractRedirectCallback;
 import com.gin.nga.enums.NgaDomain;
 import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.exception.IllegalCookieException;
@@ -336,6 +337,18 @@ public class NgaClient {
             }
         }
         return null;
+    }
+
+    /**
+     * 请求一个回复Id的具体地址,使用to参数获取重定向地址
+     *
+     * @param replyId 回复id
+     * @return 具体地址
+     */
+    public void toReply(long replyId, AbstractRedirectCallback callback) {
+        final HttpUrl httpUrl = HttpUrl.parse(ngaDomain.domain + NgaPhpApi.read.path + "?to=1&pid=" + replyId);
+        final Request request = getRequest(httpUrl, null);
+        this.client.newCall(request).enqueue(callback);
     }
 
     /**
