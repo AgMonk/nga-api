@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
+import java.util.LinkedHashMap;
 
 /**
  * read.php接口返回的用户信息
@@ -43,4 +44,9 @@ public class UserInfoRead extends BaseUserInfo {
     @JsonAlias("thisvisit")
     @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime latestVisit;
+    /**
+     * 备注
+     */
+    @JsonAlias("remark")
+    LinkedHashMap<Integer,UserRemarkRead> remarks;
 }

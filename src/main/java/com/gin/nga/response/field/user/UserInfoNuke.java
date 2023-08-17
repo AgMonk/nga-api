@@ -104,7 +104,7 @@ public class UserInfoNuke extends BaseUserInfo {
      * 备注
      */
     @JsonAlias("remark")
-    String remark;
+    LinkedHashMap<Integer,UserRemarkNuke> remarks;
     /**
      * 个人版名称
      */
