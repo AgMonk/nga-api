@@ -3,12 +3,14 @@ package com.gin.nga.response.field.user;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gin.nga.deserializer.UserForumDeserializer;
+import com.gin.nga.deserializer.UserRemarkNukeDeserializer;
 import com.gin.nga.enums.UserMoreInfoType;
 import com.gin.nga.response.field.Reputation;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * nuke.php接口返回的用户详细信息
@@ -104,7 +106,8 @@ public class UserInfoNuke extends BaseUserInfo {
      * 备注
      */
     @JsonAlias("remark")
-    LinkedHashMap<Integer,UserRemarkNuke> remarks;
+    @JsonDeserialize(using = UserRemarkNukeDeserializer.class)
+    List<UserRemarkNuke> remarks;
     /**
      * 个人版名称
      */
