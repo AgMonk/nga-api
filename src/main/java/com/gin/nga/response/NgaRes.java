@@ -79,11 +79,11 @@ public class NgaRes<T> {
             // 错误的结束符号
             throw exception;
         } catch (JsonMappingException e) {
-            if (e.getCause() instanceof JsonEOFException) {
+//            if (e.getCause() instanceof JsonEOFException) {
                 // 错误的结束符号
                 throw exception;
-            }
-            throw e;
+//            }
+//            throw e;
         }
     }
 
