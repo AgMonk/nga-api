@@ -60,6 +60,7 @@ public class NgaClient {
     /**
      * 请求的域名
      */
+    @Getter
     final NgaDomain ngaDomain;
     /**
      * cookie

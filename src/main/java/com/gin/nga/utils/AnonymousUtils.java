@@ -32,4 +32,14 @@ public class AnonymousUtils {
         }
         return sb.toString();
     }
+
+    /**
+     * 判断一个用户id是否为匿名用户
+     *
+     * @param userId 用户id
+     * @return 是否为匿名
+     */
+    public static boolean isAnonymous(String userId){
+        return userId!=null && userId.startsWith(ANONYMOUS_PREFIX);
+    }
 }   
