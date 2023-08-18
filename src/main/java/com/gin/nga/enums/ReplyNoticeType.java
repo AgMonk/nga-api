@@ -30,8 +30,8 @@ public enum ReplyNoticeType {
     gift("送礼物", 15),
 
     ;
-    @JsonValue
     public final String name;
+    @JsonValue
     public final int id;
 
     @JsonCreator

@@ -1,8 +1,6 @@
 package com.gin.nga.response.field.notice;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.jackson.serializer.ZdtJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,10 +19,9 @@ public class BaseNotice {
      * 回复时间
      */
     @JsonAlias("9")
-    @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime timestamp;
     /**
      * 是否已读, 不存在字段，提供给用户自行修改
      */
     boolean read = false;
-}   
+}

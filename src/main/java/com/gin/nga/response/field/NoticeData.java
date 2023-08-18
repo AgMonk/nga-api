@@ -1,8 +1,6 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.response.field.notice.MessageNotice;
 import com.gin.nga.response.field.notice.RecommendNotice;
 import com.gin.nga.response.field.notice.ReplyNotice;
@@ -14,6 +12,7 @@ import java.util.List;
 
 /**
  * 提醒消息body
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/18 09:24
@@ -31,6 +30,5 @@ public class NoticeData {
      * 获得时间
      */
     @JsonAlias("lasttime")
-    @JsonSerialize(using = ZdtJsonSerializer.class)
     ZonedDateTime timestamp;
 }
