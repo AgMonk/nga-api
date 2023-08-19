@@ -2,6 +2,7 @@ package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.gin.jackson.utils.ObjectUtils;
+import com.gin.nga.response.field.notice.BaseNotice;
 import com.gin.nga.response.field.notice.MessageNotice;
 import com.gin.nga.response.field.notice.RecommendNotice;
 import com.gin.nga.response.field.notice.ReplyNotice;
@@ -10,6 +11,7 @@ import lombok.Setter;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,14 +36,10 @@ public class NoticeData {
     @JsonAlias("lasttime")
     ZonedDateTime timestamp;
 
-    long time;
-
-    public void setTimestamp(ZonedDateTime timestamp) {
-        this.timestamp = timestamp;
-        if (timestamp != null) {
-            time = timestamp.toEpochSecond();
-        }
-    }
+    /**
+     * 下一次执行请求带的time参数
+     */
+    long nextTime;
 
     /**
      * 统计未读数量
@@ -50,13 +48,13 @@ public class NoticeData {
     public long countUnread(){
         long count = 0;
         if (!ObjectUtils.isEmpty(replyNotices)) {
-            count += replyNotices.stream().filter(i->!i.isRead()).count();
+            count += BaseNotice.countUnread(replyNotices);
         }
         if (!ObjectUtils.isEmpty(msgNotices)) {
-            count += msgNotices.stream().filter(i->!i.isRead()).count();
+            count += BaseNotice.countUnread(msgNotices);
         }
         if (!ObjectUtils.isEmpty(recommendNotices)) {
-            count += recommendNotices.stream().filter(i->!i.isRead()).count();
+            count += BaseNotice.countUnread(recommendNotices);
         }
         return count;
     }
@@ -66,7 +64,6 @@ public class NoticeData {
      * @param newData 新数据
      */
     public void merge(NoticeData newData){
-        setTimestamp(newData.getTimestamp());
         if (!ObjectUtils.isEmpty(newData.getReplyNotices())){
             this.replyNotices = this.replyNotices==null?new ArrayList<>():this.replyNotices;
             this.replyNotices.addAll(newData.getReplyNotices());
@@ -79,5 +76,13 @@ public class NoticeData {
             this.recommendNotices = this.recommendNotices==null?new ArrayList<>():this.recommendNotices;
             this.recommendNotices.addAll(newData.getRecommendNotices());
         }
+
+        final long t0 = this.replyNotices.stream().mapToLong(i -> i.getTimestamp().toEpochSecond()).max().orElse(0);
+        final long t1 = this.msgNotices.stream().mapToLong(i -> i.getTimestamp().toEpochSecond()).max().orElse(0);
+        final long t2 = this.recommendNotices.stream().mapToLong(i -> i.getTimestamp().toEpochSecond()).max().orElse(0);
+        final long t3 = timestamp!=null?timestamp.toEpochSecond():0;
+
+        final long[] longs = {t0, t1, t2, t3};
+        this.nextTime = Arrays.stream(longs).max().getAsLong();
     }
 }

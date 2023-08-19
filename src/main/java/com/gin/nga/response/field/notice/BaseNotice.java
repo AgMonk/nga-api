@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
+import java.util.Collection;
 
 /**
  * 提醒消息的公共字段
@@ -24,4 +25,12 @@ public class BaseNotice {
      * 是否已读, 不存在字段，提供给用户自行修改
      */
     boolean read = false;
+
+
+    public static long countUnread(Collection<? extends BaseNotice> collection){
+        if (collection==null || collection.isEmpty()) {
+            return 0;
+        }
+        return collection.stream().filter(i->!i.isRead()).count();
+    }
 }
