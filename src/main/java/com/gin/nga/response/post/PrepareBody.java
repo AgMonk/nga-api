@@ -117,6 +117,11 @@ public class PrepareBody {
      */
     @JsonAlias("__F")
     Forum forum;
+    /**
+     * 消耗说明
+     */
+    @JsonAlias("cost_info")
+    String costInfo;
 
     public void setContent(String content) {
         this.content = StrUtils.decode(content);
