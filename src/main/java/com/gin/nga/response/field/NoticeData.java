@@ -44,6 +44,24 @@ public class NoticeData {
     }
 
     /**
+     * 统计未读数量
+     * @return 未读数量
+     */
+    public long countUnread(){
+        long count = 0;
+        if (!ObjectUtils.isEmpty(replyNotices)) {
+            count += replyNotices.stream().filter(i->!i.isRead()).count();
+        }
+        if (!ObjectUtils.isEmpty(msgNotices)) {
+            count += msgNotices.stream().filter(i->!i.isRead()).count();
+        }
+        if (!ObjectUtils.isEmpty(recommendNotices)) {
+            count += recommendNotices.stream().filter(i->!i.isRead()).count();
+        }
+        return count;
+    }
+
+    /**
      * 合并数据
      * @param newData 新数据
      */
