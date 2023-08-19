@@ -22,8 +22,8 @@ public enum MessageNoticeType {
      */
     replied("回复对话",11),
     ;
-    @JsonValue
     final String name;
+    @JsonValue
     final Integer id;
 
     @JsonCreator

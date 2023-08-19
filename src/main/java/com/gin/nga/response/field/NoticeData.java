@@ -1,6 +1,7 @@
 package com.gin.nga.response.field;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.jackson.utils.ObjectUtils;
 import com.gin.nga.response.field.notice.MessageNotice;
 import com.gin.nga.response.field.notice.RecommendNotice;
 import com.gin.nga.response.field.notice.ReplyNotice;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,4 +33,33 @@ public class NoticeData {
      */
     @JsonAlias("lasttime")
     ZonedDateTime timestamp;
+
+    long time;
+
+    public void setTimestamp(ZonedDateTime timestamp) {
+        this.timestamp = timestamp;
+        if (timestamp != null) {
+            time = timestamp.toEpochSecond();
+        }
+    }
+
+    /**
+     * 合并数据
+     * @param newData 新数据
+     */
+    public void merge(NoticeData newData){
+        setTimestamp(newData.getTimestamp());
+        if (!ObjectUtils.isEmpty(newData.getReplyNotices())){
+            this.replyNotices = this.replyNotices==null?new ArrayList<>():this.replyNotices;
+            this.replyNotices.addAll(newData.getReplyNotices());
+        }
+        if (!ObjectUtils.isEmpty(newData.getMsgNotices())){
+            this.msgNotices = this.msgNotices==null?new ArrayList<>():this.msgNotices;
+            this.msgNotices.addAll(newData.getMsgNotices());
+        }
+        if (!ObjectUtils.isEmpty(newData.getRecommendNotices())){
+            this.recommendNotices = this.recommendNotices==null?new ArrayList<>():this.recommendNotices;
+            this.recommendNotices.addAll(newData.getRecommendNotices());
+        }
+    }
 }
