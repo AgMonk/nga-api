@@ -1,7 +1,7 @@
 package com.gin.nga.params.nuke.notice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gin.nga.params.nuke.base.NukeFuncParam;
+import com.gin.nga.params.nuke.base.NukeBaseParam;
 import lombok.Getter;
 
 /**
@@ -11,7 +11,7 @@ import lombok.Getter;
  * @since : 2023/4/19 14:10
  */
 @Getter
-public class NoticeEnableParam extends NukeFuncParam {
+public class NoticeEnableParam extends NukeBaseParam {
     @JsonProperty("no_hint")
     private final int noHint;
     /**
@@ -30,7 +30,7 @@ public class NoticeEnableParam extends NukeFuncParam {
      * @param enable 是否开启提醒
      */
     public NoticeEnableParam(long topicId, long replyId, boolean enable) {
-        super("noti_tag");
+        super("noti","set_post_tag");
         this.noHint = enable ? 0 : 1;
         this.replyId = replyId;
         this.topicId = topicId;
