@@ -96,4 +96,12 @@ public class NoticeData {
         this.msgNotices =  new ArrayList<>();
         this.recommendNotices =  new ArrayList<>();
     }
+    /**
+     * 全部已读
+     */
+    public void readAll(){
+        BaseNotice.readAll(replyNotices);
+        BaseNotice.readAll(msgNotices);
+        BaseNotice.readAll(recommendNotices);
+    }
 }

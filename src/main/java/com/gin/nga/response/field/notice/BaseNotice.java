@@ -1,11 +1,13 @@
 package com.gin.nga.response.field.notice;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.jackson.utils.ObjectUtils;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 提醒消息的公共字段
@@ -32,5 +34,11 @@ public class BaseNotice {
             return 0;
         }
         return collection.stream().filter(i->!i.isRead()).count();
+    }
+
+    public static void readAll(List<? extends BaseNotice> list){
+        if (!ObjectUtils.isEmpty(list)) {
+            list.forEach(i->i.setRead(true));
+        }
     }
 }
