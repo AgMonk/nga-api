@@ -91,17 +91,26 @@ public class NoticeData {
     /**
      * 清空数据
      */
-    public void clear(){
-        this.replyNotices =  new ArrayList<>();
-        this.msgNotices =  new ArrayList<>();
-        this.recommendNotices =  new ArrayList<>();
+    public void clear() {
+        this.replyNotices = new ArrayList<>();
+        this.msgNotices = new ArrayList<>();
+        this.recommendNotices = new ArrayList<>();
     }
+
     /**
      * 全部已读
      */
-    public void readAll(){
+    public void readAll() {
         BaseNotice.readAll(replyNotices);
         BaseNotice.readAll(msgNotices);
         BaseNotice.readAll(recommendNotices);
+    }
+
+    public int count() {
+        return count(recommendNotices) + count(msgNotices) + count(replyNotices);
+    }
+
+    private static int count(List<?> list) {
+        return list == null ? 0 : list.size();
     }
 }
