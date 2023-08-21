@@ -43,9 +43,10 @@ public class NoticeData {
 
     /**
      * 统计未读数量
+     *
      * @return 未读数量
      */
-    public long countUnread(){
+    public long countUnread() {
         long count = 0;
         if (!ObjectUtils.isEmpty(replyNotices)) {
             count += BaseNotice.countUnread(replyNotices);
@@ -61,28 +62,38 @@ public class NoticeData {
 
     /**
      * 合并数据
+     *
      * @param newData 新数据
      */
-    public void merge(NoticeData newData){
-        if (!ObjectUtils.isEmpty(newData.getReplyNotices())){
-            this.replyNotices = this.replyNotices==null?new ArrayList<>():this.replyNotices;
+    public void merge(NoticeData newData) {
+        this.replyNotices = this.replyNotices == null ? new ArrayList<>() : this.replyNotices;
+        this.msgNotices = this.msgNotices == null ? new ArrayList<>() : this.msgNotices;
+        this.recommendNotices = this.recommendNotices == null ? new ArrayList<>() : this.recommendNotices;
+        if (!ObjectUtils.isEmpty(newData.getReplyNotices())) {
             this.replyNotices.addAll(newData.getReplyNotices());
         }
-        if (!ObjectUtils.isEmpty(newData.getMsgNotices())){
-            this.msgNotices = this.msgNotices==null?new ArrayList<>():this.msgNotices;
+        if (!ObjectUtils.isEmpty(newData.getMsgNotices())) {
             this.msgNotices.addAll(newData.getMsgNotices());
         }
-        if (!ObjectUtils.isEmpty(newData.getRecommendNotices())){
-            this.recommendNotices = this.recommendNotices==null?new ArrayList<>():this.recommendNotices;
+        if (!ObjectUtils.isEmpty(newData.getRecommendNotices())) {
             this.recommendNotices.addAll(newData.getRecommendNotices());
         }
 
         final long t0 = this.replyNotices.stream().mapToLong(i -> i.getTimestamp().toEpochSecond()).max().orElse(0);
         final long t1 = this.msgNotices.stream().mapToLong(i -> i.getTimestamp().toEpochSecond()).max().orElse(0);
         final long t2 = this.recommendNotices.stream().mapToLong(i -> i.getTimestamp().toEpochSecond()).max().orElse(0);
-        final long t3 = timestamp!=null?timestamp.toEpochSecond():0;
+        final long t3 = timestamp != null ? timestamp.toEpochSecond() : 0;
 
         final long[] longs = {t0, t1, t2, t3};
         this.nextTime = Arrays.stream(longs).max().getAsLong();
+    }
+
+    /**
+     * 清空数据
+     */
+    public void clear(){
+        this.replyNotices =  new ArrayList<>();
+        this.msgNotices =  new ArrayList<>();
+        this.recommendNotices =  new ArrayList<>();
     }
 }
