@@ -90,6 +90,15 @@ public class BaseUserInfo extends SimpleUserInfo {
     @JsonAlias("yz")
     AccountStatus accountStatus;
 
+
+    public void setMedalIds(List<Integer> medalIds) {
+        if (medalIds==null) {
+            this.medalIds = null;
+            return;
+        }
+        this.medalIds = medalIds.stream().filter(i->i!=0).collect(Collectors.toList());
+    }
+
     public List<BbsTag> getSignatureNodes() {
         return signature == null ? null : BbsTagParser.parseContent(signature);
     }

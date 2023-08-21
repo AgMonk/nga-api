@@ -8,8 +8,11 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Map;
 
+import static com.gin.common.utils.StrUtils.isNumber;
+
 /**
  * 徽章
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/13 16:45
@@ -50,11 +53,12 @@ public class Medal {
     }
 
     public Integer getId() {
-        if (id!=null){
+        if (id != null) {
             return id;
         }
-        if (filename!=null){
-            return Integer.parseInt(filename.substring(0,filename.indexOf(".")));
+        if (filename != null) {
+            final String s = filename.substring(0, filename.indexOf("."));
+            return isNumber(s) ? Integer.parseInt(s) : null;
         }
         return null;
     }

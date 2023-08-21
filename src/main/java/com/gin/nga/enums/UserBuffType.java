@@ -40,11 +40,10 @@ public enum UserBuffType {
     DISABLE_BUFF("禁制", "其他人无法对此用户使用道具 此用户也无法对其他人使用道具", 101),
     AVATAR_CHANGED("头像改变", "具体变成什么需要看额外数据字段", 131),
 
-    UNKNOWN("未知", null, null),
     ;
     public final String name;
     public final String description;
-    public Integer id;
+    public final Integer id;
 
     @JsonCreator
     public static UserBuffType findById(int id) {
@@ -53,7 +52,6 @@ public enum UserBuffType {
                 return type;
             }
         }
-        UNKNOWN.id = id;
-        return UNKNOWN;
+        return null;
     }
 }
