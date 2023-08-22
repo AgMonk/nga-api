@@ -19,6 +19,7 @@ public class Test {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
         final NgaClient client = new NgaClient(cookie);
 
-        String url = "http://img.nga.178.com/avatars/2002/558/963/003/60175704_0.jpg?9%7C.a/60175704_1.jpg?26";
+
+        System.out.println(NgaClient.decodeUsername("%D2%F8%D6%AE%CA%AF"));
     }
 }

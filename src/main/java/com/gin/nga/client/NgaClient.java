@@ -45,14 +45,17 @@ public class NgaClient {
      * 从cookie中解析uid的正则表达式
      */
     private static final Pattern UID_PATTERN = Pattern.compile("ngaPassportUid=(\\d+);");
+    private static final Pattern UID_PATTERN_2 = Pattern.compile("ngaPassportUid=(\\d+)$");
     /**
      * 从cookie中解析用户名的正则表达式
      */
     private static final Pattern USERNAME_PATTERN = Pattern.compile("ngaPassportUrlencodedUname=(.+?);");
+    private static final Pattern USERNAME_PATTERN_2 = Pattern.compile("ngaPassportUrlencodedUname=(.+?)$");
     /**
      * 从cookie中解析令牌的正则表达式
      */
     private static final Pattern CID_PATTERN = Pattern.compile("ngaPassportCid=(.+?);");
+    private static final Pattern CID_PATTERN_2 = Pattern.compile("ngaPassportCid=(.+?)$");
     /**
      * 客户端
      */
@@ -105,43 +108,13 @@ public class NgaClient {
                 .followRedirects(false).build();
         this.ngaDomain = ngaDomain != null ? ngaDomain : NgaDomain.cn;
 
-        final IllegalCookieException e = new IllegalCookieException();
-
-        // 解析UID
-        {
-            final Matcher matcher = UID_PATTERN.matcher(cookie);
-            if (matcher.find()) {
-                this.userId = Long.parseLong(matcher.group(1));
-            } else {
-                throw e;
-            }
+        if (!isCookieLegal(cookie)){
+            throw new IllegalCookieException();
         }
-        // 解析用户名
-        {
-            final Matcher matcher = USERNAME_PATTERN.matcher(cookie);
-            if (matcher.find()) {
-                this.urlencodedUname = matcher.group(1);
-                // gbk解码
-                try {
-                    this.username = URLDecoder.decode(matcher.group(1),"GB18030");
-                } catch (UnsupportedEncodingException ex) {
-                    throw new RuntimeException(ex);
-                }
-            } else {
-                throw e;
-            }
-        }
-
-        //解析令牌
-        {
-            final Matcher matcher = CID_PATTERN.matcher(cookie);
-            if (matcher.find()) {
-                // gbk解码
-                this.cid = matcher.group(1);
-            } else {
-                throw e;
-            }
-        }
+        this.userId = Long.parseLong(parseUserId(cookie));
+        this.urlencodedUname = parseUsername(cookie);
+        this.username = decodeUsername(this.urlencodedUname);
+        this.cid = parseCid(cookie);
 
         this.cookie = String.format("ngaPassportUid=%d; ngaPassportUrlencodedUname=%s; ngaPassportCid=%s; ",
                 this.userId,
@@ -396,5 +369,55 @@ public class NgaClient {
             return builder.post(body).build();
         }
         return builder.get().build();
+    }
+
+    /**
+     * 判断cookie是否合法
+     *
+     * @param cookie cookie
+     * @return 是否合法
+     */
+    public static boolean isCookieLegal(String cookie) {
+        return parseUserId(cookie) != null && parseUsername(cookie) != null && parseCid(cookie) != null;
+    }
+
+
+    public static String parseUserId(String cookie) {
+        return parseCookie(cookie, UID_PATTERN, UID_PATTERN_2);
+    }
+
+    public static String parseUsername(String cookie) {
+        return parseCookie(cookie, USERNAME_PATTERN, USERNAME_PATTERN_2);
+    }
+
+    public static String parseCid(String cookie) {
+        return parseCookie(cookie, CID_PATTERN, CID_PATTERN_2);
+    }
+
+
+    /**
+     * 尝试用不同的正则解析cookie中的数据
+     *
+     * @param cookie   cookie
+     * @param patterns 正则表达式
+     * @return 数据
+     */
+    private static String parseCookie(String cookie, Pattern... patterns) {
+        for (Pattern pattern : patterns) {
+            final Matcher matcher = pattern.matcher(cookie);
+            if (matcher.find()) {
+                return matcher.group(1);
+            }
+        }
+        return null;
+    }
+
+    public static String decodeUsername(String s){
+        try {
+            return URLDecoder.decode(s, "GB18030");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
