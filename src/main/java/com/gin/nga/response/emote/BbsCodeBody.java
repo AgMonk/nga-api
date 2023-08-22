@@ -113,7 +113,10 @@ public class BbsCodeBody {
                 final String s = line
                         .replaceAll("//.+", "")
                         .replaceAll("^(\\w+?):", "\"$1\":")
-                        .replace("'", "\"");
+                        .replace("'", "\"")
+                        .replace("\t", "")
+                        .replace("|", "")
+                        ;
                 if (!ObjectUtils.isEmpty(s)) {
                     builder.append(s);
                 }
