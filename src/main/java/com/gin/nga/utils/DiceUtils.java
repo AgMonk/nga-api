@@ -99,7 +99,7 @@ public class DiceUtils {
             return seed;
         }
         // 总算式
-        final String text = dice.getChildren().get(0).getRaw();
+        final String text = dice.getChildren().get(0).getText();
         // 总结果
         long sum = 0;
         final List<String> resultText = new ArrayList<>();
@@ -107,7 +107,7 @@ public class DiceUtils {
         for (String t : text.split("\\+")) {
             final Matcher matcher = PATTERN.matcher(t);
             if (matcher.find()) {
-                int count = Integer.parseInt(matcher.group(1) != null ? matcher.group(1) : "1");
+                int count = Integer.parseInt(!"".equals(matcher.group(1))? matcher.group(1) : "1");
                 int range = Integer.parseInt(matcher.group(2));
                 for (int i = 0; i < count; i++) {
                     // 计算一次
@@ -115,7 +115,7 @@ public class DiceUtils {
                     seed = res.getSeed();
                     int r = (int) (res.getResult() * range + 1);
                     sum += r;
-                    resultText.add(String.format("%s(%d)", t, r));
+                    resultText.add(String.format("%s(%d)", "d"+range, r));
                 }
             } else if (StrUtils.isNumber(t)) {
                 // 是纯数字
