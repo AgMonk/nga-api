@@ -1,6 +1,7 @@
 package com.gin.nga.response.field;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -11,10 +12,12 @@ import lombok.Setter;
  * @since : 2023/6/28 14:39
  */
 @Getter
+@Setter
+@NoArgsConstructor
 public class AvatarBuff {
-    final int id;
-    final String filename;
-    final String url;
+    int id;
+    String filename;
+    String url;
     @Setter
     String suffix;
 

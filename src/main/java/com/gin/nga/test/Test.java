@@ -3,14 +3,12 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ReadApi;
-import com.gin.nga.params.read.ReadTopicParam;
-import com.gin.nga.response.body.ReadBody;
-import com.gin.nga.response.field.ReplyInfo;
+import com.gin.nga.method.ResourceApi;
+import com.gin.nga.response.CommonUiData;
+import okhttp3.OkHttpClient;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.regex.Pattern;
 
 /**
@@ -27,9 +25,8 @@ public class Test {
         final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
         final NgaClient client = new NgaClient(cookie);
 
-        String url = "https://bbs.nga.cn/read.php?tid=36451114";
-        final ReadBody readBody = ReadApi.readTopic(client, new ReadTopicParam(36451114, 1)).sync();
-        final Collection<ReplyInfo> values = readBody.getReplies().values();
-        JacksonUtils.printPretty(values);
+        final CommonUiData commonUiData = ResourceApi.commonUi(new OkHttpClient()).sync();
+
+        JacksonUtils.printPretty(commonUiData);
     }
 }
