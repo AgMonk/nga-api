@@ -129,7 +129,7 @@ public class DiceUtils {
 
         final String result = String.join(" + ", resultText);
         // 添加分组计算结果
-        dice.getChildren().add(new BbsTag(TagName.text, " = " + result + " = " + sum));
+        dice.getChildren().add(BbsTag.text(" = " + result + " = " + sum));
         return seed;
     }
 
