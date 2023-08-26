@@ -19,6 +19,7 @@ public abstract class AbstractRedirectCallback implements Callback {
     public final void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         if (response.code()==302) {
             onRedirect(response.header("Location"));
+            response.close();
         }
     }
     /**
