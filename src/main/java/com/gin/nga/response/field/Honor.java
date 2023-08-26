@@ -12,6 +12,8 @@ import org.apache.commons.text.StringEscapeUtils;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 
+import static com.gin.common.utils.StrUtils.isNumber;
+
 /**
  * 荣誉称号
  *
@@ -50,9 +52,13 @@ public class Honor {
         }
         final String[] split = s.split(blank);
 
-        long time = Long.parseLong(split[0]);
-        this.timestamp = ZonedDateTime.ofInstant(Instant.ofEpochSecond(time), TimeUtils.CHINESE_ZONE_ID);
-        this.remark = StringEscapeUtils.unescapeHtml4(split[1]);
-        this.name = split.length > 2 ? split[2] : null;
+        if (isNumber(split[0])) {
+            long time = Long.parseLong(split[0]);
+            this.timestamp = ZonedDateTime.ofInstant(Instant.ofEpochSecond(time), TimeUtils.CHINESE_ZONE_ID);
+            this.remark = StringEscapeUtils.unescapeHtml4(split[1]);
+            this.name = split.length > 2 ? split[2] : null;
+        }else{
+            this.name = s;
+        }
     }
 }
