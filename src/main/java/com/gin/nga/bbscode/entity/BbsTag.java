@@ -64,7 +64,10 @@ public class BbsTag {
         final Pattern pattern = name.getParsePattern();
         final Matcher matcher = pattern.matcher(code);
         if (matcher.find()) {
-            final String paramString = matcher.group(1).replace("=", "");
+             String paramString = matcher.group(1);
+            if (paramString.startsWith("=")) {
+                paramString = paramString.substring(1);
+            }
             final String innerCode = matcher.group(2);
             params = ObjectUtils.isEmpty(paramString) ? null : paramString;
 
