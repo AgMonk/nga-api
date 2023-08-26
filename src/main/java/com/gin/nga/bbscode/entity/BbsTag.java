@@ -68,6 +68,9 @@ public class BbsTag {
             if (paramString.startsWith("=")) {
                 paramString = paramString.substring(1);
             }
+            if (name==TagName.td){
+                paramString = paramString.replace("=","");
+            }
             final String innerCode = matcher.group(2);
             params = ObjectUtils.isEmpty(paramString) ? null : paramString;
 
