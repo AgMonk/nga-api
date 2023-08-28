@@ -110,7 +110,6 @@ public abstract class AbstractCallback<T> implements Callback {
 
                 ;
         // todo 删除
-//        System.out.println(s);
         return s;
     }
 }

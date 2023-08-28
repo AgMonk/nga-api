@@ -37,7 +37,6 @@ public class LoggingInterceptor implements Interceptor {
                 request.url(),
                 chain.connection()
         );
-//        System.out.println(request.headers());
 
         Response response = chain.proceed(request);
 
@@ -50,7 +49,6 @@ public class LoggingInterceptor implements Interceptor {
                 response.request().url(),
                 (endTime - startTime) / 1e6d
         );
-//        System.out.println(response.headers());
         if (response.code() / 100 == 3) {
             System.out.printf("[%s] [%s] location: %s\n", TAG, getTimeString(), response.header("location"));
         }

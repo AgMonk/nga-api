@@ -181,7 +181,6 @@ public class ReplyInfo extends ReplySimple {
             final Element comment = comments.get(i);
             final ReplyInfo replyInfo = new ReplyInfo();
             res.put(i, replyInfo);
-//            System.out.println("comment = " + comment);
             final Element a = comment.select(".posterinfo > a").first();
             if (a != null) {
                 // 作者uid
@@ -349,7 +348,6 @@ public class ReplyInfo extends ReplySimple {
         // 赞数 script已填写
         // 回复id script已填写
         // 类型 script已填写
-//        System.out.println(rootString);
     }
 
     /**
@@ -370,7 +368,6 @@ public class ReplyInfo extends ReplySimple {
                     return i.replace("'", "").trim();
                 })
                 .collect(Collectors.toList());
-//        System.out.println("params = " + params);
 
         // 楼层
         this.floorNumber = Integer.valueOf(params.get(0));

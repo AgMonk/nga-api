@@ -69,7 +69,6 @@ public class BbsTagParser {
     public static List<BbsTag> parseCode(String code) {
      //        todo
         final ArrayList<BbsTag> res = new ArrayList<>();
-//        todo 逐个字符检查是否遇到了可识别的bbsCode
         int i = 0;
         while (i < code.length()) {
             //            如果当前位置不是 [ , 继续搜索
@@ -97,8 +96,10 @@ public class BbsTagParser {
                     // 截断原代码段
                     code = suffixCode.substring(subCode.length());
                     i = 0;
+                }else{
+                    System.err.println("[nga-api] bbsCode 匹配失败 = " + suffixCode);
+                    i++;
                 }
-
             } else {
                 i++;
             }
@@ -128,11 +129,16 @@ public class BbsTagParser {
             // 尝试截取的片段
             final int endIndex = suffixCode.indexOf(end, i) + end.length();
             final String s = suffixCode.substring(0, endIndex);
-//            如果截取范围内标签的起止标记数量相同，认为匹配
+            // 如果截取范围内标签的起止标记数量相同，匹配成功
             if (StringUtils.countMatches(s, start) == StringUtils.countMatches(s, end)) {
                 return s;
             }
-            i = endIndex;
+            // 记录上次匹配失败的位置
+            if (i<endIndex){
+                i = endIndex;
+            }else{
+                return null;
+            }
         }
         return null;
     }
