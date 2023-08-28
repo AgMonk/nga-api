@@ -127,7 +127,7 @@ public class TopicInfo extends TopicInfoSimple {
      */
     public boolean isReplyOnce(){
         final boolean b1 = titleFont != null && titleFont.isReplyOnce();
-        final boolean b2 = topicMiscVar != null && String.valueOf(REPLY_ONCE).equals(topicMiscVar.get(1L).toString());
+        final boolean b2 = topicMiscVar != null && String.valueOf(REPLY_ONCE).equals(String.valueOf(topicMiscVar.get(1L)));
         return b1 || b2;
     }
     public Long getForumId() {
