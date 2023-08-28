@@ -3,9 +3,9 @@ package com.gin.nga.test;
 import com.gin.common.utils.FileIoUtils;
 import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
-import com.gin.nga.method.ResourceApi;
-import com.gin.nga.response.CommonUiData;
-import okhttp3.OkHttpClient;
+import com.gin.nga.method.ReadApi;
+import com.gin.nga.params.read.ReadTopicParam;
+import com.gin.nga.response.body.ReadBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,11 +22,25 @@ public class Test {
     public static final Pattern PATTERN = Pattern.compile("ubbcode\\.smiles = (.+?)//s");
 
     public static void main(String[] args) throws IOException {
-        final String cookie = FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt"));
-        final NgaClient client = new NgaClient(cookie);
+//        testTopic(37516420);
+        testTopic(37497982);
+    }
 
-        final CommonUiData commonUiData = ResourceApi.commonUi(new OkHttpClient()).sync();
+    private static void testTopic(long topicId){
+        try {
+            final ReadTopicParam param = new ReadTopicParam(topicId,1);
+            final ReadBody readBody = ReadApi.readTopic(getClient(), param).sync();
+            JacksonUtils.printPretty(readBody);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        JacksonUtils.printPretty(commonUiData);
+    private static NgaClient getClient(){
+        try {
+            return new NgaClient(FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
