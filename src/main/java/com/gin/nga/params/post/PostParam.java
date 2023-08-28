@@ -30,6 +30,10 @@ import java.util.stream.Collectors;
  */
 @Getter
 public class PostParam {
+    /**
+     * 单贴回复参数
+     */
+    public static final int REPLY_ONCE = 1073741824;
     public static final Pattern AT_BBS_CODE_PATTERN = Pattern.compile("\\[@(.+?)]");
 
     final int step = 2;
@@ -73,7 +77,10 @@ public class PostParam {
     @JsonProperty("mention")
     String mention;
 
-    public PostParam(String title, String content, boolean modifyAppend, Hidden hidden, boolean anony) {
+    @JsonProperty("tpic_misc_bit1")
+    Integer topicMiscBit;
+
+    public PostParam(String title, String content, boolean modifyAppend, Hidden hidden, boolean anony, boolean replyOnce) {
         content = ObjectUtils.isEmpty(content) ? "" : content;
 
         this.title = title;
@@ -81,6 +88,11 @@ public class PostParam {
         this.modifyAppend = modifyAppend;
         this.hidden = hidden;
         this.anony = anony;
+
+        //单帖回复(发布新主题时使用)
+        if (replyOnce){
+            topicMiscBit = REPLY_ONCE;
+        }
 
         // 处理 at 代码
         final Matcher matcher = AT_BBS_CODE_PATTERN.matcher(content);
@@ -100,7 +112,7 @@ public class PostParam {
      * @param content 正文
      */
     public PostParam(String title, String content) {
-        this(title, content, false, null, false);
+        this(title, content, false, null, false, false);
     }
 
     /**
@@ -109,7 +121,7 @@ public class PostParam {
      * @param content 正文
      */
     public PostParam(String content) {
-        this(null, content, false, null, false);
+        this(null, content, false, null, false, false);
     }
 
     /**

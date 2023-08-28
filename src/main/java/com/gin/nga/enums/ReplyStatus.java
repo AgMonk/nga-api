@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * 主题和回复的状态  <a href="https://img4.nga.178.com/common_res/js_postfunc_v2.js">参考</a>
+ *
+ * <a href="https://img4.nga.178.com/common_res/js_commonui.js">参考2</a>
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/15 17:31
@@ -86,6 +88,8 @@ public enum ReplyStatus {
      * 合并版面
      */
     UNION_HIDDEN(17, "合并版面", "是否不在合并版面中显示"),
+    SINGLE_REPLY(25, "未知25", "未知状态"),
+
     /**
      * 审核不通过
      */
@@ -93,13 +97,12 @@ public enum ReplyStatus {
     /**
      * 未知
      */
-    UNKNOWN(27, "未知", "未知状态"),
+    UNKNOWN(27, "未知27", "未知状态"),
     ;
     @JsonIgnore
     public final int position;
     public final String name;
     public final String description;
-
     /**
      * 从 type 字段解析状态列表
      * @param type type字段

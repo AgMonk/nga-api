@@ -14,6 +14,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
+import static com.gin.nga.params.post.PostParam.REPLY_ONCE;
+
 /**
  * 主题信息
  *
@@ -119,7 +121,15 @@ public class TopicInfo extends TopicInfoSimple {
         }
     }
 
-
+    /**
+     * 主题是否为单帖回复
+     * @return 是否为单帖回复
+     */
+    public boolean isReplyOnce(){
+        final boolean b1 = titleFont != null && titleFont.isReplyOnce();
+        final boolean b2 = topicMiscVar != null && String.valueOf(REPLY_ONCE).equals(topicMiscVar.get(1L).toString());
+        return b1 || b2;
+    }
     public Long getForumId() {
         final EntranceType type = getEntranceType();
         if (type == EntranceType.FORUM) {

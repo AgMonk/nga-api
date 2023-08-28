@@ -9,6 +9,7 @@ import java.util.Base64;
 
 /**
  * 主题的标题字体
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/15 16:35
@@ -29,10 +30,14 @@ public class TitleFont {
      * 斜体
      */
     boolean italic;
+    /**
+     * 单帖回复
+     */
+    boolean replyOnce;
 
     public TitleFont(String s) {
         final String data = decode(s);
-        if (data==null) {
+        if (data == null) {
             this.color = TitleColor.DEFAULT;
             return;
         }
@@ -42,14 +47,16 @@ public class TitleFont {
         this.bold = fontData.charAt(0) == '1';
         this.italic = fontData.charAt(1) == '1';
         this.lineThrough = fontData.charAt(2) == '1';
+        this.replyOnce = fontData.length() > 25 && fontData.charAt(25) == '1';
     }
 
     /**
      * 解码
-     * @param s  topic_misc
+     *
+     * @param s topic_misc
      * @return 明文
      */
-    private static String decode(String s){
+    private static String decode(String s) {
         if (ObjectUtils.isEmpty(s)) {
             return null;
         }
@@ -72,8 +79,9 @@ public class TitleFont {
                 //集合id
             }
         }
-        return  null;
+        return null;
     }
+
     private static String byte2String(byte b) {
         return Integer.toBinaryString((b & 0xFF) + 0x100).substring(1);
     }

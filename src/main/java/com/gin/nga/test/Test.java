@@ -23,8 +23,9 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
 //        testTopic(37516420);
-        testTopic(37497982);
+        testTopic(37529736);
     }
+
 
     private static void testTopic(long topicId){
         try {
@@ -38,7 +39,7 @@ public class Test {
 
     private static NgaClient getClient(){
         try {
-            return new NgaClient(FileIoUtils.readStr(new File("D:\\Working\\nga-cookie.txt")));
+            return new NgaClient(FileIoUtils.readStr(new File("D:\\Working\\nga-cookie2.txt")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
