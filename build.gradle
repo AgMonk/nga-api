@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.gin.nga'
-version = '1.0.3-beta'
+version = '1.0.4-beta'
 javadoc.options.encoding = "UTF-8"
 
 java {
@@ -74,7 +74,7 @@ repositories {
 
 dependencies {
     // 工具类
-    api "com.gin.framework:common:1.0.0"
+    api "com.gin.framework:common:1.0.1-beta"
     // 工具类
     api 'org.apache.commons:commons-text:1.10.0'
 
