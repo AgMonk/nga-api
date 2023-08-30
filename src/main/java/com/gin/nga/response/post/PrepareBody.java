@@ -71,17 +71,17 @@ public class PrepareBody {
      */
     @JsonAlias("if_hidden")
     @JsonDeserialize(using = BooleanDeserializer.class)
-    boolean hidden;
+    Boolean hidden;
     /**
      * 是否为版主
      */
     @JsonAlias("if_moderator")
-    boolean moderator;
+    Boolean moderator;
     /**
      * 是否添加到末尾
      */
     @JsonAlias("modify_append")
-    boolean modifyAppend;
+    Boolean modifyAppend;
     /**
      * 回复id
      */
