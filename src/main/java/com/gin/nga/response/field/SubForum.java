@@ -1,12 +1,14 @@
 package com.gin.nga.response.field;
 
 import com.gin.jackson.utils.ObjectUtils;
+import com.gin.nga.enums.SubForumStatus;
 import com.gin.nga.enums.SubForumType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,7 +36,7 @@ public class SubForum {
     /**
      * 未知数据
      */
-    Long data;
+    Integer bit;
     /**
      * 名称
      */
@@ -45,7 +47,7 @@ public class SubForum {
         this.id = getLong(map,0);
         this.name = String.valueOf(map.get(1));
         this.mirrorId = getLong(map,3);
-        this.data = getLong(map,4);
+        this.bit = (Integer) map.get(4);
     }
 
     private static Long getLong (Map<Integer, Serializable> map,int index){
@@ -54,5 +56,12 @@ public class SubForum {
             return Long.parseLong(String.valueOf(v));
         }
         return null;
+    }
+
+    public List<SubForumStatus> getStatuses(){
+        if (this.bit==null) {
+            return null;
+        }
+        return SubForumStatus.parseStatus(this.bit);
     }
 }

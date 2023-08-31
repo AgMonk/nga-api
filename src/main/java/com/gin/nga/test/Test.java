@@ -23,13 +23,13 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
 //        testTopic(37516420);
-        testTopic(37529736);
+//        testTopic(37529736);
     }
 
 
-    private static void testTopic(long topicId){
+    private static void testTopic(long topicId) {
         try {
-            final ReadTopicParam param = new ReadTopicParam(topicId,1);
+            final ReadTopicParam param = new ReadTopicParam(topicId, 1);
             final ReadBody readBody = ReadApi.readTopic(getClient(), param).sync();
             JacksonUtils.printPretty(readBody);
         } catch (IOException e) {
@@ -37,7 +37,7 @@ public class Test {
         }
     }
 
-    private static NgaClient getClient(){
+    private static NgaClient getClient() {
         try {
             return new NgaClient(FileIoUtils.readStr(new File("D:\\Working\\nga-cookie2.txt")));
         } catch (IOException e) {
