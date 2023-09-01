@@ -37,7 +37,7 @@ public class PmReplyBodyDeserializer extends AbstractSingleListDeserializer<PmRe
                     result.setLength(Integer.parseInt(childString));
                     break;
                 case "nextPage":
-                    result.setHasNext(Boolean.parseBoolean(childString));
+                    result.setHasNext("1".equals(childString) || "true".equalsIgnoreCase(childString));
                     break;
                 case "currentPage":
                     result.setPage(Integer.parseInt(childString));
