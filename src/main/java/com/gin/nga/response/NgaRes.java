@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * 统一响应对象
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/11 11:13
@@ -39,6 +40,7 @@ public class NgaRes<T> {
 
     /**
      * 解析字符串返回data字段
+     *
      * @param <T>   data字段类型
      * @param s     响应字符串
      * @param clazz data字段的class
@@ -69,27 +71,22 @@ public class NgaRes<T> {
             // 自动记录响应结果
             if (TEST) {
                 try {
-                    FileIoUtils.writeObj(new File(String.format("./test/%s_%d.json", clazz.getSimpleName(), System.currentTimeMillis() / 1000)),res.getData());
+                    FileIoUtils.writeObj(new File(String.format("./test/%s_%d.json", clazz.getSimpleName(), System.currentTimeMillis() / 1000)), res.getData());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             return res;
-        } catch (JsonEOFException e) {
-            // 错误的结束符号
+        } catch (JsonEOFException | JsonMappingException e) {
+            e.printStackTrace();
             throw exception;
-        } catch (JsonMappingException e) {
-//            if (e.getCause() instanceof JsonEOFException) {
-                // 错误的结束符号
-                throw exception;
-//            }
-//            throw e;
         }
     }
 
 
     /**
      * 字符串预处理
+     *
      * @param s 字符串
      * @return 处理后字符串
      */

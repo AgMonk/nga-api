@@ -31,7 +31,9 @@ public class PmUsersDeserializer extends JsonDeserializer<List<SimpleUserInfo>> 
         }
         final String[] array = value.split("\\|\\|");
         for (int i = 0; i < array.length; i += 2) {
-            res.add(new SimpleUserInfo(Long.parseLong(array[i]), array[i + 1],null));
+            final long userId = Long.parseLong(array[i]);
+            final String username = array.length>i+1?array[i + 1]:null;
+            res.add(new SimpleUserInfo(userId, username,null));
         }
         return res;
     }

@@ -19,18 +19,26 @@ import java.util.List;
 public class PmListBodyDeserializer extends AbstractSingleListDeserializer<PmListBody,PrivateMessage> {
     @Override
     public void handleItem(PmListBody result, List<PrivateMessage> list, String fieldName, TreeNode child) throws JsonProcessingException {
+        final String string = child.toString();
         if (StrUtils.isNumber(fieldName)) {
             // 数字 ，是私信
-            list.add(NgaRes.MAPPER.readValue(child.toString(), PrivateMessage.class));
+            list.add(NgaRes.MAPPER.readValue(string, PrivateMessage.class));
         }else{
             switch (fieldName){
-                case "nextPage":result.setHasNext("1".equals(child.toString()) || "true".equalsIgnoreCase(child.toString())); break;
-                case "currentPage":result.setPage(Integer.parseInt(child.toString()));break;
-                case "rowsPerPage":result.setSize(Integer.parseInt(child.toString()));break;
+                case "nextPage":result.setHasNext(parseBoolean(string)); break;
+                case "currentPage":result.setPage(Integer.parseInt(string));break;
+                case "rowsPerPage":result.setSize(Integer.parseInt(string));break;
                 default:
-                    System.out.printf("未识别的字段: %s -> %s\n",fieldName,child.toString());
+                    System.out.printf("未识别的字段: %s -> %s\n",fieldName, string);
             }
         }
+    }
+
+    public static boolean parseBoolean(String string) {
+        return "true".equalsIgnoreCase(string)
+                || "1".equals(string)
+                || "\"1\"".equals(string)
+                ;
     }
 
     @Override
