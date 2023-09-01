@@ -24,7 +24,7 @@ public class PmListBodyDeserializer extends AbstractSingleListDeserializer<PmLis
             list.add(NgaRes.MAPPER.readValue(child.toString(), PrivateMessage.class));
         }else{
             switch (fieldName){
-                case "nextPage":result.setHasNext(Boolean.parseBoolean(child.toString())); break;
+                case "nextPage":result.setHasNext("1".equals(child.toString()) || "true".equalsIgnoreCase(child.toString())); break;
                 case "currentPage":result.setPage(Integer.parseInt(child.toString()));break;
                 case "rowsPerPage":result.setSize(Integer.parseInt(child.toString()));break;
                 default:
