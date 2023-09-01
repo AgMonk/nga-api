@@ -15,6 +15,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -35,6 +36,14 @@ public class PostParam {
      */
     public static final int REPLY_ONCE = 1073741824;
     public static final Pattern AT_BBS_CODE_PATTERN = Pattern.compile("\\[@(.+?)]");
+    /**
+     * 需要使用unicode编码的语言
+     */
+    public static final List<Language> UNICODE_LANGUAGE = new ArrayList<>(Arrays.asList(Language.ko));
+    /**
+     * 不需要编码的语言
+     */
+    public static final List<Language> NOT_UNICODE_LANGUAGE = new ArrayList<>(Arrays.asList(Language.CJK_symbols_and_punctuation));
 
     final int step = 2;
     /**
@@ -134,8 +143,7 @@ public class PostParam {
         UnicodeUtils.unicodeIterator(raw, (index, codePoint, s,unicode) -> {
             final Language lang = Language.findLanguage(codePoint);
             //4位16进制上限
-            final int limit = 65535;
-            if (lang == Language.ko || (lang == Language.other && codePoint > limit)) {
+            if (useUnicode(lang,codePoint)) {
                 sb.append(unicode);
             } else {
                 sb.append(s);
@@ -144,6 +152,32 @@ public class PostParam {
         final String t = sb.toString();
         return t.length() < 6 ? t + "[b][/b]" : t;
     }
+
+    /**
+     * 返回是否使用unicode
+     * @param lang 语言
+     * @param codePoint codePoint
+     * @return 是否使用unicode
+     */
+    public static boolean useUnicode(Language lang,int codePoint){
+        if (UNICODE_LANGUAGE.contains(lang)) {
+            return true;
+        }
+        if (NOT_UNICODE_LANGUAGE.contains(lang)) {
+            return false;
+        }
+        if (lang==Language.other){
+            if (codePoint < 256){
+                return false;
+            }
+            if (codePoint > 65535){
+                return true;
+            }
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean add(UploadBody uploadBody) {
         return attachs.add(uploadBody);
