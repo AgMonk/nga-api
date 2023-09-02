@@ -2,14 +2,13 @@ package com.gin.nga.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gin.nga.utils.BitUtils;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 私信状态
+ * 私信状态 <a href="https://img4.nga.178.com/common_res/js_message.js">来源</a>
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/20 14:38
@@ -20,32 +19,31 @@ public enum PrivateMessageStatus {
     /**
      * 对人对话
      */
-    MULTI(0, "多人"),
+    MULTI(1, "多人"),
     /**
      * 未读
      */
-    UNREAD(1, "未读"),
-    UNKNOWN_1(3, "未知(可能为'来自系统')"),
-    UNKNOWN_2(5, "未知"),
+    UNREAD(2, "未读"),
+    UNKNOWN(4, "未知"),
+    FROM_SYSTEM(8, "系统消息"),
+    UNKNOWN_2(16, "未知"),
+
+    ANONYMOUS_MODE(32, "对话参与者的回复互相不可见"),
     ;
     @JsonIgnore
-    public final int position;
+    public final int bit;
     public final String name;
 
     /**
-     * 从 type 字段解析状态列表
-     * @param type type字段
+     * 从 bit 字段解析状态列表
+     * @param bit type字段
      * @return 状态列表
      */
-    public static List<PrivateMessageStatus> parse(int type) {
-        if (type == 0) {
-            return null;
-        }
-        String s = BitUtils.parse(type);
-        List<PrivateMessageStatus> list = new ArrayList<>();
-        for (PrivateMessageStatus i : values()) {
-            if (s.length() > i.position && s.charAt(i.position) == '1') {
-                list.add(i);
+    public static List<PrivateMessageStatus> parseStatus(int bit){
+        final ArrayList<PrivateMessageStatus> list = new ArrayList<>();
+        for (PrivateMessageStatus status : values()) {
+            if ((status.bit & bit) !=0){
+                list.add(status);
             }
         }
         return list;

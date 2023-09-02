@@ -87,7 +87,7 @@ public class PrivateMessage {
      * @return 状态
      */
     public List<PrivateMessageStatus> getStatus() {
-        return PrivateMessageStatus.parse(bit);
+        return PrivateMessageStatus.parseStatus(bit);
     }
 
     /**
