@@ -1,12 +1,14 @@
 package com.gin.nga.params.nuke.pm;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gin.jackson.serializer.ListLongSerializer;
+import com.gin.jackson.utils.ObjectUtils;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 发起新私信参数
@@ -26,20 +28,35 @@ public class PmNewParam extends PmBaseParam {
      */
     @JsonProperty("content")
     final String content;
-    /**
-     * 收信人
-     */
-    @JsonProperty("to")
-    @JsonSerialize(using = ListLongSerializer.class)
-    final List<Long> userId;
+    @JsonIgnore
+    final List<Serializable> user;
 
-    public PmNewParam(String title, String content, List<Long> userId) {
+    /**
+     * 构造函数
+     * @param title 标题
+     * @param content 正文
+     * @param user 邀请的用户id或用户名
+     */
+    public PmNewParam(String title, String content, List<Serializable> user) {
         super("new");
         this.title = title;
         this.content = content;
-        this.userId = userId;
+        this.user = user;
     }
-    public PmNewParam(String title, String content, Long... userId) {
-        this(title, content, Arrays.asList(userId));
+    /**
+     * 构造函数
+     * @param title 标题
+     * @param content 正文
+     * @param user 邀请的用户id或用户名
+     */
+    public PmNewParam(String title, String content, Serializable... user) {
+        this(title, content, Arrays.asList(user));
+    }
+
+    public String getTo(){
+        if (ObjectUtils.isEmpty(user)) {
+            throw new RuntimeException("user不允许为空");
+        }
+        return user.stream().map(Object::toString).collect(Collectors.joining(","));
     }
 }
