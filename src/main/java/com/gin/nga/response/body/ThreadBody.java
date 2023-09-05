@@ -11,6 +11,7 @@ import java.util.Map;
 
 /**
  * thread.php的响应data
+ *
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2023/4/11 16:46
@@ -36,4 +37,16 @@ public class ThreadBody {
 
     @JsonProperty("__T")
     Map<Integer, TopicInfo> topics;
+
+    /**
+     * 计算最大页数
+     *
+     * @return 最大页数
+     */
+    public Integer getTotalPage() {
+        if (total != null && size != null) {
+            return total / size + (total % size > 0 ? 1 : 0);
+        }
+        return null;
+    }
 }

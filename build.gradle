@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.gin.nga'
-version = '1.0.8-beta'
+version = '1.0.9-beta'
 javadoc.options.encoding = "UTF-8"
 
 java {
