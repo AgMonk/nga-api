@@ -14,10 +14,12 @@ import com.gin.nga.enums.UserBuffType;
 import com.gin.nga.response.field.Honor;
 import com.gin.nga.response.field.Money;
 import com.gin.nga.response.field.SimpleUserInfo;
+import com.gin.nga.utils.BitUtils;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +38,6 @@ public class BaseUserInfo extends SimpleUserInfo {
     @JsonAlias("buffs")
     @JsonDeserialize(using = UserBuffDeserializer.class)
     List<UserBuff> buffs;
-
     /**
      * 用户组id(涉及管理权限)
      */
@@ -89,7 +90,29 @@ public class BaseUserInfo extends SimpleUserInfo {
      */
     @JsonAlias("yz")
     AccountStatus accountStatus;
+    /**
+     * 位数据
+     */
+    @JsonAlias({"bit","bit_data"})
+    Long bitData;
 
+    /**
+     * 简单解析位数据
+     * @return 值为1的位置
+     */
+    public  List<Integer> getBitPosition(){
+        if (bitData == null) {
+            return null;
+        }
+        final ArrayList<Integer> res = new ArrayList<>();
+        final String s = BitUtils.parse(bitData);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '1') {
+                res.add(i);
+            }
+        }
+        return res;
+    }
 
     public void setMedalIds(List<Integer> medalIds) {
         if (medalIds==null) {

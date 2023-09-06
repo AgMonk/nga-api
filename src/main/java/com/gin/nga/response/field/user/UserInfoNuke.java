@@ -48,11 +48,6 @@ public class UserInfoNuke extends BaseUserInfo {
     @JsonAlias("adminForums")
     LinkedHashMap<Long, String> adminForums;
     /**
-     * 位数据
-     */
-    @JsonAlias("bit")
-    Long bitData;
-    /**
      * 邮箱
      */
     @JsonAlias("email")

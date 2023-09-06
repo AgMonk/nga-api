@@ -29,14 +29,25 @@ public class ReputationLog {
      * 操作类型
      */
     ReputationLogType type;
+    /**
+     * 评价
+     */
+    Rate rate;
+
+    public enum Rate{
+        positive,
+        negative,
+        neutral,
+        ;
+    }
 
     /**
      * 处理威望数字
      * @param s 威望字符串
      * @return 威望整数
      */
-    public static Integer handlePrestige(String s){
-        return (int) (Double.parseDouble(s)*10);
+    public static Integer handlePrestige(String s) {
+        return (int) (Double.parseDouble(s) * 10);
     }
 
     /**
@@ -44,7 +55,37 @@ public class ReputationLog {
      * @param s 金币字符串
      * @return 铜币整数
      */
-    public static Long handleMoney(String s){
-        return (long) (Double.parseDouble(s)*10000);
+    public static Long handleMoney(String s) {
+        return (long) (Double.parseDouble(s) * 10000);
+    }
+
+    /**
+     * 生成描述
+     * @return 描述
+     */
+    public String getDescription() {
+        final StringBuilder sb = new StringBuilder();
+        if (reputation != null && reputation != 0) {
+            sb.append("声望 ");
+            if (reputation > 0) {
+                sb.append("+");
+            }
+            sb.append(reputation).append(" ");
+        }
+        if (prestige != null && prestige != 0) {
+            sb.append("威望 ");
+            if (prestige > 0) {
+                sb.append("+");
+            }
+            sb.append(prestige / 10.0).append(" ");
+        }
+        if (money != null && money != 0) {
+            sb.append("金钱 ");
+            if (money > 0) {
+                sb.append("+");
+            }
+            sb.append(money / 10000.0).append("G ");
+        }
+        return sb.toString();
     }
 }   

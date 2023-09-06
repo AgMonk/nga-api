@@ -146,7 +146,7 @@ public class UserContext {
                 .filter(l -> value >= l.getRank())
                 .min((o1, o2) -> o2.getRank() - o1.getRank())
                 .orElse(null);
-        return level==null?null:level.getName();
+        return level==null?customLevels.get(0).getName():level.getName();
     }
 
     private static String getAvatar(UserInfoRead userInfo) {

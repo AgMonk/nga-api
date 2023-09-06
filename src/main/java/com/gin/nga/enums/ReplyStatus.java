@@ -67,7 +67,7 @@ public enum ReplyStatus {
     /**
      * 处罚标记
      */
-    HIDE_TITLE(11, "处罚标记", "是否显示被处罚的标记"),
+    HIDE_TITLE(11, "处罚", "用户被处罚"),
     /**
      * 翻译
      */

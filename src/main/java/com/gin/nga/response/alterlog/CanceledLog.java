@@ -25,5 +25,11 @@ public class CanceledLog extends ReputationLog {
         this.money = Long.parseLong(split[2]);
         this.type = ReputationLogType.canceled;
         this.remark = split.length > 3 ? split[3] : null;
+        this.rate = Rate.neutral;
+    }
+
+    @Override
+    public String getDescription() {
+        return "[取消操作] "+super.getDescription();
     }
 }

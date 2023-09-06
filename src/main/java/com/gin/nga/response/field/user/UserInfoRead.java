@@ -19,8 +19,6 @@ import java.util.LinkedHashMap;
 @Getter
 @Setter
 public class UserInfoRead extends BaseUserInfo {
-    @JsonAlias("bit_data")
-    Long bitData;
     @JsonAlias("credit")
     Long credit;
     /**
