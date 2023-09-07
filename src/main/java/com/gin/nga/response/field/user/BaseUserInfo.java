@@ -131,7 +131,9 @@ public class BaseUserInfo extends SimpleUserInfo {
             return null;
         }
         // 过滤出头像buff
-        final List<UserBuff> buffs = this.buffs.stream().filter(i -> i.getType() == UserBuffType.AVATAR_CHANGED).collect(Collectors.toList());
+        final List<UserBuff> buffs = this.buffs.stream()
+                .filter(i -> UserBuffType.findById(i.getTypeId()) == UserBuffType.AVATAR_CHANGED)
+                .collect(Collectors.toList());
         if (ObjectUtils.isEmpty(buffs)){
             return null;
         }

@@ -1,6 +1,5 @@
 package com.gin.nga.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 
@@ -45,7 +44,6 @@ public enum UserBuffType {
     public final String description;
     public final Integer id;
 
-    @JsonCreator
     public static UserBuffType findById(int id) {
         for (UserBuffType type : values()) {
             if (type.id != null && id == type.id) {

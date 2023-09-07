@@ -44,4 +44,19 @@ public class Money {
         temp = (temp - this.silver) / h;
         this.gold = temp;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        if (gold > 0) {
+            sb.append(gold).append(" 金");
+        }
+        if (silver > 0) {
+            sb.append(silver).append(" 银");
+        }
+        if (copper > 0) {
+            sb.append(copper).append(" 铜");
+        }
+        return sb.toString();
+    }
 }

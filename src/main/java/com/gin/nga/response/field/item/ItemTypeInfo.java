@@ -43,6 +43,13 @@ public class ItemTypeInfo {
     @JsonAlias("buff_last")
     Integer buffLast;
 
+    public void setDescription(String description) {
+        this.description = description;
+        if (this.description != null) {
+            this.description = description.replace("徽章注释:", "").trim();
+        }
+    }
+
     public static LinkedHashMap<String, ItemTypeInfo> parse(Object obj) throws JsonProcessingException {
         final String s = JacksonUtils.MAPPER.writeValueAsString(obj);
         return JacksonUtils.MAPPER.readValue(s, new TypeReference<LinkedHashMap<String, ItemTypeInfo>>() {

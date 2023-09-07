@@ -66,7 +66,9 @@ public class ItemInfo {
      * 类型信息
      */
     ItemTypeInfo typeInfo;
-
+    /**
+     * 如果是铜币交易，价格的简略写法
+     */
     Money money;
 
     public String getUrl(){

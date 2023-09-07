@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 用户身上的Buff
@@ -19,15 +21,19 @@ import java.time.ZonedDateTime;
 @Setter
 public class UserBuff {
     /**
+     * 版面禁言描述的匹配正则
+     */
+    public static final Pattern PATTERN_MUTE_FORUM = Pattern.compile("<b>(.+?)\\((\\d+)\\)</b>");
+    /**
      * 存疑，可能是操作记录id
      */
     @JsonAlias("0")
     Long id;
     /**
-     * buff类型
+     * buff类型id 已知类型的buff:  {@link  UserBuffType}
      */
     @JsonAlias("1")
-    UserBuffType type;
+    Integer typeId;
     /**
      * 释放buff的用户id
      */
@@ -65,4 +71,32 @@ public class UserBuff {
      */
     @JsonAlias("9")
     String description;
+
+    public void setDescription(String description) {
+        this.description = description;
+
+        // 裁剪多余信息
+        if (this.description!=null) {
+            final int index = this.description.indexOf("持续至");
+            if (index>-1){
+                this.description = this.description.substring(0,index);
+            }
+        }
+    }
+
+    /**
+     * 被禁言的版面名称
+     * @return 版面名称
+     */
+    public String getForumName(){
+        if (description == null) {
+            return null;
+        }
+        final Matcher matcher = PATTERN_MUTE_FORUM.matcher(description);
+        if (matcher.find()){
+            return matcher.group(1);
+        }else{
+            return null;
+        }
+    }
 }

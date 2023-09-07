@@ -36,19 +36,26 @@ public class Medal {
     @JsonAlias("name")
     String name;
     /**
-     * 鼠标提示
+     * 描述
      */
     @JsonAlias("dscp")
-    String tooltip;
+    String description;
     /**
      * id
      */
     Integer id;
 
+    public void setDescription(String tooltip) {
+        this.description = tooltip;
+        if (this.description != null) {
+            this.description = tooltip.replace("徽章注释:", "").trim();
+        }
+    }
+
     public Medal(Map<Integer, Serializable> data) {
         this.filename = String.valueOf(data.get(0));
         this.name = String.valueOf(data.get(1));
-        this.tooltip = String.valueOf(data.get(2));
+        this.description = String.valueOf(data.get(2));
         this.id = Integer.valueOf(String.valueOf(data.get(3)));
     }
 
