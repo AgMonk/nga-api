@@ -149,14 +149,18 @@ public class UserContext {
         return level==null?customLevels.get(0).getName():level.getName();
     }
 
-    private static String getAvatar(UserInfoRead userInfo) {
+    /**
+     * 随机头像
+     * @param userInfo 用户信息
+     * @return 随机头像
+     */
+    private static String getRandomAvatar(UserInfoRead userInfo) {
         //随机头像
         final List<String> avatars = userInfo.getAvatars();
         if (!ObjectUtils.isEmpty(avatars)) {
             final int i = new Random().nextInt(avatars.size());
             return avatars.get(i);
         }
-
         return null;
     }
 
@@ -189,12 +193,12 @@ public class UserContext {
                 final AvatarBuff avatarBuff = commonUiData.findAvatarBuffById(Math.toIntExact(userBuff.getExtraData()));
                 res.setAvatarBuff(avatarBuff);
                 // 设置头像
-                res.setAvatar(avatarBuff != null ? avatarBuff.getUrl() : getAvatar(userInfoRead));
+                res.setAvatar(avatarBuff != null ? avatarBuff.getUrl() : getRandomAvatar(userInfoRead));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            res.setAvatar(getAvatar(userInfoRead));
+            res.setAvatar(getRandomAvatar(userInfoRead));
         }
         //徽章
         final List<Integer> medalIds = userInfoRead.getMedalIds();

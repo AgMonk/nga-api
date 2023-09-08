@@ -1,5 +1,6 @@
 package com.gin.nga.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.RequiredArgsConstructor;
 
@@ -17,12 +18,13 @@ public enum ItemType {
     ACTIVATION_CODE(1,"激活码"),
     MEDAL(2,"徽章"),
     TO_USER(3,"对人"),
+    UNKNOWN(4,"未知"),
     TO_REPLY(5,"对贴"),
     ;
     @JsonValue
     public final int id;
     public final String name;
-
+    @JsonCreator
     public static ItemType findById(int id){
         return Arrays.stream(values()).filter(i -> i.id == id).findFirst().orElse(null);
     }

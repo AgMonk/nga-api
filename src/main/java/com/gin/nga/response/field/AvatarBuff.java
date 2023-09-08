@@ -15,15 +15,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AvatarBuff {
+    /**
+     * 头像图片前缀
+     */
+    public static final String PREFIX = "https://img4.nga.178.com/ngabbs/face/";
     int id;
     String filename;
     String url;
-    @Setter
     String suffix;
 
-    public AvatarBuff(int id, String filename) {
-        this.id = id;
-        this.filename = filename;
-        this.url = "https://img4.nga.178.com/ngabbs/face/"+  filename;
+    public String getUrl(){
+        return PREFIX+filename;
     }
 }
