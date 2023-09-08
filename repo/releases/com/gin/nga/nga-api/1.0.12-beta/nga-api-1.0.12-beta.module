@@ -1,0 +1,160 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.gin.nga",
+    "module": "nga-api",
+    "version": "1.0.12-beta",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.0.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.gin.framework",
+          "module": "common",
+          "version": {
+            "requires": "1.0.1-beta"
+          }
+        },
+        {
+          "group": "org.apache.commons",
+          "module": "commons-text",
+          "version": {
+            "requires": "1.10.0"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "4.10.0"
+          }
+        },
+        {
+          "group": "org.jsoup",
+          "module": "jsoup",
+          "version": {
+            "requires": "1.15.4"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "nga-api-1.0.12-beta.jar",
+          "url": "nga-api-1.0.12-beta.jar",
+          "size": 332613,
+          "sha512": "691bfc9aa37693a5e491dc813d73a0f084fa8d5a78c1cf23abb16b94fdc878a1e87766009076e84ff3878f82c4691ac6632c9703ee6c4241a34fd7ac5c838d74",
+          "sha256": "a0aedb46516b85a07890770f672be6869263c40bc1d26f601b19cec2b6f6bc1b",
+          "sha1": "73328d15a9d5847d5cbfaafd606578b2cb4cdd87",
+          "md5": "47cc6fc66d2683c3155aa8e01c878ca9"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.gin.framework",
+          "module": "common",
+          "version": {
+            "requires": "1.0.1-beta"
+          }
+        },
+        {
+          "group": "org.apache.commons",
+          "module": "commons-text",
+          "version": {
+            "requires": "1.10.0"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "4.10.0"
+          }
+        },
+        {
+          "group": "org.jsoup",
+          "module": "jsoup",
+          "version": {
+            "requires": "1.15.4"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "nga-api-1.0.12-beta.jar",
+          "url": "nga-api-1.0.12-beta.jar",
+          "size": 332613,
+          "sha512": "691bfc9aa37693a5e491dc813d73a0f084fa8d5a78c1cf23abb16b94fdc878a1e87766009076e84ff3878f82c4691ac6632c9703ee6c4241a34fd7ac5c838d74",
+          "sha256": "a0aedb46516b85a07890770f672be6869263c40bc1d26f601b19cec2b6f6bc1b",
+          "sha1": "73328d15a9d5847d5cbfaafd606578b2cb4cdd87",
+          "md5": "47cc6fc66d2683c3155aa8e01c878ca9"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "nga-api-1.0.12-beta-javadoc.jar",
+          "url": "nga-api-1.0.12-beta-javadoc.jar",
+          "size": 261,
+          "sha512": "a9bb41e4c65a8f33e8b7d9862b2f9da6394c89979edf37d56ddb2e0bca1415142b4a4d57e991042ecb1cbbb2aaa00b7cfb989e446f2290ece4eadb396b9f03a3",
+          "sha256": "b34c19b71396e5f4dc6a7a4589b2528b17a21018df11cfbd49638a2335d9f119",
+          "sha1": "6eef6ba37746e5d115176fa7bb6a00cbc110f582",
+          "md5": "1a0b09eef0919c3afc2da4c1e3b57d95"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "nga-api-1.0.12-beta-sources.jar",
+          "url": "nga-api-1.0.12-beta-sources.jar",
+          "size": 209258,
+          "sha512": "a674b937a640a04ba0a12ce588b1fa1cf7cda24c1fb2af3a56af2600dc175f5e0ffe1683668d262d960bfe3aa4a180309ee0e5191be4af5a53d56e4a63968081",
+          "sha256": "50a7d3e490da10c42116464eab015c4b22249d21419dff74bdaf975eca027f56",
+          "sha1": "1f9df998cfe8e2bda3823139a9d620bfb33e308f",
+          "md5": "c103322d43a46b8e0ef7b120bc80ef91"
+        }
+      ]
+    }
+  ]
+}
