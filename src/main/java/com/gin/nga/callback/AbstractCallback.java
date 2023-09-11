@@ -45,7 +45,7 @@ public abstract class AbstractCallback<T> implements Callback {
                 if (s.contains("{")) {
                     throw new NgaClientException(code, call, NgaRes.parse(s, Void.class).getError());
                 }
-                throw new NgaClientException(code, call, MapUtils.singleEntry(0,s));
+                throw new NgaClientException(code, call, MapUtils.singleEntry(0, s));
             case 5:
                 throw new NgaServerException(code, call, "服务器异常");
             default:
@@ -92,7 +92,7 @@ public abstract class AbstractCallback<T> implements Callback {
      * @param e 异常
      */
     public void handleException(NgaException e) {
-        if (e instanceof NgaClientException){
+        if (e instanceof NgaClientException) {
             NgaClientException ex = (NgaClientException) e;
             JacksonUtils.printPretty(ex.getReason());
         }
@@ -106,10 +106,7 @@ public abstract class AbstractCallback<T> implements Callback {
      * @throws IOException 异常
      */
     public static String decodeGbk(ResponseBody body) throws IOException {
-        final String s = new String(body.bytes(), Charset.forName("GB18030"))
-
-                ;
-        // todo 删除
-        return s;
+        final String s = new String(body.bytes(), Charset.forName("GB18030"));
+        return s.replace(new String(Character.toChars(20)), "");
     }
 }

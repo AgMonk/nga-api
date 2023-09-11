@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class BetData extends SuperVoteData {
+public class BetData extends BaseVoteData {
     /**
      * 最小投注金额
      */

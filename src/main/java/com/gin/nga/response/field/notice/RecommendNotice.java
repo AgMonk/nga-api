@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
 
+import java.util.Locale;
+
 /**
  * 赞踩变化提醒
  * @author : ginstone
@@ -46,4 +48,9 @@ public class RecommendNotice extends BaseNotice {
     public void setTopicTitle(String topicTitle) {
         this.topicTitle = StringEscapeUtils.unescapeHtml4(topicTitle);
     }
-}   
+
+    @Override
+    public String getDescription() {
+        return String.format(Locale.CHINA, "回复 [%d] 的赞踩数更新了", replyId);
+    }
+}

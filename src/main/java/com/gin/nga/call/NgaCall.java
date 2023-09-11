@@ -26,7 +26,10 @@ public class NgaCall<T> {
     public String syncString() throws IOException {
         try (final Response response = this.call.execute()){
             final ResponseBody body = AbstractCallback.body(call, response);
-            return body != null ? AbstractCallback.decodeGbk(body) : null;
+            if (body == null) {
+                return null;
+            }
+            return  AbstractCallback.decodeGbk(body);
         }
     }
 }   

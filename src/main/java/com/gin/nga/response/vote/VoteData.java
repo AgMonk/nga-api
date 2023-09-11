@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class VoteData extends SuperVoteData {
+public class VoteData extends BaseVoteData {
     /**
      * 选项
      */

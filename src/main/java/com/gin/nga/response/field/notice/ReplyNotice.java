@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
 
+import java.util.Locale;
+
 /**
  * 回复提醒
  * @author : ginstone
@@ -68,5 +70,21 @@ public class ReplyNotice  extends  BaseNotice {
 
     public void setTopicTitle(String topicTitle) {
         this.topicTitle = StringEscapeUtils.unescapeHtml4(topicTitle);
+    }
+
+    @Override
+    public String getDescription() {
+        switch (type) {
+            case at:
+                return  String.format(Locale.CHINA, "%s 提到了你", authorName);
+            case reply:
+                return  String.format(Locale.CHINA, "%s 回复了你的回复", authorName);
+            case gift:
+                return  String.format(Locale.CHINA, "%s 向你赠送了礼物", authorName);
+            case topic:
+                return  String.format(Locale.CHINA, "%s 回复了主题", authorName);
+            default:
+                return  "未知消息";
+        }
     }
 }

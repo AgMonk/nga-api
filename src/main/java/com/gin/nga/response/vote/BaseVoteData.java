@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
  */
 @Getter
 @Setter
-public abstract class SuperVoteData {
+public abstract class BaseVoteData {
     /**
      * 最多选择 x 项
      */
@@ -53,7 +53,7 @@ public abstract class SuperVoteData {
      */
     int total;
 
-    public SuperVoteData(String s) {
+    public BaseVoteData(String s) {
 //            解析vote字段
         final String[] array = s.split("~");
         for (int i = 0; i < array.length-1; i+=2) {

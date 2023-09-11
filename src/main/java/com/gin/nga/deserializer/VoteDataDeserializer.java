@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gin.nga.response.vote.BetData;
-import com.gin.nga.response.vote.SuperVoteData;
+import com.gin.nga.response.vote.BaseVoteData;
 import com.gin.nga.response.vote.VoteData;
 
 import java.io.IOException;
@@ -18,16 +18,16 @@ import java.io.IOException;
  * @version : v1.0.0
  * @since : 2023/6/1 10:02
  */
-public class VoteDataDeserializer extends JsonDeserializer<SuperVoteData> {
+public class VoteDataDeserializer extends JsonDeserializer<BaseVoteData> {
 
-    public static SuperVoteData parse(String s) {
+    public static BaseVoteData parse(String s) {
         //        是否为菠菜
         final boolean isBet = s.contains("type~1");
         return isBet ? new BetData(s) : new VoteData(s);
     }
 
     @Override
-    public SuperVoteData deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public BaseVoteData deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         return parse(jsonParser.getValueAsString());
     }
 }

@@ -9,7 +9,7 @@ import com.gin.jackson.serializer.ZdtJsonSerializer;
 import com.gin.nga.deserializer.GiftDeserializer;
 import com.gin.nga.deserializer.VoteDataDeserializer;
 import com.gin.nga.enums.FromClient;
-import com.gin.nga.response.vote.SuperVoteData;
+import com.gin.nga.response.vote.BaseVoteData;
 import com.gin.nga.utils.HtmlUtils;
 import com.gin.nga.utils.QueryStringUtils;
 import lombok.Getter;
@@ -136,7 +136,7 @@ public class ReplyInfo extends ReplySimple {
 
     @JsonAlias("vote")
     @JsonDeserialize(using = VoteDataDeserializer.class)
-    SuperVoteData voteData;
+    BaseVoteData voteData;
 
     /**
      * 处理正文(换行符问题)

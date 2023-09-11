@@ -1,13 +1,10 @@
 package com.gin.nga.response.field.notice;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.gin.jackson.utils.ObjectUtils;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * 提醒消息的公共字段
@@ -17,28 +14,16 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class BaseNotice {
+public abstract class BaseNotice {
     /**
      * 回复时间
      */
     @JsonAlias("9")
     ZonedDateTime timestamp;
     /**
-     * 是否已读, 不存在字段，提供给用户自行修改
+     * 生成描述信息
+     * @return 描述信息
      */
-    boolean read = false;
+    public abstract String getDescription();
 
-
-    public static long countUnread(Collection<? extends BaseNotice> collection){
-        if (collection==null || collection.isEmpty()) {
-            return 0;
-        }
-        return collection.stream().filter(i->!i.isRead()).count();
-    }
-
-    public static void readAll(List<? extends BaseNotice> list){
-        if (!ObjectUtils.isEmpty(list)) {
-            list.forEach(i->i.setRead(true));
-        }
-    }
 }
