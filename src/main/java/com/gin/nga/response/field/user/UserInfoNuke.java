@@ -2,7 +2,6 @@ package com.gin.nga.response.field.user;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.gin.nga.deserializer.BooleanDeserializer;
 import com.gin.nga.deserializer.UserForumDeserializer;
 import com.gin.nga.deserializer.UserRemarkNukeDeserializer;
 import com.gin.nga.enums.UserMoreInfoType;
@@ -66,14 +65,8 @@ public class UserInfoNuke extends BaseUserInfo {
     /**
      * 关注数
      */
-    @JsonAlias("follow_num")
-    Integer followCount;
-    /**
-     * 是否已关注
-     */
     @JsonAlias("follow")
-    @JsonDeserialize(using = BooleanDeserializer.class)
-    Boolean followed;
+    Integer followCount;
     /**
      * 被关注数
      */
@@ -126,8 +119,8 @@ public class UserInfoNuke extends BaseUserInfo {
      * 总互动数
      * @return 总互动数
      */
-    public Long getInteractions() {
-        if (moreInfo == null) {
+    public Long getInteractions(){
+        if (moreInfo==null){
             return null;
         }
         final UserMoreInfo info = moreInfo.values().stream().filter(i -> i.getType() == UserMoreInfoType.interactions).findFirst().orElse(null);
