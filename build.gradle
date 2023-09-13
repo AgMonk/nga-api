@@ -5,13 +5,14 @@ plugins {
 }
 
 group = 'com.gin.nga'
-version = '1.0.14-beta'
+version = '1.0.15-beta'
 javadoc.options.encoding = "UTF-8"
 
 java {
     withJavadocJar()
     withSourcesJar()
 }
+
 
 
 // 关闭子项目的 javadoc 任务, 防止报错
@@ -22,6 +23,8 @@ tasks.javadoc {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
 }
+
+
 
 // 发布配置
 publishing {
@@ -43,7 +46,6 @@ publishing {
     }
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
-
     // 发布到的仓库
     repositories {
         mavenLocal()
