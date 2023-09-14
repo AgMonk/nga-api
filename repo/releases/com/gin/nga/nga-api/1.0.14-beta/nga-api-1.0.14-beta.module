@@ -57,11 +57,11 @@
         {
           "name": "nga-api-1.0.14-beta.jar",
           "url": "nga-api-1.0.14-beta.jar",
-          "size": 333282,
-          "sha512": "b9ea93ee9f6eccec802af70a6bfa925807d8a3e4182601ab094e5001f569a6b4bcbfb075cae8fdb9047115dc051789b40fe4c38637968c8e5cf967500536cf1d",
-          "sha256": "19621fff1f1da057d42a5f9666bf5be127bd0dfe8590c27953a7e0d0e4d4c4ab",
-          "sha1": "08ebfea7f6ea873b51e0faac89683f72d6f6a359",
-          "md5": "8555a4d54039b403bf23f03e8bb91de7"
+          "size": 333265,
+          "sha512": "dcbe1839b2cb19fdc2d533c47fb0abc81f90c10e19058411ff563cea9af5566345310ba11f11b2dd66c7abb15e865b25fdd7207f01cc7bc7971d8dfa83bf8f1f",
+          "sha256": "c1c962bafc3a213436503e34628336399820fee967d264b01cee104e1d28c3bf",
+          "sha1": "034309e2822253e1241e09f4d4211a581c31e3b1",
+          "md5": "31280469eaad01c8ba328cade1940214"
         }
       ]
     },
@@ -108,11 +108,11 @@
         {
           "name": "nga-api-1.0.14-beta.jar",
           "url": "nga-api-1.0.14-beta.jar",
-          "size": 333282,
-          "sha512": "b9ea93ee9f6eccec802af70a6bfa925807d8a3e4182601ab094e5001f569a6b4bcbfb075cae8fdb9047115dc051789b40fe4c38637968c8e5cf967500536cf1d",
-          "sha256": "19621fff1f1da057d42a5f9666bf5be127bd0dfe8590c27953a7e0d0e4d4c4ab",
-          "sha1": "08ebfea7f6ea873b51e0faac89683f72d6f6a359",
-          "md5": "8555a4d54039b403bf23f03e8bb91de7"
+          "size": 333265,
+          "sha512": "dcbe1839b2cb19fdc2d533c47fb0abc81f90c10e19058411ff563cea9af5566345310ba11f11b2dd66c7abb15e865b25fdd7207f01cc7bc7971d8dfa83bf8f1f",
+          "sha256": "c1c962bafc3a213436503e34628336399820fee967d264b01cee104e1d28c3bf",
+          "sha1": "034309e2822253e1241e09f4d4211a581c31e3b1",
+          "md5": "31280469eaad01c8ba328cade1940214"
         }
       ]
     },
@@ -129,10 +129,10 @@
           "name": "nga-api-1.0.14-beta-javadoc.jar",
           "url": "nga-api-1.0.14-beta-javadoc.jar",
           "size": 261,
-          "sha512": "3c0738cc8f538a68f368605102a99578b5a6f0011985d52265ed6f05420e10d8e727aebdc08bc76faca9e67ec5e0494982493233b50581421ba4acbfd41997cf",
-          "sha256": "7aab4881e79dab40aacb567594e5133f52080fba45484c78c44141643db8cccf",
-          "sha1": "84dbdbc78e54a76f92292a4efd8128676efb2437",
-          "md5": "7a44a4eb99b1688560be2c7858ada483"
+          "sha512": "73d453129d353c329fd4cc3c7d47af07f72882fc0281f02413a7cb4b5cfe95e5d4ad31f736a7a60cd3eb9cbe30ced54ac628be4fcd2b5ac3e00217d4a100474f",
+          "sha256": "f13c9eb036047ad7ea46bfa9bc268707121805f46856b781f13188317b9cd0b6",
+          "sha1": "17c185a453419b0c6a194aee3dc2e54cedec7f9d",
+          "md5": "582efb68ab0e0e979c35150ffcc9c331"
         }
       ]
     },
@@ -149,10 +149,10 @@
           "name": "nga-api-1.0.14-beta-sources.jar",
           "url": "nga-api-1.0.14-beta-sources.jar",
           "size": 209222,
-          "sha512": "3c8d2f0cdc56d2bb380299e0eb3290105ee2fba284c919a63209c1c6de2f7ffb9c454b4769ab0260fc3a0d990f69145a5d0e32513ab4e1c48c4cbeae9b20917f",
-          "sha256": "d2dc5791e4bd07a92193093c89b043dfc79c508ef57c22392ea3b903da669766",
-          "sha1": "9de9dc53026b4fe68e842b471aebaf603415abc2",
-          "md5": "25aa637a966fa4d1e7ff94ffbfcba66f"
+          "sha512": "83ba4c0282df598c0510754349531fb04775fa021da29e45cb350f8fbd268a4a5f7e577c494e8069dd9c0569defc8b39af1edfd82b9709d75d31eb95fc3398a7",
+          "sha256": "0367404cd346e9a2c3dbab5f6039998e39b885295404699c0fa1e9476f412ec5",
+          "sha1": "eb5f11e40b94c59977e660030bd8da1cea8b5d0f",
+          "md5": "4568a501da4bc0a98908c1cbde30cd28"
         }
       ]
     }
