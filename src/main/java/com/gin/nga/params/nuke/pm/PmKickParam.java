@@ -10,7 +10,8 @@ import lombok.Getter;
  * @since : 2023/4/20 17:20
  */
 @Getter
-public class PmKickParam extends PmBaseParam{
+public class PmKickParam extends PmBaseParam {
+    final int raw = 3;
 
     @JsonProperty("mid")
     final long messageId;

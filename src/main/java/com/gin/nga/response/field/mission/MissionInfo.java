@@ -66,7 +66,7 @@ public class MissionInfo {
             return true;
         }
         // 今天
-        String today = TimeUtils.format(ZonedDateTime.now(), TimeUtils.DATE_FORMATTER);
+        String today = TimeUtils.format(ZonedDateTime.now(), TimeUtils.DATE_FORMATTER,TimeUtils.CHINESE_ZONE_ID);
         // 上次签到时间
         String lastDay = TimeUtils.format(lastCountTime, TimeUtils.DATE_FORMATTER);
 
