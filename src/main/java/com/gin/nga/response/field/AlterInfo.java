@@ -32,11 +32,16 @@ public class AlterInfo {
      * 操作日志
      */
     List<ReputationLog> logs ;
+    /**
+     * 原始数据
+     */
+    String raw;
 
     public AlterInfo(String s) {
         if (ObjectUtils.isEmpty(s)) {
             return;
         }
+        this.raw = s;
         this.logs = new ArrayList<>();
         final Matcher matcher = PATTERN.matcher(s);
         while (matcher.find()) {
