@@ -3,8 +3,8 @@
   <groupId>com.gin.nga</groupId>
   <artifactId>nga-api</artifactId>
   <versioning>
-    <latest>1.0.23-beta</latest>
-    <release>1.0.23-beta</release>
+    <latest>1.0.24-beta</latest>
+    <release>1.0.24-beta</release>
     <versions>
       <version>1.0.0</version>
       <version>1.0.1-beta</version>
@@ -25,7 +25,8 @@
       <version>1.0.21-beta</version>
       <version>1.0.22-beta</version>
       <version>1.0.23-beta</version>
+      <version>1.0.24-beta</version>
     </versions>
-    <lastUpdated>20230919025257</lastUpdated>
+    <lastUpdated>20230919093801</lastUpdated>
   </versioning>
 </metadata>
