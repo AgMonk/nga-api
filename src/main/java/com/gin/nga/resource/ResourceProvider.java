@@ -57,7 +57,7 @@ public abstract class ResourceProvider<T> {
      * @param response 响应
      * @return T
      */
-    protected T convert(@NonNull Response response) throws IOException {
+    protected T convert(Response response) throws IOException {
         if (response.code() == 200) {
             try (ResponseBody responseBody = response.body()) {
                 if (responseBody != null) {
@@ -97,7 +97,7 @@ public abstract class ResourceProvider<T> {
      * @param ignoreCache 是否忽略缓存
      * @param callback    回调
      */
-    public void async(boolean ignoreCache, @NonNull NgaCallback<T> callback) {
+    public void async(boolean ignoreCache, NgaCallback<T> callback) {
         // 如果缓存可用
         if (!ignoreCache && isCacheAvailable(cacheFile)) {
             try {
@@ -151,7 +151,6 @@ public abstract class ResourceProvider<T> {
         });
     }
 
-    @NonNull
     protected Request buildRequest(HttpUrl httpUrl) {
         Request request = new Request.Builder()
                 .url(httpUrl)
@@ -168,7 +167,7 @@ public abstract class ResourceProvider<T> {
         return System.currentTimeMillis() - cachFile.lastModified() <= expires;
     }
 
-    public static <T> T readJson(@NonNull Response response, Class<T> clazz) throws IOException {
+    public static <T> T readJson( Response response, Class<T> clazz) throws IOException {
         if (response.code() == 200) {
             try (ResponseBody responseBody = response.body()) {
                 if (responseBody != null) {

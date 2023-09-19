@@ -21,7 +21,7 @@ import java.util.Locale;
 public class BbsCodeCoreProvider extends ResourceProvider<BbsCodeBody> {
     public static final String URL = "https://img4.nga.178.com/common_res/js_bbscode_core.js";
 
-    public BbsCodeCoreProvider(@NonNull OkHttpClient client, @NonNull File cacheFile, long expires) {
+    public BbsCodeCoreProvider( OkHttpClient client,  File cacheFile, long expires) {
         super(URL, client, cacheFile, expires);
     }
 
