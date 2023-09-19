@@ -362,7 +362,7 @@ public class NgaClient {
         final Request.Builder builder = new Request.Builder()
                 .url(httpUrl)
                 .header("cookie", this.cookie)
-                .header("host", "bbs.nga.cn")
+                .header("host", this.ngaDomain.domain.replace("https://",""))
                 .header("Referer", this.ngaDomain.domain)
                 .header("User-Agent", UA);
         if (body != null) {
