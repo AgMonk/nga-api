@@ -25,18 +25,14 @@ public abstract class ResourceProvider<T> {
      * 过期时长(毫秒)
      */
     private final long expires;
-    @NonNull
     private final File cacheFile;
-    @NonNull
     private final OkHttpClient client;
-
     /**
      * 请求地址
      */
-    @NonNull
     private final String url;
 
-    protected ResourceProvider(@NonNull String url, @NonNull OkHttpClient client, @NonNull File cacheFile, long expires) {
+    public ResourceProvider(String url, OkHttpClient client,File cacheFile, long expires) {
         this.expires = expires;
         this.client = client;
         this.url = url;

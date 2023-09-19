@@ -1,8 +1,6 @@
 package com.gin.nga.callback;
 
 
-import com.gin.nga.exception.NgaException;
-import lombok.NonNull;
 import okhttp3.Call;
 
 import java.io.IOException;
@@ -32,16 +30,7 @@ public interface NgaCallback<T> {
      * @param call call
      * @param e    错误
      */
-    default void onFailure(@NonNull Call call, @NonNull IOException e) {
-        e.printStackTrace();
-    }
-
-    /**
-     * 处理Nga异常
-     *
-     * @param e 异常
-     */
-    default void handleException(NgaException e) {
+    default void onFailure( Call call,  IOException e) {
         e.printStackTrace();
     }
 }
