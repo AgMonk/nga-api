@@ -5,10 +5,15 @@ import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.ReadApi;
 import com.gin.nga.params.read.ReadTopicParam;
+import com.gin.nga.resource.BbsCodeCoreProvider;
+import com.gin.nga.resource.BbsIndexProvider;
+import com.gin.nga.resource.CommonUiProvider;
 import com.gin.nga.response.body.ReadBody;
+import okhttp3.OkHttpClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
@@ -22,6 +27,11 @@ public class Test {
     public static final Pattern PATTERN = Pattern.compile("ubbcode\\.smiles = (.+?)//s");
 
     public static void main(String[] args) throws IOException {
+        final OkHttpClient client = new OkHttpClient();
+        new CommonUiProvider(client,new File("d:/resource/commonUi.json"), TimeUnit.MINUTES.toMillis(1)).sync(false);
+        new BbsIndexProvider(client,new File("d:/resource/index.json"), TimeUnit.MINUTES.toMillis(1)).sync(false);
+        new BbsCodeCoreProvider(client,new File("d:/resource/core.json"), TimeUnit.MINUTES.toMillis(1)).sync(false);
+
 //        testTopic(37516420);
 //        testTopic(37529736);
     }

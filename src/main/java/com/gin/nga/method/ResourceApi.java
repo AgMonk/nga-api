@@ -18,9 +18,9 @@ public class ResourceApi {
     /**
      * 首页版面信息地址
      */
-    private static final String INDEX_FORUMS = "https://img4.nga.178.com/proxy/cache_attach/bbs_index_data.js";
-    private static final String CORE = "https://img4.nga.178.com/common_res/js_bbscode_core.js";
-    private static final String COMMONUI = "https://img4.nga.178.com/common_res/js_commonui.js";
+    public static final String INDEX_FORUMS = "https://img4.nga.178.com/proxy/cache_attach/bbs_index_data.js";
+    public static final String CORE = "https://img4.nga.178.com/common_res/js_bbscode_core.js";
+    public static final String COMMONUI = "https://img4.nga.178.com/common_res/js_commonui.js";
     /**
      * 请求UI相关数据
      * @return UI数据
