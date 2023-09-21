@@ -119,9 +119,8 @@ public class DiceUtils {
                 }
             } else if (StrUtils.isNumber(t)) {
                 // 是纯数字
-                final int i = Integer.parseInt(t);
-                sum += i;
-                resultText.add(String.valueOf(i));
+                sum += Long.parseLong(t);
+                resultText.add(t);
             } else {
                 resultText.add("格式错误");
             }
