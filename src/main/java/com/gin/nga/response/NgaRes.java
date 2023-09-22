@@ -78,7 +78,7 @@ public class NgaRes<T> {
             }
             return res;
         } catch (JsonEOFException | JsonMappingException e) {
-            e.printStackTrace();
+            System.out.printf("解析错误: %s \n", e.getMessage());
             throw exception;
         }
     }
