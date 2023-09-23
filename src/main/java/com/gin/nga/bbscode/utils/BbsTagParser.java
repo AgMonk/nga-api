@@ -37,7 +37,7 @@ public class BbsTagParser {
     /**
      * 匹配heading的不规范写法
      */
-    public static final Pattern HEADING_PATTERN = Pattern.compile("===(.+?)===");
+    public static final Pattern HEADING_PATTERN = Pattern.compile("===(.*?)===");
     /**
      * @ 标签规范化
      */
