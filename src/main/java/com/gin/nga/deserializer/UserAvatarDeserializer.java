@@ -37,11 +37,11 @@ public class UserAvatarDeserializer extends JsonDeserializer<List<String>> {
             final ArrayList<String> res = new ArrayList<>();
             final String[] split = url.split("\\|\\.a");
             // 第一段地址（完整）
-            final String first = clear(split[0]);
+            final String first = split[0];
             res.add(first);
             final String prefix = first.substring(0, first.lastIndexOf("/"));
             for (int i = 1; i < split.length; i++) {
-                res.add(clear(prefix + split[i]));
+                res.add(prefix + split[i]);
             }
             return res;
 
@@ -51,16 +51,5 @@ public class UserAvatarDeserializer extends JsonDeserializer<List<String>> {
         }
     }
 
-    /**
-     * 删除问号
-     * @param url
-     * @return
-     */
-    private static String clear(String url) {
-        if (url != null && url.contains("?")) {
-            return url.substring(0, url.indexOf("?"));
-        }
-        return url;
-    }
 
 }
