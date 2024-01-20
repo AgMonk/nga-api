@@ -229,6 +229,9 @@ public class ReadBody {
         if (this.totalPage != null) {
             return this.totalPage;
         }
+        if (this.total==null) {
+            return null;
+        }
         final int p = this.total / this.size;
         final int m = this.total % this.size;
         return p + (m > 0 ? 1 : 0);

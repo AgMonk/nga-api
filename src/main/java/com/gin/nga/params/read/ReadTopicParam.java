@@ -3,7 +3,6 @@ package com.gin.nga.params.read;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * 获取主题内容的参数
@@ -18,7 +17,6 @@ public class ReadTopicParam {
      * 主题id
      */
     @JsonProperty("tid")
-    @NotNull
     final long topicId;
     /**
      * 页码

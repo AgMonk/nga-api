@@ -9,6 +9,7 @@ import com.gin.nga.enums.NgaPhpApi;
 import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.*;
+import com.gin.nga.params.nuke.base.NukeEditHistoryParam;
 import com.gin.nga.params.nuke.base.VoteParam;
 import com.gin.nga.params.nuke.block.BlockDataListParam;
 import com.gin.nga.params.nuke.block.BlockDataSetParam;
@@ -580,49 +581,69 @@ public class NukeApi {
     public static NgaJsonCall<BaseMessageBody> itemUse(NgaClient client, ItemUseParam param) {
         return client.nuke(param, BaseMessageBody.class);
     }
-/**
- * 加载用户最近主题
- * @param client 客户端
- * @param userId 用户id
- * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.LoadTopicBody>
- * @author bx002
- * @since 2023/8/7 9:48
- */
-    public static NgaJsonCall<LoadTopicBody> loadRecentTopic(NgaClient client, long userId){
+
+    /**
+     * 加载用户最近主题
+     *
+     * @param client 客户端
+     * @param userId 用户id
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.LoadTopicBody>
+     * @author bx002
+     * @since 2023/8/7 9:48
+     */
+    public static NgaJsonCall<LoadTopicBody> loadRecentTopic(NgaClient client, long userId) {
         return client.nuke(new LoadRecentTopicParam(userId), LoadTopicBody.class);
     }
+
     /**
      * 关注
+     *
      * @param client 客户端
-     * @param param 参数
+     * @param param  参数
      * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.BaseMessageBody>
      * @author bx002
      * @since 2023/8/7 10:05
      */
-    public static NgaJsonCall<BaseMessageBody> follow(NgaClient client, FollowParam param){
+    public static NgaJsonCall<BaseMessageBody> follow(NgaClient client, FollowParam param) {
         return client.nuke(param, BaseMessageBody.class);
     }
-/**
- * 查询关注列表
- * @param client 客户端
- * @param page 页码
- * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.FollowUserListBody>
- * @author bx002
- * @since 2023/8/7 10:13
- */
 
-    public static NgaJsonCall<FollowUserListBody> followGet(NgaClient client,int page){
+    /**
+     * 查询回复的编辑历史(编辑时间与发布时间间隔5分钟以上时才会被记录)
+     *
+     * @param client 客户端
+     * @param param  参数
+     * @return call
+     */
+    public static NgaJsonCall<EditHistoryBody> editHistory(NgaClient client, NukeEditHistoryParam param) {
+        return client.nuke(param, EditHistoryBody.class);
+    }
+
+
+    /**
+     * 查询关注列表
+     *
+     * @param client 客户端
+     * @param page   页码
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.FollowUserListBody>
+     * @author bx002
+     * @since 2023/8/7 10:13
+     */
+
+    public static NgaJsonCall<FollowUserListBody> followGet(NgaClient client, int page) {
         return client.nuke(new FollowGetParam(page), FollowUserListBody.class);
     }
-/**
- * 查询关注动态
- * @param client 客户端
- * @param page 页码
- * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.FollowStatusBody>
- * @author bx002
- * @since 2023/8/7 10:41
- */
-    public static NgaJsonCall<FollowStatusBody> followStatus(NgaClient client,int page){
-        return client.nuke(new FollowStatusParam(page), FollowStatusBody.class) ;
+
+    /**
+     * 查询关注动态
+     *
+     * @param client 客户端
+     * @param page   页码
+     * @return com.gin.nga.call.NgaJsonCall<com.gin.nga.response.body.nuke.FollowStatusBody>
+     * @author bx002
+     * @since 2023/8/7 10:41
+     */
+    public static NgaJsonCall<FollowStatusBody> followStatus(NgaClient client, int page) {
+        return client.nuke(new FollowStatusParam(page), FollowStatusBody.class);
     }
 }
