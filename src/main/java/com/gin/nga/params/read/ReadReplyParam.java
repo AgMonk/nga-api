@@ -2,7 +2,6 @@ package com.gin.nga.params.read;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -12,18 +11,17 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class ReadReplyParam {
-    /**
-     * 主题id
-     */
-    @JsonProperty("tid")
-    final long topicId;
     /**
      * 回复ID
      */
     @JsonProperty("pid")
     final long replyId;
+    /**
+     * 主题id
+     */
+    @JsonProperty("tid")
+    Long topicId;
     /**
      * 备份ID
      */
@@ -35,7 +33,11 @@ public class ReadReplyParam {
     @JsonProperty("view_edit_backup")
     Long backupId2;
 
-    public ReadReplyParam(long topicId, long replyId, Long backupId) {
+    public ReadReplyParam(long replyId) {
+        this.replyId = replyId;
+    }
+
+    public ReadReplyParam(Long topicId, long replyId, Long backupId) {
         this.topicId = topicId;
         this.replyId = replyId;
         this.backupId = backupId;
