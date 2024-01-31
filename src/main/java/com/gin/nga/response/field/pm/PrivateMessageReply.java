@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -26,6 +27,10 @@ public class PrivateMessageReply {
      */
     @JsonAlias("subject")
     String title;
+    /**
+     * 参与用户信息(仅在第一条出现)
+     */
+    LinkedHashMap<Integer,String> data;
     /**
      * 回复正文
      */

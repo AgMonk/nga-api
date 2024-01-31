@@ -5,16 +5,13 @@ import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.NukeApi;
 import com.gin.nga.method.ReadApi;
-import com.gin.nga.params.nuke.base.NukeEditHistoryParam;
-import com.gin.nga.params.read.ReadReplyParam;
+import com.gin.nga.params.nuke.pm.PmReadParam;
 import com.gin.nga.params.read.ReadTopicParam;
 import com.gin.nga.response.body.ReadBody;
-import com.gin.nga.response.body.nuke.EditHistoryBody;
-import com.gin.nga.response.field.EditHistory;
+import com.gin.nga.response.body.nuke.PmReplyBody;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -36,13 +33,9 @@ public class Test {
 //        testTopic(37516420);
 //        testTopic(37529736);
 
-        final EditHistoryBody body = NukeApi.editHistory(getClient(), new NukeEditHistoryParam(37938704, 738695049, 1)).sync();
+        final PmReplyBody res = NukeApi.pmRead(getClient(), new PmReadParam(4695215, 1)).sync();
 
-        final LinkedHashMap<Integer, EditHistory> data = body.getData();
-        final EditHistory editHistory = data.get(0);
-        final ReadReplyParam param = editHistory.obtainReadReplyParam();
-        final ReadBody readBody = ReadApi.readReply(getClient(), param).sync();
-        JacksonUtils.printPretty(readBody);
+        JacksonUtils.printPretty(res.getData());
     }
 
 
