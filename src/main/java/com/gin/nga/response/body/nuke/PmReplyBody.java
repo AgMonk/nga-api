@@ -1,6 +1,8 @@
 package com.gin.nga.response.body.nuke;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.gin.jackson.utils.ObjectUtils;
+import com.gin.nga.deserializer.PmUsersDeserializer;
 import com.gin.nga.enums.PrivateMessageStatus;
 import com.gin.nga.response.field.SimpleUserInfo;
 import com.gin.nga.response.field.pm.PrivateMessageReply;
@@ -46,10 +48,6 @@ public class PmReplyBody {
          */
         Long starterUid;
         /**
-         * 所有参与的用户
-         */
-        List<SimpleUserInfo> users;
-        /**
          * 当前页
          */
         @JsonAlias("currentPage")
@@ -71,5 +69,34 @@ public class PmReplyBody {
         public List<PrivateMessageStatus> getStatus() {
             return PrivateMessageStatus.parseStatus(bit);
         }
+
+        public Long getStarterUid() {
+            final PrivateMessageReply firstReply = data.get(0);
+            if (firstReply==null) {
+                return starterUid;
+            }
+            return firstReply.getData()!=null?firstReply.getUserId():starterUid;
+        }
+
+        /**
+         * 所有参与的用户
+         * @return 所有参与的用户
+         */
+        public List<SimpleUserInfo> getUsers(){
+            final PrivateMessageReply firstReply = data.get(0);
+            if (firstReply==null) {
+                return null;
+            }
+            final LinkedHashMap<Integer, String> map = firstReply.getData();
+            if (map==null) {
+                return null;
+            }
+            final String s = map.get(2);
+            if (ObjectUtils.isEmpty(s)) {
+                return null;
+            }
+            return PmUsersDeserializer.parse(s.replace(" ","||"));
+        }
+
     }
 }
