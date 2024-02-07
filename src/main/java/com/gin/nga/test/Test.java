@@ -33,7 +33,7 @@ public class Test {
 //        testTopic(37516420);
 //        testTopic(37529736);
 
-        final PmReplyBody res = NukeApi.pmRead(getClient(), new PmReadParam(4695215, 1)).sync();
+        final PmReplyBody res = NukeApi.pmRead(getClient(), new PmReadParam(1231981, 1)).sync();
 
         JacksonUtils.printPretty(res.getData());
     }

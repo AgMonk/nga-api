@@ -20,6 +20,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -82,7 +83,7 @@ public class ReadBody {
     @JsonAlias("__PAGE")
     Integer page = 1;
     /**
-     * 楼层总数(含主楼)
+     * 楼层总数(含主楼), 兼容模式下为计算获得，不可靠
      */
     @JsonAlias("__ROWS")
     Integer total;
@@ -223,7 +224,18 @@ public class ReadBody {
             this.replies.put(i, replyInfo);
         }
 
+        // 计算最大楼层数（不可靠）
+
+        // 当前页的最大楼层
+        final int maxFloor1 = this.replies.values().stream().map(ReplyInfo::getFloorNumber).max(Comparator.comparingInt(i -> i)).orElse(0);
+        // 从最大页数的第一层计算
+        final int maxFloor2 = (this.totalPage - 1) * this.size;
+        // 选择二者最大值
+        this.total = Math.max(maxFloor1,maxFloor2);
+
+
     }
+
 
     public Integer getTotalPage() {
         if (this.totalPage != null) {

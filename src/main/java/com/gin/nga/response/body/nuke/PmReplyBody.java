@@ -7,11 +7,14 @@ import com.gin.nga.enums.PrivateMessageStatus;
 import com.gin.nga.response.field.SimpleUserInfo;
 import com.gin.nga.response.field.pm.PrivateMessageReply;
 import com.gin.nga.response.field.user.UserContext;
+import com.gin.nga.response.field.user.UserInfoRead;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 私信回复body
@@ -83,8 +86,26 @@ public class PmReplyBody {
          * @return 所有参与的用户
          */
         public List<SimpleUserInfo> getUsers(){
+            final List<SimpleUserInfo> users = findUsers(data);
+            if (users!=null) {
+                return users;
+            }
+
+            if (userContext!=null) {
+                final Map<Long, UserInfoRead> userInfo = userContext.getUserInfo();
+                if (userInfo!=null) {
+                    return new ArrayList<>(userInfo.values());
+                }
+            }
+            return null;
+        }
+
+        private static List<SimpleUserInfo> findUsers( LinkedHashMap<Integer,PrivateMessageReply> data){
+            if (data==null) {
+                return null;
+            }
             final PrivateMessageReply firstReply = data.get(0);
-            if (firstReply==null) {
+            if (firstReply!=null) {
                 return null;
             }
             final LinkedHashMap<Integer, String> map = firstReply.getData();
@@ -97,6 +118,5 @@ public class PmReplyBody {
             }
             return PmUsersDeserializer.parse(s.replace(" ","||"));
         }
-
     }
 }
