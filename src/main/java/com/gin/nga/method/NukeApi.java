@@ -10,6 +10,7 @@ import com.gin.nga.enums.ReplyStatus;
 import com.gin.nga.params.UploadParam;
 import com.gin.nga.params.nuke.*;
 import com.gin.nga.params.nuke.base.NukeEditHistoryParam;
+import com.gin.nga.params.nuke.base.UserOldNameParam;
 import com.gin.nga.params.nuke.base.VoteParam;
 import com.gin.nga.params.nuke.block.BlockDataListParam;
 import com.gin.nga.params.nuke.block.BlockDataSetParam;
@@ -33,6 +34,7 @@ import com.gin.nga.params.nuke.notice.NoticeStatusParam;
 import com.gin.nga.params.nuke.pm.*;
 import com.gin.nga.response.body.BaseMessageBody;
 import com.gin.nga.response.body.FavorFolderBody;
+import com.gin.nga.response.body.UserOldNameBody;
 import com.gin.nga.response.body.nuke.*;
 import com.gin.nga.response.field.BlockData;
 
@@ -479,6 +481,16 @@ public class NukeApi {
      */
     public static NgaJsonCall<UserInfoBody> userInfoGet(NgaClient client, long userId) {
         return client.nuke(new UserInfoParam(userId), UserInfoBody.class);
+    }
+
+    /**
+     * 查询用户使用过的用户名
+     * @param client 客户端
+     * @param userId 用户id
+     * @return 用户名
+     */
+    public static NgaJsonCall<UserOldNameBody> userOldNameGet(NgaClient client, long userId) {
+        return client.nuke(new UserOldNameParam(userId), UserOldNameBody.class);
     }
 
     /**

@@ -5,10 +5,8 @@ import com.gin.jackson.utils.JacksonUtils;
 import com.gin.nga.client.NgaClient;
 import com.gin.nga.method.NukeApi;
 import com.gin.nga.method.ReadApi;
-import com.gin.nga.params.nuke.pm.PmReadParam;
 import com.gin.nga.params.read.ReadTopicParam;
 import com.gin.nga.response.body.ReadBody;
-import com.gin.nga.response.body.nuke.PmReplyBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,9 +31,9 @@ public class Test {
 //        testTopic(37516420);
 //        testTopic(37529736);
 
-        final PmReplyBody res = NukeApi.pmRead(getClient(), new PmReadParam(1231981, 1)).sync();
 
-        JacksonUtils.printPretty(res.getData());
+        JacksonUtils.printPretty(NukeApi.userOldNameGet(getClient(),64440202).sync());
+        JacksonUtils.printPretty(NukeApi.userOldNameGet(getClient(),41532297).sync());
     }
 
 

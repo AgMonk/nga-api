@@ -121,6 +121,11 @@ public class UserInfoNuke extends BaseUserInfo {
      */
     @JsonAlias("reputation")
     LinkedHashMap<Integer, Reputation> reputations;
+    /**
+     * 用户名是否修改过
+     */
+    @JsonAlias("usernameChanged")
+    boolean usernameChanged;
 
     /**
      * 总互动数

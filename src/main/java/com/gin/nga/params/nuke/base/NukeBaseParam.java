@@ -1,6 +1,7 @@
 package com.gin.nga.params.nuke.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Setter;
  * @since : 2023/4/17 10:15
  */
 @Setter
+@Getter
 public class NukeBaseParam {
     /**
      * 指令库名称
