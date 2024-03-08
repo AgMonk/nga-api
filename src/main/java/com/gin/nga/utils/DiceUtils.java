@@ -148,7 +148,7 @@ public class DiceUtils {
         List<BbsTag> sortedArray = DiceUtils.sort(diceArray);
         //计算每一个dice的随机结果
 
-        // 初始化种子,如果所有dice都在collapse中，种子+1
+        // 初始化种子,如果第一个dice在collapse中，种子+1
         long seed = initialSeed;
         if (!sortedArray.isEmpty() && sortedArray.get(0).isInCollapse()) {
             seed++;
